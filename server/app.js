@@ -7,6 +7,7 @@ const timestamp = require("time-stamp");
 require("dotenv").config();
 
 const logger = require("./config/winston");
+const db = require("./config/db");
 
 const PORT = process.env.PORT || 8000;
 
@@ -21,11 +22,20 @@ app.use(
     stream: logger.stream,
   })
 );
-
-app.listen(PORT, () => {
-  logger.log({
-    time: timestamp("YYYY/MM/DD/HH:mm:ss"),
-    level: "debug",
-    message: `Server is up and running on port ${PORT}`
+db.sync()
+  .then((res) => {
+    app.listen(PORT, () => {
+      logger.log({
+        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+        level: "debug",
+        message: `DB connected and server is up and running on port ${PORT}`,
+      });
+    });
   })
-});
+  .catch(err => {
+    logger.error({
+      time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+      level: "error",
+      message: err
+    })
+  });
