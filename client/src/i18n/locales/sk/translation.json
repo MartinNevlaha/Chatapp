@@ -1,6 +1,10 @@
 {
   "topNavbar": {
-    "appName": "HR pohovorový systém"
+    "appName": "HR pohovorový systém",
+    "profile": "Profil",
+    "account": "Môj účet",
+    "languageTitle": "Vyber svoj jazyk",
+    "search": "Hľadaj..."
   },
   "mainContent" : {
     "title": "toto prelož"

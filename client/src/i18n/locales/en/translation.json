@@ -1,6 +1,10 @@
 {
   "topNavbar": {
-    "appName": "HR interview system"
+    "appName": "HR interview system",
+    "profile": "Profile",
+    "account": "My Account",
+    "languageTitle": "Choose your language",
+    "search": "Search..."
   },
   "mainContent" : {
     "title": "translate this"

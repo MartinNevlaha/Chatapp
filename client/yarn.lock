@@ -3734,6 +3734,11 @@
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
 
+"country-flag-icons@^1.2.8":
+  "integrity" "sha512-6Cu1S6+ut8yij7i3vsBdjqCIumiyJ7snJIuilFfaMXHQYOlFykjZfrXUTIGLt6jGHoeVmnNTeEszN6tQjAoxiQ=="
+  "resolved" "https://registry.npmjs.org/country-flag-icons/-/country-flag-icons-1.2.8.tgz"
+  "version" "1.2.8"
+
 "create-ecdh@^4.0.0":
   "integrity" "sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A=="
   "resolved" "https://registry.npmjs.org/create-ecdh/-/create-ecdh-4.0.4.tgz"

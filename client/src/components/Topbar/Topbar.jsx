@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,10 +11,12 @@ import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import Flags from "country-flag-icons/react/1x1";
+
+import styles from "./Topbar.module.scss";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -84,7 +86,7 @@ function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [currentLanguage, setCurrentLanguage] = useState("sk")
+  const [currentLanguage, setCurrentLanguage] = useState("sk");
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -111,7 +113,7 @@ function PrimarySearchAppBar() {
   const handleSwitchLanguage = (chossenLanguage) => {
     setCurrentLanguage(chossenLanguage);
     i18n.changeLanguage(chossenLanguage);
-  }
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -124,8 +126,13 @@ function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{t("topNavbar.profile")}</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{t("topNavbar.account")}</MenuItem>
+      <div className={styles.language_wrapper}>
+        <h4>{t("topNavbar.languageTitle")}</h4>
+        <MenuItem onClick={() => handleSwitchLanguage("sk")}><Flags.SK className={styles.flags}/>Slovak</MenuItem>
+        <MenuItem onClick={() => handleSwitchLanguage("en")}><Flags.GB className={styles.flags}/> English</MenuItem>
+      </div>
     </Menu>
   );
 
@@ -140,33 +147,13 @@ function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>{t("topNavbar.profile")}</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{t("topNavbar.account")}</MenuItem>
+      <div className={styles.language_wrapper}>
+        <h4>{t("topNavbar.languageTitle")}</h4>
+        <MenuItem onClick={() => handleSwitchLanguage("sk")}><Flags.SK className={styles.flags}/>Slovak</MenuItem>
+        <MenuItem onClick={() => handleSwitchLanguage("en")}><Flags.GB className={styles.flags}/> English</MenuItem>
+      </div>
     </Menu>
   );
 
@@ -190,7 +177,7 @@ function PrimarySearchAppBar() {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder={t("topNavbar.search")}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -202,7 +189,7 @@ function PrimarySearchAppBar() {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon onClick={() => handleSwitchLanguage("en")}/>
+                <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
