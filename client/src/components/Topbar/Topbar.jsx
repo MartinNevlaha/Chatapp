@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Menu, MenuItem } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 
 import classes from "./Topbar.module.scss";
+import BackDropMenu from "../BackDropMenu/BackdropMenu";
 
 const Topbar = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const { t } = useTranslation();
 
   const handleClick = (event) => {
-    console.log(event.currentTarget);
     setOpenMenu(event.currentTarget);
   };
   const handleClose = () => {
@@ -37,23 +36,14 @@ const Topbar = () => {
         </div>
       </div>
       <div className={classes.topbar_right}>
-        <div className={classes.topbar_right_acount} onClick={handleClick}>
+        <div className={classes.topbar_right_account} onClick={handleClick}>
           <FontAwesomeIcon
             icon={faUser}
             cursor="pointer"
             className={classes.topbar_right_acount_icon}
           />
         </div>
-        <Menu
-          id="simple-menu"
-          anchorEl={openMenu}
-          keepMounted
-          open={Boolean(openMenu)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
+        <BackDropMenu handleClose={handleClose} openMenu={openMenu}/>
       </div>
     </div>
   );

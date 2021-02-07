@@ -3,10 +3,11 @@
     "appName": "HR pohovorový systém",
     "profile": "Profil",
     "account": "Môj účet",
+    "logout": "Odhlásiť sa",
     "languageTitle": "Vyber svoj jazyk",
     "search": "Hľadaj..."
   },
-  "mainContent" : {
+  "mainContent": {
     "title": "toto prelož"
   }
 }

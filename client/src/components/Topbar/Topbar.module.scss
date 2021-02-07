@@ -8,6 +8,7 @@
   box-shadow: 0px 10px 13px -7px gray, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   color: white;
   @include flexbox(center, center, row);
+  transition: all 0.3s ease-in-out;
 
   &_left {
     @include flexbox(flex-start, center, row);
@@ -32,6 +33,11 @@
     &_appName {
       font-size: get-font-size(medium);
       margin: 1rem;
+    }
+    @media screen and (max-width: 1000px) {
+      &_appName {
+        display: none;
+      }
     }
     &_search {
       @include flexbox(space-between, center, row);
@@ -67,8 +73,9 @@
     @include flexbox(flex-end, center, row);
     width: 50%;
 
-    &_acount {
+    &_account {
       @extend .topbar_left_iconWrapper;
+      margin: 1.5rem;
     }
   }
 }
