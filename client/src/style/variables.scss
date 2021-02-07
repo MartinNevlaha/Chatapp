@@ -1,7 +1,7 @@
 $colors: (
   primary: #1976d2,
   secondary: darken(#1976d2, 20%),
-  shadow: rgba(255, 255, 255, 0.247)
+  shadow: rgba(255, 255, 255, 0.247),
 );
 
 @function get-color($color-name) {
@@ -9,8 +9,8 @@ $colors: (
 }
 
 $font-sizes: (
-  ex-small: calc(0.2rem + 0.3vw),
-  small: calc(0.4rem + 0.6vw),
+  ex-small: calc(0.2rem + 0.1vw),
+  small: calc(0.6rem + 0.3vw),
   medium: calc(0.6rem + 0.6vw),
   large: calc(0.6rem + 1vw),
 );

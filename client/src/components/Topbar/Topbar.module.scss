@@ -76,6 +76,7 @@
     &_account {
       @extend .topbar_left_iconWrapper;
       margin: 1.5rem;
+      position: relative;
     }
   }
 }

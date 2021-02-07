@@ -1,6 +1,45 @@
-.menu {
-  width: 300px;
-}
-.language {
+@import "../../style/imports.scss";
 
+.backDropMenu {
+  position: absolute;
+  display: none;
+  width: 18.75rem;
+  height: auto;
+  top: 25px;
+  right: 40px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  @include shadow;
+  z-index: 20;
+  font-size: get-font-size(small);
+  font-weight: 300;
+
+  &_items {
+    text-align: left;
+  }
+  &_item {
+    padding: 0.625rem;
+    margin: 0.3125rem;
+    cursor: pointer;
+  }
+  &_item:hover,
+  &_item:active {
+    background-color: rgba(128, 128, 128, 0.295);
+    border-radius: 8px;
+  }
+}
+
+.open {
+  display: block;
+  animation: anim .8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+@keyframes anim {
+  from  {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

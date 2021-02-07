@@ -4,3 +4,8 @@
   justify-content: $justify;
   align-items: $align;
 }
+
+@mixin shadow {
+  -webkit-box-shadow: 1px 4px 30px 5px #7d7d7d;
+  box-shadow: 1px 4px 30px 5px #7d7d7d;
+}
