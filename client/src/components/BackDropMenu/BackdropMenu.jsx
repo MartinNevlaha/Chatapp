@@ -8,19 +8,29 @@ const BackDropMenu = ({ openMenu, handleClose }) => {
   const { t } = useTranslation();
 
   return (
-    <div
-      className={
-        Boolean(openMenu)
-          ? [classes.backDropMenu, classes.open].join(" ")
-          : classes.backDropMenu
-      }
-    >
-      <ul className={classes.backDropMenu_items}>
-        <li className={classes.backDropMenu_item}>Profile</li>
-        <li className={classes.backDropMenu_item}>My Account</li>
-        <li className={classes.backDropMenu_item}>Logout</li>
-      </ul>
-    </div>
+    <React.Fragment>
+      <div
+        className={
+          openMenu
+            ? [classes.backdrop_div, classes.backdrop_open].join(" ")
+            : classes.backdrop_div
+        }
+        onClick={handleClose}
+      ></div>
+      <div
+        className={
+          Boolean(openMenu)
+            ? [classes.backDropMenu, classes.open].join(" ")
+            : classes.backDropMenu
+        }
+      >
+        <ul className={classes.backDropMenu_items}>
+          <li className={classes.backDropMenu_item}>Profile</li>
+          <li className={classes.backDropMenu_item}>My Account</li>
+          <li className={classes.backDropMenu_item}>Logout</li>
+        </ul>
+      </div>
+    </React.Fragment>
   );
 };
 

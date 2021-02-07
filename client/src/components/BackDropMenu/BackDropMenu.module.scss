@@ -30,6 +30,20 @@
   }
 }
 
+.backdrop_div {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: -100vh;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.backdrop_open {
+  top: 0
+}
+
+
 .open {
   display: block;
   animation: anim .8s cubic-bezier(0.23, 1, 0.320, 1);
