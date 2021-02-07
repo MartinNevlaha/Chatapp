@@ -1,14 +1,67 @@
-.language_wrapper {
-  width: 100%;
+@import "../../style/imports.scss";
 
-  h4 {
-    padding: 1rem;
-    border-bottom: 1px solid gray;
+.topbar {
+  width: 100vw;
+  height: 3.5rem;
+  background-color: get-color(primary);
+  -webkit-box-shadow: 0px 10px 13px -7px gray, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px gray, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  color: white;
+  @include flexbox(center, center, row);
+  
+  &_left {
+    @include flexbox(flex-start, center, row);
+    width: 50%;
+    height: 100%;
+
+    &_iconWrapper {
+      @include flexbox(center, center, row);
+      width: 2.8rem;
+      height: 2.8rem;
+      margin: 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all .5s ease-in-out;
+    }
+
+    &_iconWrapper:hover,
+    &_iconWrapper:active {
+      background-color: rgba(255, 255, 255, 0.247);
+    }
+
+    &_appName {
+      font-size: get-font-size(medium);
+      margin: 1rem;
+    }
+    &_search {
+      @include flexbox(space-between, center, row);
+      min-width: 300px;
+      height: 1.875rem;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.274);
+
+      &_icon {
+        padding: 0 5px;
+        font-size: 30px;
+      }
+      input {
+        width: 250px;
+        border: none;
+        background-color: transparent;
+        color: white;
+        margin: 0 10px;
+        outline: none;
+      }
+
+      input:focus {
+        width: 300px;
+      }
+    }
   }
-}
 
-.flags {
-  width: 50px;
-  height: 20px;
-  object-fit: cover;
+  &_right {
+    @include flexbox(flex-end, center, row);
+    width: 50%;
+  }
+
 }

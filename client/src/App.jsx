@@ -1,6 +1,7 @@
 import './App.scss';
-import Topbar from './components/Topbar/Topbar';
+
 import { useTranslation } from 'react-i18next';
+import Topbar from "./components/Topbar/Topbar";
 
 function App() {
   const {t} = useTranslation();

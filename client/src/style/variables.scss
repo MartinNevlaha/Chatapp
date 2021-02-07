@@ -1,0 +1,19 @@
+$colors: (
+  primary: #1976d2,
+  secondary: darken(#1976d2, 20%),
+);
+
+@function get-color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+$font-sizes: (
+  ex-small: calc(0.2rem + 0.3vw),
+  small: calc(0.4rem + 0.6vw),
+  medium: calc(0.6rem + 0.6vw),
+  large: calc(0.6rem + 1vw),
+);
+
+@function get-font-size($size) {
+  @return map-get($font-sizes, $size);
+} ;
