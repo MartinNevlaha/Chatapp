@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Layout>
-      <h1>{t("mainContent.title")}</h1>
+        <h1>{t("mainContent.title")}</h1>
       </Layout>
     </div>
   );

@@ -10,13 +10,8 @@
   box-shadow: 1px 4px 30px 5px #7d7d7d;
 }
 
-@mixin animate {
-  @keyframes anim {
-    from  {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+@mixin hover-effect {
+  background-color: rgba(128, 128, 128, 0.295);
+  border-radius: 8px;
+  cursor: pointer;
 }
