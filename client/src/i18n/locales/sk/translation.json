@@ -7,7 +7,13 @@
     "languageTitle": "Vyber svoj jazyk",
     "search": "Hľadaj..."
   },
-  "mainContent": {
-    "title": "toto prelož"
+  "sideDrawer" : {
+    "title": "Hlavné menu",
+    "dashboard": "Hlavný prehľad",
+    "addJobOffer": "Pridaj pracovnú ponuku",
+    "showJobOffer": "Zobraz pracovné ponuky",
+    "schedule": "Naplánuj pohovor",
+    "calendar": "Kalendár pohovorov",
+    "evaluation": "Hodnotenie uchádzačov"
   }
 }

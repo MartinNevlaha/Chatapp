@@ -28,6 +28,7 @@
     &_iconWrapper:hover,
     &_iconWrapper:active {
       background-color: get-color(shadow);
+      animation: pulse 2s infinite;
     }
 
     &_appName {
@@ -83,3 +84,5 @@
     }
   }
 }
+
+@include pulse;

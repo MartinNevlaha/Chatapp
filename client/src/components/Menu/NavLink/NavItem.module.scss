@@ -3,6 +3,11 @@
 .navItem {
   padding: 0.625rem;
   margin: 0.3125rem;
+  @include flexbox(flex-start, center, row);
+
+  &_icon {
+    font-size: get-font-size(medium);
+  }
   
   &_a {
     display: block;
@@ -10,11 +15,15 @@
     font-size: get-font-size(small);
     font-weight: lighter;
     text-decoration: none;
-    color: black;
+    color: get-color(text);
+    margin-left: 1rem;
   }
 
   &:hover,
   &:active {
     @include hover-effect;
+    animation: pulse .8s ease-in;  
   }
 }
+
+@include pulse;

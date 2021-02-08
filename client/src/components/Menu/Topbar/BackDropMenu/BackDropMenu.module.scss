@@ -33,6 +33,7 @@
     padding: 0.625rem;
     margin: 0.3125rem;
     border-bottom: 1px solid gray;
+    color: get-color(text);
   }
 
 }
@@ -49,6 +50,7 @@
   &:hover,
   &:active {
     background-color: get-color(shadow);
+    animation: pulse 2s infinite;
   }
 }
 
@@ -59,6 +61,7 @@
 
 .language_wrapper {
   @include flexbox(flex-start, center, row);
+  color: get-color(text);
 
   &_flags {
     width: 50px;
@@ -66,6 +69,8 @@
     margin-right: .5rem;
   }
 }
+
+@include pulse;
 
 @keyframes anim {
   from  {

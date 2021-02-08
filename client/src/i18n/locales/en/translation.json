@@ -7,7 +7,13 @@
     "languageTitle": "Choose your language",
     "search": "Search..."
   },
-  "mainContent" : {
-    "title": "translate this"
+  "sideDrawer" : {
+    "title": "Main menu",
+    "dashboard": "Dashboard",
+    "addJobOffer": "Add job offer",
+    "showJobOffer": "Show jobs offer",
+    "schedule": "Schedule an interview",
+    "calendar": "Interviews calendar",
+    "evaluation": "Candidates evaluation"
   }
 }

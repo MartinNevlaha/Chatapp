@@ -1,9 +1,14 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import i18next from 'i18next';
+import i18next from "i18next";
 import Flags from "country-flag-icons/react/1x1";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faAddressCard,
+  faUserCircle,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./BackDropMenu.module.scss";
 import NavItem from "../../NavLink/NavItem";
@@ -13,19 +18,19 @@ const BackDropMenu = (props) => {
   const { t } = useTranslation();
   const menuRef = useRef(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     document.addEventListener("mousedown", handleClose);
     //clean up eventlistener
     return () => {
       document.removeEventListener("mousedown", handleClose);
-    }
-  }, [menuRef])
+    };
+  }, [menuRef]);
 
   const handleClose = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setOpenMenu(false);
     }
-  }
+  };
 
   const handleClick = () => {
     setOpenMenu(true);
@@ -33,19 +38,19 @@ const BackDropMenu = (props) => {
 
   const handleLanguageChange = (language) => {
     i18next.changeLanguage(language, (err) => {
-      if (err) return console.log("Something went wrong", err)
-    })
+      if (err) return console.log("Something went wrong", err);
+    });
     setOpenMenu(null);
-  }
+  };
 
   return (
     <React.Fragment>
-    <div className={classes.account_icon_wrapper} onClick={handleClick}>
-    <FontAwesomeIcon
-      icon={faUser}
-      cursor="pointer"
-      className={classes.account_icon_wrapper_icon}
-    />
+      <div className={classes.account_icon_wrapper} onClick={handleClick}>
+        <FontAwesomeIcon
+          icon={faUser}
+          cursor="pointer"
+          className={classes.account_icon_wrapper_icon}
+        />
       </div>
       <div
         ref={menuRef}
@@ -56,19 +61,30 @@ const BackDropMenu = (props) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
-          <NavItem link="/profile">{t("topNavbar.profile")}</NavItem>
-          <NavItem link="/account">{t("topNavbar.account")}</NavItem>
+          <NavItem icon={faAddressCard} link="/profile">
+            {t("topNavbar.profile")}
+          </NavItem>
+          <NavItem icon={faUserCircle} link="/account">{t("topNavbar.account")}</NavItem>
           <h3>{t("topNavbar.languageTitle")}</h3>
-          <li onClick={() => handleLanguageChange("en")}>            
-          <div className={classes.language_wrapper}>
-              <Flags.GB title="Anglicky" className={classes.language_wrapper_flags}/>Anglicky
-            </div></li>
-          <li onClick={() => handleLanguageChange("sk")}>
+          <li onClick={() => handleLanguageChange("en")}>
             <div className={classes.language_wrapper}>
-              <Flags.SK title="Slovak" className={classes.language_wrapper_flags}/>Slovensky
+              <Flags.GB
+                title="Anglicky"
+                className={classes.language_wrapper_flags}
+              />
+              Anglicky
             </div>
           </li>
-          <NavItem link="/logout">{t("topNavbar.logout")}</NavItem>
+          <li onClick={() => handleLanguageChange("sk")}>
+            <div className={classes.language_wrapper}>
+              <Flags.SK
+                title="Slovak"
+                className={classes.language_wrapper_flags}
+              />
+              Slovensky
+            </div>
+          </li>
+          <NavItem icon={faSignOutAlt} link="/logout">{t("topNavbar.logout")}</NavItem>
         </ul>
       </div>
     </React.Fragment>

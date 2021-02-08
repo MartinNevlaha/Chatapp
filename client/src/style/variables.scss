@@ -2,7 +2,8 @@ $colors: (
   primary: #1976d2,
   secondary: darken(#1976d2, 20%),
   shadow: rgba(255, 255, 255, 0.247),
-  dark-white: darken(white, 5%)
+  dark-white: darken(white, 5%),
+  text: rgb(80, 79, 79),
 );
 
 @function get-color($color-name) {

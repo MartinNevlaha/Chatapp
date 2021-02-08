@@ -25,17 +25,6 @@
         &_items {
             width: 90%;
             text-align: left;
-
-            li {
-                padding: 0.625rem;
-                margin: 0.3125rem;
-                font-size: get-font-size(medium);
-                
-                &:active,
-                &:hover {
-                    @include hover-effect;
-                }
-            }
         }
     }
 }

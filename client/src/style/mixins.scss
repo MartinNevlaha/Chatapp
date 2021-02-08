@@ -15,3 +15,22 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+@mixin pulse {
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(145, 145, 145, 0.7);
+    }
+  
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 5px rgba(194, 192, 192, 0.137);
+    }
+  
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(182, 182, 182, 0.822);
+    }
+  }
+}
