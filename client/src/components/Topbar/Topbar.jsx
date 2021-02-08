@@ -7,15 +7,7 @@ import classes from "./Topbar.module.scss";
 import BackDropMenu from "../BackDropMenu/BackdropMenu";
 
 const Topbar = () => {
-  const [openMenu, setOpenMenu] = useState(null);
   const { t } = useTranslation();
-
-  const handleClick = (event) => {
-    setOpenMenu(event.currentTarget);
-  };
-  const handleClose = () => {
-    setOpenMenu(null);
-  };
 
   return (
     <div className={classes.topbar}>
@@ -36,14 +28,7 @@ const Topbar = () => {
         </div>
       </div>
       <div className={classes.topbar_right}>
-        <div className={classes.topbar_right_account} onClick={handleClick}>
-          <FontAwesomeIcon
-            icon={faUser}
-            cursor="pointer"
-            className={classes.topbar_right_acount_icon}
-          />
-        </div>
-        <BackDropMenu handleClose={handleClose} openMenu={openMenu}/>
+        <BackDropMenu />
       </div>
     </div>
   );
