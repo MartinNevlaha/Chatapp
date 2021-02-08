@@ -18,16 +18,24 @@
   &_items {
     text-align: left;
   }
-  &_item {
+
+  li, %item-styled {
     padding: 0.625rem;
     margin: 0.3125rem;
-    cursor: pointer;
   }
-  &_item:hover,
-  &_item:active {
+
+  li:hover,
+  li:active {
     background-color: rgba(128, 128, 128, 0.295);
     border-radius: 8px;
+    cursor: pointer;
   }
+
+  h3 {
+    @extend %item-styled;
+    border-bottom: 1px solid gray;
+  }
+
 }
 
 .account_icon_wrapper {
@@ -48,6 +56,16 @@
 .open {
   display: block;
   animation: anim .8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.language_wrapper {
+  @include flexbox(flex-start, center, row);
+
+  &_flags {
+    width: 50px;
+    height: 25px;
+    margin-right: 1rem;
+  }
 }
 
 @keyframes anim {

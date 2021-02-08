@@ -13,7 +13,7 @@ const BackDropMenu = (props) => {
 
   useEffect(()=>{
     document.addEventListener("mousedown", handleClose);
-    //clean up
+    //clean up eventlistener
     return () => {
       document.removeEventListener("mousedown", handleClose);
     }
@@ -47,9 +47,18 @@ const BackDropMenu = (props) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
-          <li className={classes.backDropMenu_item}>Profile</li>
-          <li className={classes.backDropMenu_item}>My Account</li>
-          <li className={classes.backDropMenu_item}>Logout</li>
+          <li>Profile</li>
+          <li>My Account</li>
+          <h3>Vyber svoj jazyk</h3>
+          <li>            <div className={classes.language_wrapper}>
+              <Flags.GB title="Anglicky" className={classes.language_wrapper_flags}/>Anglicky
+            </div></li>
+          <li>
+            <div className={classes.language_wrapper}>
+              <Flags.SK title="Slovak" className={classes.language_wrapper_flags}/>Slovenský
+            </div>
+          </li>
+          <li>Logout</li>
         </ul>
       </div>
     </React.Fragment>
