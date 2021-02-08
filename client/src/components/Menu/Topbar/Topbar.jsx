@@ -12,8 +12,8 @@ const Topbar = (props) => {
   return (
     <div className={classes.topbar}>
       <div className={classes.topbar_left}>
-        <div className={classes.topbar_left_iconWrapper}>
-          <FontAwesomeIcon icon={faBars} size="2x" color="white" onClick={props.menuClick} />
+        <div className={classes.topbar_left_iconWrapper} onClick={props.menuClick}>
+          <FontAwesomeIcon icon={faBars} size="2x" color="white" />
         </div>
         <h1 className={classes.topbar_left_appName}>
           {t("topNavbar.appName")}
