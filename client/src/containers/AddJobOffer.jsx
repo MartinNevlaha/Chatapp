@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+
+import Card from "../components/UI/Card/Card";
+
 
 const AddJobOffer = () => {
     return (
         <div>
-            pridaj prac poz9ciu
+            <Card />
         </div>
     )
 }

@@ -1,0 +1,8 @@
+@import "../../../style/imports.scss";
+
+.card_wrapper_wide_angle {
+    width: 80vw;
+    height: auto;
+    @include shadow;
+    font-size: get-font-size(small);
+}

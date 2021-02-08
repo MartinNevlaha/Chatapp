@@ -1,3 +1,8 @@
+@import "../style/imports.scss";
 .main_wrapper {
-    position: relative;
+  position: relative;
+
+  &_content {
+      flex: 1;
+  }
 }

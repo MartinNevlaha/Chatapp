@@ -23,7 +23,7 @@ const Layout = (props) => {
       <main>  
         <div className={classes.main_wrapper}>
           <SideDrawer isOpen={sideDrawerOpen} closeSideDrawer={closeSideDrawer}/>
-          <div className="main_wrapper_content">
+          <div className={classes.main_wrapper_content}>
           {props.children}
           </div>
         </div>
