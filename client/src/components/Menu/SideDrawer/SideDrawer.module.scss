@@ -1,0 +1,21 @@
+@import "../../../style/imports.scss";
+
+.sideDrawer {
+    position: relative;
+
+    &_content {
+        position: absolute;
+        width: 300px;
+        height: 100vh;
+        @include shadow;
+        top: 0;
+        left: -100vh;
+        z-index: 20;
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+.open {
+    left: 0;
+    @include animate;
+}

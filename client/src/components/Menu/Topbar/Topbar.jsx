@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next";
 import classes from "./Topbar.module.scss";
 import BackDropMenu from "./BackDropMenu/BackdropMenu";
 
-const Topbar = () => {
+const Topbar = (props) => {
   const { t } = useTranslation();
 
   return (
     <div className={classes.topbar}>
       <div className={classes.topbar_left}>
         <div className={classes.topbar_left_iconWrapper}>
-          <FontAwesomeIcon icon={faBars} size="2x" color="white" />
+          <FontAwesomeIcon icon={faBars} size="2x" color="white" onClick={props.menuClick} />
         </div>
         <h1 className={classes.topbar_left_appName}>
           {t("topNavbar.appName")}

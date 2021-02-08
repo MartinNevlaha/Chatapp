@@ -8,7 +8,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import classes from "./BackDropMenu.module.scss";
 
 const BackDropMenu = (props) => {
-  const [openMenu, setOpenMenu] = useState(null);
+  const [openMenu, setOpenMenu] = useState(false);
   const { t } = useTranslation();
   const menuRef = useRef(null);
 
@@ -22,12 +22,12 @@ const BackDropMenu = (props) => {
 
   const handleClose = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setOpenMenu(null);
+      setOpenMenu(false);
     }
   }
 
-  const handleClick = (event) => {
-    setOpenMenu(event.currentTarget);
+  const handleClick = () => {
+    setOpenMenu(true);
   };
 
   const handleLanguageChange = (language) => {
@@ -49,7 +49,7 @@ const BackDropMenu = (props) => {
       <div
         ref={menuRef}
         className={
-          Boolean(openMenu)
+          openMenu
             ? [classes.backDropMenu, classes.open].join(" ")
             : classes.backDropMenu
         }
