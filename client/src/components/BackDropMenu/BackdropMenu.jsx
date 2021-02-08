@@ -55,9 +55,9 @@ const BackDropMenu = (props) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
-          <li>Profile</li>
-          <li>My Account</li>
-          <h3>Vyber svoj jazyk</h3>
+          <li>{t("topNavbar.profile")}</li>
+          <li>{t("topNavbar.account")}</li>
+          <h3>{t("topNavbar.languageTitle")}</h3>
           <li onClick={() => handleLanguageChange("en")}>            
           <div className={classes.language_wrapper}>
               <Flags.GB title="Anglicky" className={classes.language_wrapper_flags}/>Anglicky
@@ -67,7 +67,7 @@ const BackDropMenu = (props) => {
               <Flags.SK title="Slovak" className={classes.language_wrapper_flags}/>Slovensky
             </div>
           </li>
-          <li>Logout</li>
+          <li>{t("topNavbar.logout")}</li>
         </ul>
       </div>
     </React.Fragment>
