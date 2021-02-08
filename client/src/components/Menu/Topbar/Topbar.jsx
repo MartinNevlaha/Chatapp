@@ -4,7 +4,7 @@ import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 import classes from "./Topbar.module.scss";
-import BackDropMenu from "../BackDropMenu/BackdropMenu";
+import BackDropMenu from "./BackDropMenu/BackdropMenu";
 
 const Topbar = () => {
   const { t } = useTranslation();

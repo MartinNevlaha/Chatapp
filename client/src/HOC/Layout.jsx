@@ -1,10 +1,17 @@
 import React from 'react'
 
-const Layout = () => {
+import Topbar from "../components/Menu/Topbar/Topbar";
+
+const Layout = (props) => {
   return (
-    <div>
-      
-    </div>
+    <React.Fragment>
+      <header>
+        <Topbar />
+      </header>
+      <main>  
+        {props.children}
+      </main>
+    </React.Fragment>
   )
 }
 
