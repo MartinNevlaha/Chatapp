@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./BackDropMenu.module.scss";
+import NavItem from "../../NavLink/NavItem";
 
 const BackDropMenu = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -55,8 +56,8 @@ const BackDropMenu = (props) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
-          <li>{t("topNavbar.profile")}</li>
-          <li>{t("topNavbar.account")}</li>
+          <NavItem link="/profile">{t("topNavbar.profile")}</NavItem>
+          <NavItem link="/account">{t("topNavbar.account")}</NavItem>
           <h3>{t("topNavbar.languageTitle")}</h3>
           <li onClick={() => handleLanguageChange("en")}>            
           <div className={classes.language_wrapper}>
@@ -67,7 +68,7 @@ const BackDropMenu = (props) => {
               <Flags.SK title="Slovak" className={classes.language_wrapper_flags}/>Slovensky
             </div>
           </li>
-          <li>{t("topNavbar.logout")}</li>
+          <NavItem link="/logout">{t("topNavbar.logout")}</NavItem>
         </ul>
       </div>
     </React.Fragment>

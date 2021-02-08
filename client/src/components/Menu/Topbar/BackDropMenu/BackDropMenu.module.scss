@@ -30,7 +30,8 @@
   }
 
   h3 {
-    @extend %item-styled;
+    padding: 0.625rem;
+    margin: 0.3125rem;
     border-bottom: 1px solid gray;
   }
 
