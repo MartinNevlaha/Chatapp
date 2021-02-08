@@ -1,4 +1,6 @@
 import React, {useRef, useEffect} from 'react';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./SideDrawer.module.scss"; 
 
@@ -21,7 +23,9 @@ const SideDrawer = (props) => {
     return (
         <aside className={classes.sideDrawer}>
             <div ref={sideRef} className={props.isOpen ? [classes.sideDrawer_content, classes.open].join(" ") : classes.sideDrawer_content}>
-                side
+                <div className={classes.sideDrawer_content_title}>
+                    <FontAwesomeIcon icon={faTimes} size="2x" cursor="pointer" onClick={props.closeSideDrawer}/>
+                </div>
             </div>
         </aside>
     )
