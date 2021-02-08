@@ -26,6 +26,13 @@ const SideDrawer = (props) => {
                 <div className={classes.sideDrawer_content_title}>
                     <FontAwesomeIcon icon={faTimes} size="2x" cursor="pointer" onClick={props.closeSideDrawer}/>
                 </div>
+                <ul className={classes.sideDrawer_content_items}>
+                    <li>Menu 1</li>
+                    <li>Menu 2</li>
+                    <li>Menu 3</li>
+                    <li>Menu 4</li>
+                    <li>Menu 5</li>
+                </ul>
             </div>
         </aside>
     )

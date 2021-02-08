@@ -11,7 +11,7 @@
         @include flexbox(flex-start, center, column);
         top: 0;
         left: -100vh;
-        z-index: 20;
+        z-index: 50;
         transition: all 0.5s ease-in-out;
 
         &_title {
@@ -19,6 +19,11 @@
             width: 90%;
             border-bottom: 1px solid gray;
             padding: .5rem;
+        }
+
+        &_items {
+            width: 90%;
+           text-align: left;
         }
     }
 }
