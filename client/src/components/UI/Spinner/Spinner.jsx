@@ -1,9 +1,9 @@
 import React from 'react';
-import RingLoader from "react-spinners/RingLoader";
+import CircleLoader from "react-spinners/CircleLoader";
 
-const Spinner = (props) => {
+const Spinner = () => {
     return (
-        <RingLoader color="blue" loading={true} size={30} />
+        <CircleLoader color="blue" loading={true} size={30} />
     )
 }
 
