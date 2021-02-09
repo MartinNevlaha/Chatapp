@@ -25,7 +25,7 @@ const TextField = ({ label, type, ...props }) => {
           {...field}
           {...props}
         />
-        {field.name === "password" && (
+        {(field.name === "password" || field.name === "confirmPassword") && (
           <FontAwesomeIcon
             icon={isShow ? faEyeSlash : faEye}
             className={classes.icon}
