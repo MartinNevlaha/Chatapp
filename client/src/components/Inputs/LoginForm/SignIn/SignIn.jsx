@@ -6,7 +6,7 @@ import classes from "./SignIn.module.scss";
 import TextField from "../../TextField/TextField";
 import Button from "../../../UI/Button/Button";
 
-const LoginForm = () => {
+const SignIn = () => {
   const validate = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password: Yup.string()
@@ -37,4 +37,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignIn;

@@ -1,24 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classes from "./LoginForm.module.scss";
 import Card from "../../UI/Card/Card";
 import SignIn from "./SignIn/SignIn";
+import SignUp from "./SignUp/SignUp";
 
 const LoginForm = () => {
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  const handleTogleSignMode = (mode) => {
+    let sign;
+    if (mode === "up") {
+      sign = true;
+    } else {
+      sign = false;
+    }
+    setIsSignUp(sign);
+  };
+
   return (
     <Card type="small_card">
       <div className={classes.login_wrapper}>
         <div className={classes.login_wrapper_head}>
-          <div className={classes.login_wrapper_head_sign}>SignIn</div>
           <div
-            className={[classes.login_wrapper_head_sign, classes.inactive].join(
-              " "
-            )}
+            className={
+              isSignUp
+                ? [classes.login_wrapper_head_sign, classes.inactive].join(" ")
+                : classes.login_wrapper_head_sign
+            }
+            onClick={() => handleTogleSignMode("in")}
           >
-            SignUp
+            Sign In
+          </div>
+          <div
+            className={
+              isSignUp
+                ? classes.login_wrapper_head_sign
+                : [classes.login_wrapper_head_sign, classes.inactive].join(" ")
+            }
+            onClick={() => handleTogleSignMode("up")}
+          >
+            Sign Up
           </div>
         </div>
-        <SignIn />
+        {isSignUp ? <SignUp /> : <SignIn />}
       </div>
     </Card>
   );

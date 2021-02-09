@@ -6,8 +6,8 @@
   @include flexbox(flex-start, center, column);
 
   h1 {
-    margin: 3.125rem;
-    padding: 1rem;
+    margin-top: 0.5rem;
+    padding: 0.2rem;
     font-size: get-font-size(medium);
   }
   form {
