@@ -6,13 +6,10 @@ import { useTranslation } from 'react-i18next';
 import Layout from "./HOC/Layout";
 import Spinner from "./components/UI/Spinner/Spinner";
 
-const AddJobOffer = React.lazy(()=> import("./containers/AddJobOffer"));
-const Scheduler = React.lazy(()=> import("./containers/Scheduler"));
+
 
 let routes = (
   <Switch>
-    <Route path="/add-job-offer"><Suspense fallback={<Spinner />}><AddJobOffer /></Suspense></Route>
-    <Route path="/schedule-interview"><Suspense fallback={<Spinner />}><Scheduler /></Suspense></Route>
     <Redirect to="/" />
   </Switch>
 );
