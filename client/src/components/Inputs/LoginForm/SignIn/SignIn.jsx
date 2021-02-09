@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik, Form } from "formik";
 import * as Yup from 'yup';
 
-import classes from "./LoginForm.module.scss";
+import classes from "./SignIn.module.scss";
 import TextField from "../../TextField/TextField";
 
 const LoginForm = () => {
@@ -21,12 +21,12 @@ const LoginForm = () => {
         onSubmit={data => console.log(data)}
         >
         {() => (
-            <div>
-                <h1 className="title">Login</h1>
+            <div className={classes.input_container}>
+                <h1>Please Sign In</h1>
                 <Form>
                     <TextField label="Email" name="email" type="email" />
                     <TextField label="Password" name="password" type="password" />
-                    <button type="submit">Login</button>
+                    <button type="submit">Sign in</button>
                 </Form>
             </div>
         )}

@@ -1,0 +1,31 @@
+@import "../../../style/imports.scss";
+
+.login_wrapper {
+  width: 100%;
+  height: 40rem;
+  
+  &_head {
+    width: 100%;
+    height: 3rem;
+    @include flexbox(center, center, row);
+    @include shadow-down;
+    
+    &_sign {
+      width: 50%;
+      height: 100%;
+      @include flexbox(center, center, row);
+      color: get-color(text);
+    }
+  }
+}
+
+.inactive {
+  background-color: get-color(primary);
+  color: white;
+
+  &:hover,
+  &:active {
+    background-color: darken(get-color(primary), 10%);
+    cursor: pointer;
+  }
+}

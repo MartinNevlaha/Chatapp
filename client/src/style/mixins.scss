@@ -6,9 +6,15 @@
 }
 
 @mixin shadow {
-  box-shadow: -2px 1px 27px 0px rgba(0,0,0,0.75);
-  -webkit-box-shadow: -2px 1px 27px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: -2px 1px 27px 0px rgba(0,0,0,0.75);
+  box-shadow: -2px 1px 27px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -2px 1px 27px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px 1px 27px 0px rgba(0, 0, 0, 0.75);
+}
+
+@mixin shadow-down {
+  box-shadow: 0px 8px 16px -7px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 8px 16px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 8px 16px -7px rgba(0, 0, 0, 0.75);
 }
 
 @mixin hover-effect {
@@ -23,12 +29,12 @@
       transform: scale(0.95);
       box-shadow: 0 0 0 0 rgba(145, 145, 145, 0.7);
     }
-  
+
     70% {
       transform: scale(1);
       box-shadow: 0 0 0 5px rgba(194, 192, 192, 0.137);
     }
-  
+
     100% {
       transform: scale(0.95);
       box-shadow: 0 0 0 0 rgba(182, 182, 182, 0.822);

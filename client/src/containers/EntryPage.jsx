@@ -1,16 +1,11 @@
-import React from 'react'
+import React from "react";
 
-import SignIn from "../components/Inputs/LoginForm/SignIn/SignIn";
-import Card from '../components/UI/Card/Card';
+import LoginForm from "../components/Inputs/LoginForm/LoginForm";
 
 const EntryPage = () => {
-    return (
-        <div>
-            <Card type="small">
-                <SignIn />
-            </Card>
-        </div>
-    )
-}
+  return <div>
+      <LoginForm />
+  </div>;
+};
 
-export default EntryPage
+export default EntryPage;

@@ -1,3 +1,35 @@
+@import "../../../style/imports.scss";
+
 .textField {
-    width: 80%;
+    @include flexbox(center, center, column);
+    width: 100%;
+
+    label {
+        margin: 0.6rem 0;
+    }
+    input {
+        width: 100%;
+        height: 2.5rem;
+        margin-bottom: .5rem;
+        padding-left: .2rem;
+        padding-right: 0.2rem;
+        border: 1px solid get-color(primary);
+        border-radius: 4px;
+        background-color: transparent;
+        @include shadow-down;
+        
+        &:hover, &:focus {
+            outline: none;
+            border: 2px solid get-color(primary);
+        }
+    }
+
+    &_wrapper {
+        width: 80%;
+        @include flexbox(center, flex-start, column);
+    }
+}
+
+.error {
+    border: 1px solid red;
 }

@@ -3,10 +3,10 @@
 .card_wrapper {
     height: auto;
     @include shadow;
-    padding: 1rem;
     margin: 2rem;
     font-size: get-font-size(small);
     border-radius: 3px;
+    overflow: hidden;
 }
 
 .small_card {
@@ -14,7 +14,7 @@
 }
 
 .medium_card {
-    min-width: 60vw;
+    min-width: 50vw;
 }
 
 .wide_angle {
