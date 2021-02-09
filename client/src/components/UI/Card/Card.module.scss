@@ -1,8 +1,18 @@
 @import "../../../style/imports.scss";
 
-.card_wrapper_wide_angle {
-    width: 80vw;
+.card_wrapper {
     height: auto;
     @include shadow;
+    padding: 1rem;
+    margin: 2rem;
     font-size: get-font-size(small);
+    border-radius: 3px;
+}
+
+.small_card {
+    min-width: 50vw;
+}
+
+.wide_angle {
+    min-width: 90vw;
 }

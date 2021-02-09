@@ -2,11 +2,12 @@ import React from 'react';
 
 import Card from "../components/UI/Card/Card";
 
-
 const AddJobOffer = () => {
     return (
         <div>
-            <Card />
+            <Card cardType="small_card">
+                 
+            </Card>
         </div>
     )
 }
