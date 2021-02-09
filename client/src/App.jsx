@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 import Layout from "./HOC/Layout";
 import Spinner from "./components/UI/Spinner/Spinner";
 
-
+const EntryPage = React.lazy(() => import("./containers/EntryPage"));
 
 let routes = (
   <Switch>
+    <Route to="/" exact><Suspense fallback={<Spinner />}><EntryPage /></Suspense></Route>
     <Redirect to="/" />
   </Switch>
 );

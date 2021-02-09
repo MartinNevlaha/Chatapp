@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import * as Yup from 'yup';
 
 import classes from "./LoginForm.module.scss";
-import TextField from "../TextField/TextField";
+import TextField from "../../TextField/TextField";
 
 const LoginForm = () => {
     const validate = Yup.object({
