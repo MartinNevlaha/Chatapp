@@ -20,11 +20,11 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <React.Fragment>
-  <Provider store={store}>
-  <BrowserRouter>
-  <App />
-  </BrowserRouter>
-  </Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.Fragment>,
   document.getElementById('root')
 );
