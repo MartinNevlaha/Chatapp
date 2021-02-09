@@ -8,7 +8,6 @@
     width: 100%;
     height: 3rem;
     @include flexbox(center, center, row);
-    @include shadow-down;
     
     &_sign {
       width: 50%;
@@ -22,6 +21,7 @@
 .inactive {
   background-color: get-color(primary);
   color: white;
+  @include shadow-down;
 
   &:hover,
   &:active {

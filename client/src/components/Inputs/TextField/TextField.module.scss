@@ -1,6 +1,7 @@
 @import "../../../style/imports.scss";
 
 .textField {
+    position: relative;
     @include flexbox(center, center, column);
     width: 100%;
 
@@ -32,4 +33,11 @@
 
 .error {
     border: 1px solid red;
+}
+
+.icon {
+    position: absolute;
+    top: 42px;
+    right: 15%;
+    font-size: get-font-size(large);
 }

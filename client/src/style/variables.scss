@@ -11,10 +11,10 @@ $colors: (
 }
 
 $font-sizes: (
-  ex-small: calc(0.2rem + 0.1vw),
-  small: calc(0.6rem + 0.3vw),
-  medium: calc(0.6rem + 0.6vw),
-  large: calc(0.6rem + 1vw),
+  ex-small: calc(.2rem + .1vw),
+  small: calc(.6rem + .3vw),
+  medium: calc(.6rem + .6vw),
+  large: calc(.7rem + .6vw),
 );
 
 @function get-font-size($size) {
