@@ -1,0 +1,22 @@
+@import "../../../style/imports.scss";
+
+.btn {
+  width: 8.125rem;
+  height: 2.5rem;
+  margin: 1rem;
+  padding: .5rem;
+  background-color: get-color(primary);
+  border-radius: 6px;
+  font-size: get-font-size(small);
+  color: white;
+  outline: none;
+  @include shadow-down;
+  cursor: pointer;
+
+  &:hover, &:active {
+    background-color: darken(get-color(primary), 10%);
+    animation: pulse .8s infinite;
+  }
+}
+
+@include pulse;
