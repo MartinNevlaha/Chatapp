@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { body } = require("express-validator");
 
 const { userLogin, userRegister } = require("../controllers/user");
+const validationInputs = require("../middleware/validationsInputs");
 
 router.post(
   "/register",
@@ -11,9 +12,13 @@ router.post(
     body("email").trim().notEmpty().isString().isEmail(),
     body("password").trim().notEmpty().isString().isLength({min: 6})
   ],
+  validationInputs,
   userRegister
 );
 
-router.post("/login", userLogin);
+router.post("/login", [
+  body("email").trim().notEmpty().isString().isEmail(),
+  body("password").trim().notEmpty().isString().isLength({min: 6})
+], validationInputs, userLogin);
 
 module.exports = router;

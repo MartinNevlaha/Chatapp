@@ -57,7 +57,7 @@ User.hasMany(Message);
 Message.belongsTo(Room, { constraints: true, onDelete: "CASCADE" });
 Room.hasMany(Message);
 
-db.sync({force: true})
+db.sync()
   .then((res) => {
     app.listen(PORT, () => {
       logger.log({
