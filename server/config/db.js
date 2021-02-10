@@ -11,8 +11,8 @@ const DB_HOST = process.env.DB_HOST;
 const sequelize = new Sequelize(DATABASE, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOST,
   dialect: "postgres",
-  logging:
-    process.env.NODE_ENV === "production"
+  logging: false
+    /*process.env.NODE_ENV === "production"
       ? false
       : (msg) => {
           logger.debug({
@@ -20,7 +20,7 @@ const sequelize = new Sequelize(DATABASE, DB_USERNAME, DB_PASSWORD, {
             level: "debug",
             message: msg,
           });
-        },
+        },*/
 });
 
 module.exports = sequelize;
