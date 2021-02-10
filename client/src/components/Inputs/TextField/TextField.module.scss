@@ -21,7 +21,7 @@
         
         &:hover, &:focus {
             outline: none;
-            border: 2px solid get-color(primary);
+            border: 1px solid darken(get-color(primary), 10%)
         }
     }
 
