@@ -9,7 +9,7 @@ const initialState = {
   token: null,
 };
 
-const registerSucces = (state, action) => {
+const registerOrLoginSuccess = (state, action) => {
   const { userId, firstName, lastName, role } = action.decodedToken;
   return updateObj(state, {
     userId: userId,
@@ -22,8 +22,8 @@ const registerSucces = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.REGISTER_SUCCESS:
-      return registerSucces(state, action);
+    case actionTypes.REGISTER_LOGIN_SUCCESS:
+      return registerOrLoginSuccess(state, action);
     default:
       return state;
   }

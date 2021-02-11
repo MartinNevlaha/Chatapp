@@ -57,7 +57,7 @@ const LoginForm = (props) => {
             {isSignUp ? (
               <SignUp registerUser={props.registerUser} />
             ) : (
-              <SignIn />
+              <SignIn loginUser={props.loginUser}/>
             )}
           </React.Fragment>
         )}

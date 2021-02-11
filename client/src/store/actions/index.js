@@ -1,3 +1,3 @@
 export {
-    registerUser
+    registerOrLoginUser
 } from "./userAuth";
