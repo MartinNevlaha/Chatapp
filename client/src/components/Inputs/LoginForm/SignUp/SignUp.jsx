@@ -6,7 +6,7 @@ import classes from "../SignIn/SignIn.module.scss";
 import TextField from "../../TextField/TextField";
 import Button from "../../../UI/Button/Button";
 
-const SignUp = () => {
+const SignUp = (props) => {
   const validate = Yup.object({
     firstName: Yup.string()
       .max(20, "Must be 20 characters or less")
@@ -33,7 +33,7 @@ const SignUp = () => {
         confirmPassword: "",
       }}
       validationSchema={validate}
-      onSubmit={(data) => console.log(data)}
+      onSubmit={(userData) => props.registerUser(userData)}
     >
       {() => (
         <div className={classes.input_container}>

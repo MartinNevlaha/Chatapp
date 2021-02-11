@@ -5,7 +5,7 @@ import Card from "../../UI/Card/Card";
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const handleTogleSignMode = (mode) => {
@@ -43,7 +43,7 @@ const LoginForm = () => {
             Sign Up
           </div>
         </div>
-        {isSignUp ? <SignUp /> : <SignIn />}
+        {isSignUp ? <SignUp registerUser={props.registerUser} /> : <SignIn />}
       </div>
     </Card>
   );

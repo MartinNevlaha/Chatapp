@@ -12,12 +12,12 @@ import "./i18n/i18n";
 
 //reducers
 import userAuthReducer from "./store/reducers/userAuth"; 
-import errorReducer from "./store/reducers/errorReducer";
+import requestStatusReducer from "./store/reducers/requestStatus";
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-  requestError: errorReducer,
+  requestStatus: requestStatusReducer,
   userAuth: userAuthReducer
 });
 
