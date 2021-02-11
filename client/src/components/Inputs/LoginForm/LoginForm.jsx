@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import classes from "./LoginForm.module.scss";
 import Card from "../../UI/Card/Card";
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
+import Spinner from "../../UI/Spinner/Spinner";
 
 const LoginForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const loading = useSelector((state) => state.requestStatus.loading);
 
   const handleTogleSignMode = (mode) => {
     let sign;
@@ -21,29 +24,43 @@ const LoginForm = (props) => {
   return (
     <Card type="small_card">
       <div className={classes.login_wrapper}>
-        <div className={classes.login_wrapper_head}>
-          <div
-            className={
-              isSignUp
-                ? [classes.login_wrapper_head_sign, classes.inactive].join(" ")
-                : classes.login_wrapper_head_sign
-            }
-            onClick={() => handleTogleSignMode("in")}
-          >
-            Sign In
-          </div>
-          <div
-            className={
-              isSignUp
-                ? classes.login_wrapper_head_sign
-                : [classes.login_wrapper_head_sign, classes.inactive].join(" ")
-            }
-            onClick={() => handleTogleSignMode("up")}
-          >
-            Sign Up
-          </div>
-        </div>
-        {isSignUp ? <SignUp registerUser={props.registerUser} /> : <SignIn />}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <React.Fragment>
+            <div className={classes.login_wrapper_head}>
+              <div
+                className={
+                  isSignUp
+                    ? [classes.login_wrapper_head_sign, classes.inactive].join(
+                        " "
+                      )
+                    : classes.login_wrapper_head_sign
+                }
+                onClick={() => handleTogleSignMode("in")}
+              >
+                Sign In
+              </div>
+              <div
+                className={
+                  isSignUp
+                    ? classes.login_wrapper_head_sign
+                    : [classes.login_wrapper_head_sign, classes.inactive].join(
+                        " "
+                      )
+                }
+                onClick={() => handleTogleSignMode("up")}
+              >
+                Sign Up
+              </div>
+            </div>
+            {isSignUp ? (
+              <SignUp registerUser={props.registerUser} />
+            ) : (
+              <SignIn />
+            )}
+          </React.Fragment>
+        )}
       </div>
     </Card>
   );
