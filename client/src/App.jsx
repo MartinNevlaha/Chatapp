@@ -1,10 +1,12 @@
 import React, {Suspense} from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
-import './App.scss';
-
 import { useTranslation } from 'react-i18next';
+
+import './App.scss';
 import Layout from "./HOC/Layout";
 import Spinner from "./components/UI/Spinner/Spinner";
+import Toast from "./components/UI/Toast/Toast";
+
 
 const EntryPage = React.lazy(() => import("./containers/EntryPage"));
 
@@ -20,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <Layout>
+        <Toast isShow={true} isSuccess={true} message="Some dummy text"/>
         {routes}
       </Layout>
     </div>

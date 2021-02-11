@@ -1,0 +1,36 @@
+@import "../../../style/imports.scss";
+
+.toast {
+  min-width: 13%;
+  height: auto;
+  background-color: white;
+  position: fixed;
+  top: 10%;
+  right: -100vh;
+  border-radius: 4px;
+  @include shadow;
+  z-index: 100;
+  padding: 0.625rem;
+  @include flexbox(space-around, center, row);
+  transition: all 0.5s ease-in-out;
+
+  &_circle {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 .5rem;
+    border-radius: 50%;
+    background-color: get-color(primary);
+    @include flexbox(center, center, row);
+  }
+}
+
+.circle_red {
+  background-color: red;
+}
+
+.showed {
+  right: 4%;
+  animation: opacity .8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+@include opacity;
