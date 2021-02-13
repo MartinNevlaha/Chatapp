@@ -1,3 +1,6 @@
+import { loginUser } from "./userAuth";
+
 export {
-    registerUser
+    registerUser,
+    loginUser
 } from "./userAuth";

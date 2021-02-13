@@ -33,7 +33,7 @@ exports.userRegister = async (req, res, next) => {
     res.status(201).json({
       status: "ok",
       message: `User register successfully`,
-      registed: true
+      registered: true
     });
   } catch (error) {
     if (error.statusCode) {
@@ -67,6 +67,7 @@ exports.userLogin = async (req, res, next) => {
         userId: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
+        fullName: user.fullName,
         role: user.role,
       },
       JWT_SECRET,
