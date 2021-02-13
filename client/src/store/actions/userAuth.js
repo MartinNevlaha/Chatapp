@@ -47,8 +47,9 @@ export const loginStart = () => {
 
 export const loginSuccess = (userData, token) => {
   const {userId, firstName, lastName, fullName, role} = userData;
+
   return {
-    type: actionTypes.LOGIN_START,
+    type: actionTypes.LOGIN_SUCCESS,
     userId,
     firstName,
     lastName,
@@ -70,6 +71,7 @@ export const loginUser = (userData) => {
     axios
       .post("/api/users/login", userData)
       .then((res) => {
+        console.log(res)
         dispatch(loginSuccess(jwtDecode(res.data.token), res.data.token));
         dispatch(successCreator());
       })

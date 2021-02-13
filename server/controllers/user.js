@@ -62,6 +62,11 @@ exports.userLogin = async (req, res, next) => {
       error.statusCode = 401;
       return next(error);
     }
+    if (!user.activated) {
+      const error = new Error("User is not activated, please activate user first");
+      error.statusCode = 401;
+      return next(error);
+    }
     const token = jwt.sign(
       {
         userId: user.id,
