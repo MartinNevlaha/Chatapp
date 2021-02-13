@@ -1,11 +1,13 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_SECRET_MAIL_ACTIVATED = process.env.JWT_SECRET_MAIL_ACTIVATED;
+const timestamp = require("time-stamp");
 
 const User = require("../models/User");
 const { sendConfirmationMail } = require("../config/nodemailer.config");
+const logger = require("../config/winston");
+
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET_MAIL_ACTIVATED = process.env.JWT_SECRET_MAIL_ACTIVATED;
 
 exports.userRegister = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -23,7 +25,7 @@ exports.userRegister = async (req, res, next) => {
     const activationToken = await jwt.sign(
       { email },
       JWT_SECRET_MAIL_ACTIVATED,
-      { expiresIn: "1h" }
+      { expiresIn: "30s" }
     );
 
     const user = await User.create({
@@ -159,6 +161,12 @@ exports.activationUser = async (req, res, next) => {
     } else {
       await User.destroy({
         where: { activationToken: confirmationToken },
+      });
+      const { email } = jwt.decode(confirmationToken);
+      logger.log({
+        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+        level: "info",
+        message: `User with mail ${email} was deleted due to expired token`,
       });
       const error = new Error("Activate token is invalid");
       error.statusCode = 401;
