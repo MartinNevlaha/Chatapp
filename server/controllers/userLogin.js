@@ -2,8 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_SECRET_MAIL_ACTIVATED =
-  process.env.JWT_SECRET_MAIL_ACTIVATED;
+const JWT_SECRET_MAIL_ACTIVATED = process.env.JWT_SECRET_MAIL_ACTIVATED;
 
 const User = require("../models/User");
 const { sendConfirmationMail } = require("../config/nodemailer.config");
@@ -117,13 +116,58 @@ exports.userLogin = async (req, res, next) => {
 
 exports.activationUser = async (req, res, next) => {
   const confirmationToken = req.params.token;
+  let validToken = true;
   try {
-    const decodedToken = jwt.verify(confirmationToken, JWT_SECRET_MAIL_ACTIVATED);
-    
+    const decodedToken = await jwt.verify(
+      confirmationToken,
+      JWT_SECRET_MAIL_ACTIVATED,
+      (err) => {
+        if (err) {
+          validToken = false;
+        }
+      }
+    );
+    if (validToken) {
+      const user = await User.findOne({
+        where: {
+          email: decodedToken.email,
+        },
+      });
+      if (!user) {
+        const error = new Error("User doesn't exist");
+        error.statusCode = 404;
+        return next(error);
+      }
+      if (user.activationToken !== confirmationToken) {
+        const error = new Error("Activation token is malformed");
+        error.statusCode = 401;
+        return next(error);
+      }
+      user.activated = true;
+      user.activationToken = "";
+      const updatedUser = user.save();
+
+      if (!updatedUser) {
+        const error = new Error("Cant activate user");
+        error.statusCode = 500;
+        return next(error);
+      }
+      res.json({
+        status: "ok",
+        message: "User is successfully activated",
+      });
+    } else {
+      await User.destroy({
+        where: { activationToken: confirmationToken },
+      });
+      const error = new Error("Activate token is invalid");
+      error.statusCode = 401;
+      return next(error);
+    }
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
     }
     return next(error);
   }
-}
+};

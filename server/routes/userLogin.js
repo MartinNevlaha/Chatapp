@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
 
-const { userLogin, userRegister } = require("../controllers/userLogin");
+const { userLogin, userRegister, activationUser } = require("../controllers/userLogin");
 const validationInputs = require("../middleware/validationsInputs");
 
 router.post(
@@ -16,7 +16,7 @@ router.post(
   userRegister
 );
 
-router.post("/activation/:token")
+router.put("/activation/:token", activationUser);
 
 router.post("/login", [
   body("email").trim().notEmpty().isString().isEmail(),
