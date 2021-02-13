@@ -4,6 +4,8 @@ $colors: (
   shadow: rgba(255, 255, 255, 0.247),
   dark-white: darken(white, 5%),
   text: rgb(80, 79, 79),
+  danger: red,
+  success: green,
 );
 
 @function get-color($color-name) {

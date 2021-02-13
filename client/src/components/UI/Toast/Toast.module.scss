@@ -19,13 +19,13 @@
     height: 2rem;
     margin: 0 .5rem;
     border-radius: 50%;
-    background-color: get-color(primary);
+    background-color: get-color(success);
     @include flexbox(center, center, row);
   }
 }
 
 .circle_red {
-  background-color: red;
+  background-color: get-color(danger);
 }
 
 .showed {
