@@ -30,7 +30,7 @@ export const registerUser = (userData) => {
       .post("/api/users/register", userData)
       .then((res) => {
         dispatch(registerSuccess(res.data.registered));
-        dispatch(successCreator());
+        dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
@@ -71,9 +71,8 @@ export const loginUser = (userData) => {
     axios
       .post("/api/users/login", userData)
       .then((res) => {
-        console.log(res)
         dispatch(loginSuccess(jwtDecode(res.data.token), res.data.token));
-        dispatch(successCreator());
+        dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
