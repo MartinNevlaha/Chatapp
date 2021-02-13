@@ -39,7 +39,17 @@ exports.userRegister = async (req, res, next) => {
       error.statusCode = 409;
       return next(error);
     }
-    await sendConfirmationMail(user.fullName, user.email, user.activationToken);
+
+    const activationEmail = await sendConfirmationMail(
+      user.fullName,
+      user.email,
+      user.activationToken
+    );
+    if (!activationEmail) {
+      const error = new Error("Cant send activation email");
+      error.statusCode = 500;
+      return next(error);
+    }
 
     res.status(201).json({
       status: "ok",
