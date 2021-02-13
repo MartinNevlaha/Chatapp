@@ -9,14 +9,30 @@ import Spinner from "./components/UI/Spinner/Spinner";
 import Toast from "./components/UI/Toast/Toast";
 
 const EntryPage = React.lazy(() => import("./containers/EntryPage"));
+const EmailActivation = React.lazy(() =>
+  import("./containers/EmailActivation")
+);
 
 let routes = (
   <Switch>
-    <Route to="/" exact>
-      <Suspense fallback={<Spinner />}>
-        <EntryPage />
-      </Suspense>
-    </Route>
+    <Route
+      path="/activation/:token"
+      render={() => (
+        <Suspense fallback={<Spinner />}>
+          <EmailActivation />
+        </Suspense>
+      )}
+    />
+    <Route
+      path="/"
+      exact
+      render={() => (
+        <Suspense fallback={<Spinner />}>
+          <EntryPage />
+        </Suspense>
+      )}
+    />
+
     <Redirect to="/" />
   </Switch>
 );
@@ -31,7 +47,7 @@ function App() {
       <Layout>
         <Toast
           isShow={error || success}
-          isSuccess = {success ? true : false }
+          isSuccess={success ? true : false}
           message={error ? error.data.message : success}
         />
         {routes}
