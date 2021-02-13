@@ -2,8 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_SECRET_MAIL_ACTIVATED_SALT =
-  process.env.JWT_SECRET_MAIL_ACTIVATED_SALT;
+const JWT_SECRET_MAIL_ACTIVATED =
+  process.env.JWT_SECRET_MAIL_ACTIVATED;
 
 const User = require("../models/User");
 const { sendConfirmationMail } = require("../config/nodemailer.config");
@@ -23,7 +23,7 @@ exports.userRegister = async (req, res, next) => {
 
     const activationToken = await jwt.sign(
       { email },
-      lastName + JWT_SECRET_MAIL_ACTIVATED_SALT,
+      JWT_SECRET_MAIL_ACTIVATED,
       { expiresIn: "1h" }
     );
 
@@ -114,3 +114,16 @@ exports.userLogin = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.activationUser = async (req, res, next) => {
+  const confirmationToken = req.params.token;
+  try {
+    const decodedToken = jwt.verify(confirmationToken, JWT_SECRET_MAIL_ACTIVATED);
+    
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+}

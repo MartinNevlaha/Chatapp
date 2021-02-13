@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
 
-const { userLogin, userRegister } = require("../controllers/user");
+const { userLogin, userRegister } = require("../controllers/userLogin");
 const validationInputs = require("../middleware/validationsInputs");
 
 router.post(

@@ -18,7 +18,7 @@ const Room = require("./models/Room");
 const Message = require("./models/Message");
 
 //routes
-const userRoutes = require("./routes/user");
+const userLogin = require("./routes/userLogin");
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.use(
   })
 );
 
-app.use("/api/users", userRoutes);
+app.use("/api/users", userLogin);
 
 
 //Error handler
