@@ -16,9 +16,12 @@ router.post(
   userRegister
 );
 
+router.post("/activation/:token")
+
 router.post("/login", [
   body("email").trim().notEmpty().isString().isEmail(),
   body("password").trim().notEmpty().isString().isLength({min: 6})
 ], validationInputs, userLogin);
+
 
 module.exports = router;

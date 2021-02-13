@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET_MAIL_ACTIVATED_SALT =
+  process.env.JWT_SECRET_MAIL_ACTIVATED_SALT;
 
 const User = require("../models/User");
 
@@ -18,11 +20,17 @@ exports.userRegister = async (req, res, next) => {
       return next(error);
     }
 
+    const activationToken = await jwt.sign(
+      { email },
+      lastName + JWT_SECRET_MAIL_ACTIVATED_SALT
+    );
+
     const user = await User.create({
       firstName,
       lastName,
       email,
       password,
+      activationToken
     });
     if (!user) {
       const error = new Error("Cant create user in Db");
@@ -33,7 +41,7 @@ exports.userRegister = async (req, res, next) => {
     res.status(201).json({
       status: "ok",
       message: `User register successfully`,
-      registered: true
+      registered: true,
     });
   } catch (error) {
     if (error.statusCode) {
@@ -63,7 +71,9 @@ exports.userLogin = async (req, res, next) => {
       return next(error);
     }
     if (!user.activated) {
-      const error = new Error("User is not activated, please activate user first");
+      const error = new Error(
+        "User is not activated, please activate user first"
+      );
       error.statusCode = 401;
       return next(error);
     }

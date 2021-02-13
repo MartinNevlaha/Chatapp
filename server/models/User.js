@@ -47,6 +47,7 @@ const User = sequelize.define("user", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  activationToken: Sequelize.STRING
 });
 
 module.exports = User;
