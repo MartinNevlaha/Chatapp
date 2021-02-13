@@ -25,7 +25,7 @@ exports.userRegister = async (req, res, next) => {
     const activationToken = await jwt.sign(
       { email },
       JWT_SECRET_MAIL_ACTIVATED,
-      { expiresIn: "30s" }
+      { expiresIn: "1h" }
     );
 
     const user = await User.create({
@@ -123,12 +123,15 @@ exports.activationUser = async (req, res, next) => {
     const decodedToken = await jwt.verify(
       confirmationToken,
       JWT_SECRET_MAIL_ACTIVATED,
-      (err) => {
+      (err, verified) => {
         if (err) {
           validToken = false;
+        } else {
+          return verified;
         }
       }
     );
+    console.log(decodedToken);
     if (validToken) {
       const user = await User.findOne({
         where: {

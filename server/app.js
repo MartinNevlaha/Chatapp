@@ -5,9 +5,11 @@ const compression = require("compression");
 const morgan = require("morgan");
 const timestamp = require("time-stamp");
 require("dotenv").config();
+const cron = require("node-cron");
 
 const logger = require("./config/winston");
 const db = require("./config/db");
+const { cleanUpInactiveUsers } = require("./jobs/cleanUpInactiveUsers");
 
 //env variables
 const PORT = process.env.PORT || 8000;
@@ -35,7 +37,6 @@ app.use(
 
 app.use("/api/users", userLogin);
 
-
 //Error handler
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
@@ -57,7 +58,10 @@ User.hasMany(Message);
 Message.belongsTo(Room, { constraints: true, onDelete: "CASCADE" });
 Room.hasMany(Message);
 
-db.sync({force: true})
+//run clean up database inactive users every day at 2:30 AM
+cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());
+
+db.sync()
   .then((res) => {
     app.listen(PORT, () => {
       logger.log({
