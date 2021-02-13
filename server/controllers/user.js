@@ -6,6 +6,7 @@ const JWT_SECRET_MAIL_ACTIVATED_SALT =
   process.env.JWT_SECRET_MAIL_ACTIVATED_SALT;
 
 const User = require("../models/User");
+const { sendConfirmationMail } = require("../config/nodemailer.config");
 
 exports.userRegister = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -22,7 +23,8 @@ exports.userRegister = async (req, res, next) => {
 
     const activationToken = await jwt.sign(
       { email },
-      lastName + JWT_SECRET_MAIL_ACTIVATED_SALT
+      lastName + JWT_SECRET_MAIL_ACTIVATED_SALT,
+      { expiresIn: "1h" }
     );
 
     const user = await User.create({
@@ -30,13 +32,14 @@ exports.userRegister = async (req, res, next) => {
       lastName,
       email,
       password,
-      activationToken
+      activationToken,
     });
     if (!user) {
       const error = new Error("Cant create user in Db");
       error.statusCode = 409;
       return next(error);
     }
+    await sendConfirmationMail(user.fullName, user.email, user.activationToken);
 
     res.status(201).json({
       status: "ok",
