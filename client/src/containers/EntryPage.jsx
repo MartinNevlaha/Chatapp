@@ -8,10 +8,10 @@ const EntryPage = () => {
   const dispatch = useDispatch();
 
   const handleRegisterUser = (userData) => {
-    dispatch(action.registerOrLoginUser(userData, "register"));
+    dispatch(action.registerUser(userData, "register"));
   };
   const handleLoginUser = (userData) => {
-    dispatch(action.registerOrLoginUser(userData, "login"));
+    
   };
   return (
     <div>

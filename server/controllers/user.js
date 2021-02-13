@@ -17,37 +17,23 @@ exports.userRegister = async (req, res, next) => {
       error.statusCode = 409;
       return next(error);
     }
-    const hashedPwd = await bcrypt.hash(password, 12);
 
     const user = await User.create({
       firstName,
       lastName,
       email,
-      password: hashedPwd,
+      password,
     });
-    delete user.dataValues.password;
-
     if (!user) {
       const error = new Error("Cant create user in Db");
       error.statusCode = 409;
       return next(error);
     }
-    const token = jwt.sign(
-      {
-        userId: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
-      },
-      JWT_SECRET,
-      { expiresIn: "2h" }
-    );
 
     res.status(201).json({
       status: "ok",
       message: `User register successfully`,
-      user: user,
-      token,
+      registed: true
     });
   } catch (error) {
     if (error.statusCode) {

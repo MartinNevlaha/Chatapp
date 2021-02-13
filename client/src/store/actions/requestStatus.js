@@ -1,11 +1,5 @@
 import * as actionTypes from "./actionTypes";
 
-export const requestInit = () => {
-    return {
-        type: actionTypes.REQUEST_INIT
-    }
-}
-
 export const errorCreated = (error) => {
   return {
     type: actionTypes.REQUEST_ERROR,

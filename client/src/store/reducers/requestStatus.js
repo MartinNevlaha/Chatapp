@@ -4,15 +4,10 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   error: null,
   success: null,
-  loading: false,
-};
-
-export const requestInit = (state, action) => {
-  return updateObj(state, { loading: true, error: null, success: null });
 };
 
 const errorCreated = (state, action) => {
-  return updateObj(state, { error: action.error, loading: false });
+  return updateObj(state, { error: action.error });
 };
 
 const hideError = (state, action) => {
@@ -20,7 +15,7 @@ const hideError = (state, action) => {
 };
 
 const successCreated = (state, action) => {
-  return updateObj(state, { success: action.message, loading: false });
+  return updateObj(state, { success: action.message });
 };
 
 const hideSuccess = (state, action) => {
@@ -29,8 +24,6 @@ const hideSuccess = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.REQUEST_INIT:
-      return requestInit(state, action);
     case actionTypes.REQUEST_ERROR:
       return errorCreated(state, action);
     case actionTypes.HIDE_REQUEST_ERROR:

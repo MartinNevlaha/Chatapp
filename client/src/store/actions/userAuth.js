@@ -2,26 +2,39 @@ import jwtDecode from "jwt-decode";
 
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
-import { errorCreator, successCreator, requestInit } from "./requestStatus";
+import { errorCreator, successCreator } from "./requestStatus";
 
-export const registerOrLoginSuccess = (decodedToken, token) => {
+export const registerStart = () => {
   return {
-    type: actionTypes.REGISTER_LOGIN_SUCCESS,
-    decodedToken,
-    token,
+    type: actionTypes.REGISTER_START,
   };
 };
 
-export const registerOrLoginUser = (data, requestType) => {
+export const registerSuccess = (registered) => {
+  return {
+    type: actionTypes.REGISTER_SUCCESS,
+    registered
+  };
+};
+
+export const registerFailed = () => {
+  return {
+    type: actionTypes.REGISTER_FAILED,
+  };
+};
+
+export const registerUser = (data) => {
   return (dispatch) => {
-    dispatch(requestInit());
+    dispatch(registerStart());
     axios
-      .post(`/api/users/${requestType}`, data)
+      .post("/api/users/register", data)
       .then((res) => {
-        const decodedToken = jwtDecode(res.data.token);
-        dispatch(registerOrLoginSuccess(decodedToken, res.data.token));
-        dispatch(successCreator(res.data.message));
+        dispatch(registerSuccess(res.data.registered));
+        dispatch(successCreator());
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => {
+        dispatch(errorCreator(err.response));
+        dispatch(registerFailed());
+      });
   };
 };

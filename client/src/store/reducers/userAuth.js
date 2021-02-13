@@ -7,23 +7,36 @@ const initialState = {
   lastName: "",
   role: "",
   token: null,
+  registered: false,
+  loading: true,
 };
 
-const registerOrLoginSuccess = (state, action) => {
-  const { userId, firstName, lastName, role } = action.decodedToken;
+const registerStart = (state, action) => {
   return updateObj(state, {
-    userId: userId,
-    firstName: firstName,
-    lastName: lastName,
-    role: role,
-    token: action.token,
+    loading: true,
+    registered: false,
   });
+};
+
+const registerSuccess = (state, action) => {
+  return updateObj(state, {
+    registered: action.registered,
+    loading: false,
+  });
+};
+
+const registerFailed = (state, action) => {
+  return updateObj(state, { loading: false, registered: false });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.REGISTER_LOGIN_SUCCESS:
-      return registerOrLoginSuccess(state, action);
+    case actionTypes.REGISTER_START:
+      return registerStart(state, action);
+    case actionTypes.REGISTER_SUCCESS:
+      return registerSuccess(state, action);
+    case actionTypes.REGISTER_FAILED:
+      return registerFailed(state, action);
     default:
       return state;
   }

@@ -1,9 +1,9 @@
 import React from 'react';
-import CircleLoader from "react-spinners/CircleLoader";
+import DotLoader from "react-spinners/DotLoader";
 
 const Spinner = () => {
     return (
-        <CircleLoader color="blue" loading={true} size={30} />
+        <DotLoader color="blue" loading={true} size={40} />
     )
 }
 

@@ -9,7 +9,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 
 const LoginForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const loading = useSelector((state) => state.requestStatus.loading);
+  const loading = useSelector((state) => state.userAuth.loading);
 
   const handleTogleSignMode = (mode) => {
     let sign;
