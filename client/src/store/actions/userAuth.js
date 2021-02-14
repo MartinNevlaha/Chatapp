@@ -46,7 +46,7 @@ export const loginStart = () => {
 };
 
 export const loginSuccess = (userData, token) => {
-  const {userId, firstName, lastName, fullName, role} = userData;
+  const { userId, firstName, lastName, fullName, role } = userData;
 
   return {
     type: actionTypes.LOGIN_SUCCESS,
@@ -77,6 +77,41 @@ export const loginUser = (userData) => {
       .catch((err) => {
         dispatch(errorCreator(err.response));
         dispatch(loginFailed());
+      });
+  };
+};
+
+export const emailActivStart = () => {
+  return {
+    type: actionTypes.EMAIL_ACTIV_START,
+  };
+};
+
+export const emailActivSucces = (activated) => {
+  return {
+    type: actionTypes.EMAIL_ACTIV_SUCCESS,
+    activated,
+  };
+};
+
+export const emailActivFailed = () => {
+  return {
+    type: actionTypes.EMAIL_ACTIV_FAILED,
+  };
+};
+
+export const emailActivation = (token) => {
+  return (dispatch) => {
+    dispatch(emailActivStart());
+    axios
+      .put(`/api/users/activation/${token}`)
+      .then((res) => {
+        dispatch(emailActivSucces(res.data.activated));
+        dispatch(successCreator(res.data.message));
+      })
+      .catch((err) => {
+        dispatch(emailActivFailed());
+        dispatch(errorCreator(err.response));
       });
   };
 };

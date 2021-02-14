@@ -10,6 +10,7 @@ const initialState = {
   token: null,
   registered: false,
   loading: false,
+  activated: false,
 };
 
 const registerStart = (state, action) => {
@@ -33,8 +34,8 @@ const registerFailed = (state, action) => {
 const loginStart = (state, action) => {
   return updateObj(state, {
     loading: true,
-  })
-}
+  });
+};
 const loginSuccess = (state, action) => {
   return updateObj(state, {
     userId: action.userId,
@@ -43,15 +44,36 @@ const loginSuccess = (state, action) => {
     fullName: action.fullName,
     role: action.role,
     token: action.token,
-    loading: false
-  })
-}
+    loading: false,
+  });
+};
 
 const loginFailed = (state, action) => {
   return updateObj(state, {
-    loading: false
-  })
-}
+    loading: false,
+  });
+};
+
+const emailActivStart = (state, action) => {
+  return updateObj(state, {
+    loading: true,
+    activated: false,
+  });
+};
+
+const emailActivSuccess = (state, action) => {
+  return updateObj(state, {
+    loading: false,
+    activated: action.activated,
+  });
+};
+
+const emailActivFailed = (state, action) => {
+  return updateObj(state, {
+    loading: false,
+    activated: false,
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -67,6 +89,12 @@ const reducer = (state = initialState, action) => {
       return loginSuccess(state, action);
     case actionTypes.LOGIN_FAILED:
       return loginFailed(state, action);
+    case actionTypes.EMAIL_ACTIV_START:
+      return emailActivStart(state, action);
+    case actionTypes.EMAIL_ACTIV_SUCCESS:
+      return emailActivSuccess(state, action);
+    case actionTypes.EMAIL_ACTIV_FAILED:
+      return emailActivFailed(state, action);
     default:
       return state;
   }

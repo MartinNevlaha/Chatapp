@@ -160,6 +160,7 @@ exports.activationUser = async (req, res, next) => {
       res.json({
         status: "ok",
         message: "User is successfully activated",
+        activated: user.activated
       });
     } else {
       await User.destroy({

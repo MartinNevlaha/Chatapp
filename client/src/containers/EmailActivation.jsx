@@ -1,19 +1,28 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import Card from "../components/UI/Card/Card";
-import Button from "../components/UI/Button/Button";
+import EmailActiv from "../components/EmailActivation/EmailActivation";
+import * as action from "../store/actions";
 
-const EmailActivation = () => {
-  const { token } = useParams();
+const EmailActivation = (props) => {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.userAuth.loading);
+  const activated = useSelector((state) => state.userAuth.activated);
+
+  const handleactivated = (token) => {
+    dispatch(action.emailActivation(token));
+  };
+
+  if (activated) {
+    props.history.push("/login")
+  }
 
   return (
-    <Card>
-      <h2>Please activate your accont click on Activate button</h2>
-      <Button clicked={() => console.log(token)}>Activate</Button>
-    </Card>
+    <div>
+      <EmailActiv loading={loading} activation={handleactivated} />
+    </div>
   );
 };
 
-export default EmailActivation;
+export default withRouter(EmailActivation);

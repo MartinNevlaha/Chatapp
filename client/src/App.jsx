@@ -24,7 +24,7 @@ let routes = (
       )}
     />
     <Route
-      path="/"
+      path="/login"
       exact
       render={() => (
         <Suspense fallback={<Spinner />}>
@@ -33,7 +33,7 @@ let routes = (
       )}
     />
 
-    <Redirect to="/" />
+    <Redirect to="/login" />
   </Switch>
 );
 
