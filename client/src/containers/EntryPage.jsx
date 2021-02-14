@@ -13,11 +13,15 @@ const EntryPage = () => {
   const handleLoginUser = (userData) => {
     dispatch(action.loginUser(userData));
   };
+  const handlerResetAuth = () => {
+    dispatch(action.resetAuth())
+  }
   return (
     <div>
       <LoginForm
         registerUser={handleRegisterUser}
         loginUser={handleLoginUser}
+        resetAuth={handlerResetAuth}
       />
     </div>
   );

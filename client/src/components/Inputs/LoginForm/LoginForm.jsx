@@ -10,6 +10,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 const LoginForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const loading = useSelector((state) => state.userAuth.loading);
+  const registered = useSelector((state) => state.userAuth.registered);
 
   const handleTogleSignMode = (mode) => {
     let sign;
@@ -55,9 +56,13 @@ const LoginForm = (props) => {
               </div>
             </div>
             {isSignUp ? (
-              <SignUp registerUser={props.registerUser} />
+              <SignUp
+                registerUser={props.registerUser}
+                registered={registered}
+                resetAuth={props.resetAuth}
+              />
             ) : (
-              <SignIn loginUser={props.loginUser}/>
+              <SignIn loginUser={props.loginUser} />
             )}
           </React.Fragment>
         )}

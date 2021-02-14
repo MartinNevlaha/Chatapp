@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "../SignIn/SignIn.module.scss";
 import TextField from "../../TextField/TextField";
@@ -24,35 +26,53 @@ const SignUp = (props) => {
   });
 
   return (
-    <Formik
-      initialValues={{
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      }}
-      validationSchema={validate}
-      onSubmit={(userData) => props.registerUser(userData)}
-    >
-      {() => (
+    <React.Fragment>
+      {!props.registered ? (
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          validationSchema={validate}
+          onSubmit={(userData) => props.registerUser(userData)}
+        >
+          {() => (
+            <div className={classes.input_container}>
+              <h1>Please Sign Up</h1>
+              <Form>
+                <TextField label="First Name" name="firstName" type="text" />
+                <TextField label="Last Name" name="lastName" type="text" />
+                <TextField label="Email" name="email" type="email" />
+                <TextField label="Password" name="password" type="password" />
+                <TextField
+                  label="Confirm password"
+                  name="confirmPassword"
+                  type="password"
+                />
+                <Button type="submit">Sign Up</Button>
+              </Form>
+            </div>
+          )}
+        </Formik>
+      ) : (
         <div className={classes.input_container}>
-          <h1>Please Sign Up</h1>
-          <Form>
-            <TextField label="First Name" name="firstName" type="text" />
-            <TextField label="Last Name" name="lastName" type="text" />
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
-            <TextField
-              label="Confirm password"
-              name="confirmPassword"
-              type="password"
+          <div className={classes.input_container_iconWrapper}>
+            <FontAwesomeIcon
+              icon={faUser}
+              size="5x"
+              className={classes.input_container_iconWrapper_icon}
             />
-            <Button type="submit">Sign Up</Button>
-          </Form>
+          </div>
+          <h2>
+            Registered successfully, please wait for activation email.
+          </h2>
+          <Button clicked={props.resetAuth}>Ok</Button>
         </div>
       )}
-    </Formik>
+    </React.Fragment>
   );
 };
 

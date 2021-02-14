@@ -115,3 +115,9 @@ export const emailActivation = (token) => {
       });
   };
 };
+
+export const resetAuth = () => {
+  return {
+    type: actionTypes.RESET_AUTH_STATUS
+  }
+}

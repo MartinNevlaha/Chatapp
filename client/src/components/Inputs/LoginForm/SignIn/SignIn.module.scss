@@ -14,4 +14,20 @@
     width: 100%;
     margin: 1.25rem;
   }
+  h2 {
+    padding: 1rem;
+  }
+
+  &_iconWrapper {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    margin: 1rem;
+    background-color: get-color(text);
+    @include flexbox(center, center, row);
+    
+    &_icon {
+      color: white;
+    }
+  }
 }

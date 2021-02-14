@@ -18,7 +18,7 @@ const EmailActivation = ({ activation, loading }) => {
   };
 
   return (
-    <Card>
+    <Card type="small_card">
       <div className={classes.emailActiv_wrapper}>
         {loading ? (
           <Spinner />
@@ -32,8 +32,9 @@ const EmailActivation = ({ activation, loading }) => {
               />
             </div>
             <h2>
-              Please activate your email {email} accont click on Activate button
+              Please activate your email {email} click on Activate button
             </h2>
+            <p>This link will be active only 1 hour</p>
             <Button clicked={handleClick}>Activate</Button>
           </React.Fragment>
         )}

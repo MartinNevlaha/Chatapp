@@ -3,5 +3,6 @@ import { loginUser } from "./userAuth";
 export {
     registerUser,
     loginUser,
-    emailActivation
+    emailActivation,
+    resetAuth
 } from "./userAuth";

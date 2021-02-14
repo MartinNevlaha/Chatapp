@@ -95,6 +95,8 @@ const reducer = (state = initialState, action) => {
       return emailActivSuccess(state, action);
     case actionTypes.EMAIL_ACTIV_FAILED:
       return emailActivFailed(state, action);
+    case actionTypes.RESET_AUTH_STATUS:
+      return initialState;
     default:
       return state;
   }
