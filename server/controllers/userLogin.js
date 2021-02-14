@@ -5,9 +5,7 @@ const timestamp = require("time-stamp");
 const User = require("../models/User");
 const { sendConfirmationMail } = require("../config/nodemailer.config");
 const logger = require("../config/winston");
-
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_SECRET_MAIL_ACTIVATED = process.env.JWT_SECRET_MAIL_ACTIVATED;
+const config = require("../config/app");
 
 exports.userRegister = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -24,7 +22,7 @@ exports.userRegister = async (req, res, next) => {
 
     const activationToken = await jwt.sign(
       { email },
-      JWT_SECRET_MAIL_ACTIVATED,
+      config.jwtSecretMail,
       { expiresIn: "1h" }
     );
 
@@ -99,7 +97,7 @@ exports.userLogin = async (req, res, next) => {
         fullName: user.fullName,
         role: user.role,
       },
-      JWT_SECRET,
+      config.jwtSecret,
       { expiresIn: "2h" }
     );
 
@@ -122,7 +120,7 @@ exports.activationUser = async (req, res, next) => {
   try {
     const decodedToken = await jwt.verify(
       confirmationToken,
-      JWT_SECRET_MAIL_ACTIVATED,
+      config.jwtSecretMail,
       (err, verified) => {
         if (err) {
           validToken = false;
@@ -160,7 +158,7 @@ exports.activationUser = async (req, res, next) => {
       res.json({
         status: "ok",
         message: "User is successfully activated",
-        activated: user.activated
+        activated: user.activated,
       });
     } else {
       await User.destroy({

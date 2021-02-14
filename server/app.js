@@ -4,15 +4,12 @@ const helmet = require("helmet");
 const compression = require("compression");
 const morgan = require("morgan");
 const timestamp = require("time-stamp");
-require("dotenv").config();
 const cron = require("node-cron");
 
 const logger = require("./config/winston");
+const config = require("./config/app");
 const db = require("./config/db");
 const { cleanUpInactiveUsers } = require("./jobs/cleanUpInactiveUsers");
-
-//env variables
-const PORT = process.env.PORT || 8000;
 
 //models
 const User = require("./models/User");
@@ -63,11 +60,11 @@ cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());
 
 db.sync()
   .then((res) => {
-    app.listen(PORT, () => {
+    app.listen(config.appPort, () => {
       logger.log({
         time: timestamp("YYYY/MM/DD/HH:mm:ss"),
         level: "info",
-        message: `DB connected and server is up and running on port ${PORT}`,
+        message: `DB connected and server is up and running on port ${config.appPort}`,
       });
     });
   })

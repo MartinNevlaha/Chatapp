@@ -1,13 +1,12 @@
 const nodemailer = require("nodemailer");
 
-const USER = "testovic.prvy@gmail.com";
-const GMAIL_PASSWORD = "ubuntu123456";
+const config = require("../config/app");
 
 const transport = nodemailer.createTransport({
   service: "Gmail",
   auth: {
-    user: USER,
-    pass: GMAIL_PASSWORD,
+    user: config.mailUser,
+    pass: config.mailPassword,
   },
 });
 
