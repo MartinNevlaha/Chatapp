@@ -129,7 +129,6 @@ exports.activationUser = async (req, res, next) => {
         }
       }
     );
-    console.log(decodedToken);
     if (validToken) {
       const user = await User.findOne({
         where: {
@@ -139,6 +138,11 @@ exports.activationUser = async (req, res, next) => {
       if (!user) {
         const error = new Error("User doesn't exist");
         error.statusCode = 404;
+        return next(error);
+      }
+      if (user.activated === true) {
+        const error = new Error("User is allready activated");
+        error.statusCode = 409;
         return next(error);
       }
       if (user.activationToken !== confirmationToken) {
