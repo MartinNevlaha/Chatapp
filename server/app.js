@@ -16,9 +16,6 @@ const User = require("./models/User");
 const Room = require("./models/Room");
 const Message = require("./models/Message");
 
-//routes
-const userLogin = require("./routes/userLogin");
-
 const app = express();
 
 app.use(express.json());
@@ -32,7 +29,7 @@ app.use(
   })
 );
 
-app.use("/api/users", userLogin);
+app.use("/api/users", require("./routes/authUser"));
 
 //Error handler
 app.use((error, req, res, next) => {
