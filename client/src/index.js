@@ -4,24 +4,12 @@ import './index.scss';
 import App from './App';
 import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import thunk from "redux-thunk";
 import reportWebVitals from './reportWebVitals';
 
 import "./i18n/i18n";
 
-//reducers
-import userAuthReducer from "./store/reducers/userAuth"; 
-import requestStatusReducer from "./store/reducers/requestStatus";
+import store from "./store";
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
-
-const rootReducer = combineReducers({
-  requestStatus: requestStatusReducer,
-  userAuth: userAuthReducer
-});
-
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.Fragment>
