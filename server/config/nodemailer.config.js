@@ -17,7 +17,7 @@ module.exports.sendConfirmationMail = async (
 ) => {
   try {
     return transport.sendMail({
-      from: USER,
+      from: config.mailUser,
       to: email,
       subject: "Please activate your account",
       html: `<h1>Please activate your account</h1>

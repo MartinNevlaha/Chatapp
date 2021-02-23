@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/").User;
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
 

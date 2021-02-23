@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const timestamp = require("time-stamp");
 
-const User = require("../models/User");
+const User = require("../models/").User;
 const { sendConfirmationMail } = require("../config/nodemailer.config");
 const logger = require("../config/winston");
 const config = require("../config/app");
@@ -56,6 +56,7 @@ exports.userRegister = async (req, res, next) => {
       registered: true,
     });
   } catch (error) {
+    console.log(error);
     if (error.statusCode) {
       error.statusCode = 500;
     }
