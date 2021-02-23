@@ -8,13 +8,7 @@ const cron = require("node-cron");
 
 const logger = require("./config/winston");
 const config = require("./config/app");
-const db = require("./config/db");
 const { cleanUpInactiveUsers } = require("./jobs/cleanUpInactiveUsers");
-
-//models
-const User = require("./models/User");
-const Room = require("./models/Room");
-const Message = require("./models/Message");
 
 const app = express();
 
@@ -45,31 +39,13 @@ app.use((error, req, res, next) => {
   res.json({ message: message, data: data });
 });
 
-User.belongsTo(Room, { constraints: true, onDelete: "CASCADE" });
-Room.hasMany(User);
-Message.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
-User.hasMany(Message);
-Message.belongsTo(Room, { constraints: true, onDelete: "CASCADE" });
-Room.hasMany(Message);
-
 //run clean up database inactive users every day at 2:30 AM
 cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());
 
-db.sync()
-  .then((res) => {
-    app.listen(config.appPort, () => {
-      logger.log({
-        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
-        level: "info",
-        message: `DB connected and server is up and running on port ${config.appPort}`,
-      });
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-    logger.error({
-      time: timestamp("YYYY/MM/DD/HH:mm:ss"),
-      level: "error",
-      message: err,
-    });
+app.listen(config.appPort, () => {
+  logger.log({
+    time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+    level: "info",
+    message: `Server is up and running on port ${config.appPort}`,
   });
+});
