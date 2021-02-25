@@ -29,7 +29,7 @@ const Layout = (props) => {
             isOpen={sideDrawerOpen}
             closeSideDrawer={closeSideDrawer}
           />
-          <div className={classes.main_wrapper_content}>{props.children}</div>
+          <div className={isAuth ? classes.main_wrapper_content : [classes.main_wrapper_content, classes.linear].join(" ")}>{props.children}</div>
       </main>
     </React.Fragment>
   );
