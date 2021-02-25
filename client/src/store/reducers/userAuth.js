@@ -4,6 +4,7 @@ import { updateObj } from "../../utils/utilities";
 const initialState = {
   user: {},
   token: null,
+  isLogged: false,
   registered: false,
   loading: false,
   activated: false,
@@ -36,6 +37,7 @@ const loginSuccess = (state, action) => {
   return updateObj(state, {
     user: action.userData,
     token: action.token,
+    isLogged: true,
     loading: false,
   });
 };
@@ -43,6 +45,7 @@ const loginSuccess = (state, action) => {
 const loginFailed = (state, action) => {
   return updateObj(state, {
     loading: false,
+    isLogged: false
   });
 };
 

@@ -3,7 +3,6 @@
 .card_wrapper {
     height: auto;
     @include shadow;
-    margin: 2rem;
     font-size: get-font-size(small);
     border-radius: 3px;
     overflow: hidden;
