@@ -46,15 +46,10 @@ export const loginStart = () => {
 };
 
 export const loginSuccess = (userData, token) => {
-  const { userId, firstName, lastName, fullName, role } = userData;
 
   return {
     type: actionTypes.LOGIN_SUCCESS,
-    userId,
-    firstName,
-    lastName,
-    fullName,
-    role,
+    userData,
     token,
   };
 };

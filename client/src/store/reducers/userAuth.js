@@ -2,11 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
 
 const initialState = {
-  userId: null,
-  firstName: "",
-  lastName: "",
-  fullName: "",
-  role: "",
+  user: {},
   token: null,
   registered: false,
   loading: false,
@@ -38,11 +34,7 @@ const loginStart = (state, action) => {
 };
 const loginSuccess = (state, action) => {
   return updateObj(state, {
-    userId: action.userId,
-    firstName: action.firstName,
-    lastName: action.lastName,
-    fullName: action.fullName,
-    role: action.role,
+    user: action.userData,
     token: action.token,
     loading: false,
   });
