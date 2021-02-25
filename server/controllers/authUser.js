@@ -33,6 +33,7 @@ exports.userRegister = async (req, res, next) => {
       password,
       activationToken,
     });
+
     if (!user) {
       const error = new Error("Cant create user in Db");
       error.statusCode = 409;

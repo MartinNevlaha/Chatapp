@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       role: DataTypes.STRING,
       avatar: DataTypes.STRING,
       activated: DataTypes.BOOLEAN,
+      activationToken: DataTypes.STRING
     },
     {
       sequelize,
