@@ -5,6 +5,7 @@ const compression = require("compression");
 const morgan = require("morgan");
 const timestamp = require("time-stamp");
 const cron = require("node-cron");
+const http = require("http");
 
 const logger = require("./config/winston");
 const config = require("./config/app");
@@ -42,7 +43,9 @@ app.use((error, req, res, next) => {
 //run clean up database inactive users every day at 2:30 AM
 cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());
 
-app.listen(config.appPort, () => {
+const server = http.createServer(app);
+
+server.listen(config.appPort, () => {
   logger.log({
     time: timestamp("YYYY/MM/DD/HH:mm:ss"),
     level: "info",
