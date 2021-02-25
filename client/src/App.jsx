@@ -1,12 +1,13 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import "./App.scss";
 import Layout from "./HOC/Layout";
 import Spinner from "./components/UI/Spinner/Spinner";
 import Toast from "./components/UI/Toast/Toast";
+import * as action from "./store/actions";
 
 const EntryPage = React.lazy(() => import("./containers/EntryPage"));
 const EmailActivation = React.lazy(() =>
@@ -46,8 +47,13 @@ let routes = (
 );
 
 function App() {
+  const dispatch = useDispatch();
   const error = useSelector((state) => state.requestStatus.error);
   const success = useSelector((state) => state.requestStatus.success);
+
+  useEffect(() => {
+    dispatch(action.authCheckState());
+  }, [dispatch])
 
   const { t } = useTranslation();
   return (

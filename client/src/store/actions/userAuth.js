@@ -46,7 +46,6 @@ export const loginStart = () => {
 };
 
 export const loginSuccess = (userData, token) => {
-
   return {
     type: actionTypes.LOGIN_SUCCESS,
     userData,
@@ -60,15 +59,33 @@ export const loginFailed = () => {
   };
 };
 
+export const logout = () => {
+  localStorage.removeItem("token");
+  return {
+    type: actionTypes.LOGOUT,
+  };
+};
+
+export const checkAuthTimeout = (exp) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, exp * 1000);
+  };
+};
+
 export const loginUser = (userData, history) => {
   return (dispatch) => {
     dispatch(loginStart());
     axios
       .post("/api/users/login", userData)
       .then((res) => {
-        dispatch(loginSuccess(jwtDecode(res.data.token), res.data.token));
+        const decodeToken = jwtDecode(res.data.token);
+        dispatch(loginSuccess(decodeToken, res.data.token));
+        localStorage.setItem("token", res.data.token);
+        dispatch(checkAuthTimeout(decodeToken.exp - decodeToken.iat))
         dispatch(successCreator(res.data.message));
-        history.push("/chat")
+        history.push("/chat");
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
@@ -76,6 +93,23 @@ export const loginUser = (userData, history) => {
       });
   };
 };
+
+export const authCheckState = () => {
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const decodedToken = jwtDecode(token)
+      const actualTime = Date.now() / 1000;
+      if (decodedToken.exp > actualTime) {
+        dispatch(loginSuccess(decodedToken, token));
+        const remainTime = decodedToken.exp - actualTime;
+        dispatch(checkAuthTimeout(remainTime))
+      }
+    }
+  }
+}
 
 export const emailActivStart = () => {
   return {
@@ -114,6 +148,6 @@ export const emailActivation = (token) => {
 
 export const resetAuth = () => {
   return {
-    type: actionTypes.RESET_AUTH_STATUS
-  }
-}
+    type: actionTypes.RESET_AUTH_STATUS,
+  };
+};
