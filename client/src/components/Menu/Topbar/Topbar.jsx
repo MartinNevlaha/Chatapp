@@ -2,12 +2,14 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import {useSelector} from "react-redux";
 
 import classes from "./Topbar.module.scss";
 import BackDropMenu from "./BackDropMenu/BackdropMenu";
 
 const Topbar = (props) => {
   const { t } = useTranslation();
+  const fullName = useSelector(state => state.userAuth.user.fullName)
 
   return (
     <div className={classes.topbar}>
@@ -28,6 +30,7 @@ const Topbar = (props) => {
         </div>
       </div>
       <div className={classes.topbar_right}>
+        <p>Welcome {fullName}</p>
         <BackDropMenu />
       </div>
     </div>

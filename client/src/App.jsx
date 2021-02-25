@@ -12,6 +12,7 @@ const EntryPage = React.lazy(() => import("./containers/EntryPage"));
 const EmailActivation = React.lazy(() =>
   import("./containers/EmailActivation")
 );
+const Chat = React.lazy(() => import("./containers/Chat"));
 
 let routes = (
   <Switch>
@@ -23,8 +24,16 @@ let routes = (
         </Suspense>
       )}
     />
+        <Route
+      path="/chat"
+      render={() => (
+        <Suspense fallback={<Spinner />}>
+          <Chat />
+        </Suspense>
+      )}
+    />
     <Route
-      path="/login"
+      path="/"
       exact
       render={() => (
         <Suspense fallback={<Spinner />}>
@@ -32,8 +41,7 @@ let routes = (
         </Suspense>
       )}
     />
-
-    <Redirect to="/login" />
+    <Redirect to="/" />
   </Switch>
 );
 

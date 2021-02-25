@@ -1,4 +1,5 @@
 import React from "react";
+import {withRouter} from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
@@ -13,7 +14,6 @@ const SignIn = (props) => {
       .min(5, "Min lenght of password is 5 characters")
       .required("Password is required"),
   });
-
   return (
     <Formik
       initialValues={{
@@ -21,7 +21,7 @@ const SignIn = (props) => {
         password: "",
       }}
       validationSchema={validate}
-      onSubmit={(data) => props.loginUser(data)}
+      onSubmit={(data) => props.loginUser(data, props.history)}
     >
       {() => (
         <div className={classes.input_container}>
@@ -37,4 +37,4 @@ const SignIn = (props) => {
   );
 };
 
-export default SignIn;
+export default withRouter(SignIn);

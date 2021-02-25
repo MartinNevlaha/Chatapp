@@ -60,7 +60,7 @@ export const loginFailed = () => {
   };
 };
 
-export const loginUser = (userData) => {
+export const loginUser = (userData, history) => {
   return (dispatch) => {
     dispatch(loginStart());
     axios
@@ -68,6 +68,7 @@ export const loginUser = (userData) => {
       .then((res) => {
         dispatch(loginSuccess(jwtDecode(res.data.token), res.data.token));
         dispatch(successCreator(res.data.message));
+        history.push("/chat")
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));

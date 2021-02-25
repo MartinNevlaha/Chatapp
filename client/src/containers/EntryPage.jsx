@@ -11,8 +11,8 @@ const EntryPage = () => {
   const handleRegisterUser = (userData) => {
     dispatch(action.registerUser(userData));
   };
-  const handleLoginUser = (userData) => {
-    dispatch(action.loginUser(userData));
+  const handleLoginUser = (userData, history) => {
+    dispatch(action.loginUser(userData, history));
   };
   const handlerResetAuth = () => {
     dispatch(action.resetAuth());

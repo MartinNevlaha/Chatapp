@@ -8,15 +8,10 @@ import * as action from "../store/actions";
 const EmailActivation = (props) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.userAuth.loading);
-  const activated = useSelector((state) => state.userAuth.activated);
 
   const handleactivated = (token) => {
     dispatch(action.emailActivation(token));
   };
-
-  if (activated) {
-    props.history.push("/login")
-  }
 
   return (
     <div>
