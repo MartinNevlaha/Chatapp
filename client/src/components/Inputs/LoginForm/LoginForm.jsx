@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import classes from "./LoginForm.module.scss";
 import Card from "../../UI/Card/Card";
 import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignUp/SignUp";
+import Register from "./Register/Register";
 import Spinner from "../../UI/Spinner/Spinner";
 
 const LoginForm = (props) => {
@@ -52,11 +52,11 @@ const LoginForm = (props) => {
                 }
                 onClick={() => handleTogleSignMode("up")}
               >
-                Sign Up
+                Register
               </div>
             </div>
             {isSignUp ? (
-              <SignUp
+              <Register
                 registerUser={props.registerUser}
                 registered={registered}
                 resetAuth={props.resetAuth}

@@ -41,7 +41,7 @@ const SignUp = (props) => {
         >
           {() => (
             <div className={classes.input_container}>
-              <h1>Please Sign Up</h1>
+              <h1>Please Register</h1>
               <Form>
                 <TextField label="First Name" name="firstName" type="text" />
                 <TextField label="Last Name" name="lastName" type="text" />
@@ -52,7 +52,7 @@ const SignUp = (props) => {
                   name="confirmPassword"
                   type="password"
                 />
-                <Button type="submit">Sign Up</Button>
+                <Button type="submit">Register</Button>
               </Form>
             </div>
           )}
