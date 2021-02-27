@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import jwt_decode from "jwt-decode";
@@ -9,12 +9,12 @@ import Button from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 import classes from "./EmailActivation.module.scss";
 
-const EmailActivation = ({ activation, loading }) => {
+const EmailActivation = ({ activation, loading, history }) => {
   const { token } = useParams();
   const { email } = jwt_decode(token);
 
   const handleClick = () => {
-    activation(token);
+    activation(token, history);
   };
 
   return (
@@ -43,4 +43,4 @@ const EmailActivation = ({ activation, loading }) => {
   );
 };
 
-export default EmailActivation;
+export default withRouter(EmailActivation);

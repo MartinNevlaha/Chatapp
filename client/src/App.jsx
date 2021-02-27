@@ -16,9 +16,9 @@ import Chat from "./containers/Chat";
 
 let routes = (
   <Switch>
-    <ProtectedRoute path="/chat" component={Chat}/>
+    <ProtectedRoute path="/" exact component={Chat} />
     <Route path="/activation/:token" component={EmailActivation} />
-    <Route path="/" component={Login} exact /> 
+    <Route path="/login" component={Login} /> 
     <Redirect to="/" />
   </Switch>
 );

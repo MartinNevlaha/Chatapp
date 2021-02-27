@@ -9,8 +9,8 @@ const EmailActivation = (props) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.userAuth.loading);
 
-  const handleactivated = (token) => {
-    dispatch(action.emailActivation(token));
+  const handleactivated = (token, history) => {
+    dispatch(action.emailActivation(token, history));
   };
 
   return (

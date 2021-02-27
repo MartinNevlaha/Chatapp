@@ -83,9 +83,9 @@ export const loginUser = (userData, history) => {
         const decodeToken = jwtDecode(res.data.token);
         dispatch(loginSuccess(decodeToken, res.data.token));
         localStorage.setItem("token", res.data.token);
-        dispatch(checkAuthTimeout(decodeToken.exp - decodeToken.iat))
+        dispatch(checkAuthTimeout(decodeToken.exp - decodeToken.iat));
         dispatch(successCreator(res.data.message));
-        history.push("/chat");
+        history.push("/");
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
@@ -95,21 +95,21 @@ export const loginUser = (userData, history) => {
 };
 
 export const authCheckState = () => {
-  return dispatch => {
+  return (dispatch) => {
     const token = localStorage.getItem("token");
     if (!token) {
       dispatch(logout());
     } else {
-      const decodedToken = jwtDecode(token)
+      const decodedToken = jwtDecode(token);
       const actualTime = Date.now() / 1000;
       if (decodedToken.exp > actualTime) {
         dispatch(loginSuccess(decodedToken, token));
         const remainTime = decodedToken.exp - actualTime;
-        dispatch(checkAuthTimeout(remainTime))
+        dispatch(checkAuthTimeout(remainTime));
       }
     }
-  }
-}
+  };
+};
 
 export const emailActivStart = () => {
   return {
@@ -130,7 +130,7 @@ export const emailActivFailed = () => {
   };
 };
 
-export const emailActivation = (token) => {
+export const emailActivation = (token, history) => {
   return (dispatch) => {
     dispatch(emailActivStart());
     axios
@@ -138,6 +138,7 @@ export const emailActivation = (token) => {
       .then((res) => {
         dispatch(emailActivSucces(res.data.activated));
         dispatch(successCreator(res.data.message));
+        history.push("/login");
       })
       .catch((err) => {
         dispatch(emailActivFailed());
