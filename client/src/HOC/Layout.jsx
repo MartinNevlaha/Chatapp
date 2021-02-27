@@ -7,7 +7,7 @@ import SideDrawer from "../components/Menu/SideDrawer/SideDrawer";
 
 const Layout = (props) => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  const isAuth = useSelector((state) => state.userAuth.isLogged);
+  const isAuth = useSelector((state) => state.userAuth.token);
 
   const handleOpenSideDrawer = () => {
     setSideDrawerOpen(true);

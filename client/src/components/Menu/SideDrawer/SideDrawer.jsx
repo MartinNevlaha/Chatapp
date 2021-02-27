@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 import classes from "./SideDrawer.module.scss";
-import NavItem from "../NavLink/NavItem";
+import NavItem from "../NavItem/NavItem";
 
 const SideDrawer = (props) => {
   const { t } = useTranslation();

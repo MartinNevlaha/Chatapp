@@ -4,7 +4,6 @@ import { updateObj } from "../../utils/utilities";
 const initialState = {
   user: {},
   token: null,
-  isLogged: false,
   registered: false,
   loading: false,
   activated: false,
@@ -37,7 +36,6 @@ const loginSuccess = (state, action) => {
   return updateObj(state, {
     user: action.userData,
     token: action.token,
-    isLogged: true,
     loading: false,
   });
 };
@@ -45,9 +43,15 @@ const loginSuccess = (state, action) => {
 const loginFailed = (state, action) => {
   return updateObj(state, {
     loading: false,
-    isLogged: false
   });
 };
+
+const logout = (state, action) => {
+  return updateObj(state, {
+    user: {},
+    token: null,
+  })
+}
 
 const emailActivStart = (state, action) => {
   return updateObj(state, {
@@ -84,6 +88,8 @@ const reducer = (state = initialState, action) => {
       return loginSuccess(state, action);
     case actionTypes.LOGIN_FAILED:
       return loginFailed(state, action);
+    case actionTypes.LOGOUT:
+      return logout(state, action);
     case actionTypes.EMAIL_ACTIV_START:
       return emailActivStart(state, action);
     case actionTypes.EMAIL_ACTIV_SUCCESS:

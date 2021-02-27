@@ -9,14 +9,17 @@ import {
   faUserCircle,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import * as action from "../../../../store/actions/";
 
 import classes from "./BackDropMenu.module.scss";
-import NavItem from "../../NavLink/NavItem";
+import NavItem from "../../NavItem/NavItem";
 
 const BackDropMenu = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { t } = useTranslation();
   const menuRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClose);
@@ -43,6 +46,10 @@ const BackDropMenu = (props) => {
     setOpenMenu(null);
   };
 
+  const handleLogout = () => {
+    dispatch(action.logout());
+  };
+
   return (
     <React.Fragment>
       <div className={classes.account_icon_wrapper} onClick={handleClick}>
@@ -64,7 +71,9 @@ const BackDropMenu = (props) => {
           <NavItem icon={faAddressCard} link="/profile">
             {t("topNavbar.profile")}
           </NavItem>
-          <NavItem icon={faUserCircle} link="/account">{t("topNavbar.account")}</NavItem>
+          <NavItem icon={faUserCircle} link="/account">
+            {t("topNavbar.account")}
+          </NavItem>
           <h3>{t("topNavbar.languageTitle")}</h3>
           <li onClick={() => handleLanguageChange("en")}>
             <div className={classes.language_wrapper}>
@@ -84,7 +93,14 @@ const BackDropMenu = (props) => {
               Slovensky
             </div>
           </li>
-          <NavItem icon={faSignOutAlt} link="/logout">{t("topNavbar.logout")}</NavItem>
+          <li onClick={handleLogout}>
+            <FontAwesomeIcon
+              icon={faSignOutAlt}
+              color="rgb(80, 79, 79)"
+              className={classes.backDropMenu_logout_icon}
+            />
+            <p>{t("topNavbar.logout")}</p>
+          </li>
         </ul>
       </div>
     </React.Fragment>

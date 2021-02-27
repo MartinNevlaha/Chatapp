@@ -19,15 +19,25 @@
     text-align: left;
   }
 
-  li, %item-styled {
+  li {
     padding: 0.625rem;
     margin: 0.3125rem;
+    color: get-color(text);
+    @include flexbox(flex-start, center, row);
+
+    p {
+      margin-left: 1rem;
+    }
+  }
+
+  &_logout_icon {
+    font-size: get-font-size(medium);
   }
 
   li:hover,
   li:active {
     @include hover-effect;
-    animation: pulse .8s ease-in;
+    animation: pulse 0.8s ease-in;
   }
 
   h3 {
@@ -36,11 +46,9 @@
     border-bottom: 1px solid gray;
     color: get-color(text);
   }
-
 }
 
 .account_icon_wrapper {
-  @include flexbox(center, center, row);
   width: 2.8rem;
   height: 2.8rem;
   margin: 1rem 2.5rem 1rem 1rem;
@@ -57,24 +65,23 @@
 
 .open {
   display: block;
-  animation: anim .8s cubic-bezier(0.23, 1, 0.320, 1);
+  animation: anim 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .language_wrapper {
   @include flexbox(flex-start, center, row);
-  color: get-color(text);
 
   &_flags {
     width: 50px;
     height: 20px;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 }
 
 @include pulse;
 
 @keyframes anim {
-  from  {
+  from {
     opacity: 0;
   }
   to {
