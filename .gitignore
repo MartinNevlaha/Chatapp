@@ -1,6 +1,7 @@
 /server/node_modules
 /client/node_modules
 /server/logs/
+/server/uploads/
 /.pnp
 .pnp.js
 

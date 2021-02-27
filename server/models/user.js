@@ -1,5 +1,6 @@
 "use strict";
 const { hashPwd } = require("../utils/utilities");
+const config = require("../config/app");
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -29,9 +30,16 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       role: DataTypes.STRING,
-      avatar: DataTypes.STRING,
+      avatar: {
+        type: DataTypes.STRING,
+        get() {
+          const avatar = this.getDataValue("avatar");
+          const id = this.getDataValue("id");
+          return `${config.appUrl}:${config.appPort}/user/${id}/${avatar}`;
+        },
+      },
       activated: DataTypes.BOOLEAN,
-      activationToken: DataTypes.STRING
+      activationToken: DataTypes.STRING,
     },
     {
       sequelize,

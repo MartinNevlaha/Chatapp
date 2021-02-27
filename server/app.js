@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const timestamp = require("time-stamp");
 const cron = require("node-cron");
 const http = require("http");
+const path = require("path");
 
 const logger = require("./config/winston");
 const config = require("./config/app");
@@ -26,6 +27,7 @@ app.use(
 
 app.use("/api/users", require("./routes/authUser"));
 app.use("/api/user/", require("./routes/user"));
+app.use(express.static(path.join(__dirname, "uploads")));
 
 //Error handler
 app.use((error, req, res, next) => {
