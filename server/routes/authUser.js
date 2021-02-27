@@ -11,7 +11,7 @@ const { rules: registrationRules } = require("../validators/auth/register");
 
 router.post("/register", [registrationRules, validateResults], userRegister);
 
-router.put("/activation/:token", activationUser);
+router.patch("/activation/:token", activationUser);
 
 router.post("/login", [loginRules, validateResults], userLogin);
 

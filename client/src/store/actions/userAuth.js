@@ -134,7 +134,7 @@ export const emailActivation = (token, history) => {
   return (dispatch) => {
     dispatch(emailActivStart());
     axios
-      .put(`/api/users/activation/${token}`)
+      .patch(`/api/users/activation/${token}`)
       .then((res) => {
         dispatch(emailActivSucces(res.data.activated));
         dispatch(successCreator(res.data.message));
