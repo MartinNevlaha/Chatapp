@@ -27,6 +27,7 @@ app.use(
 
 app.use("/api/users", require("./routes/authUser"));
 app.use("/api/user/", require("./routes/user"));
+
 app.use(express.static(path.join(__dirname, "uploads")));
 
 //Error handler
