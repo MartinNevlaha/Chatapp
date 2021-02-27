@@ -1,47 +1,24 @@
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import "./App.scss";
 import Layout from "./HOC/Layout";
-import Spinner from "./components/UI/Spinner/Spinner";
 import Toast from "./components/UI/Toast/Toast";
+import ProtectedRoute from "./Router/ProtectedRoute";
 import * as action from "./store/actions";
 
-const EntryPage = React.lazy(() => import("./containers/EntryPage"));
-const EmailActivation = React.lazy(() =>
-  import("./containers/EmailActivation")
-);
-const Chat = React.lazy(() => import("./containers/Chat"));
+import EmailActivation from "./containers/EmailActivation";
+import Login from "./containers/Login";
+import Chat from "./containers/Chat";
+
 
 let routes = (
   <Switch>
-    <Route
-      path="/activation/:token"
-      render={() => (
-        <Suspense fallback={<Spinner />}>
-          <EmailActivation />
-        </Suspense>
-      )}
-    />
-        <Route
-      path="/chat"
-      render={() => (
-        <Suspense fallback={<Spinner />}>
-          <Chat />
-        </Suspense>
-      )}
-    />
-    <Route
-      path="/"
-      exact
-      render={() => (
-        <Suspense fallback={<Spinner />}>
-          <EntryPage />
-        </Suspense>
-      )}
-    />
+    <ProtectedRoute path="/chat" component={Chat}/>
+    <Route path="/activation/:token" component={EmailActivation} />
+    <Route path="/" component={Login} exact /> 
     <Redirect to="/" />
   </Switch>
 );
@@ -53,7 +30,7 @@ function App() {
 
   useEffect(() => {
     dispatch(action.authCheckState());
-  }, [dispatch])
+  }, [dispatch]);
 
   const { t } = useTranslation();
   return (
