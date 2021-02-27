@@ -24,9 +24,11 @@ const isAuth = (req, res, next) => {
       role: decodedToken.role,
     };
     next();
-  } catch (error) {
+  } catch (err) {
     const error = new Error("Authentification failed");
     error.statusCode = 401;
     return next(error);
   }
 };
+
+module.exports = isAuth;

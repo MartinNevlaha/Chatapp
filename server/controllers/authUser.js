@@ -8,7 +8,7 @@ const logger = require("../config/winston");
 const config = require("../config/app");
 
 exports.userRegister = async (req, res, next) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { email } = req.body;
   try {
     //chceck if user exist
     const userExist = await User.findAll({ where: { email: email } });
@@ -20,19 +20,11 @@ exports.userRegister = async (req, res, next) => {
       return next(error);
     }
 
-    const activationToken = await jwt.sign(
-      { email },
-      config.jwtSecretMail,
-      { expiresIn: "1h" }
-    );
-
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      password,
-      activationToken,
+    const activationToken = await jwt.sign({ email }, config.jwtSecretMail, {
+      expiresIn: "1h",
     });
+
+    const user = await User.create({ ...req.body, activationToken });
 
     if (!user) {
       const error = new Error("Cant create user in Db");
@@ -57,7 +49,6 @@ exports.userRegister = async (req, res, next) => {
       registered: true,
     });
   } catch (error) {
-    console.log(error);
     if (error.statusCode) {
       error.statusCode = 500;
     }

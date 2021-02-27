@@ -25,6 +25,7 @@ app.use(
 );
 
 app.use("/api/users", require("./routes/authUser"));
+app.use("/api/user/", require("./routes/user"));
 
 //Error handler
 app.use((error, req, res, next) => {
