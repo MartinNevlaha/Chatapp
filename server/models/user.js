@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         get() {
           const avatar = this.getDataValue("avatar");
           const id = this.getDataValue("id");
-          return `${config.appUrl}:${config.appPort}/user/${id}/${avatar}`;
+          return `${config.appUrl}:${config.appPort}/users/${id}/${avatar}`;
         },
       },
       activated: DataTypes.BOOLEAN,
