@@ -54,6 +54,7 @@ const UserUpdate = () => {
                 <div className={classes.profile_container_inputs_avatar}>
                   <FontAwesomeIcon icon={faUserCircle} size="10x" />
                   <input
+                    className={classes.profile_container_inputs_avatar_file_input}
                     type="file"
                     name="avatar"
                     onChange={(e) => formProps.setFieldValue("avatar", e.target.files[0])}

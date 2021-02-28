@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import UserUpdateForm from "../components/UserUpdate/UserUpdateForm";
 
@@ -7,7 +7,7 @@ const UserUpdate = () => {
     <div>
       <UserUpdateForm />
     </div>
-  )
-}
+  );
+};
 
-export default UserUpdate
+export default UserUpdate;

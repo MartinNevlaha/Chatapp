@@ -32,9 +32,16 @@
       margin-top: 3rem;
       border: 1px solid rgb(165, 163, 163);
       border-radius: 8px;
+      @include flexbox(center, center, column);
       
       &:hover, &:active {
         @include shadow;
+      }
+      &_file_input {
+        padding: 1rem;
+        &:hover, &:active {
+          cursor: pointer;
+        }
       }
     }
   }
