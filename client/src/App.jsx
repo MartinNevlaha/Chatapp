@@ -12,10 +12,12 @@ import * as action from "./store/actions";
 import EmailActivation from "./containers/EmailActivation";
 import Login from "./containers/Login";
 import Chat from "./containers/Chat";
+import UserUpdate from "./containers/UserUpdate";
 
 
 let routes = (
   <Switch>
+    <ProtectedRoute path="/update-profile" component={UserUpdate} />
     <ProtectedRoute path="/" exact component={Chat} />
     <Route path="/activation/:token" component={EmailActivation} />
     <Route path="/login" component={Login} /> 

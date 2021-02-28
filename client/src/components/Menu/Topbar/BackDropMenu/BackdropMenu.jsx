@@ -68,11 +68,8 @@ const BackDropMenu = (props) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
-          <NavItem icon={faAddressCard} link="/profile">
+          <NavItem icon={faUserCircle} link="/update-profile">
             {t("topNavbar.profile")}
-          </NavItem>
-          <NavItem icon={faUserCircle} link="/account">
-            {t("topNavbar.account")}
           </NavItem>
           <h3>{t("topNavbar.languageTitle")}</h3>
           <li onClick={() => handleLanguageChange("en")}>
