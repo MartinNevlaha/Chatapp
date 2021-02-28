@@ -8,7 +8,7 @@ import classes from "../SignIn/SignIn.module.scss";
 import TextField from "../../TextField/TextField";
 import Button from "../../../UI/Button/Button";
 
-const SignUp = (props) => {
+const Register = (props) => {
   const validate = Yup.object({
     firstName: Yup.string()
       .max(20, "Must be 20 characters or less")
@@ -76,4 +76,4 @@ const SignUp = (props) => {
   );
 };
 
-export default SignUp;
+export default Register;
