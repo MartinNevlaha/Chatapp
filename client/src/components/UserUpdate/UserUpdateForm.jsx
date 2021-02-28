@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./UserUpdateForm.module.scss";
 import Card from "../UI/Card/Card";
@@ -35,16 +35,31 @@ const UserUpdate = () => {
         oldPassword: "",
         newPassword: "",
         confirmNewPassword: "",
+        avatar: ""
       }}
       validationSchema={validate}
-      onSubmit={(userData) => console.log(userData)}
+      onSubmit={(userData) => {
+        let data = new FormData();
+        data.append("avatar", userData.avatar)
+        // dispatch redux action to update data
+      }}
     >
-      {() => (
+      {(formProps) => (
         <div className={classes.profile_container}>
           <h1>Here you can update your profile !</h1>
           <Form>
             <div className={classes.profile_container_inputs}>
-              <Card type="medium_card">Profile avatar</Card>
+              <Card type="medium_card">
+                <h2>User avatar</h2>
+                <div className={classes.profile_container_inputs_avatar}>
+                  <FontAwesomeIcon icon={faUserCircle} size="10x" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    onChange={(e) => formProps.setFieldValue("avatar", e.target.files[0])}
+                  />
+                </div>
+              </Card>
               <Card type="small_card">
                 <div className={classes.profile_container_inputs_text}>
                   <TextField label="First Name" name="firstName" type="text" />
