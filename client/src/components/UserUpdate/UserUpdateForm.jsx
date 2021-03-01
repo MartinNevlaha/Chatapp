@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 import classes from "./UserUpdateForm.module.scss";
 import Card from "../UI/Card/Card";
@@ -11,6 +12,7 @@ import TextField from "../Inputs/TextField/TextField";
 
 const UserUpdate = () => {
   const [pwdReset, setPwdReset] = useState(false);
+  const user = useSelector(state => state.userProfile.user);
 
   const validate = Yup.object({
     firstName: Yup.string()
@@ -35,10 +37,11 @@ const UserUpdate = () => {
 
   return (
     <Formik
+    enableReinitialize={true}
       initialValues={{
-        firstName: "",
-        lastName: "",
-        email: "",
+        firstName: user.firstName ? user.firstName : "",
+        lastName: user.lastName ? user.lastName : "",
+        email: user.email ? user.email : "",
         oldPassword: "",
         newPassword: "",
         confirmNewPassword: "",
@@ -59,7 +62,10 @@ const UserUpdate = () => {
               <Card type="medium_card">
                 <h2>User avatar</h2>
                 <div className={classes.profile_container_inputs_avatar}>
-                  <FontAwesomeIcon icon={faUserCircle} size="10x" />
+                  {!user.avatar ?
+                  <FontAwesomeIcon icon={faUserCircle} size="10x" /> : 
+                  <img src={user.avatar} alt="avatar"/>
+                  }
                   <input
                     className={
                       classes.profile_container_inputs_avatar_file_input

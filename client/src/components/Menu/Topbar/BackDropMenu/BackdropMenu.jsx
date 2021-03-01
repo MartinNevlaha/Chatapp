@@ -15,7 +15,7 @@ import * as action from "../../../../store/actions/";
 import classes from "./BackDropMenu.module.scss";
 import NavItem from "../../NavItem/NavItem";
 
-const BackDropMenu = (props) => {
+const BackDropMenu = ({ avatar }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { t } = useTranslation();
   const menuRef = useRef(null);
@@ -53,11 +53,15 @@ const BackDropMenu = (props) => {
   return (
     <React.Fragment>
       <div className={classes.account_icon_wrapper} onClick={handleClick}>
-        <FontAwesomeIcon
-          icon={faUser}
-          cursor="pointer"
-          className={classes.account_icon_wrapper_icon}
-        />
+        {avatar ? (
+          <img src={avatar} alt="avatar" />
+        ) : (
+          <FontAwesomeIcon
+            icon={faUser}
+            cursor="pointer"
+            className={classes.account_icon_wrapper_icon}
+          />
+        )}
       </div>
       <div
         ref={menuRef}

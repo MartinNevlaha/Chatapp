@@ -34,6 +34,13 @@
       border-radius: 8px;
       @include flexbox(center, center, column);
       overflow: hidden;
+
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
       
       &:hover, &:active {
         @include shadow;

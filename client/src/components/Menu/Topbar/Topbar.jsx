@@ -9,7 +9,8 @@ import BackDropMenu from "./BackDropMenu/BackdropMenu";
 
 const Topbar = (props) => {
   const { t } = useTranslation();
-  const fullName = useSelector(state => state.userProfile.user.fullName)
+  const fullName = useSelector(state => state.userProfile.user.fullName);
+  const avatar = useSelector(state => state.userProfile.user.avatar);
 
   return (
     <div className={classes.topbar}>
@@ -31,7 +32,7 @@ const Topbar = (props) => {
       </div>
       <div className={classes.topbar_right}>
         <p>Welcome {fullName}</p>
-        <BackDropMenu />
+        <BackDropMenu avatar={avatar} />
       </div>
     </div>
   );
