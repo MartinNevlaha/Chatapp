@@ -1,6 +1,7 @@
 @import "../../style/imports.scss";
 
 .profile_container {
+
   h1 {
     font-size: get-font-size(medium);
     font-weight: bold;
@@ -20,7 +21,6 @@
 
     &_text {
       width: 100%;
-      height: 35rem;
       padding: 2rem 0 3rem 0;
     }
     &_avatar {

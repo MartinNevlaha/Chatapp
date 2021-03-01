@@ -74,21 +74,9 @@ const UserUpdate = () => {
               </Card>
               <Card type="small_card">
                 <div className={classes.profile_container_inputs_text}>
-                  {!pwdReset && (
-                    <React.Fragment>
-                      <TextField
-                        label="First Name"
-                        name="firstName"
-                        type="text"
-                      />
-                      <TextField
-                        label="Last Name"
-                        name="lastName"
-                        type="text"
-                      />
-                      <TextField label="Email" name="email" type="email" />
-                    </React.Fragment>
-                  )}
+                  <TextField label="First Name" name="firstName" type="text" />
+                  <TextField label="Last Name" name="lastName" type="text" />
+                  <TextField label="Email" name="email" type="email" />
                   <h2>To reset password push Reset button</h2>
                   <Button clicked={handleResetPwd}>
                     {pwdReset ? "Close" : "Reset"}
