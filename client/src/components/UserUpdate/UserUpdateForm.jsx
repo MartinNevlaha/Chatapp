@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,8 @@ import Button from "../UI/Button/Button";
 import TextField from "../Inputs/TextField/TextField";
 
 const UserUpdate = () => {
+  const [pwdReset, setPwdReset] = useState(false);
+
   const validate = Yup.object({
     firstName: Yup.string()
       .max(20, "Must be 20 characters or less")
@@ -26,6 +28,11 @@ const UserUpdate = () => {
     ),
   });
 
+  const handleResetPwd = (e) => {
+    e.preventDefault();
+    setPwdReset(!pwdReset);
+  };
+
   return (
     <Formik
       initialValues={{
@@ -35,12 +42,12 @@ const UserUpdate = () => {
         oldPassword: "",
         newPassword: "",
         confirmNewPassword: "",
-        avatar: ""
+        avatar: "",
       }}
       validationSchema={validate}
       onSubmit={(userData) => {
         let data = new FormData();
-        data.append("avatar", userData.avatar)
+        data.append("avatar", userData.avatar);
         // dispatch redux action to update data
       }}
     >
@@ -54,33 +61,57 @@ const UserUpdate = () => {
                 <div className={classes.profile_container_inputs_avatar}>
                   <FontAwesomeIcon icon={faUserCircle} size="10x" />
                   <input
-                    className={classes.profile_container_inputs_avatar_file_input}
+                    className={
+                      classes.profile_container_inputs_avatar_file_input
+                    }
                     type="file"
                     name="avatar"
-                    onChange={(e) => formProps.setFieldValue("avatar", e.target.files[0])}
+                    onChange={(e) =>
+                      formProps.setFieldValue("avatar", e.target.files[0])
+                    }
                   />
                 </div>
               </Card>
               <Card type="small_card">
                 <div className={classes.profile_container_inputs_text}>
-                  <TextField label="First Name" name="firstName" type="text" />
-                  <TextField label="Last Name" name="lastName" type="text" />
-                  <TextField label="Email" name="email" type="email" />
-                  <TextField
-                    label="Old Password"
-                    name="oldPassword"
-                    type="password"
-                  />
-                  <TextField
-                    label="New Password"
-                    name="newPassword"
-                    type="password"
-                  />
-                  <TextField
-                    label="Confirm New password"
-                    name="confirmNewPassword"
-                    type="password"
-                  />
+                  {!pwdReset && (
+                    <React.Fragment>
+                      <TextField
+                        label="First Name"
+                        name="firstName"
+                        type="text"
+                      />
+                      <TextField
+                        label="Last Name"
+                        name="lastName"
+                        type="text"
+                      />
+                      <TextField label="Email" name="email" type="email" />
+                    </React.Fragment>
+                  )}
+                  <h2>To reset password push Reset button</h2>
+                  <Button clicked={handleResetPwd}>
+                    {pwdReset ? "Close" : "Reset"}
+                  </Button>
+                  {pwdReset && (
+                    <React.Fragment>
+                      <TextField
+                        label="Old Password"
+                        name="oldPassword"
+                        type="password"
+                      />
+                      <TextField
+                        label="New Password"
+                        name="newPassword"
+                        type="password"
+                      />
+                      <TextField
+                        label="Confirm New password"
+                        name="confirmNewPassword"
+                        type="password"
+                      />
+                    </React.Fragment>
+                  )}
                 </div>
               </Card>
             </div>

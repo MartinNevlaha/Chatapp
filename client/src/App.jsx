@@ -29,7 +29,7 @@ function App() {
   const { t } = useTranslation();
 
   let routes = (
-    <Suspense fallback={Spinner}>
+    <Suspense fallback={<Spinner />}>
       <Switch>
         <ProtectedRoute path="/update-profile" component={UserUpdate} />
         <ProtectedRoute path="/" exact component={Chat} />
