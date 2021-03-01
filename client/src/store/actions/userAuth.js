@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 
 import * as actionTypes from "./actionTypes";
-import axios from "../../axios";
+import axios from "../../api/axios";
 import { errorCreator, successCreator } from "./requestStatus";
 
 export const registerStart = () => {

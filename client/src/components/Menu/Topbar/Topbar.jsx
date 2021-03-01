@@ -9,7 +9,7 @@ import BackDropMenu from "./BackDropMenu/BackdropMenu";
 
 const Topbar = (props) => {
   const { t } = useTranslation();
-  const fullName = useSelector(state => state.userAuth.user.fullName)
+  const fullName = useSelector(state => state.userProfile.user.fullName)
 
   return (
     <div className={classes.topbar}>

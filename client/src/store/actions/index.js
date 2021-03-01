@@ -1,10 +1,10 @@
-import { loginUser } from "./userAuth";
-
 export {
-    registerUser,
-    loginUser,
-    logout,
-    authCheckState,
-    emailActivation,
-    resetAuth
+  registerUser,
+  loginUser,
+  logout,
+  authCheckState,
+  emailActivation,
+  resetAuth,
 } from "./userAuth";
+
+export { fetchUserProfile } from "./userProfile";

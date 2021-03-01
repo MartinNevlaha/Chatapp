@@ -73,3 +73,30 @@ exports.userUpdate = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.userProfile = async (req, res, next) => {
+  const userId = req.user.userId;
+
+  try {
+    const user = await User.findByPk(userId, {
+      attributes: {
+        exclude: ["password", "activationToken", "activated"],
+      },
+    });
+    if (!user) {
+      const error = new Error("Cant get user profile data");
+      error.statusCode = 404;
+      return next(error);
+    }
+    res.json({
+      status: "ok",
+      message: "User profile info successfully fetched",
+      user: user
+    })
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
