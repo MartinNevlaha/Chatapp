@@ -30,7 +30,9 @@ exports.fileFilter = (req, file, cb) => {
   if (isValid) {
     return cb(null, true);
   } else {
-    return cb(null, false);
+    const error = new Error("Invalid file type, use only jpg, jpge, png, gif");
+    error.statusCode = 422;
+    return cb(error, false);
   }
 };
 
