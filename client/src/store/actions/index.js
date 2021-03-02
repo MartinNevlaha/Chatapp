@@ -7,4 +7,4 @@ export {
   resetAuth,
 } from "./userAuth";
 
-export { fetchUserProfile } from "./userProfile";
+export { fetchUserProfile, updateUserProfile } from "./userProfile";

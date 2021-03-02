@@ -51,6 +51,7 @@ exports.userUpdate = async (req, res, next) => {
         avatar,
       };
     }
+
     const [rows, result] = await User.update(data, {
       where: {
         id: userId,
@@ -60,7 +61,11 @@ exports.userUpdate = async (req, res, next) => {
     });
     const user = result[0].get({ raw: true });
     user.avatar = result[0].avatar;
+    user.fullName = result[0].firstName + " " + result[0].lastName;
     delete user.password;
+    delete user.activated;
+    delete user.activationToken;
+
     res.json({
       status: "ok",
       message: "User successfully update",
@@ -91,8 +96,8 @@ exports.userProfile = async (req, res, next) => {
     res.json({
       status: "ok",
       message: "User profile info successfully fetched",
-      user: user
-    })
+      user: user,
+    });
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;

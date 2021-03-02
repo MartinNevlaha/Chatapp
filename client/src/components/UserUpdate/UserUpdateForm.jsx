@@ -10,7 +10,7 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import TextField from "../Inputs/TextField/TextField";
 
-const UserUpdate = () => {
+const UserUpdate = (props) => {
   const [pwdReset, setPwdReset] = useState(false);
   const user = useSelector((state) => state.userProfile.user);
 
@@ -30,11 +30,15 @@ const UserUpdate = () => {
       [Yup.ref("newPassword"), null],
       "Password must match"
     ),
-    avatar: Yup.mixed().test(
-      "fileFormat",
-      "Unsuported file format",
-      (value) => value && SupportedFormat.includes(value.type)
-    ),
+    avatar: Yup.mixed()
+      .test("fileFormat", "Unsuported file format", (value) => {
+        if (!value) {
+          return true;
+        } else {
+          return value && SupportedFormat.includes(value.type);
+        }
+      })
+      .notRequired(),
   });
 
   const handleResetPwd = (e) => {
@@ -57,8 +61,14 @@ const UserUpdate = () => {
       validationSchema={validate}
       onSubmit={(userData) => {
         let data = new FormData();
+        data.append("firstName", userData.firstName);
+        data.append("lastName", userData.lastName);
+        data.append("email", userData.email);
+        data.append("oldPassword", userData.oldPassword);
+        data.append("newPassword", userData.newPassword);
         data.append("avatar", userData.avatar);
-        // dispatch redux action to update data
+
+        props.updateProfile(data);
       }}
     >
       {(formProps) => (
