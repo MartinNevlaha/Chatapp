@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
-import { axiosOptions } from "../../api/axiosOptions";
 import { errorCreator, successCreator } from "./requestStatus";
 
 export const fetchUserProfileStart = () => {
@@ -26,7 +25,7 @@ export const fetchUserProfile = () => {
   return (dispatch, getState) => {
     const token = getState().userAuth.token;
     dispatch(fetchUserProfileStart());
-    axios.get("/api/user/profile", axiosOptions(token))
+    axios.get("/api/user/profile")
     .then(res => {
       dispatch(fetchUserProfileSuccess(res.data.user));
       dispatch(successCreator(res.data.message));
