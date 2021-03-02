@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,9 @@ import TextField from "../Inputs/TextField/TextField";
 
 const UserUpdate = () => {
   const [pwdReset, setPwdReset] = useState(false);
-  const user = useSelector(state => state.userProfile.user);
+  const user = useSelector((state) => state.userProfile.user);
+
+  const SupportedFormat = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
   const validate = Yup.object({
     firstName: Yup.string()
@@ -28,6 +30,11 @@ const UserUpdate = () => {
       [Yup.ref("newPassword"), null],
       "Password must match"
     ),
+    avatar: Yup.mixed().test(
+      "fileFormat",
+      "Unsuported file format",
+      (value) => value && SupportedFormat.includes(value.type)
+    ),
   });
 
   const handleResetPwd = (e) => {
@@ -37,7 +44,7 @@ const UserUpdate = () => {
 
   return (
     <Formik
-    enableReinitialize={true}
+      enableReinitialize={true}
       initialValues={{
         firstName: user.firstName ? user.firstName : "",
         lastName: user.lastName ? user.lastName : "",
@@ -59,13 +66,14 @@ const UserUpdate = () => {
           <h1>Here you can update your profile !</h1>
           <Form>
             <div className={classes.profile_container_inputs}>
-              <Card type="medium_card">
+              <Card type="small_card">
                 <h2>User avatar</h2>
                 <div className={classes.profile_container_inputs_avatar}>
-                  {!user.avatar ?
-                  <FontAwesomeIcon icon={faUserCircle} size="10x" /> : 
-                  <img src={user.avatar} alt="avatar"/>
-                  }
+                  {!user.avatar ? (
+                    <FontAwesomeIcon icon={faUserCircle} size="10x" />
+                  ) : (
+                    <img src={user.avatar} alt="avatar" />
+                  )}
                   <input
                     className={
                       classes.profile_container_inputs_avatar_file_input
@@ -75,6 +83,15 @@ const UserUpdate = () => {
                     onChange={(e) =>
                       formProps.setFieldValue("avatar", e.target.files[0])
                     }
+                  />
+                  <ErrorMessage
+                    component="div"
+                    style={{
+                      color: "red",
+                      fontSize: ".8rem",
+                      padding: ".5rem",
+                    }}
+                    name="avatar"
                   />
                 </div>
               </Card>
