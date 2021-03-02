@@ -5,7 +5,6 @@ import Flags from "country-flag-icons/react/1x1";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faAddressCard,
   faUserCircle,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -34,6 +33,10 @@ const BackDropMenu = ({ avatar }) => {
       setOpenMenu(false);
     }
   };
+
+  const handleCloseOnLinkClick = () => {
+    setOpenMenu(false);
+  }
 
   const handleClick = () => {
     setOpenMenu(true);
@@ -72,7 +75,11 @@ const BackDropMenu = ({ avatar }) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
-          <NavItem icon={faUserCircle} link="/update-profile">
+          <NavItem
+            icon={faUserCircle}
+            link="/update-profile"
+            close={handleCloseOnLinkClick}
+          >
             {t("topNavbar.profile")}
           </NavItem>
           <h3>{t("topNavbar.languageTitle")}</h3>

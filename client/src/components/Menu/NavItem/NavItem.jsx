@@ -17,6 +17,7 @@ const NavItem = (props) => {
         to={props.link}
         exact={props.exact}
         activeClassName={classes.active}
+        onClick={props.close}
       >
         {props.children}
       </NavLink>
