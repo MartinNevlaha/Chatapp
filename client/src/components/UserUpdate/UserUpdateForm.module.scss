@@ -33,6 +33,7 @@
       border-radius: 8px;
       @include flexbox(center, center, column);
       overflow: hidden;
+      background-color: get-color(primary);
 
       img {
         width: 200px;

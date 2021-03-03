@@ -8,6 +8,7 @@ const cron = require("node-cron");
 const http = require("http");
 const path = require("path");
 
+const SocketServer = require("./socket");
 const logger = require("./config/winston");
 const config = require("./config/app");
 const { cleanUpInactiveUsers } = require("./jobs/cleanUpInactiveUsers");
@@ -48,6 +49,7 @@ app.use((error, req, res, next) => {
 cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());
 
 const server = http.createServer(app);
+SocketServer(server);
 
 server.listen(config.appPort, () => {
   logger.log({
