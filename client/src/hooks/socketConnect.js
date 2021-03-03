@@ -7,7 +7,9 @@ const useSocket = (userId, dispatch) => {
 
     socket.emit("join", userId);
 
-  }, [dispatch])
-}
+    socket.on("onlineUsers", (onlineUsers) => console.log(onlineUsers));
+
+  }, [dispatch]);
+};
 
 export default useSocket;
