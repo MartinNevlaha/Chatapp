@@ -9,6 +9,8 @@ const useSocket = (userId, dispatch) => {
 
     socket.on("onlineUsers", (onlineUsers) => console.log(onlineUsers));
 
+    socket.on("offline", user => console.log(user))
+
   }, [dispatch]);
 };
 
