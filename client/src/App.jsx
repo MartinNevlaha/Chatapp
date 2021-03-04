@@ -12,7 +12,7 @@ import Spinner from "./components/UI/Spinner/Spinner";
 
 //component lazy load
 const Login = lazy(() => import("./containers/Login"));
-const Chat = lazy(() => import("./containers/Chat"));
+const Dashboard = lazy(() => import("./containers/Dashboard"));
 const UserUpdate = lazy(() => import("./containers/UserUpdate"));
 const EmailActivation = lazy(() => import("./containers/EmailActivation"));
 
@@ -32,7 +32,7 @@ function App() {
     <Suspense fallback={<Spinner />}>
       <Switch>
         <ProtectedRoute path="/update-profile" component={UserUpdate} />
-        <ProtectedRoute path="/" exact component={Chat} />
+        <ProtectedRoute path="/" exact component={Dashboard} />
         <Route path="/activation/:token" component={EmailActivation} />
         {isAuth ? null : <Route path="/login" component={Login} />}
         <Redirect to="/" />
