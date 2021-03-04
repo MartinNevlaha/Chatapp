@@ -27,7 +27,7 @@ export const registerUser = (userData) => {
   return (dispatch) => {
     dispatch(registerStart());
     axios
-      .post("/api/users/register", userData)
+      .post("/api/auth/register", userData)
       .then((res) => {
         dispatch(registerSuccess(res.data.registered));
         dispatch(successCreator(res.data.message));
@@ -78,7 +78,7 @@ export const loginUser = (userData, history) => {
   return (dispatch) => {
     dispatch(loginStart());
     axios
-      .post("/api/users/login", userData)
+      .post("/api/auth/login", userData)
       .then((res) => {
         const decodeToken = jwtDecode(res.data.token);
         dispatch(loginSuccess(decodeToken, res.data.token));
@@ -134,7 +134,7 @@ export const emailActivation = (token, history) => {
   return (dispatch) => {
     dispatch(emailActivStart());
     axios
-      .patch(`/api/users/activation/${token}`)
+      .patch(`/api/auth/activation/${token}`)
       .then((res) => {
         dispatch(emailActivSucces(res.data.activated));
         dispatch(successCreator(res.data.message));

@@ -26,8 +26,9 @@ app.use(
   })
 );
 
-app.use("/api/users", require("./routes/authUser"));
+app.use("/api/auth", require("./routes/authUser"));
 app.use("/api/user/", require("./routes/user"));
+app.use("/api/users/", require("./routes/users"));
 
 app.use(express.static(path.join(__dirname, "uploads")));
 
