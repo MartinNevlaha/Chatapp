@@ -7,7 +7,7 @@ exports.getActiveUsers = async (req, res, next) => {
         activated: true
       },
       attributes: {
-        exclude: ["password", "activationToken", "activated"]
+        exclude: ["password", "activationToken", "activated", "email"]
       }
     });
     if (!users) {

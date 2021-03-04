@@ -8,3 +8,5 @@ export {
 } from "./userAuth";
 
 export { fetchUserProfile, updateUserProfile } from "./userProfile";
+
+export { fetchActiveUsers } from "./users";

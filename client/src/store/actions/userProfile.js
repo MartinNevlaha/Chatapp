@@ -29,7 +29,6 @@ export const fetchUserProfile = () => {
       .get("/api/user/profile")
       .then((res) => {
         dispatch(fetchUserProfileSuccess(res.data.user));
-        dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
         dispatch(fetchUserDataFailed());
