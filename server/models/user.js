@@ -34,10 +34,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         get() {
           const avatar = this.getDataValue("avatar");
-          const id = this.getDataValue("id");
-          return `${config.appUrl}:${config.appPort}/users/${id}/${avatar}`;
+          if (avatar) {
+            const id = this.getDataValue("id");
+            return `${config.appUrl}:${config.appPort}/users/${id}/${avatar}`;
+          } else {
+            return null;
+          }
         },
       },
+      status: DataTypes.STRING,
       activated: DataTypes.BOOLEAN,
       activationToken: DataTypes.STRING,
     },
