@@ -8,14 +8,14 @@ const dummyUsers = [
     fullName: "Martin Nevlaha",
     online: false,
     status: "Iba toto sem napisem asd afdfsdfdsfasdfdsfsdafsd",
-    avatar: "",
+    avatar: "http://localhost:8000/users/1/avatar_1614872484071a5e712aa-aa8e-41d1-b0df-58a3250e2e3c.png",
   },
   {
     id: 2,
     fullName: "Ignac Mrkva",
     online: true,
     status: "A ja zase toto",
-    avatar: "",
+    avatar: "http://localhost:8000/users/1/avatar_1614872484071a5e712aa-aa8e-41d1-b0df-58a3250e2e3c.png",
   },
 ];
 
