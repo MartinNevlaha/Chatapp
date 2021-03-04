@@ -9,4 +9,4 @@ export {
 
 export { fetchUserProfile, updateUserProfile } from "./userProfile";
 
-export { fetchActiveUsers } from "./users";
+export { fetchActiveUsers, usersOnline, usersOffline } from "./users";

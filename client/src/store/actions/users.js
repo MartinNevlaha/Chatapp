@@ -39,3 +39,17 @@ export const fetchActiveUsers = () => {
       });
   };
 };
+
+export const usersOnline = (users) => {
+  return {
+    type: actionTypes.USERS_ONLINE,
+    users,
+  }
+}
+
+export const usersOffline = (user) => {
+  return {
+    type: actionTypes.USERS_OFFLINE,
+    user,
+  }
+}

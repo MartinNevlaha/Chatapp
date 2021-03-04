@@ -17,7 +17,7 @@ exports.getActiveUsers = async (req, res, next) => {
     }
     res.json({
       status: "ok",
-      message: "User successfully loaded",
+      message: "Users successfully loaded",
       users: users
     })
   } catch (error) {
