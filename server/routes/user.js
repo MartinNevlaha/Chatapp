@@ -3,7 +3,7 @@ const router = require("express").Router();
 const isAuth = require("../middleware/isAuth");
 const { validateResults } = require("../validators/");
 const { rules: updateRules } = require("../validators/user/update");
-const { userUpdate, userProfile } = require("../controllers/user");
+const { userUpdate, userProfile, sendFriendRequest } = require("../controllers/user");
 const { userFileUpload } = require("../middleware/fileUpload");
 
 router.get("/profile", isAuth, userProfile);
@@ -13,5 +13,7 @@ router.put(
   [isAuth, userFileUpload, updateRules, validateResults],
   userUpdate
 );
+
+router.put("/request", isAuth, sendFriendRequest);
 
 module.exports = router;

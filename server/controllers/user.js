@@ -1,5 +1,9 @@
 const brycpt = require("bcryptjs");
-const User = require("../models/").User;
+const models = require("../models")
+const { sequelize } = require("../models");
+const User = models.User;
+const FriendRequest = models.Friend_request;
+
 
 exports.userUpdate = async (req, res, next) => {
   const userId = req.user.userId;
@@ -98,6 +102,42 @@ exports.userProfile = async (req, res, next) => {
       message: "User profile info successfully fetched",
       user: user,
     });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
+
+exports.sendFriendRequest = async (req, res, next) => {
+  try {
+    if (req.user.userId !== req.body.requesteedId) {
+      const existRequest = await FriendRequest.findOne({
+        where: {
+          requester: req.user.userId,
+          recipient: req.body.requesteedId,
+        }
+      })
+      if (existRequest) {
+        const error = new Error("Friend request allready exist");
+        error.statusCode = 400;
+        return next(error);
+      }
+      await FriendRequest.create({
+        requester: req.user.userId,
+        recipient: req.body.requesteedId,
+        status: 0 //0 - for pending
+      })
+      res.json({
+        status: "ok",
+        message: "Request was send",
+      })
+    } else {
+      const error = new Error("Cannot send friend request to yourself");
+      error.statusCode = 400;
+      return next(error);
+    }
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
