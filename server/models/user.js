@@ -12,10 +12,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.User, {as: "friends", through: "User_friends", foreignKey: "userId"})
-      this.belongsToMany(models.User, {as: "userFriends", through: "User_friends", foreignKey: "friendId"})
-      this.belongsToMany(models.User, {as: "requesters", through: "Friend_request", foreignKey: "requester"})
-      this.belongsToMany(models.User, {as: "recipients", through: "Friend_request", foreignKey: "recipient"})
+      this.belongsToMany(this, {
+        as: "Sender",
+        through: "FriendRequest",
+        foreignKey: "senderId",
+      });
+      this.belongsToMany(this, {
+        as: "Recipients",
+        through: "FriendRequest",
+        foreignKey: "recipientId",
+      });
     }
   }
   User.init(
@@ -46,7 +52,6 @@ module.exports = (sequelize, DataTypes) => {
           }
         },
       },
-      status: DataTypes.STRING,
       activated: DataTypes.BOOLEAN,
       activationToken: DataTypes.STRING,
     },

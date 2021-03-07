@@ -2,11 +2,11 @@ const brycpt = require("bcryptjs");
 const models = require("../models")
 const { sequelize } = require("../models");
 const User = models.User;
-const FriendRequest = models.Friend_request;
+const FriendRequest = models.FriendRequest;
 
 
 exports.userUpdate = async (req, res, next) => {
-  const userId = req.user.userId;
+  const userId = req.user.id;
   if (req.file) {
     req.body.avatar = req.file.filename;
   }
@@ -84,14 +84,9 @@ exports.userUpdate = async (req, res, next) => {
 };
 
 exports.userProfile = async (req, res, next) => {
-  const userId = req.user.userId;
+  const user = req.user
 
   try {
-    const user = await User.findByPk(userId, {
-      attributes: {
-        exclude: ["password", "activationToken", "activated"],
-      },
-    });
     if (!user) {
       const error = new Error("Cant get user profile data");
       error.statusCode = 404;
@@ -112,11 +107,11 @@ exports.userProfile = async (req, res, next) => {
 
 exports.sendFriendRequest = async (req, res, next) => {
   try {
-    if (req.user.userId !== req.body.requesteedId) {
+    if (req.user.id !== req.body.recipientId) {
       const existRequest = await FriendRequest.findOne({
         where: {
-          requester: req.user.userId,
-          recipient: req.body.requesteedId,
+          senderId: req.user.id,
+          recipientId: req.body.recipientId,
         }
       })
       if (existRequest) {
@@ -125,8 +120,8 @@ exports.sendFriendRequest = async (req, res, next) => {
         return next(error);
       }
       await FriendRequest.create({
-        requester: req.user.userId,
-        recipient: req.body.requesteedId,
+        senderId: req.user.id,
+        recipientId: req.body.recipientId,
         status: 0 //0 - for pending
       })
       res.json({
@@ -139,6 +134,7 @@ exports.sendFriendRequest = async (req, res, next) => {
       return next(error);
     }
   } catch (error) {
+    console.log(error);
     if (error.statusCode) {
       error.statusCode = 500;
     }

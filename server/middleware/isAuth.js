@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/app");
+const User = require("../models").User;
 
-const isAuth = (req, res, next) => {
+const isAuth = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     if (!token) {
@@ -17,12 +18,16 @@ const isAuth = (req, res, next) => {
       }
       return user;
     });
-    req.user = {
-      userId: decodedToken.userId,
-      firstName: decodedToken.firstName,
-      lastName: decodedToken.lastName,
-      role: decodedToken.role,
-    };
+    const userReq = await User.findOne({
+      where: {
+        id: decodedToken.userId
+      },
+      attributes: {
+        exclude: ["password", "activationToken", "activated" ],
+      },
+    });
+    req.user = userReq;
+
     next();
   } catch (err) {
     const error = new Error("Authentification failed");
