@@ -1,25 +1,19 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('FriendRequests', {
+    await queryInterface.createTable('Statuses', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      senderId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      recipientId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      userId: {
+        type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
+        type: Sequelize.STRING,
+        defaultValue: "Please update your status"
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +26,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('FriendRequests');
+    await queryInterface.dropTable('Statuses');
   }
 };

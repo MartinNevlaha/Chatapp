@@ -20,10 +20,17 @@ const isAuth = async (req, res, next) => {
     });
     const userReq = await User.findOne({
       where: {
-        id: decodedToken.userId
+        id: decodedToken.userId,
       },
+      include: [
+        {
+          model: User,
+          as: "Recipients",
+          attributes: { exclude: ["password", "activationToken", "activated"] },
+        },
+      ],
       attributes: {
-        exclude: ["password", "activationToken", "activated" ],
+        exclude: ["password", "activationToken", "activated"],
       },
     });
     req.user = userReq;

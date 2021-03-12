@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "FriendRequest",
         foreignKey: "recipientId",
       });
+      this.hasMany(models.Status, { foreignKey: "userId" });
     }
   }
   User.init(

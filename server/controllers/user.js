@@ -122,7 +122,6 @@ exports.sendFriendRequest = async (req, res, next) => {
       await FriendRequest.create({
         senderId: req.user.id,
         recipientId: req.body.recipientId,
-        status: 0 //0 - for pending
       })
       res.json({
         status: "ok",

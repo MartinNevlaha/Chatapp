@@ -24,6 +24,17 @@ exports.userRegister = async (req, res, next) => {
       expiresIn: "1h",
     });
 
+    const activationEmail = await sendConfirmationMail(
+      req.body.firstName + " " + req.body.lastName,
+      email,
+      activationToken
+    );
+    if (!activationEmail) {
+      const error = new Error("Cant send activation email");
+      error.statusCode = 500;
+      return next(error);
+    }
+
     const user = await User.create({ ...req.body, activationToken });
 
     if (!user) {
@@ -32,16 +43,6 @@ exports.userRegister = async (req, res, next) => {
       return next(error);
     }
 
-    const activationEmail = await sendConfirmationMail(
-      user.fullName,
-      user.email,
-      user.activationToken
-    );
-    if (!activationEmail) {
-      const error = new Error("Cant send activation email");
-      error.statusCode = 500;
-      return next(error);
-    }
 
     res.status(201).json({
       status: "ok",
