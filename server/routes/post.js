@@ -11,4 +11,6 @@ router.post("/create", [isAuth, createPostRules, validateResults], createPost);
 
 router.put("/update/:postId", isAuth, updatePost);
 
+router.delete("/delete/:id", isAuth)
+
 module.exports = router;

@@ -34,7 +34,7 @@ exports.createPost = async (req, res, next) => {
       error.statusCode = 500;
       return next(error);
     }
-    res.json({
+    res.status(201).json({
       status: "Ok",
       message: "Post was successfully created",
       post: post,
@@ -50,18 +50,34 @@ exports.createPost = async (req, res, next) => {
 exports.updatePost = async (req, res, next) => {
   const postId = req.params.postId;
   try {
+    const post = await Post.findOne({
+      where: {
+        id: postId,
+        userId: req.user.id,
+      },
+    });
+    if (!post) {
+      const error = new Error(`Post with id ${postId} doesnt exists`);
+      error.statusCode = 404;
+      return next(error);
+    }
     const updatedPost = await Post.update(req.body, {
       where: {
-        id: postId
+        id: postId,
+        userId: req.user.id,
       },
-      returning: true
+      returning: true,
     });
-
+    if (!updatedPost) {
+      const error = new Error("Cant update selected post");
+      error.statusCode = 500;
+      return next(error);
+    }
     res.json({
       status: "Ok",
       message: "Post was successfully updated",
-      post: updatedPost[1]
-    })
+      post: updatedPost[1],
+    });
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
