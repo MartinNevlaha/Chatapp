@@ -1,9 +1,6 @@
 const brycpt = require("bcryptjs");
 const models = require("../models")
-const { sequelize } = require("../models");
 const User = models.User;
-const FriendRequest = models.FriendRequest;
-
 
 exports.userUpdate = async (req, res, next) => {
   const userId = req.user.id;
