@@ -46,3 +46,26 @@ exports.createPost = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.updatePost = async (req, res, next) => {
+  const postId = req.params.postId;
+  try {
+    const updatedPost = await Post.update(req.body, {
+      where: {
+        id: postId
+      },
+      returning: true
+    });
+
+    res.json({
+      status: "Ok",
+      message: "Post was successfully updated",
+      post: updatedPost[1]
+    })
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+      return next(error);
+    }
+  }
+};
