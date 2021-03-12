@@ -85,3 +85,34 @@ exports.updatePost = async (req, res, next) => {
     }
   }
 };
+
+exports.deletePost = async (req, res, next) => {
+  const postId = req.params.postId;
+  try {
+    const post = await Post.findOne({
+      where: {
+        id: postId,
+        userId: req.user.id,
+      },
+    });
+    if (!post) {
+      const error = new Error(`Post with id ${postId} doesnt exists`);
+      error.statusCode = 404;
+      return next(error);
+    }
+    await Post.destroy({
+      where: {
+        id: postId,
+      },
+    });
+    res.json({
+      status: "Ok",
+      message: "Post was successfully deleted",
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+      return next(error);
+    }
+  }
+};
