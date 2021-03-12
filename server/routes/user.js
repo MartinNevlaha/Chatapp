@@ -5,11 +5,10 @@ const { validateResults } = require("../validators/");
 const { rules: updateRules } = require("../validators/user/update");
 const {
   rules: sendFriendRequestRules,
-} = require("../validators/user/sendFriendRequest");
+} = require("../validators/friendRequest/sendFriendRequest");
 const {
   userUpdate,
   userProfile,
-  sendFriendRequest,
 } = require("../controllers/user");
 const { userFileUpload } = require("../middleware/fileUpload");
 
@@ -19,12 +18,6 @@ router.put(
   "/update",
   [isAuth, userFileUpload, updateRules, validateResults],
   userUpdate
-);
-
-router.put(
-  "/request",
-  [isAuth, sendFriendRequestRules, validateResults],
-  sendFriendRequest
 );
 
 module.exports = router;
