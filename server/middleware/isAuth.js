@@ -22,13 +22,6 @@ const isAuth = async (req, res, next) => {
       where: {
         id: decodedToken.userId,
       },
-      include: [
-        {
-          model: User,
-          as: "Recipients",
-          attributes: { exclude: ["password", "activationToken", "activated"] },
-        },
-      ],
       attributes: {
         exclude: ["password", "activationToken", "activated"],
       },

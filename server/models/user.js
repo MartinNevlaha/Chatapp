@@ -12,17 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(this, {
-        as: "Sender",
-        through: "FriendRequest",
-        foreignKey: "senderId",
-      });
-      this.belongsToMany(this, {
-        as: "Recipients",
-        through: "FriendRequest",
-        foreignKey: "recipientId",
-      });
-      this.hasMany(models.Status, { foreignKey: "userId" });
+
     }
   }
   User.init(
