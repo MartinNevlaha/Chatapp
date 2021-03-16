@@ -53,7 +53,7 @@ exports.getPendingFriendRequest = async (req, res, next) => {
     res.json({
       status: "Ok",
       message: "Fetch list of request successfully",
-      request: friendRequest[0].User,
+      request: friendRequest[0] ? friendRequest[0].User : null,
     });
   } catch (error) {
     if (error.statusCode) {
