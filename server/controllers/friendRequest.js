@@ -63,9 +63,31 @@ exports.getPendingFriendRequest = async (req, res, next) => {
   }
 };
 
-exports.answerFriendShipRequest = async (req, res, next) => {
+exports.answerFriendshipRequest = async (req, res, next) => {
+  const requestId = req.params.requestId;
   try {
-    
+    const friendship = await Friendship.findByPk(requestId);
+    if (!friendship) {
+      const error = new Error(`Request with id ${requestId} doesnt exists`);
+      error.statusCode = 404;
+      return next(error);
+    }
+    const updatedFriendship = await Friendship.update({status: req.body.answer}, {
+      where: {
+        id: requestId
+      },
+      returnig: true
+    })
+    if (!updatedFriendship) {
+      const error = new Error("Cant response to friendship request")
+      error.statusCode = 500;
+      return next(error);
+    }
+    res.json({
+      status: "Ok",
+      message: "Response to friendship request was save",
+      answer: updatedFriendship
+    })
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
