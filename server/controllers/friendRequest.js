@@ -76,7 +76,7 @@ exports.answerFriendshipRequest = async (req, res, next) => {
       where: {
         id: requestId
       },
-      returnig: true
+      returning: true
     })
     if (!updatedFriendship) {
       const error = new Error("Cant response to friendship request")
