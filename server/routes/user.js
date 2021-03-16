@@ -4,9 +4,6 @@ const isAuth = require("../middleware/isAuth");
 const { validateResults } = require("../validators/");
 const { rules: updateRules } = require("../validators/user/update");
 const {
-  rules: sendFriendRequestRules,
-} = require("../validators/friendRequest/sendFriendRequest");
-const {
   userUpdate,
   userProfile,
 } = require("../controllers/user");
