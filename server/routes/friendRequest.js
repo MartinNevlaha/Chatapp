@@ -1,11 +1,14 @@
 const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
+
 const {
   sendFriendRequest,
   getPendingFriendRequest,
 } = require("../controllers/friendRequest");
+
 const { validateResults } = require("../validators/");
+
 const {
   rules: sendFriendRequestRules,
 } = require("../validators/friendRequest/friendRequest");
@@ -17,5 +20,8 @@ router.post(
   [isAuth, sendFriendRequestRules, validateResults],
   sendFriendRequest
 );
+
+router.put("/", [isAuth])
+
 
 module.exports = router;
