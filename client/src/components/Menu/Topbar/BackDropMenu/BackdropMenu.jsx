@@ -56,7 +56,7 @@ const BackDropMenu = ({ avatar, requests }) => {
   return (
     <React.Fragment>
       <div className={classes.account_icon_wrapper} onClick={handleClick}>
-        {requests && (
+        {requests.length != 0 && (
           <div className={classes.account_icon_wrapper_requests}>
             <p>{requests.length}</p>
           </div>
