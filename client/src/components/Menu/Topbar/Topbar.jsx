@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import {useSelector} from "react-redux";
 
@@ -31,7 +31,7 @@ const Topbar = (props) => {
         </div>
       </div>
       <div className={classes.topbar_right}>
-        <p>Welcome {fullName}</p>
+        <p>{fullName}</p>
         <BackDropMenu avatar={avatar} />
       </div>
     </div>

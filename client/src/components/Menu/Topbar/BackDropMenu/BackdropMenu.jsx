@@ -56,6 +56,9 @@ const BackDropMenu = ({ avatar }) => {
   return (
     <React.Fragment>
       <div className={classes.account_icon_wrapper} onClick={handleClick}>
+        <div className={classes.account_icon_wrapper_requests}>
+          <p>2</p>
+        </div>
         {avatar ? (
           <img src={avatar} alt="avatar" />
         ) : (

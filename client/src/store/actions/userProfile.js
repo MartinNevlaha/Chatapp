@@ -22,8 +22,7 @@ export const fetchUserDataFailed = () => {
 };
 
 export const fetchUserProfile = () => {
-  return (dispatch, getState) => {
-    const token = getState().userAuth.token;
+  return (dispatch) => {
     dispatch(fetchUserProfileStart());
     axios
       .get("/api/user/profile")
