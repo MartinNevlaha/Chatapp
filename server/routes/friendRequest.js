@@ -5,14 +5,17 @@ const isAuth = require("../middleware/isAuth");
 const {
   sendFriendRequest,
   getPendingFriendRequest,
-  answerFriendshipRequest
+  answerFriendshipRequest,
+  deleteFriendShip
 } = require("../controllers/friendRequest");
 
 const { validateResults } = require("../validators/");
-
 const {
   rules: sendFriendRequestRules,
 } = require("../validators/friendRequest/friendRequest");
+const {
+  rules: answerFriendRequestRules,
+} = require("../validators/friendRequest/answerRequest");
 
 router.get("/", isAuth, getPendingFriendRequest);
 
@@ -22,7 +25,12 @@ router.post(
   sendFriendRequest
 );
 
-router.put("/", [isAuth], answerFriendshipRequest);
+router.put(
+  "/:requestId",
+  [isAuth, answerFriendRequestRules, validateResults],
+  answerFriendshipRequest
+);
 
+router.delete("/:requestId", isAuth, deleteFriendShip);
 
 module.exports = router;
