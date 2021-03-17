@@ -5,6 +5,7 @@ import Flags from "country-flag-icons/react/1x1";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
+  faUsers,
   faUserCircle,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -80,6 +81,13 @@ const BackDropMenu = ({ avatar, requests }) => {
         }
       >
         <ul className={classes.backDropMenu_items}>
+          <NavItem
+            link="/all-requests"
+            close={handleCloseOnLinkClick}
+            icon={faUsers}
+          >
+            Friend requests
+          </NavItem>
           <NavItem
             icon={faUserCircle}
             link="/update-profile"
