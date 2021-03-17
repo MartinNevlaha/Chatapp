@@ -11,6 +11,7 @@ const Topbar = (props) => {
   const { t } = useTranslation();
   const fullName = useSelector(state => state.userProfile.user.fullName);
   const avatar = useSelector(state => state.userProfile.user.avatar);
+  const friendRequests = useSelector(state => state.friendRequest.requests);
 
   return (
     <div className={classes.topbar}>
@@ -32,7 +33,7 @@ const Topbar = (props) => {
       </div>
       <div className={classes.topbar_right}>
         <p>{fullName}</p>
-        <BackDropMenu avatar={avatar} />
+        <BackDropMenu avatar={avatar} requests={friendRequests}/>
       </div>
     </div>
   );

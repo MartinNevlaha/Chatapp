@@ -14,7 +14,7 @@ import * as action from "../../../../store/actions/";
 import classes from "./BackDropMenu.module.scss";
 import NavItem from "../../NavItem/NavItem";
 
-const BackDropMenu = ({ avatar }) => {
+const BackDropMenu = ({ avatar, requests }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { t } = useTranslation();
   const menuRef = useRef(null);
@@ -36,7 +36,7 @@ const BackDropMenu = ({ avatar }) => {
 
   const handleCloseOnLinkClick = () => {
     setOpenMenu(false);
-  }
+  };
 
   const handleClick = () => {
     setOpenMenu(true);
@@ -56,9 +56,11 @@ const BackDropMenu = ({ avatar }) => {
   return (
     <React.Fragment>
       <div className={classes.account_icon_wrapper} onClick={handleClick}>
-        <div className={classes.account_icon_wrapper_requests}>
-          <p>2</p>
-        </div>
+        {requests && (
+          <div className={classes.account_icon_wrapper_requests}>
+            <p>{requests.length}</p>
+          </div>
+        )}
         {avatar ? (
           <img src={avatar} alt="avatar" />
         ) : (
