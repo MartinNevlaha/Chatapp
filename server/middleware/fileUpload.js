@@ -8,8 +8,8 @@ exports.userFileUpload = ((req, res, next) => {
  
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      const { userId } = req.user;
-      const dest = `uploads/users/${userId}`;
+      const { id } = req.user;
+      const dest = `uploads/users/${id}`;
 
       fs.access(dest, (error) => {
         //folder doesnt exists
