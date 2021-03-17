@@ -27,7 +27,6 @@ export const fetchFriendRequest = () => {
     axios
       .get("/api/friendship")
       .then((res) => {
-        console.log(res.data.requests);
         dispatch(fetchFriendRequestSuccess(res.data.requests));
       })
       .catch((err) => {
