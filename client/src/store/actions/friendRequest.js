@@ -35,3 +35,36 @@ export const fetchFriendRequest = () => {
       });
   };
 };
+
+export const answerFriendRequestStart = () => {
+  return {
+    type: actionTypes.ANSWER_FRIEND_REQUEST_START,
+  };
+};
+
+export const answerFriendRequestSuccess = (requestId) => {
+  return {
+    type: actionTypes.ANSWER_FRIEND_REQUEST_SUCCESS,
+    requestId,
+  };
+};
+
+export const answerFriendRequestFailed = () => {
+  return {
+    type: actionTypes.ANSWER_FRIEND_REQUEST_FAILED,
+  };
+};
+
+export const answerFriendRequest = (requestId, answer) => {
+  return dispatch => {
+    dispatch(answerFriendRequestStart());
+    axios.put(`/api/friendship/${requestId}`, answer)
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => {
+      dispatch(answerFriendRequestFailed());
+      dispatch(errorCreator(err.response));
+    })
+  }
+}

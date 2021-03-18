@@ -21,6 +21,25 @@ const fetchFriendRequestFailled = (state, action) => {
   return updateObj(state, { loading: false });
 };
 
+const answerFriendRequestStart = (state, action) => {
+  return updateObj(state, { loading: true });
+};
+
+const answerFriendRequestSuccess = (state, action) => {
+  const oldState = [...state.requests];
+  const updatedState = oldState.filter(
+    (request) => request.id !== action.requestId
+  );
+  return updateObj(state, {
+    loading: false,
+    requests: updatedState,
+  });
+};
+
+const answerFriendRequestFailed = (state, action) => {
+  return updateObj(state, { loading: false });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_FRIEND_REQUEST_START:
@@ -29,6 +48,12 @@ const reducer = (state = initialState, action) => {
       return fetchFriendRequestSuccess(state, action);
     case actionTypes.FETCH_FRIEND_REQUEST_FAILED:
       return fetchFriendRequestFailled(state, action);
+    case actionTypes.ANSWER_FRIEND_REQUEST_START:
+      return answerFriendRequestStart(state, action);
+    case actionTypes.ANSWER_FRIEND_REQUEST_SUCCESS:
+      return answerFriendRequestSuccess(state, action);
+    case actionTypes.ANSWER_FRIEND_REQUEST_FAILED:
+      return answerFriendRequestFailed(state, action);
     default:
       return state;
   }
