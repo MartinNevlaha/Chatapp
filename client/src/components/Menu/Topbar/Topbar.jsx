@@ -32,7 +32,7 @@ const Topbar = (props) => {
         </div>
       </div>
       <div className={classes.topbar_right}>
-        <p>{fullName}</p>
+        <p className={classes.topbar_right_name}>{fullName}</p>
         <BackDropMenu avatar={avatar} requests={friendRequests}/>
       </div>
     </div>

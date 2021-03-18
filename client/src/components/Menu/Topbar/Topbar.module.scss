@@ -81,6 +81,12 @@
       margin: 1.5rem;
       position: relative;
     }
+    @media screen and (max-width: 580px) {
+      &_name {
+        display: none;
+      }
+    }
+    
   }
 }
 
