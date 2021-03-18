@@ -15,6 +15,7 @@ const Login = lazy(() => import("./containers/Login"));
 const Dashboard = lazy(() => import("./containers/Dashboard"));
 const UserUpdate = lazy(() => import("./containers/UserUpdate"));
 const EmailActivation = lazy(() => import("./containers/EmailActivation"));
+const FriendRequest = lazy(() => import("./containers/FriendRequest"));
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
   let routes = (
     <Suspense fallback={<Spinner />}>
       <Switch>
+        <ProtectedRoute path="/friend-requests" component={FriendRequest} />
         <ProtectedRoute path="/update-profile" component={UserUpdate} />
         <ProtectedRoute path="/" exact component={Dashboard} />
         <Route path="/activation/:token" component={EmailActivation} />

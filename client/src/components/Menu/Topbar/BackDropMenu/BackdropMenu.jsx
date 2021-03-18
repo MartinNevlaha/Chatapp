@@ -57,7 +57,7 @@ const BackDropMenu = ({ avatar, requests }) => {
   return (
     <React.Fragment>
       <div className={classes.account_icon_wrapper} onClick={handleClick}>
-        {requests.length != 0 && (
+        {requests.length !== 0 && (
           <div className={classes.account_icon_wrapper_requests}>
             <p>{requests.length}</p>
           </div>
@@ -82,15 +82,17 @@ const BackDropMenu = ({ avatar, requests }) => {
       >
         <ul className={classes.backDropMenu_items}>
           <NavItem
-            link="/all-requests"
+            link="/friend-requests"
             close={handleCloseOnLinkClick}
             icon={faUsers}
           >
             <div className={classes.backDropMenu_items_requests}>
               Friend requests
-              <div className={classes.backDropMenu_items_requests_number}>
-                {requests.length}
-              </div>
+              {requests.length !== 0 && (
+                <div className={classes.backDropMenu_items_requests_number}>
+                  {requests.length}
+                </div>
+              )}
             </div>
           </NavItem>
           <NavItem
