@@ -11,4 +11,40 @@
     font-weight: bold;
     margin: 1.5rem;
   }
+  &_request {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    @include flexbox(center, center, column);
+
+    &_container {
+      width: 100%;
+      height: auto;
+      margin: .5rem;
+      padding: .5rem;
+      @include flexbox(space-around, center, row);
+      cursor: pointer;
+
+      &:hover, &:active {
+        background-color: darken(get-color(shadow), 55%);
+        border-radius: 4px;
+      }
+      
+      &_avatar {
+        img {
+          @include avatar-big;
+        }
+      }
+      &_info {
+        h3 {
+          font-size: get-font-size(medium);
+          font-weight: bold;
+          padding: .5rem;
+        }
+        p {
+          font-size: get-font-size(small);
+          font-style: italic;
+        }
+      }
+    }
+  }
 }

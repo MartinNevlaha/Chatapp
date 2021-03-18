@@ -19,10 +19,12 @@ const FriendRequests = ({ pendingRequests }) => {
             >
               <div
                 className={classes.friendRequest_request_container_avatar}
-              ></div>
+              >
+                <img src={request.User.avatar} alt="avatar"/>
+              </div>
               <div className={classes.friendRequest_request_container_info}>
                 <h3>{request.User.fullName}</h3>
-                <p>Created: {parseDateTime(request.createdAt)}</p>
+                <p>Request was send: {parseDateTime(request.createdAt)}</p>
               </div>
               <div className={classes.friendRequest_request_container_button}>
                 <Button type="button" danger={true} >Reject</Button>
