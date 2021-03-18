@@ -86,7 +86,12 @@ const BackDropMenu = ({ avatar, requests }) => {
             close={handleCloseOnLinkClick}
             icon={faUsers}
           >
-            Friend requests
+            <div className={classes.backDropMenu_items_requests}>
+              Friend requests
+              <div className={classes.backDropMenu_items_requests_number}>
+                {requests.length}
+              </div>
+            </div>
           </NavItem>
           <NavItem
             icon={faUserCircle}

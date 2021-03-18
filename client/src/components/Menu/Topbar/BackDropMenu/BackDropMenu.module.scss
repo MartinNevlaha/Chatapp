@@ -17,6 +17,16 @@
 
   &_items {
     text-align: left;
+
+    &_requests {
+      @include flexbox(flex-start, center, row);
+
+      &_number {
+        @extend %oval;
+        @include flexbox(center, center, row);
+        margin-left: 1rem;
+      }
+    }
   }
 
   li {
@@ -60,13 +70,7 @@
 
   &_requests {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    top: -2px;
-    right: 0px;
-    background-color: red;
-    border-radius: 50%;
-    @include flexbox(center, center, row);
+    @extend %oval;
 
     p {
       font-size: get-font-size(small);
@@ -108,4 +112,14 @@
   to {
     opacity: 1;
   }
+}
+
+%oval {
+  width: 20px;
+  height: 20px;
+  top: -2px;
+  right: 0px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
 }
