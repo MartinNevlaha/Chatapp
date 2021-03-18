@@ -19,4 +19,12 @@
   }
 }
 
+.danger {
+  background-color: get-color(danger);
+  &:hover, &:active {
+    background-color: darken(get-color(danger), 10%);
+    animation: pulse .8s infinite;
+  }
+}
+
 @include pulse;

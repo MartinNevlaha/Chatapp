@@ -1,0 +1,14 @@
+@import "../../style/imports.scss";
+
+.friendRequest {
+  width: 80%;
+  height: 100%;
+  &_header {
+    border-bottom: 1px solid get-color(text);
+  }
+  h2 {
+    font-size: get-font-size(large);
+    font-weight: bold;
+    margin: 1.5rem;
+  }
+}
