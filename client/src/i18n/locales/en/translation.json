@@ -10,7 +10,7 @@
   "sideDrawer" : {
     "title": "Main menu",
     "dashboard": "Dashboard",
-    "addJobOffer": "Add job offer",
+    "friendsList": "Friends list",
     "showJobOffer": "Show jobs offer",
     "schedule": "Schedule an interview",
     "calendar": "Interviews calendar",
