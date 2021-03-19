@@ -12,6 +12,9 @@
     background-color: get-color(primary);
     color: white;
     font-size: get-font-size(medium);
+    h2 {
+      padding: 1rem;
+    }
   }
 
   &_content {
