@@ -15,7 +15,6 @@ const SocketServer = (server) => {
 
   io.on("connection", (socket) => {
     socket.on("join", (user) => {
-
       if (users.has(user.id)) {
         return;
       } else {

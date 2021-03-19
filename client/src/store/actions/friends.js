@@ -43,3 +43,17 @@ export const fetchFriends = () => {
     })
   }
 }
+
+export const usersOnline = (friends) => {
+  return {
+    type: actionTypes.FRIEND_ONLINE,
+    friends,
+  }
+}
+
+export const usersOffline = (friend) => {
+  return {
+    type: actionTypes.FRIEND_OFFLINE,
+    friend,
+  }
+}
