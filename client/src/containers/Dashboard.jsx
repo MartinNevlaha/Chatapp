@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import * as action from "../store/actions/";
-import useSocket from "../hooks/socketConnect";
-import AllUsers from "../components/AllUsers/AllUsers";
+
+
 
 const Dasboard = () => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userAuth.user.userId);
-  const users = useSelector((state) => state.users.users);
 
   useEffect(() => {
     dispatch(action.fetchUserProfile());
@@ -16,7 +14,6 @@ const Dasboard = () => {
     dispatch(action.fetchFriendRequest());
   }, [dispatch]);
 
-  useSocket(userId, dispatch);
 
   return (
     <div
@@ -29,7 +26,7 @@ const Dasboard = () => {
         flexWrap: "wrap",
       }}
     >
-      <AllUsers users={users} />
+      ...Dashboard
     </div>
   );
 };
