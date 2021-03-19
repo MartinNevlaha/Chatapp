@@ -4,7 +4,7 @@ import classes from "./FriendRequest.module.scss";
 import Button from "../UI/Button/Button";
 import { parseDateTime } from "../../utils/utilities";
 
-const FriendRequests = ({ pendingRequests }) => {
+const FriendRequests = ({pendingRequests, handleFriendRequest}) => {
   return (
     <div className={classes.friendRequest}>
       <div className={classes.friendRequest_header}>
@@ -27,8 +27,8 @@ const FriendRequests = ({ pendingRequests }) => {
                 <p>Request was send: {parseDateTime(request.createdAt)}</p>
               </div>
               <div className={classes.friendRequest_request_container_button}>
-                <Button type="button" danger={true} >Reject</Button>
-                <Button type="button" >Accept</Button>
+                <Button type="button" danger={true} clicked={() => handleFriendRequest(request.id, 2)}>Reject</Button>
+                <Button type="button" clicked={() => handleFriendRequest(request.id, 1)}>Accept</Button>
               </div>
             </div>
           );

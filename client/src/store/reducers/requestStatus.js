@@ -15,7 +15,6 @@ const hideError = (state, action) => {
 };
 
 const successCreated = (state, action) => {
-  console.log(action.message)
   return updateObj(state, { success: action.message });
 };
 

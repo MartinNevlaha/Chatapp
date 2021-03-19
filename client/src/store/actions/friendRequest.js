@@ -60,7 +60,8 @@ export const answerFriendRequest = (requestId, answer) => {
     dispatch(answerFriendRequestStart());
     axios.put(`/api/friendship/${requestId}`, answer)
     .then(res => {
-      console.log(res.data);
+      dispatch(successCreator(res.data.message));
+      dispatch(answerFriendRequestSuccess(res.data.answer.id));
     })
     .catch(err => {
       dispatch(answerFriendRequestFailed());

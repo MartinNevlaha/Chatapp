@@ -79,6 +79,7 @@ exports.answerFriendshipRequest = async (req, res, next) => {
           id: requestId,
         },
         returning: true,
+        raw: true
       }
     );
     if (!updatedFriendship) {
@@ -86,10 +87,18 @@ exports.answerFriendshipRequest = async (req, res, next) => {
       error.statusCode = 500;
       return next(error);
     }
+
+    let message;
+    if (req.body.answer === "1") {
+      message = "Friend request was accepted"
+    } else if (req.body.answer === "2") {
+      message = "Friend request was rejected"
+    }
+    
     res.json({
       status: "Ok",
-      message: "Response to friendship request was save",
-      answer: updatedFriendship[1],
+      message,
+      answer: updatedFriendship[1][0],
     });
   } catch (error) {
     if (error.statusCode) {

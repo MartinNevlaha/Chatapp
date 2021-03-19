@@ -1,10 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import * as action from "../store/actions";
 import FriendRequestComponent from "../components/FriendRequest/FriendRequests";
 
 const FriendRequest = () => {
-  const requests = useSelector(state => state.friendRequest.requests);
+  const dispatch = useDispatch();
+  const requests = useSelector((state) => state.friendRequest.requests);
+
+  const handleFriendRequest = (requestId, decision) => {
+    const answer = {
+      answer: decision
+    }
+    dispatch(action.answerFriendRequest(requestId, answer))
+  }
 
   return (
     <div
@@ -17,7 +26,10 @@ const FriendRequest = () => {
         flexWrap: "wrap",
       }}
     >
-      <FriendRequestComponent pendingRequests={requests} />
+      <FriendRequestComponent
+        pendingRequests={requests}
+        handleFriendRequest={handleFriendRequest}
+      />
     </div>
   );
 };
