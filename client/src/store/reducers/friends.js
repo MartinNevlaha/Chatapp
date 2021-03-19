@@ -40,7 +40,7 @@ const friendsOnline = (state, action) => {
   return updateObj(state, { friends: updateFriendship });
 };
 
-const userOffline = (state, action) => {
+const friendOffline = (state, action) => {
   const index = state.friends.findIndex(
     (friendship) => (friendship.id = action.friend)
   );
@@ -64,6 +64,10 @@ const reducer = (state = initialState, action) => {
       return fetchFriendsSuccess(state, action);
     case actionTypes.FETCH_FRIENDS_FAILED:
       return fetchFriendsFailed(state, action);
+    case actionTypes.FRIEND_ONLINE:
+      return friendsOnline(state, action);
+    case actionTypes.FRIEND_OFFLINE:
+      return friendOffline(state, action);
     default:
       return state;
   }
