@@ -10,7 +10,6 @@ const Dasboard = () => {
 
   useEffect(() => {
     dispatch(action.fetchUserProfile());
-    dispatch(action.fetchActiveUsers());
     dispatch(action.fetchFriendRequest());
   }, [dispatch]);
 

@@ -34,7 +34,7 @@ export const fetchActiveUsers = () => {
         dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
-        dispatch(errorCreator(err));
+        dispatch(errorCreator(err.response));
         dispatch(fetchActiveUsersFailed());
       });
   };

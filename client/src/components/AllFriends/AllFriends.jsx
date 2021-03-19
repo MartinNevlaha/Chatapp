@@ -4,26 +4,25 @@ import classes from "./AllFriends.module.scss";
 import Spinner from "../UI/Spinner/Spinner";
 
 
-const AllFriends = ({friends}) => {
+const AllFriends = ({friends, loading}) => {
 
-  const friendsContent = friends.map((friend) => {
+  const friendsContent = friends.map((friendship) => {
     return (
-      <div key={friend.id} className={classes.friend_container}>
+      <div key={friendship.id} className={classes.friend_container}>
         <div className={classes.friend_container_avatar}>
-          <img src={friend.avatar} alt="avatar" />
+          <img src={friendship.friend.avatar} alt="avatar" />
         </div>
         <div className={classes.friend_container_info}>
           <div className={classes.friend_container_info_indicator}>
-            <p>{friend.fullName}</p>
+            <p>{friendship.friend.fullName}</p>
             <span
               className={
-                !friend.online
+                !friendship.friend.online
                   ? classes.dot
                   : [classes.dot, classes.online].join(" ")
               }
             ></span>
           </div>
-          <p className={classes.friend_container_info_status}>Status: {friend.status}</p>
         </div>
       </div>
     );

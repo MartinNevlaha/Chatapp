@@ -14,7 +14,7 @@ import Spinner from "./components/UI/Spinner/Spinner";
 const Login = lazy(() => import("./containers/Login"));
 const Dashboard = lazy(() => import("./containers/Dashboard"));
 const UserUpdate = lazy(() => import("./containers/UserUpdate"));
-//const FriendsList = lazy(() => import("./containers/FriendsList"));
+const FriendsList = lazy(() => import("./containers/FriendsList"));
 const EmailActivation = lazy(() => import("./containers/EmailActivation"));
 const FriendRequest = lazy(() => import("./containers/FriendRequest"));
 
@@ -33,7 +33,7 @@ function App() {
   let routes = (
     <Suspense fallback={<Spinner />}>
       <Switch>
-          {/*<ProtectedRoute path="/friends-list" component={FriendsList} />*/}
+        <ProtectedRoute path="/friends-list" component={FriendsList} />
         <ProtectedRoute path="/friend-requests" component={FriendRequest} />
         <ProtectedRoute path="/update-profile" component={UserUpdate} />
         <ProtectedRoute path="/" exact component={Dashboard} />
