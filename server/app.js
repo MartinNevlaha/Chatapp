@@ -12,6 +12,7 @@ const SocketServer = require("./socket");
 const logger = require("./config/winston");
 const config = require("./config/app");
 const { cleanUpInactiveUsers } = require("./jobs/cleanUpInactiveUsers");
+const { clearRejectedRequest } = require("./jobs/clearRejectedReqest");
 
 const app = express();
 
@@ -50,9 +51,10 @@ app.use((error, req, res, next) => {
   res.json({ message: message, data: data });
 });
 
-
 //run clean up database inactive users every day at 2:30 AM
 cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());
+//run clear rejected friend request every 1st day of month at 00:00
+cron.schedule("0 0 1 * *", () => clearRejectedRequest());
 
 const server = http.createServer(app);
 SocketServer(server);
