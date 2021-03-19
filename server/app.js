@@ -31,6 +31,7 @@ app.use("/api/user/", require("./routes/user"));
 app.use("/api/users/", require("./routes/users"));
 app.use("/api/posts/", require("./routes/post"));
 app.use("/api/friendship/", require("./routes/friendRequest"));
+app.use("/api/friends", require("./routes/friends"));
 
 app.use(express.static(path.join(__dirname, "uploads")));
 
