@@ -36,6 +36,7 @@ app.use("/api/friends", require("./routes/friends"));
 app.use(express.static(path.join(__dirname, "uploads")));
 
 //Error handler
+
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
@@ -48,6 +49,7 @@ app.use((error, req, res, next) => {
   res.status(status);
   res.json({ message: message, data: data });
 });
+
 
 //run clean up database inactive users every day at 2:30 AM
 cron.schedule("30 2 * * *", () => cleanUpInactiveUsers());

@@ -1,5 +1,7 @@
-const User = require("../models").User;
-const Friendship = require("../models").Friendship;
+const models = require("../models");
+const { sequelize } = require("../models");
+const User = models.User;
+const Friendship = models.Friendship;
 
 exports.sendFriendRequest = async (req, res, next) => {
   try {
@@ -50,6 +52,11 @@ exports.getPendingFriendRequest = async (req, res, next) => {
         },
       },
     });
+    if (!friendRequest) {
+      const error = new Error("Cant find any friend requests");
+      error.statusCode = 404;
+      return next(error);
+    }
     res.json({
       status: "Ok",
       message: "Fetch list of request successfully",
@@ -66,12 +73,19 @@ exports.getPendingFriendRequest = async (req, res, next) => {
 exports.answerFriendshipRequest = async (req, res, next) => {
   const requestId = req.params.requestId;
   try {
-    const friendship = await Friendship.findByPk(requestId);
+    const friendship = await Friendship.findByPk(requestId, { raw: true });
     if (!friendship) {
       const error = new Error(`Request with id ${requestId} doesnt exists`);
       error.statusCode = 404;
       return next(error);
     }
+    if (req.user.id === friendship.userId) {
+      const error = new Error("You are not friend request recipient");
+      error.statusCode = 409;
+      return next(error);
+    }
+    const t = await sequelize.transaction();
+
     const updatedFriendship = await Friendship.update(
       { status: req.body.answer },
       {
@@ -79,22 +93,44 @@ exports.answerFriendshipRequest = async (req, res, next) => {
           id: requestId,
         },
         returning: true,
-        raw: true
-      }
+        raw: true,
+      },
+      { transaction: t }
     );
     if (!updatedFriendship) {
       const error = new Error("Cant response to friendship request");
       error.statusCode = 500;
       return next(error);
     }
-
+    const boothsideExist = await Friendship.findOne({
+      where: {
+        userId: friendship.friendId,
+        friendId: friendship.userId,
+      },
+    });
+    if (!boothsideExist) {
+      const reverseFriendShip = await Friendship.create(
+        {
+          userId: friendship.friendId,
+          friendId: friendship.userId,
+          status: req.body.answer,
+        },
+        { transaction: t }
+      );
+      if (!reverseFriendShip) {
+        const error = new Error("Cant response to friendship request");
+        error.statusCode = 500;
+        return next(error);
+      }
+    }
+    await t.commit();
     let message;
     if (req.body.answer === "1") {
-      message = "Friend request was accepted"
+      message = "Friend request was accepted";
     } else if (req.body.answer === "2") {
-      message = "Friend request was rejected"
+      message = "Friend request was rejected";
     }
-    
+
     res.json({
       status: "Ok",
       message,
@@ -111,20 +147,25 @@ exports.answerFriendshipRequest = async (req, res, next) => {
 exports.deleteFriendShip = async (req, res, next) => {
   const requestId = req.params.requestId;
   try {
-    const friendship = await Friendship.findOne({
-      where: {
-        id: requestId,
-      },
-    });
+    const friendship = await Friendship.findByPk(requestId, { raw: true });
     if (!friendship) {
       const error = new Error("Friendship request doesnt exist");
       error.statusCode = 404;
       return next(error);
     }
-    await Friendship.destroy({
+    const reverseFriendship = await Friendship.findOne({
       where: {
-        id: requestId,
+        userId: friendship.friendId,
+        friendId: friendship.userId,
       },
+      raw: true,
+    });
+    let arrayOfId = [requestId];
+    if (reverseFriendship) {
+      arrayOfId.push(reverseFriendship.id);
+    }
+    await Friendship.destroy({
+      where: { id: arrayOfId },
     });
     res.json({
       status: "Ok",
