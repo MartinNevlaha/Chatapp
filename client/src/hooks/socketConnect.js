@@ -10,10 +10,10 @@ const useSocket = (userId, dispatch) => {
     socket.emit("join", userId);
 
     socket.on("onlineUsers", (onlineUsers) =>
-      dispatch(action.usersOnline(onlineUsers))
+      dispatch(action.friendsOnline(onlineUsers))
     );
 
-    socket.on("offline", (user) => dispatch(action.usersOffline(user)));
+    socket.on("offline", (user) => dispatch(action.friendOffline(user)));
   }, [dispatch]);
 };
 

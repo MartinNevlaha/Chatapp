@@ -15,6 +15,12 @@ module.exports = {
       text: {
         type: Sequelize.STRING
       },
+      like: {
+        type: Sequelize.INTEGER
+      },
+      unlike: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

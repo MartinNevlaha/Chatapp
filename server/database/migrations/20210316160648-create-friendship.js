@@ -8,15 +8,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER
+      user_1: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      friendId: {
-        type: Sequelize.INTEGER
+      user_2: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       status: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        allowNull: false,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,

@@ -13,4 +13,4 @@ export { fetchActiveUsers } from "./users";
 
 export { fetchFriendRequest, answerFriendRequest } from "./friendRequest";
 
-export { fetchFriends } from "./friends";
+export { fetchFriends, friendsOnline, friendOffline } from "./friends";

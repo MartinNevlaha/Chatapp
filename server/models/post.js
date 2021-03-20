@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       text: DataTypes.STRING,
+      like: DataTypes.INTEGER,
+      unline: DataTypes.INTEGER
     },
     {
       sequelize,

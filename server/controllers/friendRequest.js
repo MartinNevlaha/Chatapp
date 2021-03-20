@@ -1,15 +1,21 @@
+const { Op } = require("sequelize");
 const models = require("../models");
 const { sequelize } = require("../models");
-const User = models.User;
-const Friendship = models.Friendship;
+const { User, Friendship } = models;
 
 exports.sendFriendRequest = async (req, res, next) => {
   try {
     if (req.user.id !== +req.body.friendId) {
       const existRequest = await Friendship.findOne({
         where: {
-          userId: req.user.id,
-          friendId: req.body.friendId,
+          [Op.or]: [{
+            user_1: req.user.id,
+            user_2: req.body.friendId,
+          },
+          {
+            user_2: req.user.id,
+            user_1: req.body.friendId,
+          }]
         },
       });
       if (existRequest) {
@@ -18,8 +24,8 @@ exports.sendFriendRequest = async (req, res, next) => {
         return next(error);
       }
       await Friendship.create({
-        userId: req.user.id,
-        friendId: req.body.friendId,
+        user_1: req.user.id,
+        user_2: req.body.friendId,
       });
       res.status(201).json({
         status: "Ok",

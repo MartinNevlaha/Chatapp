@@ -44,14 +44,14 @@ export const fetchFriends = () => {
   }
 }
 
-export const usersOnline = (friends) => {
+export const friendsOnline = (friends) => {
   return {
     type: actionTypes.FRIEND_ONLINE,
     friends,
   }
 }
 
-export const usersOffline = (friend) => {
+export const friendOffline = (friend) => {
   return {
     type: actionTypes.FRIEND_OFFLINE,
     friend,
