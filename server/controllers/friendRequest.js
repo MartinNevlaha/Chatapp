@@ -48,11 +48,12 @@ exports.getPendingFriendRequest = async (req, res, next) => {
   try {
     const friendRequest = await Friendship.findAll({
       where: {
-        friendId: req.user.id,
+        user_2: req.user.id,
         status: 0,
       },
       include: {
         model: User,
+        as: "requestor",
         attributes: {
           exclude: ["password", "activationToken", "activated", "email"],
         },
