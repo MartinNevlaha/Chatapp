@@ -20,10 +20,10 @@ const FriendRequests = ({pendingRequests, handleFriendRequest}) => {
               <div
                 className={classes.friendRequest_request_container_avatar}
               >
-                <img src={request.User.avatar} alt="avatar"/>
+                <img src={request.requestor.avatar} alt="avatar"/>
               </div>
               <div className={classes.friendRequest_request_container_info}>
-                <h3>{request.User.fullName}</h3>
+                <h3>{request.requestor.fullName}</h3>
                 <p>Request was send: {parseDateTime(request.createdAt)}</p>
               </div>
               <div className={classes.friendRequest_request_container_button}>
