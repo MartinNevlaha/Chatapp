@@ -3,9 +3,9 @@ import React from "react";
 import classes from "./AllFriends.module.scss";
 import Spinner from "../UI/Spinner/Spinner";
 
-const AllFriends = ({friends, loading}) => {
+const AllFriends = ({friendships, loading}) => {
 
-  const friendsContent = friends.map((friendship) => {
+  const friendsContent = friendships.map((friendship) => {
     return (
       <div key={friendship.id} className={classes.friend_container}>
         <div className={classes.friend_container_avatar}>

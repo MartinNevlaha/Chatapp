@@ -5,7 +5,7 @@ import requestStatusReducer from "./requestStatus";
 import userProfileReducer from "./userProfile";
 import usersReducer from "./users";
 import friendRequestReducer from "./friendRequest";
-import friendsReducer from "./friends";
+import friendshipsReducer from "./friends";
 
 const rootReducer = combineReducers({
   requestStatus: requestStatusReducer,
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   userProfile: userProfileReducer,
   users: usersReducer,
   friendRequest: friendRequestReducer,
-  friends: friendsReducer
+  friendships: friendshipsReducer
 });
 
 export default rootReducer;

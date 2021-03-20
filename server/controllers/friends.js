@@ -47,6 +47,9 @@ exports.getFriends = async (req, res, next) => {
           updatedAt: friendship.updatedAt,
           friend: {
             ...friendship.User.dataValues,
+            fullName: friendship.User.dataValues.firstName +
+            " " +
+            friendship.User.dataValues.lastName,
           },
         };
         friends.push(friendObj);
@@ -56,6 +59,10 @@ exports.getFriends = async (req, res, next) => {
           updatedAt: friendship.updatedAt,
           friend: {
             ...friendship.requestor.dataValues,
+            fullName:
+              friendship.requestor.dataValues.firstName +
+              " " +
+              friendship.requestor.dataValues.lastName,
           },
         };
         friends.push(friendObj);
@@ -64,7 +71,7 @@ exports.getFriends = async (req, res, next) => {
     res.json({
       status: "Ok",
       message: "Friends list was fetched",
-      friends: friends,
+      friendships: friends,
     });
   } catch (error) {
     if (error.statusCode) {

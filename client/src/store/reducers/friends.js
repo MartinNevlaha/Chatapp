@@ -3,7 +3,7 @@ import { updateObj } from "../../utils/utilities";
 import updateArray from "react-addons-update";
 
 const initialState = {
-  friends: [],
+  friendships: [],
   loading: false,
 };
 
@@ -14,7 +14,7 @@ const fetchFriendsStart = (state, action) => {
 const fetchFriendsSuccess = (state, action) => {
   return updateObj(state, {
     loading: false,
-    friends: action.friends,
+    friendships: action.friendships,
   });
 };
 

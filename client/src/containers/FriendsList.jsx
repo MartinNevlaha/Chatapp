@@ -7,15 +7,14 @@ import * as action from "../store/actions";
 
 const FriendsList = () => {
   const dispatch = useDispatch();
-  const friends = useSelector((state) => state.friends.friends);
-  const loading = useSelector((state) => state.friends.loading);
+  const friendships = useSelector((state) => state.friendships.friendships);
+  const loading = useSelector((state) => state.friendships.loading);
   const userId = useSelector(state => state.userProfile.user.id);
 
   useEffect(() => {
     dispatch(action.fetchFriends());
   }, [dispatch]);
 
-  useSocket(userId, dispatch);
 
   return (
     <div style={{
@@ -26,7 +25,7 @@ const FriendsList = () => {
       justifyContent: "space-around",
       flexWrap: "wrap",
     }}>
-      <AllFriends friends={friends} loading={loading} />
+      <AllFriends friendships={friendships} loading={loading} />
     </div>
   );
 };

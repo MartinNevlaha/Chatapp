@@ -8,10 +8,10 @@ export const fetchFriendsStart = () => {
   };
 };
 
-export const fetchFriendsSuccess = (friends) => {
+export const fetchFriendsSuccess = (friendships) => {
   return {
     type: actionTypes.FETCH_FRIENDS_SUCCESS,
-    friends,
+    friendships,
   };
 };
 
@@ -26,7 +26,7 @@ export const fetchFriends = () => {
     dispatch(fetchFriendsStart());
     axios.get("/api/friends/")
     .then(res => {
-      const friends = res.data.friends.map(friendship => {
+      const friends = res.data.friendships.map(friendship => {
         return {
           ...friendship,
           friend: {
