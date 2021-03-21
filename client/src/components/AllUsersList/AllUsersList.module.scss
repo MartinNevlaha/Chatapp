@@ -1,5 +1,33 @@
 @import "../../style/imports.scss";
 
 .users {
-  width: 100%;
+  width: 80%;
+  &_header {
+    border-bottom: 1px solid get-color(text);
+
+    h2 {
+      font-size: get-font-size(large);
+      font-weight: bold;
+      margin: 1.5rem;
+    }
+  }
+
+  &_container {
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+  }
+
+  &_footer {
+    width: 100%;
+    border-top: 1px solid get-color(text);
+    @include flexbox(space-around, center, row);
+    &_pages, %space {
+      margin: .5rem;
+      padding: .3rem;
+    }
+    &_ {
+      @extend %space;
+    }
+  }
 }
