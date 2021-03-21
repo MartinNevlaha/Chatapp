@@ -20,9 +20,15 @@ const AllUsers = () => {
     dispatch(action.fetchActiveUsers(currentPage, limit));
   }, [dispatch]);
 
-  const handlePageClick = (page) => {
+  const handleCurrentPage = (page) => {
     setCurrentPage(page);
     dispatch(action.fetchActiveUsers(page, limit));
+  }
+
+  const handleSetLimit = (e) => {
+    setCurrentPage(0);
+    setLimit(e.target.value);
+    dispatch(action.fetchActiveUsers(0, e.target.value))
   }
 
   return (
@@ -40,7 +46,9 @@ const AllUsers = () => {
         users={users}
         loading={loading}
         pages={numberOfPages(numberOfUsers, limit)}
-        currentPage={handlePageClick}
+        handleCurrentPage={handleCurrentPage}
+        handleSetLimit={handleSetLimit}
+        limit={limit}
       />
     </div>
   );

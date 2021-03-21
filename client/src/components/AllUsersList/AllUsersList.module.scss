@@ -52,17 +52,14 @@
   &_footer {
     width: 100%;
     border-top: 1px solid get-color(text);
-    @include flexbox(space-around, center, row);
+    @include flexbox(space-between, center, row);
     &_pages {
       margin: .5rem;
       padding: .3rem;
       @include flexbox(flex-start, center, row);
-      p {
-        padding: 0 .3rem;
-        cursor: pointer;
-        &:hover, &:active {
-          color: get-color(primary)
-        }
+      h4 {
+        margin: 0 .5rem;
+
       }
     }
     &_limit {

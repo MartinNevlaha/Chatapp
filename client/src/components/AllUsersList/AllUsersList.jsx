@@ -5,7 +5,14 @@ import { parseDateTime } from "../../utils/utilities";
 import Button from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 
-const AllUsersList = ({ users, loading, pages, currentPage}) => {
+const AllUsersList = ({
+  users,
+  loading,
+  pages,
+  handleCurrentPage,
+  handleSetLimit,
+  limit,
+}) => {
   let arrayOfPages = Array.from(Array(+pages).keys());
 
   let content = users.map((user) => {
@@ -35,16 +42,20 @@ const AllUsersList = ({ users, loading, pages, currentPage}) => {
       <div className={classes.users_container}>{content}</div>
       <div className={classes.users_footer}>
         <div className={classes.users_footer_pages}>
-          <h1>Pages: </h1>
-          {arrayOfPages.map((page) => (
-            <p onClick={() => currentPage(page)} key={page}>
-              {page + 1}
-            </p>
-          ))}
+          <h4>Actual page</h4>
+          <select
+            className={classes.users_footer_pages_select}
+            onChange={(e) => {
+              handleCurrentPage(e.target.value -1 );
+            }}
+          >
+            {arrayOfPages.map((opt) => <option key={opt}>{opt + 1}</option>)}
+          </select>
+          <h4>of total pages {arrayOfPages.length}</h4>
         </div>
         <div className={classes.users_footer_limit}>
-          <p>Limit per page: </p>
-          <select>
+          <h4>Limit per page: </h4>
+          <select onChange={(e) => handleSetLimit(e)} value={limit}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
