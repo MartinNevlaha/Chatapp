@@ -8,10 +8,11 @@ export const fetchActiveUsersStart = () => {
   };
 };
 
-export const fetchActiveUsersSuccess = (users) => {
+export const fetchActiveUsersSuccess = (users, totalRecordsInDb) => {
   return {
     type: actionTypes.FETCH_ACTIVE_USERS_SUCCESS,
     users,
+    totalRecordsInDb
   };
 };
 
@@ -30,7 +31,7 @@ export const fetchActiveUsers = (page, limit) => {
         const users = res.data.users.map((user) => {
           return { ...user, online: false };
         });
-        dispatch(fetchActiveUsersSuccess(users));
+        dispatch(fetchActiveUsersSuccess(users, res.data.count));
         dispatch(successCreator(res.data.message));
       })
       .catch((err) => {

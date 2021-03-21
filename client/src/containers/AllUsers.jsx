@@ -7,17 +7,23 @@ import AllUsersList from "../components/AllUsersList/AllUsersList";
 const AllUsers = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
+  const numberOfUsers = useSelector((state) => state.users.count);
   const loading = useSelector((state) => state.users.loading);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(3);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(2);
 
-  const indexOfLastPost = currentPage * limit;
-  const indexOfFirstPost = indexOfLastPost - limit;
-  const currentPost = users.slice(indexOfFirstPost, indexOfLastPost);
+  const numberOfPages = (totalRecords, limit) => {
+    return Math.round(totalRecords / limit);
+  };
 
   useEffect(() => {
     dispatch(action.fetchActiveUsers(currentPage, limit));
   }, [dispatch]);
+
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+    dispatch(action.fetchActiveUsers(page, limit));
+  }
 
   return (
     <div
@@ -30,7 +36,12 @@ const AllUsers = () => {
         flexWrap: "wrap",
       }}
     >
-      <AllUsersList users={users} loading={loading} />
+      <AllUsersList
+        users={users}
+        loading={loading}
+        pages={numberOfPages(numberOfUsers, limit)}
+        currentPage={handlePageClick}
+      />
     </div>
   );
 };

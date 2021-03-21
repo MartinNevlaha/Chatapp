@@ -1,13 +1,12 @@
 const User = require("../models/").User;
 
 exports.getUsers = async (req, res, next) => {
-  const page = req.query.page;
-  const limit = req.query.limit;
-  
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
+  const limit = parseInt(req.query.limit);
+  const page = parseInt(req.query.page);
+  const offset = page * limit;
+
   try {
-    const users = await User.findAll({
+    const users = await User.findAndCountAll({
       where: {
         activated: true
       },
@@ -15,6 +14,7 @@ exports.getUsers = async (req, res, next) => {
         exclude: ["password", "activationToken", "activated", "email"]
       },
       limit: limit,
+      offset: offset,
       order: [["id", "ASC"]]
     });
     if (!users) {
@@ -25,7 +25,8 @@ exports.getUsers = async (req, res, next) => {
     res.json({
       status: "ok",
       message: "Users successfully loaded",
-      users: users
+      count: users.count,
+      users: users.rows
     })
   } catch (error) {
     if (error.statusCode) {

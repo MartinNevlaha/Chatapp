@@ -1,9 +1,10 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
-import updateArray from "react-addons-update";
+
 
 const initialState = {
   users: [],
+  count: null,
   loading: false,
 };
 
@@ -15,6 +16,7 @@ const fetchActiveUsersSuccess = (state, action) => {
   return updateObj(state, {
     loading: false,
     users: action.users,
+    count: action.totalRecordsInDb
   });
 };
 

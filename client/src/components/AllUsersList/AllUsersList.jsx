@@ -5,7 +5,8 @@ import { parseDateTime } from "../../utils/utilities";
 import Button from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 
-const AllUsersList = ({ users, loading }) => {
+const AllUsersList = ({ users, loading, pages, currentPage}) => {
+  let arrayOfPages = Array.from(Array(+pages).keys());
 
   let content = users.map((user) => {
     return (
@@ -24,22 +25,27 @@ const AllUsersList = ({ users, loading }) => {
     );
   });
   if (loading) {
-    content = <Spinner />
+    content = <Spinner />;
   }
-    return (
-      <div className={classes.users}>
-        <div className={classes.users_header}>
-          <h2>List of Users</h2>
-        </div>
-        <div className={classes.users_container}>{content}</div>
-        <div className={classes.users_footer}>
-          <div className={classes.users_footer_pages}>
-            <p>Pages: 1 2 3 4 5 6 ...</p>
-          </div>
-          <div className={classes.users_footer_limit}>...limit per page</div>
-        </div>
+  return (
+    <div className={classes.users}>
+      <div className={classes.users_header}>
+        <h2>List of Users</h2>
       </div>
-    );
+      <div className={classes.users_container}>{content}</div>
+      <div className={classes.users_footer}>
+        <div className={classes.users_footer_pages}>
+          <h1>Pages: </h1>
+          {arrayOfPages.map((page) => (
+            <p onClick={() => currentPage(page)} key={page}>
+              {page + 1}
+            </p>
+          ))}
+        </div>
+        <div className={classes.users_footer_limit}>...limit per page</div>
+      </div>
+    </div>
+  );
 };
 
 export default AllUsersList;
