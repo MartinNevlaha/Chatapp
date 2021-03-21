@@ -2,7 +2,7 @@
 
 .btn {
   width: 8.125rem;
-  height: 2.5rem;
+  height: auto;
   margin: 1rem;
   padding: .5rem;
   background-color: get-color(primary);
@@ -12,6 +12,7 @@
   outline: none;
   @include shadow-down;
   cursor: pointer;
+  overflow: hidden;
 
   &:hover, &:active {
     background-color: darken(get-color(primary), 10%);

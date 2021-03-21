@@ -21,11 +21,11 @@ export const fetchActiveUsersFailed = () => {
   };
 };
 
-export const fetchActiveUsers = () => {
+export const fetchActiveUsers = (page, limit) => {
   return (dispatch) => {
     dispatch(fetchActiveUsersStart());
     axios
-      .get("/api/users/active-users")
+      .get(`/api/users/users?page=${page}&limit=${limit}`)
       .then((res) => {
         const users = res.data.users.map((user) => {
           return { ...user, online: false };
