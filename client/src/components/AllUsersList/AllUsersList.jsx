@@ -42,7 +42,16 @@ const AllUsersList = ({ users, loading, pages, currentPage}) => {
             </p>
           ))}
         </div>
-        <div className={classes.users_footer_limit}>...limit per page</div>
+        <div className={classes.users_footer_limit}>
+          <p>Limit per page: </p>
+          <select>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
       </div>
     </div>
   );

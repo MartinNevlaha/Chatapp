@@ -53,20 +53,35 @@
     width: 100%;
     border-top: 1px solid get-color(text);
     @include flexbox(space-around, center, row);
-    &_pages, %space {
+    &_pages {
       margin: .5rem;
       padding: .3rem;
       @include flexbox(flex-start, center, row);
       p {
         padding: 0 .3rem;
         cursor: pointer;
-        &:hover {
+        &:hover, &:active {
           color: get-color(primary)
         }
       }
     }
-    &_ {
-      @extend %space;
+    &_limit {
+      @include flexbox(flex-start, center, row);
+      margin: .5rem;
+      padding: .3rem;
+      select {
+        margin: 0 1rem;
+        cursor: pointer;
+        border: 1px solid get-color(primary);
+        border-radius: 4px;
+        width: 3.125rem;
+        height: 1.5rem;
+        text-align: center;
+
+        &:focus {
+          box-shadow: 0 0 3pt 2pt get-color(primary);
+        }
+      }
     }
   }
 }
