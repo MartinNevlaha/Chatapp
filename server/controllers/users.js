@@ -1,6 +1,11 @@
 const User = require("../models/").User;
 
-exports.getActiveUsers = async (req, res, next) => {
+exports.getUsers = async (req, res, next) => {
+  const page = req.query.page;
+  const limit = req.query.limit;
+  
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
   try {
     const users = await User.findAll({
       where: {
@@ -8,7 +13,9 @@ exports.getActiveUsers = async (req, res, next) => {
       },
       attributes: {
         exclude: ["password", "activationToken", "activated", "email"]
-      }
+      },
+      limit: limit,
+      order: [["id", "ASC"]]
     });
     if (!users) {
       const error = new Error("Cant find any active user");
