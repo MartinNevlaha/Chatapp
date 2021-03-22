@@ -29,7 +29,7 @@ export const fetchActiveUsers = (page, limit) => {
       .get(`/api/users/users?page=${page}&limit=${limit}`)
       .then((res) => {
         const users = res.data.users.map((user) => {
-          return { ...user, online: false };
+          return { ...user, loadingAddFriend: false };
         });
         dispatch(fetchActiveUsersSuccess(users, res.data.count));
         dispatch(successCreator(res.data.message));
@@ -41,33 +41,45 @@ export const fetchActiveUsers = (page, limit) => {
   };
 };
 
-export const addFriendStart = () => {
+export const addFriendStart = (recipient) => {
   return {
     type: actionTypes.ADD_FRIEND_START,
+    recipient,
   };
 };
 
-export const addFriendSuccess = (userId) => {
+export const addFriendSuccess = (recipient, status) => {
   return {
     type: actionTypes.ADD_FRIEND_SUCCESS,
-    userId,
+    recipient,
+    status,
   };
 };
 
-export const addFriendFailed = () => {
+export const addFriendFailed = (recipient) => {
   return {
     type: actionTypes.ADD_FRIEND_FAILED,
+    recipient,
   };
 };
 
 export const addFriend = (userId) => {
-  return dispatch => {
-    dispatch(addFriendStart());
-    axios.post("/api/friendship/", userId)
-    .then(res => console.log(res.data))
-    .catch(err => {
-      dispatch(addFriendFailed());
-      dispatch(errorCreator(err.response))
-    })
-  }
-}
+  return (dispatch) => {
+    dispatch(addFriendStart(userId.friendId));
+    axios
+      .post("/api/friendship/", userId)
+      .then((res) => {
+        dispatch(successCreator(res.data.message));
+        dispatch(
+          addFriendSuccess(
+            res.data.friendship.user_2,
+            res.data.friendship.status
+          )
+        );
+      })
+      .catch((err) => {
+        dispatch(addFriendFailed(userId.friendId));
+        dispatch(errorCreator(err.response));
+      });
+  };
+};

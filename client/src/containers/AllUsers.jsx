@@ -23,13 +23,20 @@ const AllUsers = () => {
   const handleCurrentPage = (page) => {
     setCurrentPage(page);
     dispatch(action.fetchActiveUsers(page, limit));
-  }
+  };
 
   const handleSetLimit = (e) => {
     setCurrentPage(0);
     setLimit(e.target.value);
-    dispatch(action.fetchActiveUsers(0, e.target.value))
-  }
+    dispatch(action.fetchActiveUsers(0, e.target.value));
+  };
+
+  const handleAddFriend = (userId) => {
+    const data = {
+      friendId: userId
+    }
+    dispatch(action.addFriend(data));
+  };
 
   return (
     <div
@@ -49,6 +56,7 @@ const AllUsers = () => {
         handleCurrentPage={handleCurrentPage}
         handleSetLimit={handleSetLimit}
         limit={limit}
+        addFriend={handleAddFriend}
       />
     </div>
   );

@@ -1,11 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
+import updateArray from "react-addons-update";
 
 const initialState = {
   users: [],
   count: null,
   loading: false,
-  loadingAddFriend: false,
 };
 
 const fetchActiveUsersStart = (state, action) => {
@@ -25,15 +25,38 @@ const fetchActiveUsersFailed = (state, action) => {
 };
 
 const addFriendStart = (state, action) => {
-  return updateObj(state, { loadingAddFriend: true });
+  const index = state.users.findIndex(user => user.id === action.recipient);
+  return updateArray(state, {
+    users: {
+      [index]: {
+        loadingAddFriend: {$set: true}
+      }
+    }
+  })
 };
 
 const addFriendSuccess = (state, action) => {
-  return updateObj(state, { loadingAddFriend: false });
+  const index = state.users.findIndex(user => user.id === action.recipient);
+  console.log(action.status);
+  return updateArray(state, {
+    users: {
+      [index]: {
+        friendStatus: {$set: action.status},
+        loadingAddFriend: {$set: false}
+      }
+    }
+  })
 };
 
 const addFriendFailed = (state, action) => {
-  return updateObj(state, { loadingAddFriend: false });
+  const index = state.users.findIndex(user => user.id === action.recipient);
+  return updateArray(state, {
+    users: {
+      [index]: {
+        loadingAddFriend: {$set: false}
+      }
+    }
+  })
 };
 
 const reducer = (state = initialState, action) => {

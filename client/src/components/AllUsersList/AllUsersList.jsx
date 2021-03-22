@@ -14,17 +14,20 @@ const AllUsersList = ({
   handleCurrentPage,
   handleSetLimit,
   limit,
+  addFriend,
 }) => {
   let arrayOfPages = Array.from(Array(+pages).keys());
 
   let content = users.map((user) => {
-    let requestStatusElement = <Button type="button">Add friend</Button>;
+    let requestStatusElement = <Button type="button" clicked={()=>addFriend(user.id)}>Add friend</Button>;
     if (user.friendStatus === 0) {
       requestStatusElement = <FontAwesomeIcon icon={faQuestionCircle} size="2x" />;
     } else if (user.friendStatus === 1) {
       requestStatusElement = <FontAwesomeIcon icon={faCheckCircle} size="2x" color="green" />;
     } else if (user.friendStatus) {
       requestStatusElement = <FontAwesomeIcon icon={faTimesCircle} size="2x" color="red" />;
+    } else if (user.loadingAddFriend) {
+      requestStatusElement = <Spinner />
     }
     return (
       <div key={user.id} className={classes.users_container_user}>
