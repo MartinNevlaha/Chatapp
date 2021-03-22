@@ -26,19 +26,32 @@
       cursor: pointer;
 
       &_avatar {
+        width: 30%;
+        height: 5rem;
+        @include flexbox(center, center, row);
         img {
           @include avatar-big;
         }
       }
       &_info {
+        width: 30%;
+        text-align: left;
+
         h3 {
           font-size: get-font-size(medium);
           font-weight: bold;
-          padding: 0.5rem;
+          padding: 0.5rem 0;
         }
         p {
           font-size: get-font-size(small);
           font-style: italic;
+        }
+      }
+      &_btn {
+        @include flexbox(center, center, row);
+        width: 30%;
+        p {
+          font-size: get-font-size(small);
         }
       }
       &:hover,

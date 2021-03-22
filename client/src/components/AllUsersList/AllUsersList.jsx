@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faCheckCircle, faTimesCircle, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./AllUsersList.module.scss";
 import { parseDateTime } from "../../utils/utilities";
@@ -16,17 +18,29 @@ const AllUsersList = ({
   let arrayOfPages = Array.from(Array(+pages).keys());
 
   let content = users.map((user) => {
+    let requestStatusElement = <Button type="button">Add friend</Button>;
+    if (user.friendStatus === 0) {
+      requestStatusElement = <FontAwesomeIcon icon={faQuestionCircle} size="2x" />;
+    } else if (user.friendStatus === 1) {
+      requestStatusElement = <FontAwesomeIcon icon={faCheckCircle} size="2x" color="green" />;
+    } else if (user.friendStatus) {
+      requestStatusElement = <FontAwesomeIcon icon={faTimesCircle} size="2x" color="red" />;
+    }
     return (
       <div key={user.id} className={classes.users_container_user}>
         <div className={classes.users_container_user_avatar}>
-          <img src={user.avatar} alt="avatar" />
+          {user.avatar ? (
+            <img src={user.avatar} alt="avatar" />
+          ) : (
+            <FontAwesomeIcon icon={faUser} size="4x"/>
+          )}
         </div>
         <div className={classes.users_container_user_info}>
           <h3>{user.fullName}</h3>
           <p>Registered since: {parseDateTime(user.createdAt)}</p>
         </div>
         <div className={classes.users_container_user_btn}>
-          <Button type="button">Add friend </Button>
+          {requestStatusElement}
         </div>
       </div>
     );
@@ -46,10 +60,12 @@ const AllUsersList = ({
           <select
             className={classes.users_footer_pages_select}
             onChange={(e) => {
-              handleCurrentPage(e.target.value -1 );
+              handleCurrentPage(e.target.value - 1);
             }}
           >
-            {arrayOfPages.map((opt) => <option key={opt}>{opt + 1}</option>)}
+            {arrayOfPages.map((opt) => (
+              <option key={opt}>{opt + 1}</option>
+            ))}
           </select>
           <h4>of total pages {arrayOfPages.length}</h4>
         </div>
