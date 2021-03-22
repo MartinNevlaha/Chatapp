@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 
-
 exports.hashPwd = async (user) => {
   if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, 12);
@@ -36,3 +35,37 @@ exports.fileFilter = (req, file, cb) => {
   }
 };
 
+const isFriends = async (users, userId) => {
+  let usersWithFriendshipStatus = [];
+
+  for await (let user of users) {
+    const friendshipStatus = await Friendship.findOne({
+      where: {
+        [Op.or]: [
+          { user_1: userId, user_2: user.id },
+          { user_1: user.id, user_2: userId },
+        ],
+      },
+    });
+    let avatar = null;
+    if (user.avatar) {
+      avatar = `${config.appUrl}:${appPort}/users/${user.id}/${user.avatar}`
+    }
+    if (friendshipStatus) {
+      usersWithFriendshipStatus.push({
+        ...user,
+        avatar,
+        fullName: `${user.firstName} ${user.lastName}`,
+        friendStatus: friendshipStatus.status,
+      });
+    } else {
+      usersWithFriendshipStatus.push({
+        ...user,
+        avatar,
+        fullName: `${user.firstName} ${user.lastName}`,
+        friendStatus: null,
+      });
+    }
+  }
+  return usersWithFriendshipStatus;
+};

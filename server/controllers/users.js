@@ -1,4 +1,6 @@
 const { Op } = require("sequelize");
+
+const config = require("../config/app");
 const models = require("../models");
 const { User, Friendship } = models;
 
@@ -16,12 +18,9 @@ exports.getUsers = async (req, res, next) => {
       attributes: {
         exclude: ["password", "activationToken", "activated", "email"],
       },
-      include: {
-        model: Friendship,
-        //dorob reversne priatelstvo
-      },
       limit: limit,
       offset: offset,
+      raw: true,
       order: [["id", "ASC"]],
     });
     if (!users) {
@@ -30,11 +29,13 @@ exports.getUsers = async (req, res, next) => {
       return next(error);
     }
 
+    const userWithStatus = await isFriends(users.rows, req.user.id);
+
     res.json({
       status: "ok",
       message: "Users successfully loaded",
       count: users.count,
-      users: users.rows,
+      users: userWithStatus,
     });
   } catch (error) {
     if (error.statusCode) {
@@ -42,4 +43,39 @@ exports.getUsers = async (req, res, next) => {
     }
     return next(error);
   }
+};
+
+const isFriends = async (users, userId) => {
+  let usersWithFriendshipStatus = [];
+
+  for await (let user of users) {
+    const friendshipStatus = await Friendship.findOne({
+      where: {
+        [Op.or]: [
+          { user_1: userId, user_2: user.id },
+          { user_1: user.id, user_2: userId },
+        ],
+      },
+    });
+    let avatar = null;
+    if (user.avatar) {
+      avatar = `${config.appUrl}:${config.appPort}/users/${user.id}/${user.avatar}`
+    }
+    if (friendshipStatus) {
+      usersWithFriendshipStatus.push({
+        ...user,
+        avatar,
+        fullName: `${user.firstName} ${user.lastName}`,
+        friendStatus: friendshipStatus.status,
+      });
+    } else {
+      usersWithFriendshipStatus.push({
+        ...user,
+        avatar,
+        fullName: `${user.firstName} ${user.lastName}`,
+        friendStatus: null,
+      });
+    }
+  }
+  return usersWithFriendshipStatus;
 };
