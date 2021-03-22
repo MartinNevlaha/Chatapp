@@ -57,3 +57,4 @@ export const friendOffline = (friend) => {
     friend,
   }
 }
+

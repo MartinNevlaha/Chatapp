@@ -24,13 +24,17 @@ exports.sendFriendRequest = async (req, res, next) => {
         error.statusCode = 400;
         return next(error);
       }
-      await Friendship.create({
-        user_1: req.user.id,
-        user_2: req.body.friendId,
-      });
+      const friendship = await Friendship.create(
+        {
+          user_1: req.user.id,
+          user_2: req.body.friendId,
+        },
+      );
+
       res.status(201).json({
         status: "Ok",
         message: "Request was send",
+        friendship: friendship
       });
     } else {
       const error = new Error("Cannot send friend request to yourself");

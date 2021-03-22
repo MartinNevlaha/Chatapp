@@ -10,7 +10,7 @@ const AllUsers = () => {
   const numberOfUsers = useSelector((state) => state.users.count);
   const loading = useSelector((state) => state.users.loading);
   const [currentPage, setCurrentPage] = useState(0);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(5);
 
   const numberOfPages = (totalRecords, limit) => {
     return Math.round(totalRecords / limit);

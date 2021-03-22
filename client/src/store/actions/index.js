@@ -9,7 +9,7 @@ export {
 
 export { fetchUserProfile, updateUserProfile } from "./userProfile";
 
-export { fetchActiveUsers } from "./users";
+export { fetchActiveUsers, addFriend } from "./users";
 
 export { fetchFriendRequest, answerFriendRequest } from "./friendRequest";
 
