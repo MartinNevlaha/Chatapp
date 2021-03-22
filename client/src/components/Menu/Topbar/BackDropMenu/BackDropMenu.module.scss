@@ -70,6 +70,7 @@
 
   &_requests {
     position: absolute;
+    @include flexbox(center, center, row);
     @extend %oval;
 
     p {

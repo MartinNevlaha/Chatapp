@@ -77,7 +77,7 @@ const UserUpdate = (props) => {
           <Form>
             <div className={classes.profile_container_inputs}>
               <Card type="small_card">
-                <h2>User avatar</h2>
+                <h2>{user.fullName}</h2>
                 <div className={classes.profile_container_inputs_avatar}>
                   {!user.avatar ? (
                     <FontAwesomeIcon icon={faUserCircle} size="10x" />
