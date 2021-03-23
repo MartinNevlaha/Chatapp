@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import UserUpdateForm from "../components/UserUpdate/UserUpdateForm";
@@ -8,11 +8,20 @@ import Spinner from "../components/UI/Spinner/Spinner";
 import Modal from "../components/UI/Modal/Modal";
 
 const UserUpdate = () => {
+  const [isModalShow, setIsModalShow] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.userProfile.loading);
 
   const handleUpdateprofile = (data) => {
     dispatch(action.updateUserProfile(data));
+  };
+
+  const handleModalClose = () => {
+    setIsModalShow(false);
+  };
+
+  const handleModalOpen = () => {
+    setIsModalShow(true);
   };
 
   return (
@@ -26,7 +35,9 @@ const UserUpdate = () => {
         flexWrap: "wrap",
       }}
     >
-      <Modal show>
+      <Modal 
+      closeModal={handleModalClose}
+      show={isModalShow}>
         Do you realy want to delete your accont ?
       </Modal>
       {loading ? (
@@ -34,7 +45,7 @@ const UserUpdate = () => {
       ) : (
         <React.Fragment>
           <UserUpdateForm updateProfile={handleUpdateprofile} />
-          <DeleteAccount />
+          <DeleteAccount openModal={handleModalOpen}/>
         </React.Fragment>
       )}
     </div>
