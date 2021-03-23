@@ -1,4 +1,3 @@
-import { faClosedCaptioning } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,6 +5,7 @@ import UserUpdateForm from "../components/UserUpdate/UserUpdateForm";
 import DeleteAccount from "../components/deleteAccount/deleteAccount";
 import * as action from "../store/actions";
 import Spinner from "../components/UI/Spinner/Spinner";
+import Modal from "../components/UI/Modal/Modal";
 
 const UserUpdate = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,9 @@ const UserUpdate = () => {
         flexWrap: "wrap",
       }}
     >
+      <Modal show>
+        Do you realy want to delete your accont ?
+      </Modal>
       {loading ? (
         <Spinner />
       ) : (

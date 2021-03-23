@@ -1,0 +1,21 @@
+@import "../../../style/imports.scss";
+
+.modal {
+  position: fixed;
+  margin: auto;
+  z-index: 500;
+  width: 40%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid white;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  padding: 1rem;
+  background-color: white;
+  @include shadow;
+  @include flexbox(center, center, column);
+  
+  &_content {
+    font-size: get-font-size(medium);
+  }
+}
