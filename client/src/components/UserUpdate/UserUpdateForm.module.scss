@@ -43,7 +43,7 @@
       }
       
       &:hover, &:active {
-        @include shadow;
+        box-shadow: 0 0 3pt 2pt get-color(primary);
       }
       &_file_input {
         margin: 0 auto;

@@ -4,6 +4,7 @@
   width: 80%;
   height: auto;
   border-top: 1px solid gray;
+  transition: all .8s ease-in-out;
 
   h2 {
     font-size: get-font-size(medium);
@@ -17,5 +18,13 @@
     padding: .3rem 1rem;
   }
   
+  &_container {
+    display: block;
+    
+  }
+}
 
+.close {
+  display: none;
+  height: 0;
 }
