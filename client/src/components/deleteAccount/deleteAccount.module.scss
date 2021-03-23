@@ -1,0 +1,19 @@
+@import "../../style/imports.scss";
+
+.deleteAccount {
+  width: 80%;
+  height: auto;
+  border-top: 1px solid gray;
+
+  h2 {
+    font-size: get-font-size(medium);
+    font-weight: bold;
+    text-align: left;
+    padding: .3rem 1rem;
+  }
+  p {
+    font-size: get-font-size(small);
+    text-align: left;
+    padding: .3rem 1rem;
+  }
+}
