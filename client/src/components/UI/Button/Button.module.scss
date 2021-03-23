@@ -28,4 +28,12 @@
   }
 }
 
+.disabled {
+  cursor: not-allowed;
+  background-color: #A5A1A3;
+  pointer-events: none;
+  box-sizing: border-box;
+  text-decoration:none;
+}
+
 @include pulse;
