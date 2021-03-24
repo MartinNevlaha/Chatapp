@@ -8,8 +8,9 @@ export const RetypeCheck = ({
   string,
   inputValue,
   changeInput,
-  isValid,
-  accountDelete
+  isInValid,
+  accountDelete,
+  isTouch
 }) => {
   return (
     <div
@@ -20,15 +21,20 @@ export const RetypeCheck = ({
       }
     >
       <div className={classes.retypeCheck_content}>
-        <h3>Please retype this number {string}</h3>
+        <h3>
+          Please retype this number <span>{string}</span>
+        </h3>
         <input
           type="text"
+          maxLength="6"
           value={inputValue}
           onChange={(e) => changeInput(e)}
         />
       </div>
-      {isValid === false && <p>Entered number do not match!</p>}
-      <Button clicked={accountDelete}>Ok</Button>
+      <div className={classes.retypeCheck_content_message}>
+        {isTouch && isInValid && <p>Entered number do not match!</p>}
+      </div>
+      <Button clicked={accountDelete} disabled={isInValid}>Ok</Button>
     </div>
   );
 };

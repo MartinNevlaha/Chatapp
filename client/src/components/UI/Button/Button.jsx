@@ -8,6 +8,8 @@ const Button = ({ type, disabled, clicked, children, danger }) => {
     style.push(classes.danger)
   } else if (disabled && danger) {
     style.push(classes.disabled)
+  } else if (disabled) {
+    style.push(classes.disabled)
   }
   return (
     <button className={style.join(" ")} type={type} disabled={disabled} onClick={clicked}>

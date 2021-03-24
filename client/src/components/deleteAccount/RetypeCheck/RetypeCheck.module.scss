@@ -10,9 +10,6 @@
   flex-direction: column;
   transition: all .8s ease-in-out; 
 
-  p {
-    color: red;
-  }
 
   &_content {
     @include flexbox(center, center, row);
@@ -20,7 +17,14 @@
     h3 {
       font-size: get-font-size(small);
       margin: 1rem;
+
+      span {
+        font-weight: bold;
+        font-style: italic;
+        color: black;
+      }
     }
+
     input {
       width: 5rem;
       margin: 1rem;
@@ -29,6 +33,14 @@
 
       &:focus {
         box-shadow: 0 0 3pt 2pt get-color(primary);
+      }
+    }
+
+    &_message {
+      width: 100%;
+      p {
+        color: red;
+        text-align: center;
       }
     }
   }

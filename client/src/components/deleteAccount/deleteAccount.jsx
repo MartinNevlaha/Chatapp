@@ -8,7 +8,8 @@ export const DeleteAccount = ({ openModal }) => {
   const [isRetypeShow, setIsRetypeShow] = useState(false);
   const [retypeString, setRetypeString] = useState("");
   const [inputString, setInputString] = useState("");
-  const [isValid, setIsValid] = useState(null);
+  const [isInValid, setIsInValid] = useState(true);
+  const [isTouch, setIsTouch] = useState(false)
 
   const handleClickDelete = () => {
     setIsRetypeShow(true);
@@ -21,15 +22,15 @@ export const DeleteAccount = ({ openModal }) => {
   };
 
   const handleInputString = (e) => {
+    setIsTouch(true);
     setInputString(e.target.value);
+    if (e.target.value.length >= 6) {
+      retypeString === e.target.value ? setIsInValid(false) : setIsInValid(true);
+    }
   };
 
   const handleAccountDelete = () => {
-    if (retypeString === inputString) {
-      console.log("delete account");
-    } else {
-      setIsValid(false);
-    }
+    console.log("delete");
   };
 
   return (
@@ -52,8 +53,9 @@ export const DeleteAccount = ({ openModal }) => {
         string={retypeString}
         inputValue={inputString}
         changeInput={handleInputString}
-        isValid={isValid}
+        isInValid={isInValid}
         accountDelete={handleAccountDelete}
+        isTouch={isTouch}
       />
     </div>
   );
