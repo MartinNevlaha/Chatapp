@@ -10,11 +10,21 @@ module.exports = {
       },
       user_1: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       user_2: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       status: {
         type: Sequelize.INTEGER,

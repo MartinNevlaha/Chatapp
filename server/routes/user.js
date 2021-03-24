@@ -6,6 +6,7 @@ const { rules: updateRules } = require("../validators/user/update");
 const {
   userUpdate,
   userProfile,
+  deleteUserAccount
 } = require("../controllers/user");
 const { userFileUpload } = require("../middleware/fileUpload");
 
@@ -17,6 +18,6 @@ router.put(
   userUpdate
 );
 
-router.delete("/", isAuth);
+router.delete("/", isAuth, deleteUserAccount);
 
 module.exports = router;

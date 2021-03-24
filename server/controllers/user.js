@@ -1,5 +1,5 @@
 const brycpt = require("bcryptjs");
-const models = require("../models")
+const models = require("../models");
 const User = models.User;
 
 exports.userUpdate = async (req, res, next) => {
@@ -81,7 +81,7 @@ exports.userUpdate = async (req, res, next) => {
 };
 
 exports.userProfile = async (req, res, next) => {
-  const user = req.user
+  const user = req.user;
 
   try {
     if (!user) {
@@ -103,24 +103,24 @@ exports.userProfile = async (req, res, next) => {
 };
 
 exports.deleteUserAccount = async (req, res, next) => {
-  const user = req.user;
+  const userId = req.user.id;
   try {
-    if (!user) {
+    if (!userId) {
       const error = new Error("Cant delete user profile data");
       error.statusCode = 404;
       return next(error);
     }
-    await user.destroy();
+    await User.destroy({
+      where: { id: userId },
+    });
     res.json({
       status: "Ok",
-      message: "Account was successfully deleted"
-    })
+      message: "Account was successfully deleted",
+    });
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
     }
     return next(error);
   }
-}
-
-
+};
