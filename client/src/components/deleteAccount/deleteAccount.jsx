@@ -3,34 +3,39 @@ import React, { useState } from "react";
 import classes from "./deleteAccount.module.scss";
 import Button from "../UI/Button/Button";
 import RetypeCheck from "./RetypeCheck/RetypeCheck";
+import { generateRandomNumbers } from "../../utils/utilities";
 
 export const DeleteAccount = ({ openModal }) => {
   const [isRetypeShow, setIsRetypeShow] = useState(false);
   const [retypeString, setRetypeString] = useState("");
   const [inputString, setInputString] = useState("");
   const [isInValid, setIsInValid] = useState(true);
-  const [isTouch, setIsTouch] = useState(false)
+  const [isTouch, setIsTouch] = useState(false);
 
   const handleClickDelete = () => {
     setIsRetypeShow(true);
     setRetypeString(generateRandomNumbers());
-  };
-  const generateRandomNumbers = () => {
-    let number = Math.floor(100000 + Math.random() * 900000).toString();
-    number = number.substring();
-    return number;
   };
 
   const handleInputString = (e) => {
     setIsTouch(true);
     setInputString(e.target.value);
     if (e.target.value.length >= 6) {
-      retypeString === e.target.value ? setIsInValid(false) : setIsInValid(true);
+      retypeString === e.target.value
+        ? setIsInValid(false)
+        : setIsInValid(true);
     }
   };
 
   const handleAccountDelete = () => {
     console.log("delete");
+  };
+
+  const handleReset = () => {
+    setRetypeString(generateRandomNumbers());
+    setIsTouch(false);
+    setInputString("");
+    setIsInValid(true);
   };
 
   return (
