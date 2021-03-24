@@ -30,6 +30,17 @@ const updateUserProfileFailed = (state, action) => {
   return updateObj(state, { loading: false });
 };
 
+const deleteAccountStart = (state, action) => {
+  return updateObj(state, { loading: true });
+};
+
+const deleteAccountSuccess = (state, action) => {
+  return initialState;
+};
+
+const deleteAccountFailed = (state, action) => {
+  return updateObj(state, { loading: false });
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_PROFILE_START:
@@ -44,6 +55,12 @@ const reducer = (state = initialState, action) => {
       return updateUserProfileSuccess(state, action);
     case actionTypes.UPDATE_USER_PROFILE_FAILED:
       return updateUserProfileFailed(state, action);
+    case actionTypes.DELETE_ACCOUNT_START:
+      return deleteAccountStart(state, action);
+    case actionTypes.DELETE_ACCOUNT_SUCCESS:
+      return deleteAccountSuccess(state, action);
+    case actionTypes.DELETE_ACCOUNT_FAILED:
+      return deleteAccountFailed(state, action);
     default:
       return state;
   }

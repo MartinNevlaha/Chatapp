@@ -7,10 +7,10 @@ import Button from "../Button/Button";
 
 export const Modal = ({
   show,
-  closeModal,
+  cancel,
+  submit,
   loading,
   children,
-  deleteAccount,
 }) => {
   const modalRef = useRef(null);
 
@@ -24,13 +24,13 @@ export const Modal = ({
 
   const handleClose = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
-      closeModal();
+      cancel();
     }
   }
 
   return (
     <React.Fragment>
-      <Backdrop show={show} clicked={closeModal}>
+      <Backdrop show={show} clicked={cancel}>
         <div className={classes.modal} ref={modalRef}>
           {loading ? (
             <Spinner />
@@ -38,10 +38,10 @@ export const Modal = ({
             <div className={classes.modal_content} >
               {children}
               <div className={classes.modal_content_btn_container}>
-                <Button danger clicked={closeModal}>
+                <Button danger clicked={cancel}>
                   Cancel
                 </Button>
-                <Button clicked={deleteAccount}>Ok</Button>
+                <Button clicked={submit}>Ok</Button>
               </div>
             </div>
           )}

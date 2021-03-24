@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
 import { errorCreator, successCreator } from "./requestStatus";
+import { logout } from "./index";
 
 export const fetchUserProfileStart = () => {
   return {
@@ -71,6 +72,41 @@ export const updateUserProfile = (userData) => {
       .catch((err) => {
         dispatch(updateUserProfileFailed());
         dispatch(errorCreator(err.response));
+      });
+  };
+};
+
+
+export const deleteAccountStart = () => {
+  return {
+    type: actionTypes.DELETE_ACCOUNT_START,
+  };
+};
+
+export const deleteAccountSuccess = () => {
+  return {
+    type: actionTypes.DELETE_ACCOUNT_SUCCESS,
+  };
+};
+
+export const deleteAccountFailed = () => {
+  return {
+    type: actionTypes.DELETE_ACCOUNT_FAILED,
+  };
+};
+
+export const deleteAccount = () => {
+  return (dispatch) => {
+    dispatch(deleteAccountStart());
+    axios
+      .delete("/api/user/")
+      .then((res) => {
+        dispatch(deleteAccountSuccess());
+        dispatch(logout());
+      })
+      .catch((err) => {
+        dispatch(errorCreator(err.response));
+        dispatch(deleteAccountFailed());
       });
   };
 };

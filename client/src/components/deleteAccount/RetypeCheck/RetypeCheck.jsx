@@ -11,7 +11,7 @@ export const RetypeCheck = ({
   inputValue,
   changeInput,
   isInValid,
-  accountDelete,
+  openModal,
   isTouch,
   refresh,
 }) => {
@@ -43,7 +43,7 @@ export const RetypeCheck = ({
       <div className={classes.retypeCheck_content_message}>
         {isTouch && isInValid && <p>Entered number do not match!</p>}
       </div>
-      <Button clicked={accountDelete} disabled={isInValid}>
+      <Button clicked={openModal} disabled={isInValid}>
         Ok
       </Button>
     </div>

@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
 import { errorCreator, successCreator } from "./requestStatus";
 
+
 export const fetchActiveUsersStart = () => {
   return {
     type: actionTypes.FETCH_ACTIVE_USERS_START,
@@ -83,3 +84,5 @@ export const addFriend = (userId) => {
       });
   };
 };
+
+

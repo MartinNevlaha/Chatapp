@@ -7,7 +7,11 @@ export {
   resetAuth,
 } from "./userAuth";
 
-export { fetchUserProfile, updateUserProfile } from "./userProfile";
+export {
+  fetchUserProfile,
+  updateUserProfile,
+  deleteAccount,
+} from "./userProfile";
 
 export { fetchActiveUsers, addFriend } from "./users";
 

@@ -30,9 +30,6 @@ export const DeleteAccount = ({ openModal }) => {
     }
   };
 
-  const handleAccountDelete = () => {
-    console.log("delete");
-  };
 
   const handleRefresh = () => {
     setRetypeString(generateRandomNumbers());
@@ -62,7 +59,7 @@ export const DeleteAccount = ({ openModal }) => {
         inputValue={inputString}
         changeInput={handleInputString}
         isInValid={isInValid}
-        accountDelete={handleAccountDelete}
+        openModal={openModal}
         isTouch={isTouch}
         refresh={handleRefresh}
       />

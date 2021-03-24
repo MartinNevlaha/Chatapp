@@ -24,6 +24,9 @@ const UserUpdate = () => {
     setIsModalShow(true);
   };
 
+  const handleAccountDelete = () => {
+    dispatch(action.deleteAccount());
+  };
   return (
     <div
       style={{
@@ -35,9 +38,11 @@ const UserUpdate = () => {
         flexWrap: "wrap",
       }}
     >
-      <Modal 
-      closeModal={handleModalClose}
-      show={isModalShow}>
+      <Modal
+        cancel={handleModalClose}
+        show={isModalShow}
+        submit={handleAccountDelete}
+      >
         Do you realy want to delete your accont ?
       </Modal>
       {loading ? (
@@ -45,7 +50,7 @@ const UserUpdate = () => {
       ) : (
         <React.Fragment>
           <UserUpdateForm updateProfile={handleUpdateprofile} />
-          <DeleteAccount openModal={handleModalOpen}/>
+          <DeleteAccount openModal={handleModalOpen} />
         </React.Fragment>
       )}
     </div>
