@@ -102,4 +102,25 @@ exports.userProfile = async (req, res, next) => {
   }
 };
 
+exports.deleteUserAccount = async (req, res, next) => {
+  const user = req.user;
+  try {
+    if (!user) {
+      const error = new Error("Cant delete user profile data");
+      error.statusCode = 404;
+      return next(error);
+    }
+    await user.destroy();
+    res.json({
+      status: "Ok",
+      message: "Account was successfully deleted"
+    })
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+}
+
 

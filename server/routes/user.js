@@ -17,4 +17,6 @@ router.put(
   userUpdate
 );
 
+router.delete("/", isAuth);
+
 module.exports = router;
