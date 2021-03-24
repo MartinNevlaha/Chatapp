@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import * as action from "../store/actions/";
+import UserSideBar from "../components/UserInfoSidebar/UserInfoSidebar";
 
 const Dasboard = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,12 @@ const Dasboard = () => {
         width: "100%",
         height: "100%",
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-around",
         flexWrap: "wrap",
       }}
     >
-      ...Dashboard
+      <UserSideBar />
     </div>
   );
 };
