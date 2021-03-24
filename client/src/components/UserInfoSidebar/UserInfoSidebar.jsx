@@ -12,15 +12,16 @@ export const UserInfoSidebar = () => {
   return (
     <Card type="small_card">
       <div className={classes.userInfo}>
-        <div className={classes.userInfo_header}></div>
-        <div className={classes.userInfo_avatar}>
-          {userProfile.avatar ? (
-            <img src={userProfile.avatar} alt="avatar" />
-          ) : (
-            <div className={classes.userInfo_avatar_icon}>
-              <FontAwesomeIcon icon={faUser} size="3x" />
-            </div>
-          )}
+        <div className={classes.userInfo_header}>
+          <div className={classes.userInfo_header_avatar}>
+            {userProfile.avatar ? (
+              <img src={userProfile.avatar} alt="avatar" />
+            ) : (
+              <div className={classes.userInfo_avatar_icon}>
+                <FontAwesomeIcon icon={faUser} size="3x" />
+              </div>
+            )}
+          </div>
         </div>
         <div className={classes.userInfo_content}>
           <h2>{userProfile.fullName}</h2>

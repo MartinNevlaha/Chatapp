@@ -25,6 +25,9 @@ const Dasboard = () => {
       }}
     >
       <UserSideBar />
+      <div>
+        All user posts
+      </div>
     </div>
   );
 };

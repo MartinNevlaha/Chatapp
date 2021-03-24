@@ -9,16 +9,16 @@
     width: 100%;
     height: 5rem;
     background-color: get-color(primary);
-  }
 
-  &_avatar {
-    position: absolute;
-    top: 12%;
-    left: 50%;
-    transform:  translate(-50%, -50%);
-    img {
-      @include avatar-user;
-    }
+    &_avatar {
+      position: absolute;
+      top: 4.6875rem;
+      left: 50%;
+      transform:  translate(-50%, -50%);
+      img {
+        @include avatar-user;
+      }
+  }
     
     &_icon {
       @include flexbox(center, center, row);
