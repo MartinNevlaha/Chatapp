@@ -24,6 +24,7 @@ export const UserInfoSidebar = () => {
         </div>
         <div className={classes.userInfo_content}>
           <h2>{userProfile.fullName}</h2>
+          <hr/>
           <p>Registered since: {parseDateTime(userProfile.createdAt)}</p>
           <p>Number of friends: 32</p>
         </div>
