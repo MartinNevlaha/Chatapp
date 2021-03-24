@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./RetypeCheck.module.scss";
 import Button from "../../UI/Button/Button";
@@ -10,7 +12,8 @@ export const RetypeCheck = ({
   changeInput,
   isInValid,
   accountDelete,
-  isTouch
+  isTouch,
+  refresh,
 }) => {
   return (
     <div
@@ -30,11 +33,19 @@ export const RetypeCheck = ({
           value={inputValue}
           onChange={(e) => changeInput(e)}
         />
+        <FontAwesomeIcon
+          icon={faRedo}
+          color="#1976d2"
+          cursor="pointer"
+          onClick={refresh}
+        />
       </div>
       <div className={classes.retypeCheck_content_message}>
         {isTouch && isInValid && <p>Entered number do not match!</p>}
       </div>
-      <Button clicked={accountDelete} disabled={isInValid}>Ok</Button>
+      <Button clicked={accountDelete} disabled={isInValid}>
+        Ok
+      </Button>
     </div>
   );
 };

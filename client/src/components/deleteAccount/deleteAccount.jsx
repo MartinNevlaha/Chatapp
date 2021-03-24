@@ -24,6 +24,9 @@ export const DeleteAccount = ({ openModal }) => {
       retypeString === e.target.value
         ? setIsInValid(false)
         : setIsInValid(true);
+    } else {
+      setIsTouch(false);
+      setIsInValid(true)
     }
   };
 
@@ -31,7 +34,7 @@ export const DeleteAccount = ({ openModal }) => {
     console.log("delete");
   };
 
-  const handleReset = () => {
+  const handleRefresh = () => {
     setRetypeString(generateRandomNumbers());
     setIsTouch(false);
     setInputString("");
@@ -61,6 +64,7 @@ export const DeleteAccount = ({ openModal }) => {
         isInValid={isInValid}
         accountDelete={handleAccountDelete}
         isTouch={isTouch}
+        refresh={handleRefresh}
       />
     </div>
   );
