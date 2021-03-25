@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import * as action from "../store/actions/";
 import UserSideBar from "../components/UserInfoSidebar/UserInfoSidebar";
+import Post from "../components/Posts/Posts";
 
 const Dasboard = () => {
   const dispatch = useDispatch();
@@ -25,9 +26,7 @@ const Dasboard = () => {
       }}
     >
       <UserSideBar />
-      <div>
-        All user posts
-      </div>
+      <Post />
     </div>
   );
 };

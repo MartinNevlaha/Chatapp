@@ -1,0 +1,52 @@
+@import "../../../style/imports.scss";
+
+  .post_new {
+    h2 {
+      font-size: get-font-size(medium);
+      font-weight: bold;
+      text-align: left;
+      padding: 0.5rem;
+    }
+    textarea {
+      border-radius: 8px;
+      margin: 1rem;
+      border: 1px solid darken(get-color(primary), 10%);
+      width: 90%;
+      height: 3.125rem;
+
+      &:hover,
+      &:focus {
+        outline: none;
+        border: 1px solid darken(get-color(primary), 10%);
+        box-shadow: 0 0 3pt 2pt get-color(primary);
+      }
+    }
+
+    &_bottom {
+      @include flexbox(space-around, center, row);
+      padding: 0.5rem;
+      button {
+        border: none;
+        color: get-color(primary);
+        background-color: transparent;
+        padding: .5rem;
+        cursor: pointer;
+
+        &:hover, &:focus {
+          color: get-color(secondary);
+          background-color: lighten(gray, 30%);
+          border-radius: 4px;
+        }
+      }
+    }
+
+    &_icon {
+      font-size: get-font-size(medium);
+      color: get-color(primary);
+      cursor: pointer;
+
+      &:hover, &:focus {
+        color: get-color(secondary);
+      }
+    }
+  }

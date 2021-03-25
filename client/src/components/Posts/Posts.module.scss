@@ -1,0 +1,9 @@
+@import "../../style/imports.scss";
+
+.posts {
+  @include flexbox(center, center, column);
+  hr {
+    width: 100%;
+    color: lighten(gray, 40%)
+  }
+}

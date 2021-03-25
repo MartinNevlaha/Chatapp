@@ -1,0 +1,45 @@
+@import "../../../style/imports.scss";
+
+.post {
+  &_content {
+    width: 100%;
+
+    &_header {
+      @include flexbox(space-between, center, row);
+
+      p {
+        padding: 1rem;
+        font-size: get-font-size(small);
+        font-style: italic;
+      }
+    }
+    
+    hr {
+      width: 95%;
+    }
+    p {
+      padding: 0 1rem;
+    }
+
+    &_footer {
+      width: 100%;
+      @include flexbox(flex-start, center, row);
+      &_likes {
+        @include flexbox(flex-start, center, row);
+        
+        p{
+          padding: 0 .3rem;
+        }
+      }
+    }
+  }
+
+  &_icon {
+    color: get-color(primary);
+    margin: 1rem;
+
+    &:hover, &:active {
+      color: get-color(secondary);
+    }
+  }
+}
