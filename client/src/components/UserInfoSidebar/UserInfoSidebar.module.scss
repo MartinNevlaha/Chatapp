@@ -14,18 +14,24 @@
       position: absolute;
       top: 4.6875rem;
       left: 50%;
-      transform:  translate(-50%, -50%);
-      img {
-        @include avatar-user;
+      transform: translate(-50%, -50%);
+
+      &_img {
+        border-radius: 50%;
+        border: 2px solid white;
+
+        img {
+          @include avatar-user;
+        }
       }
-  }
-    
-    &_icon {
-      @include flexbox(center, center, row);
-      width: 100px;
-      height: 100px;
-      background-color: lighten(gray, 10%);
-      border-radius: 50%;
+      &_icon {
+        @include flexbox(center, center, row);
+        width: 100px;
+        height: 100px;
+        background-color: lighten(gray, 20%);
+        border-radius: 50%;
+        border: 2px solid white;
+      }
     }
   }
   &_content {
@@ -43,8 +49,8 @@
     }
     p {
       text-align: left;
-      padding: .5rem;
-      margin-left: .5rem;
+      padding: 0.5rem;
+      margin-left: 0.5rem;
     }
   }
 }

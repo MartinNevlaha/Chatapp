@@ -15,7 +15,9 @@ export const UserInfoSidebar = () => {
         <div className={classes.userInfo_header}>
           <div className={classes.userInfo_header_avatar}>
             {userProfile.avatar ? (
-              <img src={userProfile.avatar} alt="avatar" />
+              <div className={classes.userInfo_header_avatar_img}>
+                <img src={userProfile.avatar} alt="avatar" />
+              </div>
             ) : (
               <div className={classes.userInfo_header_avatar_icon}>
                 <FontAwesomeIcon icon={faUser} size="3x" />
@@ -25,9 +27,9 @@ export const UserInfoSidebar = () => {
         </div>
         <div className={classes.userInfo_content}>
           <h2>{userProfile.fullName}</h2>
-          <hr/>
+          <hr />
           <p>Registered since: {parseDateTime(userProfile.createdAt)}</p>
-          <p>Number of friends: 32</p>
+          <p>Number of friends: {userProfile.friendsCount}</p>
         </div>
       </div>
     </Card>
