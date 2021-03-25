@@ -4,6 +4,10 @@ const isAuth = require("../middleware/isAuth");
 const { validateResults } = require("../validators");
 const { rules: createPostRules } = require("../validators/post/createPost");
 const {
+  userPostImageUpload,
+  userPostVideoUpload,
+} = require("../middleware/fileUpload");
+const {
   createPost,
   getPosts,
   updatePost,
@@ -12,7 +16,17 @@ const {
 
 router.get("/", isAuth, getPosts);
 
-router.post("/create", [isAuth, createPostRules, validateResults], createPost);
+router.post(
+  "/create",
+  [
+    isAuth,
+    userPostImageUpload,
+    userPostVideoUpload,
+    createPostRules,
+    validateResults,
+  ],
+  createPost
+);
 
 router.put("/update/:postId", isAuth, updatePost);
 

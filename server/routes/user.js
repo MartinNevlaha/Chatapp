@@ -8,13 +8,13 @@ const {
   userProfile,
   deleteUserAccount
 } = require("../controllers/user");
-const { userFileUpload } = require("../middleware/fileUpload");
+const { userAvatarUpload } = require("../middleware/fileUpload");
 
 router.get("/profile", isAuth, userProfile);
 
 router.put(
   "/update",
-  [isAuth, userFileUpload, updateRules, validateResults],
+  [isAuth, userAvatarUpload, updateRules, validateResults],
   userUpdate
 );
 

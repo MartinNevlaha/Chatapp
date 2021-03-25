@@ -21,7 +21,7 @@ exports.generateFileName = (req, file, cb) => {
   cb(null, file.fieldname + "_" + fileName);
 };
 
-exports.fileFilter = (req, file, cb) => {
+exports.imageFilter = (req, file, cb) => {
   const extension = getFileType(file);
 
   const allowedTypes = /jpeg|jpg|png|gif/;
@@ -35,37 +35,16 @@ exports.fileFilter = (req, file, cb) => {
   }
 };
 
-const isFriends = async (users, userId) => {
-  let usersWithFriendshipStatus = [];
+exports.videoFilter = (req, file, cb) => {
+  const extension = getFileType(file);
 
-  for await (let user of users) {
-    const friendshipStatus = await Friendship.findOne({
-      where: {
-        [Op.or]: [
-          { user_1: userId, user_2: user.id },
-          { user_1: user.id, user_2: userId },
-        ],
-      },
-    });
-    let avatar = null;
-    if (user.avatar) {
-      avatar = `${config.appUrl}:${appPort}/users/${user.id}/${user.avatar}`
-    }
-    if (friendshipStatus) {
-      usersWithFriendshipStatus.push({
-        ...user,
-        avatar,
-        fullName: `${user.firstName} ${user.lastName}`,
-        friendStatus: friendshipStatus.status,
-      });
-    } else {
-      usersWithFriendshipStatus.push({
-        ...user,
-        avatar,
-        fullName: `${user.firstName} ${user.lastName}`,
-        friendStatus: null,
-      });
-    }
+  const allowedTypes = /avi|mpg|mp4/;
+  const isValid = allowedTypes.test(extension);
+  if (isValid) {
+    return cb(null, true);
+  } else {
+    const error = new Error("Invalid file type, use only avi, mpg, mp4");
+    error.statusCode = 422;
+    return cb(error, false);
   }
-  return usersWithFriendshipStatus;
-};
+}
