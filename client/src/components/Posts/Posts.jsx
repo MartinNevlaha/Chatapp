@@ -11,6 +11,11 @@ export const Posts = () => {
       <hr/>
       <div className={classes.posts_all}>
         <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
       </div>
     </div>
   );

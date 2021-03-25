@@ -21,10 +21,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       like: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 0
       },
       unlike: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
