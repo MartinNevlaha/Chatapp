@@ -34,6 +34,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      friendsCount: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 0
+      },
       activated: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

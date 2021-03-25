@@ -24,17 +24,15 @@ exports.sendFriendRequest = async (req, res, next) => {
         error.statusCode = 400;
         return next(error);
       }
-      const friendship = await Friendship.create(
-        {
-          user_1: req.user.id,
-          user_2: req.body.friendId,
-        },
-      );
+      const friendship = await Friendship.create({
+        user_1: req.user.id,
+        user_2: req.body.friendId,
+      });
 
       res.status(201).json({
         status: "Ok",
         message: "Request was send",
-        friendship: friendship
+        friendship: friendship,
       });
     } else {
       const error = new Error("Cannot send friend request to yourself");
@@ -112,6 +110,10 @@ exports.answerFriendshipRequest = async (req, res, next) => {
     let message;
     if (req.body.answer === "1") {
       message = "Friend request was accepted";
+      const user_1 = await User.findByPk(friendship.user_1);
+      await user_1.increment("friendsCount", { by: 1 });
+      const user_2 = await User.findByPk(friendship.user_2);
+      await user_2.increment("friendsCount", { by: 1 });
     } else if (req.body.answer === "2") {
       message = "Friend request was rejected";
     }
@@ -142,6 +144,13 @@ exports.deleteFriendShip = async (req, res, next) => {
     await Friendship.destroy({
       where: { id: requestId },
     });
+
+    if (friendship.status === 1) {
+      const user_1 = await User.findByPk(friendship.user_1);
+      await user_1.decrement("friendsCount", { by: 1 });
+      const user_2 = await User.findByPk(friendship.user_2);
+      await user_2.decrement("friendsCount", { by: 1 });
+    }
     res.json({
       status: "Ok",
       message: "Friendship was deleted",

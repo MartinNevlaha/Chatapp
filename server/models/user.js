@@ -45,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
           }
         },
       },
+      friendsCount: DataTypes.INTEGER,
       activated: DataTypes.BOOLEAN,
       activationToken: DataTypes.STRING,
     },

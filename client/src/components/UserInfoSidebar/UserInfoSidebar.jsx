@@ -17,7 +17,7 @@ export const UserInfoSidebar = () => {
             {userProfile.avatar ? (
               <img src={userProfile.avatar} alt="avatar" />
             ) : (
-              <div className={classes.userInfo_avatar_icon}>
+              <div className={classes.userInfo_header_avatar_icon}>
                 <FontAwesomeIcon icon={faUser} size="3x" />
               </div>
             )}
