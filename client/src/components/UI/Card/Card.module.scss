@@ -16,6 +16,9 @@
 
 .medium_card {
     width: 60vw;
+    @media screen and (max-width: 1320px){
+        width: 80vw;
+    }
 }
 
 .wide_angle {
