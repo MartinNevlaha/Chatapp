@@ -20,6 +20,14 @@ module.exports = {
       text: {
         type: Sequelize.STRING
       },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      video: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       like: {
         type: Sequelize.INTEGER,
         allowNull: true,
