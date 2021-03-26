@@ -32,6 +32,7 @@
         background-color: transparent;
         padding: .5rem;
         cursor: pointer;
+        letter-spacing: 3px;
 
         &:hover, &:focus {
           color: get-color(secondary);
