@@ -3,10 +3,7 @@ const router = require("express").Router();
 const isAuth = require("../middleware/isAuth");
 const { validateResults } = require("../validators");
 const { rules: createPostRules } = require("../validators/post/createPost");
-const {
-  userPostImageUpload,
-  userPostVideoUpload,
-} = require("../middleware/fileUpload");
+const { userPostImageUpload } = require("../middleware/fileUpload");
 const {
   createPost,
   getPosts,
@@ -18,13 +15,7 @@ router.get("/", isAuth, getPosts);
 
 router.post(
   "/create",
-  [
-    isAuth,
-    userPostImageUpload,
-    userPostVideoUpload,
-    createPostRules,
-    validateResults,
-  ],
+  [isAuth, userPostImageUpload, createPostRules, validateResults],
   createPost
 );
 

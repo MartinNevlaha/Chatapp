@@ -30,21 +30,8 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
-      video: {
-        type: DataTypes.STRING,
-        get() {
-          const video = this.getDataValue("video");
-          if (image) {
-            const userId = this.getDataValue("userId");
-            const postId = this.getDataValue("id");
-            return `${config.appUrl}:${config.appPort}/users/${userId}/post/${postId}/${video}`;
-          } else {
-            return null;
-          }
-        }
-      },
       like: DataTypes.INTEGER,
-      unline: DataTypes.INTEGER
+      unlike: DataTypes.INTEGER
     },
     {
       sequelize,

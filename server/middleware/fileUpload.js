@@ -2,11 +2,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-const {
-  generateFileName,
-  imageFilter,
-  videoFilter,
-} = require("../utils/utilities");
+const { generateFileName, imageFilter } = require("../utils/utilities");
 
 exports.userAvatarUpload = ((req, res, next) => {
   const storage = multer.diskStorage({
@@ -51,6 +47,8 @@ exports.userPostImageUpload = ((req, res, next) => {
           return fs.mkdir(dest, (error) => {
             cb(error, dest);
           });
+        } else {
+          return cb(null, dest);
         }
       });
     },
@@ -58,24 +56,4 @@ exports.userPostImageUpload = ((req, res, next) => {
   });
 
   return multer({ storage, imageFilter }).single("image");
-})();
-
-exports.userPostVideoUpload = ((req, res, next) => {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      const { id } = req.user;
-      const dest = `uploads/users/${id}/videos`;
-
-      fs.access(dest, (error) => {
-        if (error) {
-          return fs.mkdir(dest, (error) => {
-            cb(error, dest);
-          });
-        }
-      });
-    },
-    filename: generateFileName,
-  });
-
-  return multer({ storage, videoFilter }).single("video");
 })();

@@ -24,11 +24,28 @@ exports.getPosts = async (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
+  console.log("toto ide");
+  if (req.file) {
+    req.body.image = req.file.filename;
+  }
+  if (typeof req.body.image !== "undefined" && req.body.image.length === 0 ) {
+    delete req.body.image;
+  }
   try {
-    const post = await Post.create({
-      userId: req.user.id,
-      text: req.body.text,
-    });
+    let data;
+    if (req.body.image) {
+      data = {
+        userId: req.user.id,
+        text: req.body.textContent,
+        image: req.body.image
+      }
+    } else {
+      data = {
+        userId: req.user.id,
+        text: req.body.textContent,
+      }
+    }
+    const post = await Post.create(data);
     if (!post) {
       const error = new Error("Cant create post");
       error.statusCode = 500;
