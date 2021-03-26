@@ -28,15 +28,15 @@ export const createPost = (postData) => {
     //},
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-    }
-  }
+    },
+  };
   return (dispatch) => {
     dispatch(createPostStart());
     axios
       .post("/api/posts/create", postData, config)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
-        dispatch(createPostSuccess(res.data.post))
+        dispatch(createPostSuccess(res.data.post));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
@@ -45,4 +45,37 @@ export const createPost = (postData) => {
   };
 };
 
+export const fetchFriendsPostStart = () => {
+  return {
+    type: actionTypes.FETCH_FRIENDS_POST_START,
+  };
+};
 
+export const fetchFriendsPostSuccess = (posts, count) => {
+  return {
+    type: actionTypes.FETCH_FRIENDS_POST_SUCCESS,
+    posts,
+    count
+  };
+};
+
+export const fetchFriendsPostFailed = () => {
+  return {
+    type: actionTypes.FETCH_FRIENDS_POST_FAILED,
+  };
+};
+
+export const fetchFriendsPost = (page, limit) => {
+  return (dispatch) => {
+    dispatch(fetchFriendsPostStart());
+    axios
+      .get(`/api/posts/friends-post?page=${page}&limit=${limit}`)
+      .then(res => {
+        dispatch(fetchFriendsPostSuccess(res.data.posts, res.data.count))
+      })
+      .catch((err) => {
+        dispatch(errorCreator(err.response));
+        dispatch(fetchFriendsPostFailed());
+      });
+  };
+};

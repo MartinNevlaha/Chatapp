@@ -5,17 +5,18 @@ import {
   faThumbsUp,
   faThumbsDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { parseDateTime } from "../../../utils/utilities";
 
 import classes from "./Post.module.scss";
 import Card from "../../UI/Card/Card";
 
-export const Post = () => {
+export const Post = (props) => {
   return (
     <div className={classes.post}>
       <Card type="medium_card">
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
-            <p>Created: 30.6.2020</p>
+            <p>Created: {parseDateTime(props.created)}</p>
             <FontAwesomeIcon
               icon={faEllipsisV}
               size="1x"
@@ -23,15 +24,9 @@ export const Post = () => {
               className={classes.post_icon}
             />
           </div>
-          <hr/>
+          <hr />
           <p>
-            Post text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum."{" "}
+            {props.text}
           </p>
           <div className={classes.post_content_footer}>
             <div className={classes.post_content_footer_likes}>

@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as action from "../store/actions/";
 import UserSideBar from "../components/UserInfoSidebar/UserInfoSidebar";
 import Posts from "../components/Posts/Posts";
 
 const Dasboard = () => {
+  const friendsPost = useSelector(state => state.posts.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(action.fetchUserProfile());
     dispatch(action.fetchFriendRequest());
+    dispatch(action.fetchFriendsPost(0, 10));
   }, [dispatch]);
 
   const handleCreatePost = (data) => {
@@ -29,7 +31,7 @@ const Dasboard = () => {
       }}
     >
       <UserSideBar />
-      <Posts createPost={handleCreatePost} />
+      <Posts createPost={handleCreatePost} posts={friendsPost} />
     </div>
   );
 };

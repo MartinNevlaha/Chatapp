@@ -169,35 +169,41 @@ exports.getFriendsPosts = async (req, res, next) => {
         },
       ],
     });
-    
+
     if (!userFriendship) {
       const error = new Error("Cant fetch list of friends");
       error.statusCode = 404;
       return next(error);
     }
-    
+
     let friendsIdArray = [];
-    userFriendship.forEach(friendship => {
+    userFriendship.forEach((friendship) => {
       if (friendship.requestor.id === req.user.id) {
         friendsIdArray.push(friendship.User.dataValues.id);
       } else {
-        friendsIdArray.push(friendship.requestor.id)
+        friendsIdArray.push(friendship.requestor.id);
       }
-    })
+    });
     const friendsPost = await Post.findAndCountAll({
       where: {
-        userId: friendsIdArray
+        userId: friendsIdArray,
+      },
+      include: {
+        model: User,
+        attributes: {
+          exclude: ["password", "activationToken", "activated", "email"],
+        },
       },
       limit: limit,
       offset: offset,
-      order: [["createdAt", "DESC"]]
-    })
+      order: [["createdAt", "DESC"]],
+    });
     res.json({
       status: "Ok",
       message: "Friends posts was fetched",
       count: friendsPost.count,
-      posts: friendsPost.rows
-    })
+      posts: friendsPost.rows,
+    });
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
