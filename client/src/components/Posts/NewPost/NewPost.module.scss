@@ -26,6 +26,16 @@
     &_bottom {
       @include flexbox(space-around, center, row);
       padding: 0.5rem;
+
+      input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index:  -1;
+      }
+
       button {
         border: none;
         color: get-color(primary);

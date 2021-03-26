@@ -41,9 +41,9 @@ export const NewPost = () => {
       onSubmit={(postData) => {
         let data = new FormData();
         for (const [key, value] of Object.entries(postData)) {
-        data.append(key, value);
+          data.append(key, value);
         }
-
+        // upload to BE
       }}
     >
       {(fromProps) => (
@@ -51,14 +51,17 @@ export const NewPost = () => {
           <Card type="medium_card">
             <Form>
               <h2>Create new post</h2>
-              <AreaField label="Post content" name="textContent"/>
+              <AreaField label="Post content" name="textContent" />
               <div className={classes.post_new_bottom}>
-                <FontAwesomeIcon
-                  icon={faImage}
-                  className={classes.post_new_icon}
-                />
+                <label htmlFor="image">
+                  <FontAwesomeIcon
+                    icon={faImage}
+                    className={classes.post_new_icon}
+                  />
+                </label>
                 <input
                   type="file"
+                  id="image"
                   name="image"
                   onChange={(e) =>
                     fromProps.setFieldValue("image", e.target.files[0])
