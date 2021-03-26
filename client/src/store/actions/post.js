@@ -23,20 +23,19 @@ export const createPostFailed = () => {
 
 export const createPost = (postData) => {
   const config = {
-    onUploadProgress: (progressEvent) => {
-      let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-      console.log(percentCompleted);
-    },
+    //onUploadProgress: (progressEvent) => {
+    //  let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+    //},
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     }
   }
   return (dispatch) => {
-    console.log(postData);
     dispatch(createPostStart());
     axios
       .post("/api/posts/create", postData, config)
       .then(res => {
+        console.log(res.data);
         dispatch(createPostSuccess(res.data.post))
       })
       .catch((err) => {

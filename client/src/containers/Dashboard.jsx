@@ -15,7 +15,7 @@ const Dasboard = () => {
 
   const handleCreatePost = (data) => {
     dispatch(action.createPost(data));
-  }
+  };
 
   return (
     <div

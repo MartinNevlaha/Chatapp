@@ -8,7 +8,7 @@ import classes from "./NewPost.module.scss";
 import Card from "../../UI/Card/Card";
 import AreaField from "../../Inputs/AreaField/AreaField";
 
-export const NewPost = ({ createPost }) => {
+export const NewPost = ({ createPost, progress, isInProgress }) => {
   const suportedImageFormat = [
     "image/jpg",
     "image/jpeg",
