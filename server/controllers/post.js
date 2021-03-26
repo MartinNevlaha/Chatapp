@@ -24,7 +24,6 @@ exports.getPosts = async (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
-  console.log("toto ide");
   if (req.file) {
     req.body.image = req.file.filename;
   }

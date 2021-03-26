@@ -2,6 +2,8 @@ const brycpt = require("bcryptjs");
 const models = require("../models");
 const User = models.User;
 
+const { removeAllAccountFiles } = require("../utils/utilities");
+
 exports.userUpdate = async (req, res, next) => {
   const userId = req.user.id;
   if (req.file) {
@@ -113,6 +115,8 @@ exports.deleteUserAccount = async (req, res, next) => {
     await User.destroy({
       where: { id: userId },
     });
+    // remove all user files from server
+    await removeAllAccountFiles(userId);
     res.json({
       status: "Ok",
       message: "Account was successfully deleted",

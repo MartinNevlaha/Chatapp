@@ -1,5 +1,8 @@
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
+const fs = require("fs-extra");
+const logger = require("../config/winston");
+const timestamp = require("time-stamp");
 
 exports.hashPwd = async (user) => {
   if (user.changed("password")) {
@@ -34,3 +37,30 @@ exports.imageFilter = (req, file, cb) => {
   }
 };
 
+exports.removeAllAccountFiles = async (dirId) => {
+  const path = `uploads/users/${dirId}`;
+  try {
+    const exist = await fs.pathExists(path);
+    if (exist) {
+      await fs.remove(path);
+      logger.log({
+        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+        level: "info",
+        message: "All user files was deleted",
+      })
+    } else {
+      logger.log({
+        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+        level: "info",
+        message: "No files to delete",
+      })
+    }
+  } catch (error) {
+    logger.error({
+      time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+      level: "error",
+      message: error,
+    })
+    throw error;
+  }
+};
