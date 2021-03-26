@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage, faVideo } from "@fortawesome/free-solid-svg-icons";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./NewPost.module.scss";
 import Card from "../../UI/Card/Card";
@@ -36,11 +36,14 @@ export const NewPost = () => {
       initialValues={{
         textContent: "",
         image: "",
-        video: "",
       }}
       validationSchema={validate}
       onSubmit={(postData) => {
-        console.log(postData);
+        let data = new FormData();
+        for (const [key, value] of Object.entries(postData)) {
+        data.append(key, value);
+        }
+
       }}
     >
       {(fromProps) => (

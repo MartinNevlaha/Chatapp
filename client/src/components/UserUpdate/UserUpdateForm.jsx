@@ -61,12 +61,9 @@ const UserUpdate = (props) => {
       validationSchema={validate}
       onSubmit={(userData) => {
         let data = new FormData();
-        data.append("firstName", userData.firstName);
-        data.append("lastName", userData.lastName);
-        data.append("email", userData.email);
-        data.append("oldPassword", userData.oldPassword);
-        data.append("newPassword", userData.newPassword);
-        data.append("avatar", userData.avatar);
+        for (const [key, value] of Object.entries(userData)) {
+          data.append(key, value);
+        }
 
         props.updateProfile(data);
       }}
