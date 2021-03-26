@@ -9,9 +9,12 @@ const {
   getPosts,
   updatePost,
   deletePost,
+  getFriendsPosts
 } = require("../controllers/post");
 
 router.get("/", isAuth, getPosts);
+
+router.get("/friends-post", isAuth, getFriendsPosts);
 
 router.post(
   "/create",

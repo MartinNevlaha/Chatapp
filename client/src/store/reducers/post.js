@@ -14,10 +14,7 @@ const createPostStart = (state, action) => {
 };
 
 const createPostSuccess = (state, action) => {
-  console.log(action.post);
-  const oldPosts = [...state.posts];
-  const updatedPosts = oldPosts.concat(action.post);
-  return updateObj(state, { loading: false, posts: updatedPosts });
+  return updateObj(state, { loading: false, posts: [...state.posts, action.post] });
 };
 
 const createPostFailed = (state, action) => {

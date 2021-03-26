@@ -1,5 +1,6 @@
+const { Op } = require("sequelize");
 const models = require("../models/");
-const Post = models.Post;
+const { Post, Friendship, User } = models;
 
 exports.getPosts = async (req, res, next) => {
   // dorobit pagination
@@ -27,7 +28,7 @@ exports.createPost = async (req, res, next) => {
   if (req.file) {
     req.body.image = req.file.filename;
   }
-  if (typeof req.body.image !== "undefined" && req.body.image.length === 0 ) {
+  if (typeof req.body.image !== "undefined" && req.body.image.length === 0) {
     delete req.body.image;
   }
   try {
@@ -36,13 +37,13 @@ exports.createPost = async (req, res, next) => {
       data = {
         userId: req.user.id,
         text: req.body.textContent,
-        image: req.body.image
-      }
+        image: req.body.image,
+      };
     } else {
       data = {
         userId: req.user.id,
         text: req.body.textContent,
-      }
+      };
     }
     const post = await Post.create(data);
     if (!post) {
@@ -125,6 +126,78 @@ exports.deletePost = async (req, res, next) => {
       status: "Ok",
       message: "Post was successfully deleted",
     });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+      return next(error);
+    }
+  }
+};
+
+exports.getFriendsPosts = async (req, res, next) => {
+  const limit = parseInt(req.query.limit);
+  const page = parseInt(req.query.page);
+  const offset = page * limit;
+
+  try {
+    const userFriendship = await Friendship.findAll({
+      where: {
+        [Op.or]: [
+          {
+            user_1: req.user.id,
+            status: 1,
+          },
+          {
+            user_2: req.user.id,
+            status: 1,
+          },
+        ],
+      },
+      include: [
+        {
+          model: User,
+          as: "requestor",
+          attributes: {
+            exclude: ["password", "activationToken", "activated", "email"],
+          },
+        },
+        {
+          model: User,
+          attributes: {
+            exclude: ["password", "activationToken", "activated", "email"],
+          },
+        },
+      ],
+    });
+    
+    if (!userFriendship) {
+      const error = new Error("Cant fetch list of friends");
+      error.statusCode = 404;
+      return next(error);
+    }
+    
+    let friendsIdArray = [];
+    userFriendship.forEach(friendship => {
+      if (friendship.requestor.id === req.user.id) {
+        friendsIdArray.push(friendship.User.dataValues.id);
+      } else {
+        friendsIdArray.push(friendship.requestor.id)
+      }
+    })
+    const friendsPost = await Post.findAndCountAll({
+      where: {
+        userId: friendsIdArray
+      },
+      limit: limit,
+      offset: offset,
+      order: [["createdAt", "DESC"]]
+    })
+    res.json({
+      status: "Ok",
+      message: "Friends posts was fetched",
+      count: friendsPost.count,
+      posts: friendsPost.rows
+    })
   } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
