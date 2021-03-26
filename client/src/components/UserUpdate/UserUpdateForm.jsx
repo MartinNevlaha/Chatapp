@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faImage } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 import classes from "./UserUpdateForm.module.scss";
@@ -81,11 +81,20 @@ const UserUpdate = (props) => {
                   ) : (
                     <img src={user.avatar} alt="avatar" />
                   )}
+                  <label htmlFor="avatar">
+                    <FontAwesomeIcon
+                      icon={faImage}
+                      size="3x"
+                      cursor="pointer"
+                      className={classes.upload}
+                    />
+                  </label>
                   <input
                     className={
                       classes.profile_container_inputs_avatar_file_input
                     }
                     type="file"
+                    id="avatar"
                     name="avatar"
                     onChange={(e) =>
                       formProps.setFieldValue("avatar", e.target.files[0])
