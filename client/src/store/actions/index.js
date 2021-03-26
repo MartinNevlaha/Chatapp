@@ -18,3 +18,5 @@ export { fetchActiveUsers, addFriend } from "./users";
 export { fetchFriendRequest, answerFriendRequest } from "./friendRequest";
 
 export { fetchFriends, friendsOnline, friendOffline } from "./friends";
+
+export { createPost } from "./post";

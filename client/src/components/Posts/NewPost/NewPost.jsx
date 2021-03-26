@@ -8,7 +8,7 @@ import classes from "./NewPost.module.scss";
 import Card from "../../UI/Card/Card";
 import AreaField from "../../Inputs/AreaField/AreaField";
 
-export const NewPost = () => {
+export const NewPost = ({ createPost }) => {
   const suportedImageFormat = [
     "image/jpg",
     "image/jpeg",
@@ -19,7 +19,7 @@ export const NewPost = () => {
   const validate = Yup.object({
     textContent: Yup.string()
       .max(255, "Your post must be 255 characters or less")
-      .notRequired(),
+      .required("Content is required"),
     image: Yup.mixed()
       .test("fileFormat", "Unsuported image file format", (value) => {
         if (!value) {
@@ -38,12 +38,13 @@ export const NewPost = () => {
         image: "",
       }}
       validationSchema={validate}
-      onSubmit={(postData) => {
+      onSubmit={(postData, { resetForm }) => {
         let data = new FormData();
         for (const [key, value] of Object.entries(postData)) {
           data.append(key, value);
         }
-        // upload to BE
+        createPost(data);
+        resetForm();
       }}
     >
       {(fromProps) => (

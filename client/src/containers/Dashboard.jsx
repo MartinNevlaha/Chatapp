@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import * as action from "../store/actions/";
 import UserSideBar from "../components/UserInfoSidebar/UserInfoSidebar";
-import Post from "../components/Posts/Posts";
+import Posts from "../components/Posts/Posts";
 
 const Dasboard = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,9 @@ const Dasboard = () => {
     dispatch(action.fetchFriendRequest());
   }, [dispatch]);
 
+  const handleCreatePost = (data) => {
+    dispatch(action.createPost(data));
+  }
 
   return (
     <div
@@ -26,7 +29,7 @@ const Dasboard = () => {
       }}
     >
       <UserSideBar />
-      <Post />
+      <Posts createPost={handleCreatePost} />
     </div>
   );
 };

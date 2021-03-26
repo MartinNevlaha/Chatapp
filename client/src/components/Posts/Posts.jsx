@@ -4,11 +4,11 @@ import classes from "./Posts.module.scss";
 import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
 
-export const Posts = () => {
+export const Posts = ({ createPost }) => {
   return (
     <div className={classes.posts}>
-      <NewPost />
-      <hr/>
+      <NewPost createPost={createPost} />
+      <hr />
       <div className={classes.posts_all}>
         <Post />
         <Post />
