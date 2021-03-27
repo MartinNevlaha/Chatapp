@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const models = require("../models/");
-const { Post, Friendship, User } = models;
+const { Post, Friendship, User, Likes } = models;
 
 exports.getPosts = async (req, res, next) => {
   // dorobit pagination
@@ -175,7 +175,7 @@ exports.getFriendsPosts = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-
+    
     let friendsIdArray = [req.user.id];
     userFriendship.forEach((friendship) => {
       if (friendship.requestor.id === req.user.id) {
@@ -188,12 +188,17 @@ exports.getFriendsPosts = async (req, res, next) => {
       where: {
         userId: friendsIdArray,
       },
-      include: {
-        model: User,
-        attributes: {
-          exclude: ["password", "activationToken", "activated", "email"],
+      include: [
+        {
+          model: User,
+          attributes: {
+            exclude: ["password", "activationToken", "activated", "email"],
+          }
         },
-      },
+        {
+          model: Likes
+        }
+      ],
       limit: limit,
       offset: offset,
       order: [["createdAt", "DESC"]],
@@ -213,9 +218,33 @@ exports.getFriendsPosts = async (req, res, next) => {
 };
 
 exports.likeOrUnlikePost = async (req, res, next) => {
+  console.log("ide");
   try {
-    
+    if (req.isFriend) {
+      const createRec = await Likes.create({
+        postId: req.params.postId,
+        userId: req.user.id,
+        status: req.body.likeOrUnlike,
+      });
+      if (!createRec) {
+        const error = new Error("Cant create like or unlike");
+        error.statusCode = 500;
+        return next(error);
+      }
+      res.json({
+        status: "Ok",
+        message: "Like or unlike was saved",
+        likes: createRec,
+      });
+    } else {
+      const error = new Error("Users are not friends");
+      error.statusCode = 401;
+      return next(error);
+    }
   } catch (err) {
-    
+    if (error.statusCode) {
+      error.statusCode = 500;
+      return next(error);
+    }
   }
-}
+};

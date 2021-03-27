@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.User, { foreignKey: "userId", onDelete: "CASCADE" });
+      this.belongsTo(models.User, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
+      this.hasMany(models.Likes, { foreignKey: "postId", onDelete: "CASCADE" });
     }
   }
   Post.init(
@@ -27,10 +31,10 @@ module.exports = (sequelize, DataTypes) => {
           } else {
             return null;
           }
-        }
+        },
       },
       like: DataTypes.INTEGER,
-      unlike: DataTypes.INTEGER
+      unlike: DataTypes.INTEGER,
     },
     {
       sequelize,

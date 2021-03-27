@@ -20,8 +20,9 @@ const isFriend = async (req, res, next) => {
           },
         ],
       },
+      raw: true
     });
-    if (userFriendship) {
+    if (userFriendship.length > 0) {
       req.isFriend = true;
     } else {
       req.isFriend = false;

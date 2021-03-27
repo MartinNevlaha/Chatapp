@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Friendship, { foreignKey: "user_1" });
       this.hasMany(models.Friendship, { foreignKey: "user_2" });
       this.hasMany(models.Post, { foreignKey: "userId" });
+      this.hasMany(models.Likes, {foreignKey: "userId"});
     }
   }
   User.init(

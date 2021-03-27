@@ -10,7 +10,8 @@ const {
   getPosts,
   updatePost,
   deletePost,
-  getFriendsPosts
+  getFriendsPosts,
+  likeOrUnlikePost
 } = require("../controllers/post");
 
 router.get("/", isAuth, getPosts);
@@ -27,6 +28,6 @@ router.put("/update/:postId", isAuth, updatePost);
 
 router.delete("/delete/:postId", isAuth, deletePost);
 
-router.patch("/like-status/:postId", [isAuth, isFriend] );
+router.patch("/like-status/:postId", [isAuth, isFriend], likeOrUnlikePost );
 
 module.exports = router;
