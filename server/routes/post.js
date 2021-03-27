@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
+const isFriend = require("../middleware/isFriend");
 const { validateResults } = require("../validators");
 const { rules: createPostRules } = require("../validators/post/createPost");
 const { userPostImageUpload } = require("../middleware/fileUpload");
@@ -25,5 +26,7 @@ router.post(
 router.put("/update/:postId", isAuth, updatePost);
 
 router.delete("/delete/:postId", isAuth, deletePost);
+
+router.patch("/like-status/:postId", [isAuth, isFriend] );
 
 module.exports = router;

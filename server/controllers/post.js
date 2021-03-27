@@ -211,3 +211,11 @@ exports.getFriendsPosts = async (req, res, next) => {
     }
   }
 };
+
+exports.likeOrUnlikePost = async (req, res, next) => {
+  try {
+    
+  } catch (err) {
+    
+  }
+}
