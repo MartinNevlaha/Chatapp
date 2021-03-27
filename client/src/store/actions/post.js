@@ -30,13 +30,17 @@ export const createPost = (postData) => {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   };
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const user = getState().userProfile.user;
     dispatch(createPostStart());
     axios
       .post("/api/posts/create", postData, config)
       .then((res) => {
-        console.log(res.data);
-        dispatch(createPostSuccess(res.data.post));
+        const post = {
+          ...res.data.post,
+          User: user
+        }
+        dispatch(createPostSuccess(post));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));

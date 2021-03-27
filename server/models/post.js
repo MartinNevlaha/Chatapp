@@ -23,8 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           const image = this.getDataValue("image");
           if (image) {
             const userId = this.getDataValue("userId");
-            const postId = this.getDataValue("id");
-            return `${config.appUrl}:${config.appPort}/users/${userId}/post/${postId}/${image}`;
+            return `${config.appUrl}:${config.appPort}/users/${userId}/images/${image}`;
           } else {
             return null;
           }

@@ -176,7 +176,7 @@ exports.getFriendsPosts = async (req, res, next) => {
       return next(error);
     }
 
-    let friendsIdArray = [];
+    let friendsIdArray = [req.user.id];
     userFriendship.forEach((friendship) => {
       if (friendship.requestor.id === req.user.id) {
         friendsIdArray.push(friendship.User.dataValues.id);
@@ -196,7 +196,7 @@ exports.getFriendsPosts = async (req, res, next) => {
       },
       limit: limit,
       offset: offset,
-      order: [["createdAt", "DESC"]],
+      order: [["createdAt", "ASC"]],
     });
     res.json({
       status: "Ok",

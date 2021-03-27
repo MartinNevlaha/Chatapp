@@ -13,12 +13,42 @@
         font-style: italic;
       }
     }
-    
+    &_container {
+      @include flexbox(center, center, row);
+      flex-wrap: wrap;
+
+      &_avatar {
+        min-width: 10%;
+        padding: 1rem;
+        margin-left: 2rem;
+        p {
+          padding: 1rem;
+        }
+        img {
+          @include avatar-big;
+          cursor: pointer;
+        }
+      }
+      &_main {
+        @include flexbox (center, center, column);
+        width: 80%;
+        &_image { 
+          height: 250px;
+
+          img {
+            width: 350px;
+            height: 250px;
+            object-fit: cover;
+          }
+
+        }
+        p {
+          padding: 1rem;
+        }
+      }
+    }
     hr {
       width: 95%;
-    }
-    p {
-      padding: 0 1rem;
     }
 
     &_footer {
@@ -26,9 +56,9 @@
       @include flexbox(flex-start, center, row);
       &_likes {
         @include flexbox(flex-start, center, row);
-        
-        p{
-          padding: 0 .3rem;
+
+        p {
+          padding: 0 0.3rem;
         }
       }
     }
@@ -38,7 +68,8 @@
     color: get-color(primary);
     margin: 1rem;
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       color: get-color(secondary);
     }
   }

@@ -31,10 +31,11 @@ const fetchFriendsPostStart = (state, action) => {
 };
 
 const fetchFriendsPostSuccess = (state, action) => {
+  const concatedPosts = state.posts.concat(action.posts)
   return updateObj(state, {
     loading: false,
     count: action.count,
-    posts: action.posts,
+    posts: concatedPosts
   });
 };
 
