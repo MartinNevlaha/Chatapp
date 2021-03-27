@@ -8,6 +8,7 @@
   color: white;
   @include flexbox(center, center, row);
   transition: all 0.3s ease-in-out;
+  z-index: 100;
 
   &_left {
     @include flexbox(flex-start, center, row);

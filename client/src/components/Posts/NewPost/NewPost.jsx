@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,9 @@ import classes from "./NewPost.module.scss";
 import Card from "../../UI/Card/Card";
 import AreaField from "../../Inputs/AreaField/AreaField";
 
-export const NewPost = ({ createPost, progress, isInProgress }) => {
+export const NewPost = ({ createPost }) => {
+  const [fileName, setFileName] = useState("");
+
   const suportedImageFormat = [
     "image/jpg",
     "image/jpeg",
@@ -54,20 +56,27 @@ export const NewPost = ({ createPost, progress, isInProgress }) => {
               <h2>Create new post</h2>
               <AreaField label="Post content" name="textContent" />
               <div className={classes.post_new_bottom}>
-                <label htmlFor="image">
-                  <FontAwesomeIcon
-                    icon={faImage}
-                    className={classes.post_new_icon}
+                <div className={classes.post_new_bottom_input}>
+                  <label htmlFor="image">
+                    <FontAwesomeIcon
+                      icon={faImage}
+                      className={classes.post_new_icon}
+                    />
+                    <p>{fileName}</p>
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    onChange={(e) => {
+                      const [file] = e.target.files;
+                      const { name } = file;
+                      setFileName(name);
+                      fromProps.setFieldValue("image", e.target.files[0]);
+                    }}
                   />
-                </label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  onChange={(e) =>
-                    fromProps.setFieldValue("image", e.target.files[0])
-                  }
-                />
+                </div>
+
                 <button type="submit">CREATE</button>
               </div>
               <ErrorMessage

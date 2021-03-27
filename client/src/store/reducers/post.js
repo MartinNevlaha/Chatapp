@@ -18,7 +18,7 @@ const createPostStart = (state, action) => {
 const createPostSuccess = (state, action) => {
   return updateObj(state, {
     loading: false,
-    posts: [...state.posts, action.post],
+    posts: [ action.post, ...state.posts,],
   });
 };
 

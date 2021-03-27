@@ -27,14 +27,23 @@
       @include flexbox(space-around, center, row);
       padding: 0.5rem;
 
-      input {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index:  -1;
+      &_input {
+        input {
+          width: 0.1px;
+          height: 0.1px;
+          opacity: 0;
+          overflow: hidden;
+          position: absolute;
+          z-index:  -1;
+        }
+        label {
+          padding-left: 1rem;
+        }
+        p {
+          padding: .5rem;
+        }
       }
+
 
       button {
         border: none;

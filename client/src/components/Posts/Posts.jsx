@@ -22,7 +22,7 @@ export const Posts = ({ createPost, posts, loadAnothnerPosts }) => {
           loader={Spinner}
         >
           {loadingCreatePost && <Spinner />}
-          {posts.reverse().map((post) => (
+          {posts.map((post) => (
             <Post key={post.id} post={post} />
           ))}
         </InfiniteScroll>

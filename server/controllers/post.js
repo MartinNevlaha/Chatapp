@@ -196,7 +196,7 @@ exports.getFriendsPosts = async (req, res, next) => {
       },
       limit: limit,
       offset: offset,
-      order: [["createdAt", "ASC"]],
+      order: [["createdAt", "DESC"]],
     });
     res.json({
       status: "Ok",
