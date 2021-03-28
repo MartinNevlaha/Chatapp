@@ -12,6 +12,7 @@ import { parseDateTime } from "../../../utils/utilities";
 import classes from "./Post.module.scss";
 import Card from "../../UI/Card/Card";
 import LazyImage from "../../UI/LazyImage/LazyImage";
+import { getLikeNumber } from "../../../utils/utilities";
 
 export const Post = ({ post }) => {
   return (
@@ -72,7 +73,7 @@ export const Post = ({ post }) => {
             <div className={classes.post_content_container_main}>
               {post.image && (
                 <div className={classes.post_content_container_main_image}>
-                  <LazyImage image={{src: post.image, alt: "postImage"}}/>
+                  <LazyImage image={{ src: post.image, alt: "postImage" }} />
                 </div>
               )}
               <p>{post.text}</p>
@@ -87,7 +88,9 @@ export const Post = ({ post }) => {
                 cursor="pointer"
                 className={classes.post_icon}
               />
-              <p>{post.like}</p>
+              <p>
+                {getLikeNumber(post.Likes, "like")} <span>likes</span>
+              </p>
             </div>
             <div className={classes.post_content_footer_likes}>
               <FontAwesomeIcon
@@ -96,7 +99,10 @@ export const Post = ({ post }) => {
                 cursor="pointer"
                 className={classes.post_icon}
               />
-              <p>{post.unlike}</p>
+              <p>
+                {getLikeNumber(post.Likes, "unlike")}{" "}
+                 <span>dislikes</span>
+              </p>
             </div>
           </div>
         </div>

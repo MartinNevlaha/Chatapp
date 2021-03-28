@@ -20,3 +20,20 @@ export const generateRandomNumbers = () => {
   return number;
 };
 
+export const getLikeNumber = (likesArr, type) => {
+  let likes = 0;
+  if (type === "like") {
+    likesArr.forEach(like => {
+      if (like.status === 1) {
+        likes +=  1;
+      }
+    })
+  } else if (type === "unlike") {
+    likesArr.forEach(like => {
+      if (like.status === 0) {
+        likes +=  1;
+      }
+    })
+  }
+  return likes;
+}
