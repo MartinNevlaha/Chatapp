@@ -222,7 +222,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
     if (req.isFriend) {
       const isAllReadyLiked = await Likes.findOne({
         where: {
-          postId: req.params.postId,
+          postId: +req.params.postId,
           userId: req.user.id
         },
         raw: true
@@ -230,21 +230,21 @@ exports.likeOrUnlikePost = async (req, res, next) => {
       let like;
       if (!isAllReadyLiked) {
         like = await Likes.create({
-          postId: req.params.postId,
+          postId: +req.params.postId,
           userId: req.user.id,
           status: req.body.likeOrUnlike,
         });
       } else if (isAllReadyLiked.status === 0 && req.body.likeOrUnlike === 0) {
         await Likes.destroy({
           where: {
-            postId: req.params.postId,
+            postId: +req.params.postId,
             userId: req.user.id,
             status: 0
           }
         })
         like = {
           id: isAllReadyLiked.id,
-          postId: req.params.postId,
+          postId: +req.params.postId,
           userId: req.user.id,
           status: 0,
           deleted: true,
@@ -252,14 +252,14 @@ exports.likeOrUnlikePost = async (req, res, next) => {
       } else if (isAllReadyLiked.status === 1 && req.body.likeOrUnlike === 1) {
         await Likes.destroy({
           where: {
-            postId: req.params.postId,
+            postId: +req.params.postId,
             userId: req.user.id,
             status: 1
           }
         })
         like = {
           id: isAllReadyLiked.id,
-          postId: req.params.postId,
+          postId: +req.params.postId,
           userId: req.user.id,
           status: 1,
           deleted: true
@@ -267,26 +267,26 @@ exports.likeOrUnlikePost = async (req, res, next) => {
       } else if (isAllReadyLiked.status === 0 && req.body.likeOrUnlike === 1) {
         await Likes.destroy({
           where: {
-            postId: req.params.postId,
+            postId: +req.params.postId,
             userId: req.user.id,
             status: 1
           }
         })
         like = await Likes.create({
-          postId: req.params.postId,
+          postId: +req.params.postId,
           userId: req.user.id,
           status: req.body.likeOrUnlike,
         });
       } else if (isAllReadyLiked === 1 && req.body.likeOrUnlike === 0) {
         await Likes.destroy({
           where: {
-            postId: req.params.postId,
+            postId: +req.params.postId,
             userId: req.user.id,
             status: 0
           }
         })
         like = await Likes.create({
-          postId: req.params.postId,
+          postId: +req.params.postId,
           userId: req.user.id,
           status: req.body.likeOrUnlike,
         });

@@ -31,7 +31,11 @@ const Dasboard = () => {
   };
 
   const handleLiker = (status, friendId, postId) => {
-    console.log(status, friendId, postId);
+    const data = {
+      friendId,
+      likeOrUnlike: status === "like" ? 1 : 0,
+    }
+    dispatch(action.likePost(postId, data));
   };
 
   return (

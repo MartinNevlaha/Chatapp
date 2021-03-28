@@ -89,3 +89,20 @@ export const fetchFriendsPost = (page, limit) => {
       });
   };
 };
+
+export const likePostSuccess = (payload) => {
+  return {
+    type: actionTypes.LIKER_POST,
+    payload
+  };
+};
+
+export const likePost = (postId, data) => {
+  return (dispatch) => {
+    axios.patch(`/api/posts/like-status/${postId}`, data)
+    .then(res => {
+      dispatch(likePostSuccess(res.data.likes))
+    })
+    .catch(err => dispatch(errorCreator(err.response)));
+  };
+};

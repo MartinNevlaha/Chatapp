@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
+import updateArray from "react-addons-update";
 
 const initialState = {
   posts: [],
@@ -49,6 +50,15 @@ const clearPosts = (state, action) => {
   return updateObj(state, { posts: [] });
 };
 
+const likePostSuccess = (state, action) => {
+  const postIndex = state.posts.findIndex(
+    (post) => post.id === action.payload.postId
+  );
+  const likeIndex = state.posts.Likes.findIndex(like => like.id === action.payload.id);
+  console.log(postIndex, likeIndex);
+  return updateObj(state, { loading: false });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CREATE_POST_START:
@@ -65,6 +75,8 @@ const reducer = (state = initialState, action) => {
       return fetchFriendsPostFailed(state, action);
     case actionTypes.CLEAR_POSTS:
       return clearPosts(state, action);
+    case actionTypes.LIKER_POST:
+      return likePostSuccess(state, action);
     default:
       return state;
   }

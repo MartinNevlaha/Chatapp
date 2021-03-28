@@ -19,4 +19,4 @@ export { fetchFriendRequest, answerFriendRequest } from "./friendRequest";
 
 export { fetchFriends, friendsOnline, friendOffline } from "./friends";
 
-export { createPost, fetchFriendsPost, clearPosts } from "./post";
+export { createPost, fetchFriendsPost, clearPosts, likePost } from "./post";
