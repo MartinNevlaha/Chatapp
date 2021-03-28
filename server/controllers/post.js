@@ -218,15 +218,81 @@ exports.getFriendsPosts = async (req, res, next) => {
 };
 
 exports.likeOrUnlikePost = async (req, res, next) => {
-  console.log("ide");
   try {
     if (req.isFriend) {
-      const createRec = await Likes.create({
-        postId: req.params.postId,
-        userId: req.user.id,
-        status: req.body.likeOrUnlike,
-      });
-      if (!createRec) {
+      const isAllReadyLiked = await Likes.findOne({
+        where: {
+          postId: req.params.postId,
+          userId: req.user.id
+        },
+        raw: true
+      })
+      let like;
+      if (!isAllReadyLiked) {
+        like = await Likes.create({
+          postId: req.params.postId,
+          userId: req.user.id,
+          status: req.body.likeOrUnlike,
+        });
+      } else if (isAllReadyLiked.status === 0 && req.body.likeOrUnlike === 0) {
+        await Likes.destroy({
+          where: {
+            postId: req.params.postId,
+            userId: req.user.id,
+            status: 0
+          }
+        })
+        like = {
+          id: isAllReadyLiked.id,
+          postId: req.params.postId,
+          userId: req.user.id,
+          status: 0,
+          deleted: true,
+        }
+      } else if (isAllReadyLiked.status === 1 && req.body.likeOrUnlike === 1) {
+        await Likes.destroy({
+          where: {
+            postId: req.params.postId,
+            userId: req.user.id,
+            status: 1
+          }
+        })
+        like = {
+          id: isAllReadyLiked.id,
+          postId: req.params.postId,
+          userId: req.user.id,
+          status: 1,
+          deleted: true
+        }
+      } else if (isAllReadyLiked.status === 0 && req.body.likeOrUnlike === 1) {
+        await Likes.destroy({
+          where: {
+            postId: req.params.postId,
+            userId: req.user.id,
+            status: 1
+          }
+        })
+        like = await Likes.create({
+          postId: req.params.postId,
+          userId: req.user.id,
+          status: req.body.likeOrUnlike,
+        });
+      } else if (isAllReadyLiked === 1 && req.body.likeOrUnlike === 0) {
+        await Likes.destroy({
+          where: {
+            postId: req.params.postId,
+            userId: req.user.id,
+            status: 0
+          }
+        })
+        like = await Likes.create({
+          postId: req.params.postId,
+          userId: req.user.id,
+          status: req.body.likeOrUnlike,
+        });
+      }
+
+      if (!like) {
         const error = new Error("Cant create like or unlike");
         error.statusCode = 500;
         return next(error);
@@ -234,7 +300,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
       res.json({
         status: "Ok",
         message: "Like or unlike was saved",
-        likes: createRec,
+        likes: like,
       });
     } else {
       const error = new Error("Users are not friends");
