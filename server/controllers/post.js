@@ -228,6 +228,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         raw: true
       })
       let like;
+      let deleted = false; 
       if (!isAllReadyLiked) {
         like = await Likes.create({
           postId: +req.params.postId,
@@ -247,8 +248,8 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           postId: +req.params.postId,
           userId: req.user.id,
           status: 0,
-          deleted: true,
         }
+        deleted = true;
       } else if (isAllReadyLiked.status === 1 && req.body.likeOrUnlike === 1) {
         await Likes.destroy({
           where: {
@@ -262,34 +263,16 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           postId: +req.params.postId,
           userId: req.user.id,
           status: 1,
-          deleted: true
         }
-      } else if (isAllReadyLiked.status === 0 && req.body.likeOrUnlike === 1) {
-        await Likes.destroy({
+        deleted = true
+      } else if (isAllReadyLiked.status === 0 || isAllReadyLiked.status === 1) {
+        const updatedLike = await Likes.update({status: req.body.likeOrUnlike}, {
           where: {
             postId: +req.params.postId,
-            userId: req.user.id,
-            status: 1
-          }
+            userId: req.user.id
+          },
+          returning: true
         })
-        like = await Likes.create({
-          postId: +req.params.postId,
-          userId: req.user.id,
-          status: req.body.likeOrUnlike,
-        });
-      } else if (isAllReadyLiked === 1 && req.body.likeOrUnlike === 0) {
-        await Likes.destroy({
-          where: {
-            postId: +req.params.postId,
-            userId: req.user.id,
-            status: 0
-          }
-        })
-        like = await Likes.create({
-          postId: +req.params.postId,
-          userId: req.user.id,
-          status: req.body.likeOrUnlike,
-        });
       }
 
       if (!like) {
@@ -301,6 +284,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         status: "Ok",
         message: "Like or unlike was saved",
         likes: like,
+        deleted: deleted
       });
     } else {
       const error = new Error("Users are not friends");
