@@ -228,7 +228,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         raw: true
       })
       let like;
-      let deleted = false; 
+      let likeAction = "create"; 
       if (!isAllReadyLiked) {
         like = await Likes.create({
           postId: +req.params.postId,
@@ -249,7 +249,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           userId: req.user.id,
           status: 0,
         }
-        deleted = true;
+        likeAction = "deleted";
       } else if (isAllReadyLiked.status === 1 && req.body.likeOrUnlike === 1) {
         await Likes.destroy({
           where: {
@@ -264,7 +264,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           userId: req.user.id,
           status: 1,
         }
-        deleted = true
+        likeAction = "deleted";
       } else if (isAllReadyLiked.status === 0 || isAllReadyLiked.status === 1) {
         const updatedLike = await Likes.update({status: req.body.likeOrUnlike}, {
           where: {
@@ -274,6 +274,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           returning: true
         })
         like = updatedLike[1][0];
+        likeAction = "updated"
       }
 
       if (!like) {
@@ -285,7 +286,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         status: "Ok",
         message: "Like or unlike was saved",
         likes: like,
-        deleted: deleted
+        likeAction: likeAction
       });
     } else {
       const error = new Error("Users are not friends");

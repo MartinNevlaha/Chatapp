@@ -51,12 +51,23 @@ const clearPosts = (state, action) => {
 };
 
 const likePostSuccess = (state, action) => {
-  console.log(action.payload, action.deleted);
   const postIndex = state.posts.findIndex(
     (post) => post.id === action.payload.postId
   );
+  let updatedArr = [];
+  if (action.deleted) {
+    updatedArr = state.posts[postIndex].Likes.filter(like => like.id !== action.payload.id)
+  } else {
+    updatedArr = state.
+  }
   
-  return updateObj(state, { loading: false });
+  return updateArray(state, {
+    posts: {
+      [postIndex]: {
+        Likes: {$set: updatedArr},
+      },
+    },
+  });
 };
 
 const reducer = (state = initialState, action) => {
