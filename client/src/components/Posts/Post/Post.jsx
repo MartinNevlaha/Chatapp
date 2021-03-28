@@ -11,6 +11,7 @@ import ReactTooltip from "react-tooltip";
 import { parseDateTime } from "../../../utils/utilities";
 import classes from "./Post.module.scss";
 import Card from "../../UI/Card/Card";
+import LazyImage from "../../UI/LazyImage/LazyImage";
 
 export const Post = ({ post }) => {
   return (
@@ -71,7 +72,7 @@ export const Post = ({ post }) => {
             <div className={classes.post_content_container_main}>
               {post.image && (
                 <div className={classes.post_content_container_main_image}>
-                  <img src={post.image} alt="postImage" />
+                  <LazyImage image={{src: post.image, alt: "postImage"}}/>
                 </div>
               )}
               <p>{post.text}</p>

@@ -38,8 +38,8 @@ export const createPost = (postData) => {
       .then((res) => {
         const post = {
           ...res.data.post,
-          User: user
-        }
+          User: user,
+        };
         dispatch(createPostSuccess(post));
       })
       .catch((err) => {
@@ -59,7 +59,7 @@ export const fetchFriendsPostSuccess = (posts, count) => {
   return {
     type: actionTypes.FETCH_FRIENDS_POST_SUCCESS,
     posts,
-    count
+    count,
   };
 };
 
@@ -69,13 +69,19 @@ export const fetchFriendsPostFailed = () => {
   };
 };
 
+export const clearPosts = () => {
+  return {
+    type: actionTypes.CLEAR_POSTS,
+  };
+};
+
 export const fetchFriendsPost = (page, limit) => {
   return (dispatch) => {
     dispatch(fetchFriendsPostStart());
     axios
       .get(`/api/posts/friends-post?page=${page}&limit=${limit}`)
-      .then(res => {
-        dispatch(fetchFriendsPostSuccess(res.data.posts, res.data.count))
+      .then((res) => {
+        dispatch(fetchFriendsPostSuccess(res.data.posts, res.data.count));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));

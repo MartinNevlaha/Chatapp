@@ -1,29 +1,29 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
 
-
 const initialState = {
   posts: [],
   count: 0,
   loading: false,
+  loadingCreatePost: false,
   uploadStatus: 0,
 };
 
 const createPostStart = (state, action) => {
   return updateObj(state, {
-    loading: true,
+    loadingCreatePost: true,
   });
 };
 
 const createPostSuccess = (state, action) => {
   return updateObj(state, {
-    loading: false,
-    posts: [ action.post, ...state.posts,],
+    loadingCreatePost: false,
+    posts: [action.post, ...state.posts],
   });
 };
 
 const createPostFailed = (state, action) => {
-  return updateObj(state, { loading: false });
+  return updateObj(state, { loadingCreatePost: false });
 };
 
 const fetchFriendsPostStart = (state, action) => {
@@ -31,11 +31,11 @@ const fetchFriendsPostStart = (state, action) => {
 };
 
 const fetchFriendsPostSuccess = (state, action) => {
-  const concatedPosts = state.posts.concat(action.posts)
+  const concatedPosts = state.posts.concat(action.posts);
   return updateObj(state, {
     loading: false,
     count: action.count,
-    posts: concatedPosts
+    posts: concatedPosts,
   });
 };
 
@@ -43,6 +43,10 @@ const fetchFriendsPostFailed = (state, action) => {
   return updateObj(state, {
     loading: false,
   });
+};
+
+const clearPosts = (state, action) => {
+  return updateObj(state, { posts: [] });
 };
 
 const reducer = (state = initialState, action) => {
@@ -59,6 +63,8 @@ const reducer = (state = initialState, action) => {
       return fetchFriendsPostSuccess(state, action);
     case actionTypes.FETCH_FRIENDS_POST_FAILED:
       return fetchFriendsPostFailed(state, action);
+    case actionTypes.CLEAR_POSTS:
+      return clearPosts(state, action);
     default:
       return state;
   }

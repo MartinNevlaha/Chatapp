@@ -47,6 +47,7 @@ export const NewPost = ({ createPost }) => {
         }
         createPost(data);
         resetForm();
+        setFileName("");
       }}
     >
       {(fromProps) => (

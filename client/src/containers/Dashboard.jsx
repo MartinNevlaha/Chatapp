@@ -15,6 +15,10 @@ const Dasboard = () => {
     dispatch(action.fetchUserProfile());
     dispatch(action.fetchFriendRequest());
     dispatch(action.fetchFriendsPost(page, LIMIT));
+
+    return () => {
+      dispatch(action.clearPosts());
+    }
   }, [dispatch]);
 
   const handleCreatePost = (data) => {
