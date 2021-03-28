@@ -228,7 +228,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         raw: true
       })
       let like;
-      let likeAction = "create"; 
+      let likeAction = "created"; 
       if (!isAllReadyLiked) {
         like = await Likes.create({
           postId: +req.params.postId,

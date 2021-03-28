@@ -51,14 +51,17 @@ const clearPosts = (state, action) => {
 };
 
 const likePostSuccess = (state, action) => {
+  console.log(action.likeAction);
   const postIndex = state.posts.findIndex(
-    (post) => post.id === action.payload.postId
+    (post) => post.id === action.likes.postId
   );
   let updatedArr = [];
-  if (action.deleted) {
-    updatedArr = state.posts[postIndex].Likes.filter(like => like.id !== action.payload.id)
-  } else {
-    updatedArr = state.
+  if (action.likeAction === "deleted") {
+    updatedArr = state.posts[postIndex].Likes.filter(like => like.id !== action.likes.id)
+  } else if (action.likeAction === "created") {
+    updatedArr = state.posts[postIndex].Likes.concat(action.likes);
+  } else if (action.likeAction === "updated") {
+    const likeIndex = state.posts[postIndex].Likes.findIndex(like => like.id === action.likes.id)
   }
   
   return updateArray(state, {

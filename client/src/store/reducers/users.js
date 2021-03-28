@@ -37,7 +37,6 @@ const addFriendStart = (state, action) => {
 
 const addFriendSuccess = (state, action) => {
   const index = state.users.findIndex(user => user.id === action.recipient);
-  console.log(action.status);
   return updateArray(state, {
     users: {
       [index]: {
