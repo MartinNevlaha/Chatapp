@@ -14,7 +14,7 @@ import Card from "../../UI/Card/Card";
 import LazyImage from "../../UI/LazyImage/LazyImage";
 import { getLikeNumber } from "../../../utils/utilities";
 
-export const Post = ({ post }) => {
+export const Post = ({ post, liker }) => {
   return (
     <div className={classes.post}>
       <Card type="medium_card">
@@ -87,6 +87,7 @@ export const Post = ({ post }) => {
                 size="1x"
                 cursor="pointer"
                 className={classes.post_icon}
+                onClick={() => liker("like", post.User.id, post.id)}
               />
               <p>
                 {getLikeNumber(post.Likes, "like")} <span>likes</span>
@@ -98,6 +99,7 @@ export const Post = ({ post }) => {
                 size="1x"
                 cursor="pointer"
                 className={classes.post_icon}
+                onClick={() => liker("dislike", post.User.id, post.id)}
               />
               <p>
                 {getLikeNumber(post.Likes, "unlike")}{" "}

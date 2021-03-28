@@ -30,6 +30,10 @@ const Dasboard = () => {
     dispatch(action.fetchFriendsPost(page + 1, LIMIT));
   };
 
+  const handleLiker = (status, friendId, postId) => {
+    console.log(status, friendId, postId);
+  };
+
   return (
     <div
       style={{
@@ -46,6 +50,7 @@ const Dasboard = () => {
         createPost={handleCreatePost}
         posts={friendsPost}
         loadAnothnerPosts={handlerLoadAnothnerPosts}
+        liker={handleLiker}
       />
     </div>
   );
