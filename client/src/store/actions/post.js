@@ -90,10 +90,11 @@ export const fetchFriendsPost = (page, limit) => {
   };
 };
 
-export const likePostSuccess = (payload) => {
+export const likePostSuccess = (payload, deleted) => {
   return {
     type: actionTypes.LIKER_POST,
-    payload
+    payload,
+    deleted
   };
 };
 
@@ -101,7 +102,7 @@ export const likePost = (postId, data) => {
   return (dispatch) => {
     axios.patch(`/api/posts/like-status/${postId}`, data)
     .then(res => {
-      dispatch(likePostSuccess(res.data.likes))
+      dispatch(likePostSuccess(res.data.likes, res.data.deleted))
     })
     .catch(err => dispatch(errorCreator(err.response)));
   };

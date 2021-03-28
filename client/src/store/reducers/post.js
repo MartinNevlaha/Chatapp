@@ -51,11 +51,11 @@ const clearPosts = (state, action) => {
 };
 
 const likePostSuccess = (state, action) => {
+  console.log(action.payload, action.deleted);
   const postIndex = state.posts.findIndex(
     (post) => post.id === action.payload.postId
   );
-  const likeIndex = state.posts.Likes.findIndex(like => like.id === action.payload.id);
-  console.log(postIndex, likeIndex);
+  
   return updateObj(state, { loading: false });
 };
 

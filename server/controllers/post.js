@@ -273,6 +273,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           },
           returning: true
         })
+        like = updatedLike[1][0];
       }
 
       if (!like) {
