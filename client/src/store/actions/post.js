@@ -39,6 +39,7 @@ export const createPost = (postData) => {
         const post = {
           ...res.data.post,
           User: user,
+          Likes: []
         };
         dispatch(createPostSuccess(post));
       })
@@ -94,16 +95,49 @@ export const likePostSuccess = (likes, likeAction) => {
   return {
     type: actionTypes.LIKER_POST,
     likes,
-    likeAction
+    likeAction,
   };
 };
 
 export const likePost = (postId, data) => {
   return (dispatch) => {
-    axios.patch(`/api/posts/like-status/${postId}`, data)
-    .then(res => {
-      dispatch(likePostSuccess(res.data.likes, res.data.likeAction))
-    })
-    .catch(err => dispatch(errorCreator(err.response)));
+    axios
+      .patch(`/api/posts/like-status/${postId}`, data)
+      .then((res) => {
+        dispatch(likePostSuccess(res.data.likes, res.data.likeAction));
+      })
+      .catch((err) => dispatch(errorCreator(err.response)));
   };
 };
+
+export const deletePostStart = () => {
+  return {
+    type: actionTypes.DELETE_POST_START,
+  };
+};
+
+export const deletePostSuccess = (postId) => {
+  return {
+    type: actionTypes.DELETE_POST_SUCCESS,
+    postId
+  };
+};
+
+export const deletePostFailed = () => {
+  return {
+    type: actionTypes.DELETE_POST_FAILED,
+  };
+};
+
+export const deletePost = (postId) => {
+  return dispatch => {
+    dispatch(deletePostStart());
+    axios.delete(`/api/posts/delete/${postId}`).then(res => {
+      dispatch(deletePostSuccess(postId))
+    }).catch(err => {
+      console.log(err);
+      dispatch(errorCreator(err.response));
+      dispatch(deletePostFailed());
+    })
+  }
+}

@@ -13,11 +13,11 @@ export const Posts = ({
   loadAnothnerPosts,
   liker,
   userId,
+  deletePost,
 }) => {
   const loadingCreatePost = useSelector(
     (state) => state.posts.loadingCreatePost
   );
-  const numberOfPosts = useSelector((state) => state.posts.posts.length);
   const loading = useSelector((state) => state.posts.loading);
   return (
     <div className={classes.posts}>
@@ -25,13 +25,19 @@ export const Posts = ({
       <hr />
       <div className={classes.posts_all}>
         <InfiniteScroll
-          dataLength={numberOfPosts}
+          dataLength={posts.length}
           next={loadAnothnerPosts}
           hasMore={true}
         >
           {loadingCreatePost && <Spinner />}
           {posts.map((post) => (
-            <Post key={post.id} post={post} liker={liker} userId={userId} />
+            <Post
+              key={post.id}
+              post={post}
+              deletePost={deletePost}
+              liker={liker}
+              userId={userId}
+            />
           ))}
           {loading && <Spinner />}
         </InfiniteScroll>

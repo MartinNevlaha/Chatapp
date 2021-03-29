@@ -14,14 +14,14 @@ import LazyImage from "../../UI/LazyImage/LazyImage";
 import EditPost from "./EditPost/EditPost";
 import { getLikeNumber } from "../../../utils/utilities";
 
-export const Post = ({ post, liker, userId }) => {
+export const Post = ({ post, liker, userId, deletePost }) => {
   return (
     <div className={classes.post}>
       <Card type="medium_card">
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
             <p>Created: {parseDateTime(post.createdAt)}</p>
-            {userId === post.User.id && <EditPost />}
+            {userId === post.User.id && <EditPost deletePost={deletePost} postId={post.id} />}
           </div>
           <hr />
           <div className={classes.post_content_container}>

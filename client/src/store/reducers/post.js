@@ -56,25 +56,46 @@ const likePostSuccess = (state, action) => {
   );
   let updatedArr = [];
   if (action.likeAction === "deleted") {
-    updatedArr = state.posts[postIndex].Likes.filter(like => like.id !== action.likes.id)
+    updatedArr = state.posts[postIndex].Likes.filter(
+      (like) => like.id !== action.likes.id
+    );
   } else if (action.likeAction === "created") {
     updatedArr = state.posts[postIndex].Likes.concat(action.likes);
   } else if (action.likeAction === "updated") {
-    const likeIndex = state.posts[postIndex].Likes.findIndex(like => like.id === action.likes.id)
+    const likeIndex = state.posts[postIndex].Likes.findIndex(
+      (like) => like.id === action.likes.id
+    );
     updatedArr = state.posts[postIndex].Likes.map((like, i) => {
       if (i === likeIndex) {
-        like.status = action.likes.status
+        like.status = action.likes.status;
       }
       return like;
-    })
+    });
   }
-  
+
   return updateArray(state, {
     posts: {
       [postIndex]: {
-        Likes: {$set: updatedArr},
+        Likes: { $set: updatedArr },
       },
     },
+  });
+};
+
+const deletePostStart = (state, action) => {
+  return updateObj(state, { loading: true });
+};
+
+const deletePostSuccess = (state, action) => {
+  return updateObj(state, {
+    posts: state.posts.filter(post => post.id !== action.postId),
+    loading: false,
+  });
+};
+
+const deletePostFailed = (state, action) => {
+  return updateObj(state, {
+    loading: false,
   });
 };
 
@@ -96,6 +117,12 @@ const reducer = (state = initialState, action) => {
       return clearPosts(state, action);
     case actionTypes.LIKER_POST:
       return likePostSuccess(state, action);
+    case actionTypes.DELETE_POST_START:
+      return deletePostStart(state, action);
+    case actionTypes.DELETE_POST_SUCCESS:
+      return deletePostSuccess(state, action);
+    case actionTypes.DELETE_POST_FAILED:
+      return deletePostFailed(state, action);
     default:
       return state;
   }

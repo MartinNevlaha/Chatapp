@@ -8,7 +8,7 @@ import Posts from "../components/Posts/Posts";
 const Dasboard = () => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
-  const friendsPost = useSelector((state) => state.posts.posts);
+  const friendsPost = useSelector((state) => state.posts.posts || []);
   const userId = useSelector((state) => state.userAuth.user.userId);
   const dispatch = useDispatch();
 
@@ -39,6 +39,10 @@ const Dasboard = () => {
     dispatch(action.likePost(postId, data));
   };
 
+  const handleDeletePost = (postId) => {
+    dispatch(action.deletePost(postId));
+  };
+
   return (
     <div
       style={{
@@ -57,6 +61,7 @@ const Dasboard = () => {
         posts={friendsPost}
         loadAnothnerPosts={handlerLoadAnothnerPosts}
         liker={handleLiker}
+        deletePost={handleDeletePost}
       />
     </div>
   );

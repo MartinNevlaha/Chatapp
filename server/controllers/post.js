@@ -104,7 +104,7 @@ exports.updatePost = async (req, res, next) => {
 };
 
 exports.deletePost = async (req, res, next) => {
-  const postId = req.params.postId;
+  const postId = +req.params.postId;
   try {
     const post = await Post.findOne({
       where: {

@@ -8,27 +8,28 @@ import {
 
 import classes from "./EditPost.module.scss";
 
-export const EditPost = () => {
+export const EditPost = ({ deletePost, postId }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     document.addEventListener("mousedown", handleClose);
 
     return () => {
       document.removeEventListener("mousedown", handleClose);
-    }
-  }, [menuRef])
+    };
+  }, [menuRef]);
 
   const handleClose = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setOpenMenu(false);
     }
-  }
+  };
 
   const handleOpen = () => {
     setOpenMenu(true);
-  }
+  };
+
 
   return (
     <div className={classes.edit_post}>
@@ -54,7 +55,13 @@ export const EditPost = () => {
             </div>
           </li>
           <li>
-            <div className={classes.edit_post_menu_items_item}>
+            <div
+              className={classes.edit_post_menu_items_item}
+              onClick={() => {
+                deletePost(postId);
+                setOpenMenu(false);
+              }}
+            >
               <FontAwesomeIcon icon={faTrashAlt} size="1x" />
               <p>Delete</p>
             </div>
