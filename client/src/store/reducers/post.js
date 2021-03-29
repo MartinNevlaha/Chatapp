@@ -51,7 +51,6 @@ const clearPosts = (state, action) => {
 };
 
 const likePostSuccess = (state, action) => {
-  console.log(action.likeAction);
   const postIndex = state.posts.findIndex(
     (post) => post.id === action.likes.postId
   );
@@ -62,6 +61,12 @@ const likePostSuccess = (state, action) => {
     updatedArr = state.posts[postIndex].Likes.concat(action.likes);
   } else if (action.likeAction === "updated") {
     const likeIndex = state.posts[postIndex].Likes.findIndex(like => like.id === action.likes.id)
+    updatedArr = state.posts[postIndex].Likes.map((like, i) => {
+      if (i === likeIndex) {
+        like.status = action.likes.status
+      }
+      return like;
+    })
   }
   
   return updateArray(state, {
