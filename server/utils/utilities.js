@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const fs = require("fs-extra");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
+const config = require("../config/app");
 
 exports.hashPwd = async (user) => {
   if (user.changed("password")) {
@@ -47,20 +48,50 @@ exports.removeAllAccountFiles = async (dirId) => {
         time: timestamp("YYYY/MM/DD/HH:mm:ss"),
         level: "info",
         message: "All user files was deleted",
-      })
+      });
     } else {
       logger.log({
         time: timestamp("YYYY/MM/DD/HH:mm:ss"),
         level: "info",
         message: "No files to delete",
-      })
+      });
     }
   } catch (error) {
     logger.error({
       time: timestamp("YYYY/MM/DD/HH:mm:ss"),
       level: "error",
       message: error,
-    })
+    });
+    throw error;
+  }
+};
+
+exports.removePostImage = async (path) => {
+  const removedString = `${config.appUrl}:${config.appPort}`;
+  const removedLength = removedString.length;
+  const finalPath = "uploads" + path.slice(removedLength);
+  console.log(finalPath);
+  try {
+    if (fs.existsSync(finalPath)) {
+      await fs.unlink(finalPath);
+      logger.log({
+        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+        level: "info",
+        message: `File ${finalPath} was deleted`,
+      });
+    } else {
+      logger.log({
+        time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+        level: "info",
+        message: "No file to delete",
+      });
+    }
+  } catch (error) {
+    logger.error({
+      time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+      level: "error",
+      message: error,
+    });
     throw error;
   }
 };

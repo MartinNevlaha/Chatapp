@@ -2,6 +2,8 @@ const { Op } = require("sequelize");
 const models = require("../models/");
 const { Post, Friendship, User, Likes } = models;
 
+const { removePostImage } = require("../utils/utilities");
+
 exports.getPosts = async (req, res, next) => {
   // dorobit pagination
   try {
@@ -122,6 +124,10 @@ exports.deletePost = async (req, res, next) => {
         id: postId,
       },
     });
+    if (post.image !== null) {
+      console.log(post.image);
+      await removePostImage(post.image);
+    }
     res.json({
       status: "Ok",
       message: "Post was successfully deleted",
@@ -175,7 +181,7 @@ exports.getFriendsPosts = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-    
+
     let friendsIdArray = [req.user.id];
     userFriendship.forEach((friendship) => {
       if (friendship.requestor.id === req.user.id) {
@@ -193,11 +199,11 @@ exports.getFriendsPosts = async (req, res, next) => {
           model: User,
           attributes: {
             exclude: ["password", "activationToken", "activated", "email"],
-          }
+          },
         },
         {
-          model: Likes
-        }
+          model: Likes,
+        },
       ],
       limit: limit,
       offset: offset,
@@ -223,12 +229,12 @@ exports.likeOrUnlikePost = async (req, res, next) => {
       const isAllReadyLiked = await Likes.findOne({
         where: {
           postId: +req.params.postId,
-          userId: req.user.id
+          userId: req.user.id,
         },
-        raw: true
-      })
+        raw: true,
+      });
       let like;
-      let likeAction = "created"; 
+      let likeAction = "created";
       if (!isAllReadyLiked) {
         like = await Likes.create({
           postId: +req.params.postId,
@@ -240,41 +246,44 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           where: {
             postId: +req.params.postId,
             userId: req.user.id,
-            status: 0
-          }
-        })
+            status: 0,
+          },
+        });
         like = {
           id: isAllReadyLiked.id,
           postId: +req.params.postId,
           userId: req.user.id,
           status: 0,
-        }
+        };
         likeAction = "deleted";
       } else if (isAllReadyLiked.status === 1 && req.body.likeOrUnlike === 1) {
         await Likes.destroy({
           where: {
             postId: +req.params.postId,
             userId: req.user.id,
-            status: 1
-          }
-        })
+            status: 1,
+          },
+        });
         like = {
           id: isAllReadyLiked.id,
           postId: +req.params.postId,
           userId: req.user.id,
           status: 1,
-        }
+        };
         likeAction = "deleted";
       } else if (isAllReadyLiked.status === 0 || isAllReadyLiked.status === 1) {
-        const updatedLike = await Likes.update({status: req.body.likeOrUnlike}, {
-          where: {
-            postId: +req.params.postId,
-            userId: req.user.id
-          },
-          returning: true
-        })
+        const updatedLike = await Likes.update(
+          { status: req.body.likeOrUnlike },
+          {
+            where: {
+              postId: +req.params.postId,
+              userId: req.user.id,
+            },
+            returning: true,
+          }
+        );
         like = updatedLike[1][0];
-        likeAction = "updated"
+        likeAction = "updated";
       }
 
       if (!like) {
@@ -286,7 +295,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         status: "Ok",
         message: "Like or unlike was saved",
         likes: like,
-        likeAction: likeAction
+        likeAction: likeAction,
       });
     } else {
       const error = new Error("You cannot add like to your posts");
