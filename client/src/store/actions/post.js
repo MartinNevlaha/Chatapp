@@ -104,6 +104,6 @@ export const likePost = (postId, data) => {
     .then(res => {
       dispatch(likePostSuccess(res.data.likes, res.data.likeAction))
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorCreator(err.response)));
   };
 };

@@ -289,7 +289,7 @@ exports.likeOrUnlikePost = async (req, res, next) => {
         likeAction: likeAction
       });
     } else {
-      const error = new Error("Users are not friends");
+      const error = new Error("You cannot add like to your posts");
       error.statusCode = 401;
       return next(error);
     }

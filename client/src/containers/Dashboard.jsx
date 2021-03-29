@@ -9,6 +9,7 @@ const Dasboard = () => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
   const friendsPost = useSelector((state) => state.posts.posts);
+  const userId = useSelector(state => state.userAuth.user.userId);
   const dispatch = useDispatch();
 
   useEffect(() => {
