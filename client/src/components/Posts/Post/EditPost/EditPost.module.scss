@@ -1,0 +1,73 @@
+@import "../../../../style/imports.scss";
+
+.edit_post {
+  position: relative;
+
+  &_container {
+    @include flexbox(center, center, row);
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    margin: 1rem;
+    cursor: pointer;
+
+    &_icon {
+      color: get-color(primary);
+    }
+
+    &:hover, &:active {
+      background-color: lighten(get-color(transparent_gray), 40%);
+    }
+  }
+
+  &_menu {
+    position: absolute;
+    display: none;
+    top: 25px;
+    right: 30px;
+    width: 10rem;
+    background-color: get-color(dark-white);
+    border-radius: 8px;
+    @include shadow;
+    z-index: 20;
+    font-size: get-font-size(small);
+    font-weight: 300;
+    
+    &_items {
+
+      &_item {
+        width: 100%;
+        @include flexbox(flex-start, center, row);
+        padding: .5rem;
+      }
+
+      li {
+        padding: 0.3rem;
+        margin: 0.3rem;
+        color: get-color(text);
+        @include flexbox(flex-start, center, row);
+    
+        p {
+          margin: 0;
+          padding: 0;
+          margin-left: 1rem;
+        }
+
+        &:hover,
+        &:active {
+          @include hover-effect;
+          animation: pulse 0.8s ease-in;
+        }
+      }
+
+    }
+  }
+}
+
+.open {
+  display: block;
+  animation: anim 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@include pulse;
+@include anim;

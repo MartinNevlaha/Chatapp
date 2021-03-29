@@ -7,7 +7,13 @@ import Post from "./Post/Post";
 import Spinner from "../UI/Spinner/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export const Posts = ({ createPost, posts, loadAnothnerPosts, liker }) => {
+export const Posts = ({
+  createPost,
+  posts,
+  loadAnothnerPosts,
+  liker,
+  userId,
+}) => {
   const loadingCreatePost = useSelector(
     (state) => state.posts.loadingCreatePost
   );
@@ -25,7 +31,7 @@ export const Posts = ({ createPost, posts, loadAnothnerPosts, liker }) => {
         >
           {loadingCreatePost && <Spinner />}
           {posts.map((post) => (
-            <Post key={post.id} post={post} liker={liker} />
+            <Post key={post.id} post={post} liker={liker} userId={userId} />
           ))}
           {loading && <Spinner />}
         </InfiniteScroll>

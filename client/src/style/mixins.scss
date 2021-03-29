@@ -23,6 +23,17 @@
   cursor: pointer;
 }
 
+@mixin anim {
+  @keyframes anim {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
 @mixin pulse {
   @keyframes pulse {
     0% {

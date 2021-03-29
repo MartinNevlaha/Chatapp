@@ -9,7 +9,7 @@ const Dasboard = () => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
   const friendsPost = useSelector((state) => state.posts.posts);
-  const userId = useSelector(state => state.userAuth.user.userId);
+  const userId = useSelector((state) => state.userAuth.user.userId);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Dasboard = () => {
 
     return () => {
       dispatch(action.clearPosts());
-    }
+    };
   }, [dispatch]);
 
   const handleCreatePost = (data) => {
@@ -35,7 +35,7 @@ const Dasboard = () => {
     const data = {
       friendId,
       likeOrUnlike: status === "like" ? 1 : 0,
-    }
+    };
     dispatch(action.likePost(postId, data));
   };
 
@@ -52,6 +52,7 @@ const Dasboard = () => {
     >
       <UserSideBar />
       <Posts
+        userId={userId}
         createPost={handleCreatePost}
         posts={friendsPost}
         loadAnothnerPosts={handlerLoadAnothnerPosts}

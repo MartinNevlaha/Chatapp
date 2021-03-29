@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEllipsisV,
   faThumbsUp,
   faThumbsDown,
   faUser,
@@ -12,21 +11,17 @@ import { parseDateTime } from "../../../utils/utilities";
 import classes from "./Post.module.scss";
 import Card from "../../UI/Card/Card";
 import LazyImage from "../../UI/LazyImage/LazyImage";
+import EditPost from "./EditPost/EditPost";
 import { getLikeNumber } from "../../../utils/utilities";
 
-export const Post = ({ post, liker }) => {
+export const Post = ({ post, liker, userId }) => {
   return (
     <div className={classes.post}>
       <Card type="medium_card">
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
             <p>Created: {parseDateTime(post.createdAt)}</p>
-            <FontAwesomeIcon
-              icon={faEllipsisV}
-              size="1x"
-              cursor="pointer"
-              className={classes.post_icon}
-            />
+            {userId === post.User.id && <EditPost />}
           </div>
           <hr />
           <div className={classes.post_content_container}>
@@ -102,8 +97,7 @@ export const Post = ({ post, liker }) => {
                 onClick={() => liker("dislike", post.User.id, post.id)}
               />
               <p>
-                {getLikeNumber(post.Likes, "unlike")}{" "}
-                 <span>dislikes</span>
+                {getLikeNumber(post.Likes, "unlike")} <span>dislikes</span>
               </p>
             </div>
           </div>
