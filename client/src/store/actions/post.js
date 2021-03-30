@@ -39,7 +39,7 @@ export const createPost = (postData) => {
         const post = {
           ...res.data.post,
           User: user,
-          Likes: []
+          Likes: [],
         };
         dispatch(createPostSuccess(post));
       })
@@ -82,7 +82,13 @@ export const fetchFriendsPost = (page, limit) => {
     axios
       .get(`/api/posts/friends-post?page=${page}&limit=${limit}`)
       .then((res) => {
-        dispatch(fetchFriendsPostSuccess(res.data.posts, res.data.count));
+        const updatedData = res.data.posts.map((post) => {
+          return {
+            ...post,
+            editMode: false,
+          };
+        });
+        dispatch(fetchFriendsPostSuccess(updatedData, res.data.count));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
@@ -119,7 +125,7 @@ export const deletePostStart = () => {
 export const deletePostSuccess = (postId) => {
   return {
     type: actionTypes.DELETE_POST_SUCCESS,
-    postId
+    postId,
   };
 };
 
@@ -130,14 +136,24 @@ export const deletePostFailed = () => {
 };
 
 export const deletePost = (postId) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(deletePostStart());
-    axios.delete(`/api/posts/delete/${postId}`).then(res => {
-      dispatch(deletePostSuccess(postId))
-    }).catch(err => {
-      console.log(err);
-      dispatch(errorCreator(err.response));
-      dispatch(deletePostFailed());
-    })
-  }
-}
+    axios
+      .delete(`/api/posts/delete/${postId}`)
+      .then((res) => {
+        dispatch(deletePostSuccess(postId));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(errorCreator(err.response));
+        dispatch(deletePostFailed());
+      });
+  };
+};
+
+export const setEditMode = (postId) => {
+  return {
+    type: actionTypes.SET_EDIT_MODE,
+    postId,
+  };
+};

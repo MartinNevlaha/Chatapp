@@ -50,7 +50,7 @@ export const NewPost = ({ createPost }) => {
         setFileName("");
       }}
     >
-      {(fromProps) => (
+      {(formProps) => (
         <div className={classes.post_new}>
           <Card type="medium_card">
             <Form>
@@ -73,7 +73,7 @@ export const NewPost = ({ createPost }) => {
                       const [file] = e.target.files;
                       const { name } = file;
                       setFileName(name);
-                      fromProps.setFieldValue("image", e.target.files[0]);
+                      formProps.setFieldValue("image", e.target.files[0]);
                     }}
                   />
                 </div>

@@ -37,3 +37,15 @@ export const getLikeNumber = (likesArr, type) => {
   }
   return likes;
 }
+
+export const isLiked = (likeArr, userId, status) => {
+  let isLiked = false;
+
+  likeArr.forEach(like => {
+    if (userId === like.userId && like.status === status) {
+      isLiked = true;
+    }
+  })
+
+  return isLiked;
+}

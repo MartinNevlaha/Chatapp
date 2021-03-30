@@ -8,7 +8,7 @@ import {
 
 import classes from "./EditPost.module.scss";
 
-export const EditPost = ({ deletePost, postId }) => {
+export const EditPost = ({ deletePost, postId, setEditMode }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
 
@@ -30,7 +30,6 @@ export const EditPost = ({ deletePost, postId }) => {
     setOpenMenu(true);
   };
 
-
   return (
     <div className={classes.edit_post}>
       <div className={classes.edit_post_container} onClick={handleOpen}>
@@ -49,7 +48,13 @@ export const EditPost = ({ deletePost, postId }) => {
       >
         <ul className={classes.edit_post_menu_items}>
           <li>
-            <div className={classes.edit_post_menu_items_item}>
+            <div
+              className={classes.edit_post_menu_items_item}
+              onClick={() => {
+                setEditMode(postId);
+                setOpenMenu(false);
+              }}
+            >
               <FontAwesomeIcon icon={faEdit} size="1x" />
               <p>Edit</p>
             </div>

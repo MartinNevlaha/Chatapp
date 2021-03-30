@@ -43,6 +43,10 @@ const Dasboard = () => {
     dispatch(action.deletePost(postId));
   };
 
+  const handleEditMode = (postId) => {
+    dispatch(action.setEditMode(postId));
+  }
+
   return (
     <div
       style={{
@@ -62,6 +66,7 @@ const Dasboard = () => {
         loadAnothnerPosts={handlerLoadAnothnerPosts}
         liker={handleLiker}
         deletePost={handleDeletePost}
+        setEditMode={handleEditMode}
       />
     </div>
   );

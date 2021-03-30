@@ -88,7 +88,7 @@ const deletePostStart = (state, action) => {
 
 const deletePostSuccess = (state, action) => {
   return updateObj(state, {
-    posts: state.posts.filter(post => post.id !== action.postId),
+    posts: state.posts.filter((post) => post.id !== action.postId),
     loading: false,
   });
 };
@@ -96,6 +96,17 @@ const deletePostSuccess = (state, action) => {
 const deletePostFailed = (state, action) => {
   return updateObj(state, {
     loading: false,
+  });
+};
+
+const setEditMode = (state, action) => {
+  const index = state.posts.findIndex((post) => post.id === action.postId);
+  return updateArray(state, {
+    posts: {
+      [index]: {
+        editMode: { $set: true },
+      },
+    },
   });
 };
 
@@ -123,6 +134,8 @@ const reducer = (state = initialState, action) => {
       return deletePostSuccess(state, action);
     case actionTypes.DELETE_POST_FAILED:
       return deletePostFailed(state, action);
+    case actionTypes.SET_EDIT_MODE:
+      return setEditMode(state, action);
     default:
       return state;
   }

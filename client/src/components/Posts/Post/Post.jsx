@@ -12,18 +12,23 @@ import classes from "./Post.module.scss";
 import Card from "../../UI/Card/Card";
 import LazyImage from "../../UI/LazyImage/LazyImage";
 import EditPost from "./EditPost/EditPost";
-import { getLikeNumber } from "../../../utils/utilities";
+import EditMode from "./EditMode/EditMode";
+import { getLikeNumber, isLiked } from "../../../utils/utilities";
 
-export const Post = ({ post, liker, userId, deletePost }) => {
+export const Post = ({ post, liker, userId, deletePost, setEditMode }) => {
   return (
     <div className={classes.post}>
       <Card type="medium_card">
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
             <p>Created: {parseDateTime(post.createdAt)}</p>
-            {userId === post.User.id && <EditPost deletePost={deletePost} postId={post.id} />}
+            {userId === post.User.id && (
+              <EditPost deletePost={deletePost} postId={post.id} setEditMode={setEditMode}/>
+            )}
           </div>
           <hr />
+          {!post.editMode ?
+          <React.Fragment>
           <div className={classes.post_content_container}>
             <div className={classes.post_content_container_avatar}>
               {post.User.avatar ? (
@@ -81,7 +86,9 @@ export const Post = ({ post, liker, userId, deletePost }) => {
                 icon={faThumbsUp}
                 size="1x"
                 cursor="pointer"
-                className={classes.post_icon}
+                className={isLiked(post.Likes, userId, 1)
+                  ? [classes.post_icon, classes.is_liked].join(" ")
+                  : classes.post_icon}
                 onClick={() => liker("like", post.User.id, post.id)}
               />
               <p>
@@ -93,14 +100,20 @@ export const Post = ({ post, liker, userId, deletePost }) => {
                 icon={faThumbsDown}
                 size="1x"
                 cursor="pointer"
-                className={classes.post_icon}
+                className={
+                  isLiked(post.Likes, userId, 0)
+                    ? [classes.post_icon, classes.is_liked].join(" ")
+                    : classes.post_icon
+                }
                 onClick={() => liker("dislike", post.User.id, post.id)}
               />
               <p>
                 {getLikeNumber(post.Likes, "unlike")} <span>dislikes</span>
               </p>
             </div>
-          </div>
+          </div> 
+          </React.Fragment>
+          : <EditMode post={post} /> }
         </div>
       </Card>
     </div>
