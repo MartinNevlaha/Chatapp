@@ -113,7 +113,7 @@ export const Post = ({ post, liker, userId, deletePost, setEditMode }) => {
             </div>
           </div> 
           </React.Fragment>
-          : <EditMode post={post} /> }
+          : <EditMode post={post}/> }
         </div>
       </Card>
     </div>
