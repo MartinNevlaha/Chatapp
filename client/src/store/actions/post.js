@@ -157,3 +157,10 @@ export const setEditMode = (postId) => {
     postId,
   };
 };
+
+export const deletePostImage = (postId) => {
+  return {
+    type: actionTypes.DELETE_POST_IMAGE,
+    postId
+  };
+};

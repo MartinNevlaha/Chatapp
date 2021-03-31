@@ -8,7 +8,7 @@ import classes from "./EditMode.module.scss";
 import AreaField from "../../../Inputs/AreaField/AreaField";
 import Button from "../../../UI/Button/Button";
 
-export const EditMode = ({ post }) => {
+export const EditMode = ({ post, deleteImage }) => {
   const [fileName, setFileName] = useState("");
 
   const suportedImageFormat = [
@@ -51,33 +51,38 @@ export const EditMode = ({ post }) => {
           <Form>
             {post.image ? (
               <div className={classes.edit_mode_image}>
-                <FontAwesomeIcon icon={faTrashAlt} size="1x" className={classes.edit_mode_image_delete}/>
+                <FontAwesomeIcon
+                  icon={faTrashAlt}
+                  size="1x"
+                  onClick={() => deleteImage(post.id)}
+                  className={classes.edit_mode_image_delete}
+
+                />
                 <img src={post.image} alt={post.image} />
               </div>
             ) : (
               <div className={classes.edit_mode_image_upload}>
                 <h3>Upload image</h3>
-                 <label htmlFor="image">
-                    <FontAwesomeIcon
-                      icon={faImage}
-                      size="5x"
-                      className={classes.edit_mode_image_upload_icon}
-                    />
-                    <p>{fileName}</p>
-                  </label>
+                <label htmlFor="image">
+                  <FontAwesomeIcon
+                    icon={faImage}
+                    size="5x"
+                    className={classes.edit_mode_image_upload_icon}
+                  />
+                  <p>{fileName}</p>
+                </label>
                 <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={(e) => {
-                  const [file] = e.target.files;
-                  const { name } = file;
-                  setFileName(name);
-                  formProps.setFieldValue("image", e.target.files[0]);
-                }}
-              />
+                  type="file"
+                  id="image"
+                  name="image"
+                  onChange={(e) => {
+                    const [file] = e.target.files;
+                    const { name } = file;
+                    setFileName(name);
+                    formProps.setFieldValue("image", e.target.files[0]);
+                  }}
+                />
               </div>
-              
             )}
             <AreaField label="Post content" name="textContent" />
             <Button type="submit">Update post</Button>

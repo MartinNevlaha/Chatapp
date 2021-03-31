@@ -110,6 +110,17 @@ const setEditMode = (state, action) => {
   });
 };
 
+const deletePostImage = (state, action) => {
+  const index = state.posts.findIndex((post) => post.id === action.postId);
+  return updateArray(state, {
+    posts: {
+      [index]: {
+        image: { $set: null },
+      },
+    },
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CREATE_POST_START:
@@ -136,6 +147,8 @@ const reducer = (state = initialState, action) => {
       return deletePostFailed(state, action);
     case actionTypes.SET_EDIT_MODE:
       return setEditMode(state, action);
+    case actionTypes.DELETE_POST_IMAGE:
+      return deletePostImage(state, action);
     default:
       return state;
   }
