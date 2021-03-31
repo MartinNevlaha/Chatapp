@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { faImage, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./EditMode.module.scss";
 import AreaField from "../../../Inputs/AreaField/AreaField";
@@ -50,7 +50,8 @@ export const EditMode = ({ post }) => {
           <h2>Edit mode</h2>
           <Form>
             {post.image ? (
-              <div className={classes.edit_mode_img_container}>
+              <div className={classes.edit_mode_image}>
+                <FontAwesomeIcon icon={faTrashAlt} size="1x" className={classes.edit_mode_image_delete}/>
                 <img src={post.image} alt={post.image} />
               </div>
             ) : (
