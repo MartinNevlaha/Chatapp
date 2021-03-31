@@ -3,6 +3,12 @@
 .edit_mode {
   width: 100%;
 
+  img {
+    width: 350px;
+    height: 250px;
+    object-fit: cover;
+  }
+
   h2 {
     font-size: get-font-size(small);
     text-align: right;
@@ -30,11 +36,7 @@
       }
     }
 
-    img {
-      width: 350px;
-      height: 250px;
-      object-fit: cover;
-    }
+
   }
   &_image_upload {
     input {

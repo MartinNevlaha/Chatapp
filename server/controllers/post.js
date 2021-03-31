@@ -68,6 +68,12 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   const postId = req.params.postId;
+  if (req.file) {
+    req.body.image = req.file.filename;
+  }
+  if (typeof req.body.image !== "undefined" && req.body.image.length === 0) {
+    delete req.body.image;
+  }
   try {
     const post = await Post.findOne({
       where: {
@@ -80,7 +86,18 @@ exports.updatePost = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-    const updatedPost = await Post.update(req.body, {
+    let data;
+    if (req.body.image) {
+      data = {
+        text: req.body.textContent,
+        image: req.body.image,
+      };
+    } else {
+      data = {
+        text: req.body.textContent,
+      };
+    }
+    const updatedPost = await Post.update(data, {
       where: {
         id: postId,
         userId: req.user.id,

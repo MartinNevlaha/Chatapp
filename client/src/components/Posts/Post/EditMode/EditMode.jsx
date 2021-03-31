@@ -10,6 +10,7 @@ import Button from "../../../UI/Button/Button";
 
 export const EditMode = ({ post, deleteImage }) => {
   const [fileName, setFileName] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   const suportedImageFormat = [
     "image/jpg",
@@ -38,11 +39,14 @@ export const EditMode = ({ post, deleteImage }) => {
       enableReinitialize={true}
       initialValues={{
         textContent: post.text ? post.text : "",
-        image: post.image ? post.image : null,
+        image: "",
       }}
       validationSchema={validate}
       onSubmit={(postData, { resetForm }) => {
-        console.log(postData);
+        let data = new FormData();
+        for (const [key, value] of Object.entries(postData)) {
+          data.append(key, value);
+        }
       }}
     >
       {(formProps) => (
@@ -56,32 +60,39 @@ export const EditMode = ({ post, deleteImage }) => {
                   size="1x"
                   onClick={() => deleteImage(post.id)}
                   className={classes.edit_mode_image_delete}
-
                 />
                 <img src={post.image} alt={post.image} />
               </div>
             ) : (
               <div className={classes.edit_mode_image_upload}>
+                {imagePreview && (
+                  <div>
+                    <img src={imagePreview} alt="image-preview" />
+                  </div>
+                )}
                 <h3>Upload image</h3>
-                <label htmlFor="image">
+                <label htmlFor="postImage">
                   <FontAwesomeIcon
                     icon={faImage}
-                    size="5x"
+                    size="3x"
                     className={classes.edit_mode_image_upload_icon}
                   />
                   <p>{fileName}</p>
+                  <input
+                    onChange={(e) => {
+                      const [file] = e.target.files;
+                      const { name } = file;
+                      console.log(name);
+                      setFileName(name);
+                      setImagePreview(URL.createObjectURL(e.target.files[0]));
+                      formProps.setFieldValue("image", e.target.files[0]);
+                    }}
+                    accept=".png, .jpg, .jpeg, .gif"
+                    type="file"
+                    id="postImage"
+                    name="image"
+                  />
                 </label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  onChange={(e) => {
-                    const [file] = e.target.files;
-                    const { name } = file;
-                    setFileName(name);
-                    formProps.setFieldValue("image", e.target.files[0]);
-                  }}
-                />
               </div>
             )}
             <AreaField label="Post content" name="textContent" />
