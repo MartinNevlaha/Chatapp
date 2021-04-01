@@ -92,6 +92,7 @@ exports.updatePost = async (req, res, next) => {
         text: req.body.textContent,
         image: req.body.image,
       };
+      await removePostImage(post.image);
     } else {
       data = {
         text: req.body.textContent,
@@ -142,7 +143,6 @@ exports.deletePost = async (req, res, next) => {
       },
     });
     if (post.image !== null) {
-      console.log(post.image);
       await removePostImage(post.image);
     }
     res.json({

@@ -144,7 +144,6 @@ export const deletePost = (postId) => {
         dispatch(deletePostSuccess(postId));
       })
       .catch((err) => {
-        console.log(err);
         dispatch(errorCreator(err.response));
         dispatch(deletePostFailed());
       });
@@ -185,7 +184,6 @@ export const updatePostFailed = () => {
 };
 
 export const updatePost = (postId, data) => {
-  console.log(postId, data);
   return dispatch => {
     dispatch(updatePostStart());
     axios.put(`/api/posts/update/${postId}`, data, {
@@ -193,8 +191,7 @@ export const updatePost = (postId, data) => {
         "Content-Type": "application/x-www-form-urlencoded",
       }
     }).then(res => {
-      console.log(res.data);
-      //dispatch(updatePostSuccess(res.data.post))
+      dispatch(updatePostSuccess(res.data.post))
     }).catch(err => {
       dispatch(updatePostFailed());
       dispatch(errorCreator(err.response))

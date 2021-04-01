@@ -119,11 +119,34 @@ const deletePostImage = (state, action) => {
       },
     },
   });
-}
+};
 
 const updatePostStart = (state, action) => {
-  
-}
+  return updateObj(state, { loading: true });
+};
+
+const updatePostSuccess = (state, action) => {
+  const index = state.posts.findIndex(
+    (post) => post.id === action.updatedPost.id
+  );
+  const updatedPost = {
+    ...action.updatedPost,
+    User: {...state.posts[index].User},
+    Likes: [...state.posts[index].Likes],
+    editMode: false
+  }
+  console.log(updatedPost);
+  return updateArray(state, {
+    loading: { $set: false },
+    posts: {
+      [index]: { $set: updatedPost },
+    },
+  });
+};
+
+const updatePostFailed = (state, action) => {
+  return updateObj(state, { loading: false });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -153,6 +176,12 @@ const reducer = (state = initialState, action) => {
       return setEditMode(state, action);
     case actionTypes.DELETE_POST_IMAGE:
       return deletePostImage(state, action);
+    case actionTypes.UPDATE_POST_START:
+      return updatePostStart(state, action);
+    case actionTypes.UPDATE_POST_SUCCESS:
+      return updatePostSuccess(state, action);
+    case actionTypes.UPDATE_POST_FAILED:
+      return updatePostFailed(state, action);
     default:
       return state;
   }
