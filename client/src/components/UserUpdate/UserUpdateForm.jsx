@@ -12,6 +12,7 @@ import TextField from "../Inputs/TextField/TextField";
 
 const UserUpdate = (props) => {
   const [pwdReset, setPwdReset] = useState(false);
+  const [imagePreview, setImagePreview] = useState("");
   const user = useSelector((state) => state.userProfile.user);
 
   const SupportedFormat = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
@@ -46,6 +47,17 @@ const UserUpdate = (props) => {
     setPwdReset(!pwdReset);
   };
 
+  let avatarContent = <FontAwesomeIcon icon={faUserCircle} size="10x" />;
+  if (!user.avatar && imagePreview) {
+    avatarContent = (
+      <div>
+        <img src={imagePreview} alt="image-preview" />
+      </div>
+    );
+  } else if (user.avatar) {
+    avatarContent = <img src={user.avatar} alt="avatar" />;
+  }
+
   return (
     <Formik
       enableReinitialize={true}
@@ -76,11 +88,7 @@ const UserUpdate = (props) => {
               <Card type="small_card">
                 <h2>{user.fullName}</h2>
                 <div className={classes.profile_container_inputs_avatar}>
-                  {!user.avatar ? (
-                    <FontAwesomeIcon icon={faUserCircle} size="10x" />
-                  ) : (
-                    <img src={user.avatar} alt="avatar" />
-                  )}
+                  {avatarContent}
                   <label htmlFor="avatar">
                     <FontAwesomeIcon
                       icon={faImage}
@@ -96,9 +104,10 @@ const UserUpdate = (props) => {
                     type="file"
                     id="avatar"
                     name="avatar"
-                    onChange={(e) =>
-                      formProps.setFieldValue("avatar", e.target.files[0])
-                    }
+                    onChange={(e) => {
+                      setImagePreview(URL.createObjectURL(e.target.files[0]));
+                      formProps.setFieldValue("avatar", e.target.files[0]);
+                    }}
                   />
                   <ErrorMessage
                     component="div"
