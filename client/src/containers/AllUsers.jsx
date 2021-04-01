@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as action from "../store/actions";
+import { numberOfPages } from "../utils/utilities";
 import AllUsersList from "../components/AllUsersList/AllUsersList";
 
 const AllUsers = () => {
@@ -11,10 +12,6 @@ const AllUsers = () => {
   const loading = useSelector((state) => state.users.loading);
   const [currentPage, setCurrentPage] = useState(0);
   const [limit, setLimit] = useState(5);
-
-  const numberOfPages = (totalRecords, limit) => {
-    return Math.round(totalRecords / limit);
-  };
 
   useEffect(() => {
     dispatch(action.fetchActiveUsers(currentPage, limit));
@@ -33,8 +30,8 @@ const AllUsers = () => {
 
   const handleAddFriend = (userId) => {
     const data = {
-      friendId: userId
-    }
+      friendId: userId,
+    };
     dispatch(action.addFriend(data));
   };
 

@@ -93,7 +93,6 @@ export const EditMode = ({ post, deleteImage, updatePost }) => {
                     onChange={(e) => {
                       const [file] = e.target.files;
                       const { name } = file;
-                      console.log(name);
                       setFileName(name);
                       setImagePreview(URL.createObjectURL(e.target.files[0]));
                       formProps.setFieldValue("image", e.target.files[0]);

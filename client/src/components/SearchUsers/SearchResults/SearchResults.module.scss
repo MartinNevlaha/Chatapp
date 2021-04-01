@@ -1,0 +1,59 @@
+@import "../../../style/imports.scss";
+
+.search_results {
+  position: absolute;
+  display: none;
+  top: 30px;
+  left: 0;
+  width: 350px;
+  height: auto;
+  background-color: get-color(dark-white);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  color: get-color(text);
+  z-index: 20;
+  @include shadow;
+
+  p {
+    padding: 1rem;
+  }
+
+  .user {
+    @include flexbox(flex-start, center, row);
+    padding: .3rem;
+    margin: .3rem; 
+    cursor: pointer;
+
+    &_avatar {
+      img {
+        @include avatar; 
+      }
+      &_icon {
+        @include flexbox(center, center, row);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: lighten(get-color(transparent_gray), 20%);
+      }
+    }
+    &_name {
+      padding: 0.5rem;
+    }
+    &_isFriend {
+      padding: .5rem;
+    }
+    &:hover, &:active {
+      @include hover-effect;
+      animation: pulse 0.8s ease-in;
+    }
+  }
+}
+
+.open {
+  display: block;
+  animation: anim 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@include pulse;
+
+@include anim;

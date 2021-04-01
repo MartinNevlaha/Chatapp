@@ -23,29 +23,35 @@ export const generateRandomNumbers = () => {
 export const getLikeNumber = (likesArr, type) => {
   let likes = 0;
   if (type === "like") {
-    likesArr.forEach(like => {
+    likesArr.forEach((like) => {
       if (like.status === 1) {
-        likes +=  1;
+        likes += 1;
       }
-    })
+    });
   } else if (type === "unlike") {
-    likesArr.forEach(like => {
+    likesArr.forEach((like) => {
       if (like.status === 0) {
-        likes +=  1;
+        likes += 1;
       }
-    })
+    });
   }
   return likes;
-}
+};
 
 export const isLiked = (likeArr, userId, status) => {
   let isLiked = false;
 
-  likeArr.forEach(like => {
+  likeArr.forEach((like) => {
     if (userId === like.userId && like.status === status) {
       isLiked = true;
     }
-  })
+  });
 
   return isLiked;
-}
+};
+
+export const numberOfPages = (totalRecords, limit) => {
+  let number = 1;
+  if (totalRecords > limit) number = Math.round(totalRecords / limit);
+  return number;
+};
