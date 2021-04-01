@@ -89,6 +89,7 @@ exports.searchUser = async (req, res, next) => {
   try {
     const users = await User.findAndCountAll({
       where: {
+        [Op.not]: {id: req.user.id},
         [Op.or]: [
           { lastName: { [Op.iLike]: `%${search}%` } },
           { firstName: { [Op.iLike]: `%${search}%` } }, //case insesitive search
