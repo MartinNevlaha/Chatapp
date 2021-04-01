@@ -1,10 +1,10 @@
 const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
-const { getUsers } = require("../controllers/users");
+const { getUsers, searchUser } = require("../controllers/users");
 
 router.get("/users", isAuth, getUsers);
 
-router.get("/users/find", isAuth, );
+router.get("/search", isAuth, searchUser);
 
 module.exports = router;
