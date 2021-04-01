@@ -48,7 +48,7 @@ const UserUpdate = (props) => {
   };
 
   let avatarContent = <FontAwesomeIcon icon={faUserCircle} size="10x" />;
-  if (!user.avatar && imagePreview) {
+  if (imagePreview) {
     avatarContent = (
       <div>
         <img src={imagePreview} alt="image-preview" />
@@ -56,6 +56,12 @@ const UserUpdate = (props) => {
     );
   } else if (user.avatar) {
     avatarContent = <img src={user.avatar} alt="avatar" />;
+  } else if (user.avatar && imagePreview) {
+    avatarContent = (
+      <div>
+        <img src={imagePreview} alt="image-preview" />
+      </div>
+    );
   }
 
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -26,7 +27,9 @@ export const UserInfoSidebar = () => {
           </div>
         </div>
         <div className={classes.userInfo_content}>
-          <h2>{userProfile.fullName}</h2>
+          <Link to="/update-profile">
+            <h2>{userProfile.fullName}</h2>
+          </Link>
           <hr />
           <p>Registered since: {parseDateTime(userProfile.createdAt)}</p>
           <p>Number of friends: {userProfile.friendsCount}</p>
