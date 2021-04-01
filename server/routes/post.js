@@ -3,7 +3,10 @@ const router = require("express").Router();
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
 const { validateResults } = require("../validators");
-const { rules: createPostRules } = require("../validators/post/createPost");
+const {
+  rules: createOrUpdatePostRules,
+} = require("../validators/post/createOrUpdatePost");
+const { rules: likePostRules } = require("../validators/post/likePost");
 const { userPostImageUpload } = require("../middleware/fileUpload");
 const {
   createPost,
@@ -11,7 +14,7 @@ const {
   updatePost,
   deletePost,
   getFriendsPosts,
-  likeOrUnlikePost
+  likeOrUnlikePost,
 } = require("../controllers/post");
 
 router.get("/", isAuth, getPosts);
@@ -20,14 +23,22 @@ router.get("/friends-post", isAuth, getFriendsPosts);
 
 router.post(
   "/create",
-  [isAuth, userPostImageUpload, createPostRules, validateResults],
+  [isAuth, userPostImageUpload, createOrUpdatePostRules, validateResults],
   createPost
 );
 
-router.put("/update/:postId", [isAuth, userPostImageUpload], updatePost);
+router.put(
+  "/update/:postId",
+  [isAuth, userPostImageUpload, createOrUpdatePostRules, validateResults],
+  updatePost
+);
+
+router.patch(
+  "/like-status/:postId",
+  [isAuth, isFriend, likePostRules, validateResults],
+  likeOrUnlikePost
+);
 
 router.delete("/delete/:postId", isAuth, deletePost);
-
-router.patch("/like-status/:postId", [isAuth, isFriend], likeOrUnlikePost );
 
 module.exports = router;
