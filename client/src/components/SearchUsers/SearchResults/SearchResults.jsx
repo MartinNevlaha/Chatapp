@@ -4,7 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import classes from "./SearchResults.module.scss";
 
-export const SearchResults = ({ users, show, close }) => {
+export const SearchResults = ({
+  users,
+  show,
+  close,
+  numberOfPages,
+  setPage,
+  currentPage,
+}) => {
   const resultRef = useRef(null);
 
   useEffect(() => {
@@ -30,6 +37,18 @@ export const SearchResults = ({ users, show, close }) => {
           : classes.search_results
       }
     >
+      {numberOfPages > 1 && (
+        <div className={classes.search_results_pagination}>
+          {currentPage !== 0 && (
+            <p onClick={() => setPage("prev")}>{"<"}Prev page</p>
+          )}
+          {currentPage !== numberOfPages - 1 && (
+            <p onClick={() => setPage("next")}>Next page{">"}</p>
+          )}
+        </div>
+      )}
+
+      <hr />
       {users.length !== 0 ? (
         users.map((user) => {
           return (
@@ -48,14 +67,14 @@ export const SearchResults = ({ users, show, close }) => {
               </div>
               <div className={classes.user_isFriend}>
                 {user.friendStatus && user.friendStatus === 1 && (
-                  <FontAwesomeIcon icon={faCheck} color="green"/>
+                  <FontAwesomeIcon icon={faCheck} color="green" />
                 )}
               </div>
             </div>
           );
         })
       ) : (
-        <p>No users found</p>
+        <p className={classes.search_results_empty}>No users found</p>
       )}
     </div>
   );

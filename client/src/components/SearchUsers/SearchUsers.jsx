@@ -34,6 +34,15 @@ export const SearchUsers = () => {
     setSearchString("");
   };
 
+  const handleSetPage = (type) => {
+    if (type === "next") {
+      setCurrentPage(currentPage + 1);
+      dispatch(action.searchUsers(searchString, LIMIT, currentPage + 1 ));
+    } else {
+      setCurrentPage(currentPage - 1);
+      dispatch(action.searchUsers(searchString, LIMIT, currentPage - 1));
+    }
+  };
 
   return (
     <div className={classes.search}>
@@ -53,6 +62,8 @@ export const SearchUsers = () => {
         show={isResultsOpen}
         close={handleCloseResults}
         numberOfPages={numberOfPages(count, LIMIT)}
+        setPage={handleSetPage}
+        currentPage={currentPage}
       />
     </div>
   );

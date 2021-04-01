@@ -14,8 +14,25 @@
   z-index: 20;
   @include shadow;
 
-  p {
-    padding: 1rem;
+  &_pagination {
+    @include flexbox(flex-end, center, row);
+    font-size: get-font-size(small);
+
+    p {
+      padding: 0.3rem;
+      margin: 0.3rem;
+      cursor: pointer;
+      color: get-color(primary);
+
+      &:hover, &:active {
+        color: get-color(secondary);
+      }
+    }
+  }
+
+  hr {
+    width: 95%;
+    color: lighten(get-color(text), 40%);
   }
 
   .user {
@@ -46,6 +63,9 @@
       @include hover-effect;
       animation: pulse 0.8s ease-in;
     }
+  }
+  &_empty {
+    padding: .5rem;
   }
 }
 
