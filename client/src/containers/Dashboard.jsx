@@ -45,10 +45,14 @@ const Dasboard = () => {
 
   const handleEditMode = (postId) => {
     dispatch(action.setEditMode(postId));
-  }
+  };
 
   const handleDeletePostImage = (postId) => {
-    dispatch(action.deletePostImage(postId))
+    dispatch(action.deletePostImage(postId));
+  };
+
+  const handleUpdatePost = (postId, data) => {
+    dispatch(action.updatePost(postId, data));
   }
 
   return (
@@ -72,6 +76,7 @@ const Dasboard = () => {
         deletePost={handleDeletePost}
         setEditMode={handleEditMode}
         deleteImage={handleDeletePostImage}
+        updatePost={handleUpdatePost}
       />
     </div>
   );

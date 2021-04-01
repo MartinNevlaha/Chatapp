@@ -26,5 +26,6 @@ export {
   likePost,
   deletePost,
   setEditMode,
-  deletePostImage
+  deletePostImage,
+  updatePost
 } from "./post";

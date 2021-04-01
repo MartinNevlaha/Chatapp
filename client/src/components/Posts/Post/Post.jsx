@@ -22,6 +22,7 @@ export const Post = ({
   deletePost,
   setEditMode,
   deleteImage,
+  updatePost,
 }) => {
   return (
     <div className={classes.post}>
@@ -129,7 +130,11 @@ export const Post = ({
               </div>
             </React.Fragment>
           ) : (
-            <EditMode post={post} deleteImage={deleteImage} />
+            <EditMode
+              post={post}
+              deleteImage={deleteImage}
+              updatePost={updatePost}
+            />
           )}
         </div>
       </Card>

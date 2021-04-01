@@ -112,7 +112,7 @@ exports.updatePost = async (req, res, next) => {
     res.json({
       status: "Ok",
       message: "Post was successfully updated",
-      post: updatedPost[1],
+      post: updatedPost[1][0],
     });
   } catch (error) {
     if (error.statusCode) {

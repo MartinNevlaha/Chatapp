@@ -8,7 +8,7 @@ import classes from "./EditMode.module.scss";
 import AreaField from "../../../Inputs/AreaField/AreaField";
 import Button from "../../../UI/Button/Button";
 
-export const EditMode = ({ post, deleteImage }) => {
+export const EditMode = ({ post, deleteImage, updatePost }) => {
   const [fileName, setFileName] = useState("");
   const [imagePreview, setImagePreview] = useState("");
 
@@ -47,9 +47,11 @@ export const EditMode = ({ post, deleteImage }) => {
         for (const [key, value] of Object.entries(postData)) {
           data.append(key, value);
         }
+        resetForm()
+        updatePost(post.id, data);
       }}
     >
-      {(formProps) => (
+      {(formProps, values) => (
         <div className={classes.edit_mode}>
           <h2>Edit mode</h2>
           <Form>

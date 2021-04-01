@@ -161,6 +161,43 @@ export const setEditMode = (postId) => {
 export const deletePostImage = (postId) => {
   return {
     type: actionTypes.DELETE_POST_IMAGE,
-    postId
+    postId,
   };
 };
+
+export const updatePostStart = () => {
+  return {
+    type: actionTypes.UPDATE_POST_START,
+  };
+};
+
+export const updatePostSuccess = (updatedPost) => {
+  return {
+    type: actionTypes.UPDATE_POST_SUCCESS,
+    updatedPost,
+  };
+};
+
+export const updatePostFailed = () => {
+  return {
+    type: actionTypes.UPDATE_POST_FAILED,
+  };
+};
+
+export const updatePost = (postId, data) => {
+  console.log(postId, data);
+  return dispatch => {
+    dispatch(updatePostStart());
+    axios.put(`/api/posts/update/${postId}`, data, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      }
+    }).then(res => {
+      console.log(res.data);
+      //dispatch(updatePostSuccess(res.data.post))
+    }).catch(err => {
+      dispatch(updatePostFailed());
+      dispatch(errorCreator(err.response))
+    })
+  }
+}

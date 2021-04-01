@@ -15,7 +15,8 @@ export const Posts = ({
   userId,
   deletePost,
   setEditMode,
-  deleteImage
+  deleteImage,
+  updatePost
 }) => {
   const loadingCreatePost = useSelector(
     (state) => state.posts.loadingCreatePost
@@ -41,6 +42,7 @@ export const Posts = ({
               userId={userId}
               setEditMode={setEditMode}
               deleteImage={deleteImage}
+              updatePost={updatePost}
             />
           ))}
           {loading && <Spinner />}

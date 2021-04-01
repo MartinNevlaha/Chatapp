@@ -24,7 +24,7 @@ router.post(
   createPost
 );
 
-router.put("/update/:postId", isAuth, updatePost);
+router.put("/update/:postId", [isAuth, userPostImageUpload], updatePost);
 
 router.delete("/delete/:postId", isAuth, deletePost);
 

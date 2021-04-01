@@ -121,6 +121,10 @@ const deletePostImage = (state, action) => {
   });
 }
 
+const updatePostStart = (state, action) => {
+  
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CREATE_POST_START:
