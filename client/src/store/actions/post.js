@@ -184,17 +184,22 @@ export const updatePostFailed = () => {
 };
 
 export const updatePost = (postId, data) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(updatePostStart());
-    axios.put(`/api/posts/update/${postId}`, data, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      }
-    }).then(res => {
-      dispatch(updatePostSuccess(res.data.post))
-    }).catch(err => {
-      dispatch(updatePostFailed());
-      dispatch(errorCreator(err.response))
-    })
-  }
-}
+    axios
+      .put(`/api/posts/update/${postId}`, data, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((res) => {
+        dispatch(updatePostSuccess(res.data.post));
+      })
+      .catch((err) => {
+        dispatch(updatePostFailed());
+        dispatch(errorCreator(err.response));
+      });
+  };
+};
+
+

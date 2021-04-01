@@ -13,7 +13,7 @@ export {
   deleteAccount,
 } from "./userProfile";
 
-export { fetchActiveUsers, addFriend } from "./users";
+export { fetchActiveUsers, addFriend, searchUsers } from "./users";
 
 export { fetchFriendRequest, answerFriendRequest } from "./friendRequest";
 
@@ -27,5 +27,5 @@ export {
   deletePost,
   setEditMode,
   deletePostImage,
-  updatePost
+  updatePost,
 } from "./post";

@@ -1,11 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import {useSelector} from "react-redux";
 
 import classes from "./Topbar.module.scss";
 import BackDropMenu from "./BackDropMenu/BackdropMenu";
+import SearchUsers from "../../SearchUsers/SearchUsers";
 
 const Topbar = (props) => {
   const { t } = useTranslation();
@@ -22,14 +23,7 @@ const Topbar = (props) => {
         <h1 className={classes.topbar_left_appName}>
           {t("topNavbar.appName")}
         </h1>
-        <div className={classes.topbar_left_search}>
-          <FontAwesomeIcon
-            icon={faSearch}
-            size="1x"
-            className={classes.topbar_left_search_icon}
-          />
-          <input type="text" placeholder={t("topNavbar.search")} />
-        </div>
+        <SearchUsers />
       </div>
       <div className={classes.topbar_right}>
         <p className={classes.topbar_right_name}>{fullName}</p>

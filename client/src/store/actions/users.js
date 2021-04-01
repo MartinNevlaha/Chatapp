@@ -1,7 +1,10 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
 import { errorCreator, successCreator } from "./requestStatus";
+import axiosOrigin from 'axios';
 
+let CancelToken = axiosOrigin.CancelToken;
+let cancel; 
 
 export const fetchActiveUsersStart = () => {
   return {
@@ -85,4 +88,45 @@ export const addFriend = (userId) => {
   };
 };
 
+export const searchUsersStart = () => {
+  return {
+    type: actionTypes.SEARCH_USERS_START,
+  };
+};
 
+export const searchUsersSuccess = (users, count) => {
+  return {
+    type: actionTypes.SEARCH_USERS_SUCCES,
+    users,
+    count
+  };
+};
+
+export const searchUsersFailed = () => {
+  return {
+    type: actionTypes.SEARCH_USERS_FAILED,
+  };
+};
+
+export const searchUsers = (search, limit, page) => {
+  return (dispatch) => {
+    dispatch(searchUsersStart());
+    if (typeof cancel !== "undefined") {
+      cancel("Cancel request")
+    };
+
+    axios
+      .get(`/api/users/search?search=${search}&limit=${limit}&page=${page}`, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancel = c;
+        })
+      })
+      .then(res => {
+        dispatch(searchUsersSuccess(res.data.users, res.data.count))
+      })
+      .catch(err => {
+        dispatch(errorCreator(err.response));
+        dispatch(searchUsersFailed());
+      });
+  };
+};
