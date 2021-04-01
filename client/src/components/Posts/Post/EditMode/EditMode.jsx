@@ -70,6 +70,15 @@ export const EditMode = ({ post, deleteImage, updatePost }) => {
                 {imagePreview && (
                   <div>
                     <img src={imagePreview} alt="image-preview" />
+                    <ErrorMessage 
+                    component="div"
+                    style={{
+                      color: "red",
+                      fontSize: ".8rem",
+                      padding: ".5rem",
+                    }}
+                    name="image"
+                    />
                   </div>
                 )}
                 <h3>Upload image</h3>

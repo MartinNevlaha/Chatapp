@@ -135,7 +135,6 @@ const updatePostSuccess = (state, action) => {
     Likes: [...state.posts[index].Likes],
     editMode: false
   }
-  console.log(updatedPost);
   return updateArray(state, {
     loading: { $set: false },
     posts: {
