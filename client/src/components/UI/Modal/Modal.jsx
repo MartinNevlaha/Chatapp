@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import classes from "./Modal.module.scss";
 import Backdrop from "../Backdrop/Backdrop";
 import Spinner from "../Spinner/Spinner";
-import Button from "../Button/Button";
+
 
 export const Modal = ({
   show,
@@ -37,12 +37,6 @@ export const Modal = ({
           ) : (
             <div className={classes.modal_content} >
               {children}
-              <div className={classes.modal_content_btn_container}>
-                <Button danger clicked={cancel}>
-                  Cancel
-                </Button>
-                <Button clicked={submit}>Ok</Button>
-              </div>
             </div>
           )}
         </div>

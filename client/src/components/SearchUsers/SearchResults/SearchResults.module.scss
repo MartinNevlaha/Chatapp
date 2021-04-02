@@ -5,6 +5,7 @@
   display: none;
   top: 30px;
   left: 0;
+  min-width: 300px;
   width: 350px;
   height: auto;
   background-color: get-color(dark-white);
@@ -66,6 +67,9 @@
   }
   &_empty {
     padding: .5rem;
+  }
+  @media screen and (max-width: 800px) {
+    width: 300px;
   }
 }
 

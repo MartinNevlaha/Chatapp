@@ -220,6 +220,12 @@ exports.getFriendsPosts = async (req, res, next) => {
         },
         {
           model: Likes,
+          include: {
+            model: User,
+            attributes: {
+              exclude: ["password", "activationToken", "activated", "email"],
+            },
+          },
         },
       ],
       limit: limit,

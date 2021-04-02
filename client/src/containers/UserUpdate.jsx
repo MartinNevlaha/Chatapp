@@ -6,6 +6,7 @@ import DeleteAccount from "../components/deleteAccount/deleteAccount";
 import * as action from "../store/actions";
 import Spinner from "../components/UI/Spinner/Spinner";
 import Modal from "../components/UI/Modal/Modal";
+import Button from "../components/UI/Button/Button";
 
 const UserUpdate = () => {
   const [isModalShow, setIsModalShow] = useState(false);
@@ -38,12 +39,14 @@ const UserUpdate = () => {
         flexWrap: "wrap",
       }}
     >
-      <Modal
-        cancel={handleModalClose}
-        show={isModalShow}
-        submit={handleAccountDelete}
-      >
-        Do you realy want to delete your accont ?
+      <Modal show={isModalShow}>
+        <p>Do you realy want to delete your accont ?</p>
+        <div>
+          <Button danger clicked={handleModalClose}>
+            Cancel
+          </Button>
+          <Button clicked={handleAccountDelete}>Ok</Button>
+        </div>
       </Modal>
       {loading ? (
         <Spinner />
