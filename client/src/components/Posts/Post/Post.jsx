@@ -15,7 +15,7 @@ import EditPost from "./EditPost/EditPost";
 import EditMode from "./EditMode/EditMode";
 import { getLikeNumber, isLiked } from "../../../utils/utilities";
 
-export const Post = ({
+const Post = ({
   post,
   liker,
   userId,
@@ -23,6 +23,7 @@ export const Post = ({
   setEditMode,
   deleteImage,
   updatePost,
+  showLikes,
 }) => {
   return (
     <div className={classes.post}>
@@ -108,7 +109,8 @@ export const Post = ({
                     onClick={() => liker("like", post.User.id, post.id)}
                   />
                   <p>
-                    {getLikeNumber(post.Likes, "like")} <span>likes</span>
+                    {getLikeNumber(post.Likes, "like")}{" "}
+                    <span onClick={() => showLikes(post.id, 1)}>likes</span>
                   </p>
                 </div>
                 <div className={classes.post_content_footer_likes}>
@@ -124,7 +126,8 @@ export const Post = ({
                     onClick={() => liker("dislike", post.User.id, post.id)}
                   />
                   <p>
-                    {getLikeNumber(post.Likes, "unlike")} <span>dislikes</span>
+                    {getLikeNumber(post.Likes, "unlike")}{" "}
+                    <span onClick={() => showLikes(post.id, 0)}>dislikes</span>
                   </p>
                 </div>
               </div>

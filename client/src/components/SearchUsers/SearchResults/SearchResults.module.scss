@@ -36,35 +36,6 @@
     color: lighten(get-color(text), 40%);
   }
 
-  .user {
-    @include flexbox(flex-start, center, row);
-    padding: .3rem;
-    margin: .3rem; 
-    cursor: pointer;
-
-    &_avatar {
-      img {
-        @include avatar; 
-      }
-      &_icon {
-        @include flexbox(center, center, row);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: lighten(get-color(transparent_gray), 20%);
-      }
-    }
-    &_name {
-      padding: 0.5rem;
-    }
-    &_isFriend {
-      padding: .5rem;
-    }
-    &:hover, &:active {
-      @include hover-effect;
-      animation: pulse 0.8s ease-in;
-    }
-  }
   &_empty {
     padding: .5rem;
   }

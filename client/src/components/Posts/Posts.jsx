@@ -7,6 +7,7 @@ import Post from "./Post/Post";
 import Spinner from "../UI/Spinner/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Modal from "../UI/Modal/Modal";
+import ShowLikes from "../ShowLikes/ShowLikes";
 
 export const Posts = ({
   createPost,
@@ -20,13 +21,45 @@ export const Posts = ({
   updatePost,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showLike, setShowLike] = useState({
+    likeType: null,
+    users: null,
+  });
   const loadingCreatePost = useSelector(
     (state) => state.posts.loadingCreatePost
   );
   const loading = useSelector((state) => state.posts.loading);
+
+  const handleShowLikes = (postId, likeType) => {
+    setIsModalOpen(true);
+    const post = posts.filter((post) => post.id === postId)[0];
+    setShowLike({
+      ...showLike,
+      likeType: likeType,
+      users: showLikeHelper(post.Likes, likeType),
+    });
+  };
+
+  const showLikeHelper = (likes, likeType) => {
+    const updatedLikes = likes.map((like) => {
+      if (like.status !== likeType) {
+        return;
+      }
+      return { ...like.User };
+    });
+    return updatedLikes;
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+
   return (
     <React.Fragment>
-      <Modal show={isModalOpen}>likes</Modal>
+      <Modal show={isModalOpen} cancel={handleModalClose}>
+        <ShowLikes showLike={showLike}/>
+      </Modal>
       <div className={classes.posts}>
         <NewPost createPost={createPost} />
         <hr />
@@ -47,6 +80,7 @@ export const Posts = ({
                 setEditMode={setEditMode}
                 deleteImage={deleteImage}
                 updatePost={updatePost}
+                showLikes={handleShowLikes}
               />
             ))}
             {loading && <Spinner />}

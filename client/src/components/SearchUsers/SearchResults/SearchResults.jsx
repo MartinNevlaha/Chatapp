@@ -3,6 +3,7 @@ import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import classes from "./SearchResults.module.scss";
+import User from "../../User/User";
 
 export const SearchResults = ({
   users,
@@ -50,29 +51,7 @@ export const SearchResults = ({
 
       <hr />
       {users.length !== 0 ? (
-        users.map((user) => {
-          return (
-            <div key={user.id} className={classes.user}>
-              <div className={classes.user_avatar}>
-                {user.avatar ? (
-                  <img src={user.avatar} alt="avatar" />
-                ) : (
-                  <div className={classes.user_avatar_icon}>
-                    <FontAwesomeIcon icon={faUser} />
-                  </div>
-                )}
-              </div>
-              <div className={classes.user_name}>
-                <h2>{user.fullName}</h2>
-              </div>
-              <div className={classes.user_isFriend}>
-                {user.friendStatus && user.friendStatus === 1 && (
-                  <FontAwesomeIcon icon={faCheck} color="green" />
-                )}
-              </div>
-            </div>
-          );
-        })
+        users.map((user) => <User user={user} key={user.id}/>)
       ) : (
         <p className={classes.search_results_empty}>No users found</p>
       )}

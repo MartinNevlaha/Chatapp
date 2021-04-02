@@ -8,7 +8,7 @@ import classes from "./EditMode.module.scss";
 import AreaField from "../../../Inputs/AreaField/AreaField";
 import Button from "../../../UI/Button/Button";
 
-export const EditMode = ({ post, deleteImage, updatePost }) => {
+const EditMode = ({ post, deleteImage, updatePost }) => {
   const [fileName, setFileName] = useState("");
   const [imagePreview, setImagePreview] = useState("");
 
