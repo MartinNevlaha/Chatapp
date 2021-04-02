@@ -9,20 +9,11 @@ import Modal from "../components/UI/Modal/Modal";
 import Button from "../components/UI/Button/Button";
 
 const UserUpdate = () => {
-  const [isModalShow, setIsModalShow] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.userProfile.loading);
 
   const handleUpdateprofile = (data) => {
     dispatch(action.updateUserProfile(data));
-  };
-
-  const handleModalClose = () => {
-    setIsModalShow(false);
-  };
-
-  const handleModalOpen = () => {
-    setIsModalShow(true);
   };
 
   const handleAccountDelete = () => {
@@ -39,21 +30,12 @@ const UserUpdate = () => {
         flexWrap: "wrap",
       }}
     >
-      <Modal show={isModalShow}>
-        <p>Do you realy want to delete your accont ?</p>
-        <div>
-          <Button danger clicked={handleModalClose}>
-            Cancel
-          </Button>
-          <Button clicked={handleAccountDelete}>Ok</Button>
-        </div>
-      </Modal>
       {loading ? (
         <Spinner />
       ) : (
         <React.Fragment>
           <UserUpdateForm updateProfile={handleUpdateprofile} />
-          <DeleteAccount openModal={handleModalOpen} />
+          <DeleteAccount deleteAccount={handleAccountDelete} />
         </React.Fragment>
       )}
     </div>

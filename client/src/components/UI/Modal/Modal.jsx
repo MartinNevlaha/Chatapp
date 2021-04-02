@@ -8,7 +8,6 @@ import Spinner from "../Spinner/Spinner";
 export const Modal = ({
   show,
   cancel,
-  submit,
   loading,
   children,
 }) => {
