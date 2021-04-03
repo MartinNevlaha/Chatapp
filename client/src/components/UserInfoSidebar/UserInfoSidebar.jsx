@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./UserInfoSidebar.module.scss";
 import Card from "../UI/Card/Card";
 import { parseDateTime } from "../../utils/utilities";
+import Button from "../UI/Button/Button";
 
-export const UserInfoSidebar = () => {
-  const userProfile = useSelector((state) => state.userProfile.user);
+export const UserInfoSidebar = ({ userProfile, showMyself, isFriend }) => {
   return (
     <Card type="small_card">
       <div className={classes.userInfo}>
@@ -34,6 +33,18 @@ export const UserInfoSidebar = () => {
           <p>Registered since: {parseDateTime(userProfile.createdAt)}</p>
           <p>Number of friends: {userProfile.friendsCount}</p>
         </div>
+        {!showMyself && (
+          <div className={classes.userInfo_friendship}>
+            {isFriend ? (
+              <div className={classes.userInfo_friendship_container}>
+                <p>Allready friends</p>
+                <FontAwesomeIcon icon={faCheck} color="green" />{" "}
+              </div>
+            ) : (
+              <Button>Add friend</Button>
+            )}
+          </div>
+        )}
       </div>
     </Card>
   );

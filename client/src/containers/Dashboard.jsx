@@ -9,6 +9,7 @@ const Dasboard = () => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
   const friendsPost = useSelector((state) => state.posts.posts || []);
+  const userProfile = useSelector((state) => state.userProfile.user);
   const userId = useSelector((state) => state.userAuth.user.userId);
   const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ const Dasboard = () => {
 
   const handleUpdatePost = (postId, data) => {
     dispatch(action.updatePost(postId, data));
-  }
+  };
 
   return (
     <div
@@ -66,7 +67,7 @@ const Dasboard = () => {
         flexWrap: "wrap",
       }}
     >
-      <UserSideBar />
+      <UserSideBar userProfile={userProfile} showMyself={true} />
       <Posts
         userId={userId}
         createPost={handleCreatePost}

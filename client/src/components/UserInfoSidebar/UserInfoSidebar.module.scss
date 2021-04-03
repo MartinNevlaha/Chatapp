@@ -53,4 +53,14 @@
       margin-left: 0.5rem;
     }
   }
+
+  &_friendship {
+    padding: 0.3rem;
+    margin-bottom: 0.5rem;
+
+    &_container {
+      @include flexbox(space-around, center, row);
+      
+    }
+  }
 }
