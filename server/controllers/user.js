@@ -128,3 +128,14 @@ exports.deleteUserAccount = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.getUserInfo = async (req, res, next) => {
+  try {
+    
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+}
