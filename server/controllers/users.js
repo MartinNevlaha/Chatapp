@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 
 const config = require("../config/app");
 const models = require("../models");
-const { User, Friendship } = models;
+const { User, Friendship, Post, Likes } = models;
 
 exports.getUsers = async (req, res, next) => {
   const limit = parseInt(req.query.limit);
@@ -89,7 +89,7 @@ exports.searchUser = async (req, res, next) => {
   try {
     const users = await User.findAndCountAll({
       where: {
-        [Op.not]: {id: req.user.id},
+        [Op.not]: { id: req.user.id },
         [Op.or]: [
           { lastName: { [Op.iLike]: `%${search}%` } },
           { firstName: { [Op.iLike]: `%${search}%` } }, //case insesitive search
@@ -117,6 +117,173 @@ exports.searchUser = async (req, res, next) => {
       message: "Users was find",
       users: userWithStatus,
       count: users.count,
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
+
+exports.getUserInfo = async (req, res, next) => {
+  const isFriend = req.isFriend;
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.params.userId,
+      },
+      attributes: {
+        exclude: ["password", "activationToken", "activated", "email"],
+      },
+    });
+    if (!user) {
+      const error = new Error("Cant find this user");
+      error.statusCode = 404;
+      return next(error);
+    }
+    res.json({
+      status: "Ok",
+      message: "User info was fetched",
+      user: user,
+      isFriend: isFriend,
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
+
+exports.getUserPosts = async (req, res, next) => {
+  const limit = parseInt(req.query.limit);
+  const page = parseInt(req.query.page);
+  const offset = page * limit;
+  const isFriend = req.isFriend;
+  try {
+    let findedPosts;
+    let countOfPosts;
+    if (isFriend) {
+      const posts = await Post.findAndCountAll({
+        where: {
+          userId: req.params.userId,
+        },
+        include: {
+          model: Likes,
+          include: {
+            model: User,
+            attributes: {
+              exclude: ["password", "activationToken", "activated", "email"],
+            },
+          },
+        },
+      });
+      if (!posts) {
+        const error = new Error("Cant fetch user posts");
+        error.statusCode = 404;
+        return next(error);
+      }
+      findedPosts = posts.rows;
+      countOfPosts = posts.count;
+    } else {
+      findedPosts = [];
+      countOfPosts = 0;
+    }
+    res.json({
+      status: "Ok",
+      message: "Posts was fetched",
+      posts: findedPosts,
+      count: countOfPosts,
+      isFriend: isFriend,
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
+
+exports.getUserFriends = async (req, res, next) => {
+  const isFriend = req.isFriend;
+  const userId = req.params.userId;
+  try {
+    let friendship;
+    if (isFriend) {
+    const userFriendship = await Friendship.findAll({
+      where: {
+        [Op.or]: [
+          {
+            user_1: userId,
+            status: 1,
+          },
+          {
+            user_2: userId,
+            status: 1,
+          },
+        ],
+      },
+      include: [
+        {
+          model: User,
+          as: "requestor",
+          attributes: {
+            exclude: ["password", "activationToken", "activated", "email"],
+          },
+        },
+        {
+          model: User,
+          attributes: {
+            exclude: ["password", "activationToken", "activated", "email"],
+          },
+        },
+      ],
+    });
+    if (!userFriendship) {
+      const error = new Error("Cant fetch list of friends");
+      error.statusCode = 404;
+      return next(error);
+    }
+
+    let friends = [];
+    userFriendship.forEach((friendship) => {
+      if (friendship.requestor.id === req.user.id) {
+        const friendObj = {
+          id: friendship.id,
+          updatedAt: friendship.updatedAt,
+          friend: {
+            ...friendship.User.dataValues,
+            fullName: friendship.User.dataValues.firstName +
+            " " +
+            friendship.User.dataValues.lastName,
+          },
+        };
+        friends.push(friendObj);
+      } else {
+        const friendObj = {
+          id: friendship.id,
+          updatedAt: friendship.updatedAt,
+          friend: {
+            ...friendship.requestor.dataValues,
+            fullName:
+              friendship.requestor.dataValues.firstName +
+              " " +
+              friendship.requestor.dataValues.lastName,
+          },
+        };
+        friends.push(friendObj);
+      }
+    });
+    friendship = friends;
+  } else {
+    friendship = [];
+  }
+    res.json({
+      status: "Ok",
+      message: "Friends list was fetched",
+      friendships: friendship,
+      isFriend: isFriend
     });
   } catch (error) {
     if (error.statusCode) {

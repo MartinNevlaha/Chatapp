@@ -7,8 +7,8 @@ const isFriend = async (req, res, next) => {
   let friendId;
   if (req.body.friendId) {
     friendId = req.body.friendId;
-  } else if (req.params.friendId) {
-    friendId = req.params.friendId
+  } else if (req.params.userId) {
+    friendId = req.params.userId
   }
   try {
     const userFriendship = await Friendship.findAll({
@@ -20,8 +20,8 @@ const isFriend = async (req, res, next) => {
             status: 1,
           },
           {
-            user_1: req.body.friendId,
-            user_2: friendId,
+            user_1: friendId,
+            user_2: req.user.id,
             status: 1,
           },
         ],
