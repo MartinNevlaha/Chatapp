@@ -2,6 +2,8 @@ const { Op } = require("sequelize");
 const models = require("../models");
 const { User, Friendship } = models;
 
+const { getFriendHelper } = require("../utils/utilities");
+
 exports.getFriends = async (req, res, next) => {
   try {
     const userFriendship = await Friendship.findAll({
@@ -38,36 +40,7 @@ exports.getFriends = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-
-    let friends = [];
-    userFriendship.forEach((friendship) => {
-      if (friendship.requestor.id === req.user.id) {
-        const friendObj = {
-          id: friendship.id,
-          updatedAt: friendship.updatedAt,
-          friend: {
-            ...friendship.User.dataValues,
-            fullName: friendship.User.dataValues.firstName +
-            " " +
-            friendship.User.dataValues.lastName,
-          },
-        };
-        friends.push(friendObj);
-      } else {
-        const friendObj = {
-          id: friendship.id,
-          updatedAt: friendship.updatedAt,
-          friend: {
-            ...friendship.requestor.dataValues,
-            fullName:
-              friendship.requestor.dataValues.firstName +
-              " " +
-              friendship.requestor.dataValues.lastName,
-          },
-        };
-        friends.push(friendObj);
-      }
-    });
+    const friends = getFriendHelper(userFriendship, req.user.id);
     res.json({
       status: "Ok",
       message: "Friends list was fetched",

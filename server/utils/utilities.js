@@ -95,3 +95,37 @@ exports.removePostImage = async (path) => {
     throw error;
   }
 };
+
+exports.getFriendHelper = (friendshipsArr, userId) => {
+  let friends = [];
+  friendshipsArr.forEach((friendship) => {
+    if (friendship.requestor.id === userId) {
+      const friendObj = {
+        id: friendship.id,
+        updatedAt: friendship.updatedAt,
+        friend: {
+          ...friendship.User.dataValues,
+          fullName:
+            friendship.User.dataValues.firstName +
+            " " +
+            friendship.User.dataValues.lastName,
+        },
+      };
+      friends.push(friendObj);
+    } else {
+      const friendObj = {
+        id: friendship.id,
+        updatedAt: friendship.updatedAt,
+        friend: {
+          ...friendship.requestor.dataValues,
+          fullName:
+            friendship.requestor.dataValues.firstName +
+            " " +
+            friendship.requestor.dataValues.lastName,
+        },
+      };
+      friends.push(friendObj);
+    }
+  });
+  return friends;
+};

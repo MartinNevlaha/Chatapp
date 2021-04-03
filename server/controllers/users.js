@@ -1,8 +1,9 @@
 const { Op } = require("sequelize");
-
 const config = require("../config/app");
 const models = require("../models");
 const { User, Friendship, Post, Likes } = models;
+
+const { getFriendHelper } = require("../utils/utilities");
 
 exports.getUsers = async (req, res, next) => {
   const limit = parseInt(req.query.limit);
@@ -211,79 +212,49 @@ exports.getUserFriends = async (req, res, next) => {
   try {
     let friendship;
     if (isFriend) {
-    const userFriendship = await Friendship.findAll({
-      where: {
-        [Op.or]: [
+      const userFriendship = await Friendship.findAll({
+        where: {
+          [Op.or]: [
+            {
+              user_1: userId,
+              status: 1,
+            },
+            {
+              user_2: userId,
+              status: 1,
+            },
+          ],
+        },
+        include: [
           {
-            user_1: userId,
-            status: 1,
+            model: User,
+            as: "requestor",
+            attributes: {
+              exclude: ["password", "activationToken", "activated", "email"],
+            },
           },
           {
-            user_2: userId,
-            status: 1,
+            model: User,
+            attributes: {
+              exclude: ["password", "activationToken", "activated", "email"],
+            },
           },
         ],
-      },
-      include: [
-        {
-          model: User,
-          as: "requestor",
-          attributes: {
-            exclude: ["password", "activationToken", "activated", "email"],
-          },
-        },
-        {
-          model: User,
-          attributes: {
-            exclude: ["password", "activationToken", "activated", "email"],
-          },
-        },
-      ],
-    });
-    if (!userFriendship) {
-      const error = new Error("Cant fetch list of friends");
-      error.statusCode = 404;
-      return next(error);
-    }
-
-    let friends = [];
-    userFriendship.forEach((friendship) => {
-      if (friendship.requestor.id === req.user.id) {
-        const friendObj = {
-          id: friendship.id,
-          updatedAt: friendship.updatedAt,
-          friend: {
-            ...friendship.User.dataValues,
-            fullName: friendship.User.dataValues.firstName +
-            " " +
-            friendship.User.dataValues.lastName,
-          },
-        };
-        friends.push(friendObj);
-      } else {
-        const friendObj = {
-          id: friendship.id,
-          updatedAt: friendship.updatedAt,
-          friend: {
-            ...friendship.requestor.dataValues,
-            fullName:
-              friendship.requestor.dataValues.firstName +
-              " " +
-              friendship.requestor.dataValues.lastName,
-          },
-        };
-        friends.push(friendObj);
+      });
+      if (!userFriendship) {
+        const error = new Error("Cant fetch list of friends");
+        error.statusCode = 404;
+        return next(error);
       }
-    });
-    friendship = friends;
-  } else {
-    friendship = [];
-  }
+      friendship = getFriendHelper(userFriendship, userId);
+    } else {
+      friendship = [];
+    }
     res.json({
       status: "Ok",
       message: "Friends list was fetched",
       friendships: friendship,
-      isFriend: isFriend
+      isFriend: isFriend,
     });
   } catch (error) {
     if (error.statusCode) {
