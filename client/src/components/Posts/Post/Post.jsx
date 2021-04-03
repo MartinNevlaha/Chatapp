@@ -6,6 +6,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
+import { useHistory } from "react-router-dom";
 
 import { parseDateTime } from "../../../utils/utilities";
 import classes from "./Post.module.scss";
@@ -25,6 +26,12 @@ const Post = ({
   updatePost,
   showLikes,
 }) => {
+  const history = useHistory();
+
+  const handleRedirectToUserInfo = (userId) => {
+    history.push(`/user-info/${userId}`);
+  };
+
   return (
     <div className={classes.post}>
       <Card type="medium_card">
@@ -43,7 +50,10 @@ const Post = ({
           {!post.editMode ? (
             <React.Fragment>
               <div className={classes.post_content_container}>
-                <div className={classes.post_content_container_avatar}>
+                <div
+                  onClick={() => handleRedirectToUserInfo(post.User.id)}
+                  className={classes.post_content_container_avatar}
+                >
                   {post.User.avatar ? (
                     <React.Fragment>
                       <img

@@ -1,12 +1,15 @@
 import React from "react";
 import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
 
 import classes from "./User.module.scss";
 
 const User = ({user}) => {
+  const history = useHistory();
+
   return (
-    <div key={user.id} className={classes.user}>
+    <div key={user.id} className={classes.user} onClick={() => history.push(`/user-info/${user.id}`)}>
       <div className={classes.user_avatar}>
         {user.avatar ? (
           <img src={user.avatar} alt="avatar" />

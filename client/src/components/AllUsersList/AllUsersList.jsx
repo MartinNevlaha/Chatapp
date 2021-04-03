@@ -1,11 +1,15 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCheckCircle, faTimesCircle, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faTimesCircle,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./AllUsersList.module.scss";
-import { parseDateTime } from "../../utils/utilities";
 import Button from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
+import User from "./User/User";
 
 const AllUsersList = ({
   users,
@@ -19,33 +23,32 @@ const AllUsersList = ({
   let arrayOfPages = Array.from(Array(+pages).keys());
 
   let content = users.map((user) => {
-    let requestStatusElement = <Button type="button" clicked={()=>addFriend(user.id)}>Add friend</Button>;
+    let requestStatusElement = (
+      <Button type="button" clicked={() => addFriend(user.id)}>
+        Add friend
+      </Button>
+    );
     if (user.friendStatus === 0) {
-      requestStatusElement = <FontAwesomeIcon icon={faQuestionCircle} size="2x" />;
+      requestStatusElement = (
+        <FontAwesomeIcon icon={faQuestionCircle} size="2x" />
+      );
     } else if (user.friendStatus === 1) {
-      requestStatusElement = <FontAwesomeIcon icon={faCheckCircle} size="2x" color="green" />;
+      requestStatusElement = (
+        <FontAwesomeIcon icon={faCheckCircle} size="2x" color="green" />
+      );
     } else if (user.friendStatus) {
-      requestStatusElement = <FontAwesomeIcon icon={faTimesCircle} size="2x" color="red" />;
+      requestStatusElement = (
+        <FontAwesomeIcon icon={faTimesCircle} size="2x" color="red" />
+      );
     } else if (user.loadingAddFriend) {
-      requestStatusElement = <Spinner />
+      requestStatusElement = <Spinner />;
     }
     return (
-      <div key={user.id} className={classes.users_container_user}>
-        <div className={classes.users_container_user_avatar}>
-          {user.avatar ? (
-            <img src={user.avatar} alt="avatar" />
-          ) : (
-            <FontAwesomeIcon icon={faUser} size="4x"/>
-          )}
-        </div>
-        <div className={classes.users_container_user_info}>
-          <h3>{user.fullName}</h3>
-          <p>Registered since: {parseDateTime(user.createdAt)}</p>
-        </div>
-        <div className={classes.users_container_user_btn}>
-          {requestStatusElement}
-        </div>
-      </div>
+      <User
+        key={user.id}
+        user={user}
+        requestStatusElement={requestStatusElement}
+      />
     );
   });
   if (loading) {

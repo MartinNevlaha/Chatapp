@@ -1,7 +1,6 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
 
 import "./App.scss";
 import Layout from "./HOC/Layout";
@@ -18,6 +17,7 @@ const FriendsList = lazy(() => import("./containers/FriendsList"));
 const EmailActivation = lazy(() => import("./containers/EmailActivation"));
 const FriendRequest = lazy(() => import("./containers/FriendRequest"));
 const AllUsers = lazy(() => import("./containers/AllUsers"));
+const UserPageInfo = lazy(() => import("./containers/UserPageInfo"));
 
 function App() {
   const dispatch = useDispatch();
@@ -29,12 +29,12 @@ function App() {
     dispatch(action.authCheckState());
   }, [dispatch]);
 
-  const { t } = useTranslation();
 
   let routes = (
     <Suspense fallback={<Spinner />}>
       <Switch>
-        <ProtectedRoute path={"/users-list"} component={AllUsers} />
+        <ProtectedRoute path="/user-info/:userId" component={UserPageInfo} />
+        <ProtectedRoute path="/users-list" component={AllUsers} />
         <ProtectedRoute path="/friends-list" component={FriendsList} />
         <ProtectedRoute path="/friend-requests" component={FriendRequest} />
         <ProtectedRoute path="/update-profile" component={UserUpdate} />

@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import UserUpdateForm from "../components/UserUpdate/UserUpdateForm";
 import DeleteAccount from "../components/deleteAccount/deleteAccount";
 import * as action from "../store/actions";
 import Spinner from "../components/UI/Spinner/Spinner";
-import Modal from "../components/UI/Modal/Modal";
-import Button from "../components/UI/Button/Button";
 
 const UserUpdate = () => {
   const dispatch = useDispatch();
