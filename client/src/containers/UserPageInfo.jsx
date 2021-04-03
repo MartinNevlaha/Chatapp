@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import * as action from "../store/actions";
+
 const UserPageInfo = () => {
+  const dispatch = useDispatch();
   const { userId } = useParams();
-  console.log(userId);
+
+  useEffect(() => {
+    dispatch(action.getUserInfo(+userId))
+  }, [userId, dispatch]);
+
   return (
     <div
       style={{

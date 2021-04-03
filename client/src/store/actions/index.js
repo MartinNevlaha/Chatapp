@@ -29,3 +29,5 @@ export {
   deletePostImage,
   updatePost,
 } from "./post";
+
+export { getUserInfo } from "./userInfo";
