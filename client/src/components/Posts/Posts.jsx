@@ -42,7 +42,6 @@ export const Posts = ({
 
   const showLikeHelper = (likes, likeType) => {
     let updatedLikes = likes.map((like) => {
-      console.log(like.status, likeType);
       if (like.status === likeType) {
         return { ...like.User };
       } 
