@@ -17,49 +17,6 @@
     height: 80vh;
     overflow-y: scroll;
     overflow-x: hidden;
-
-    &_user {
-      @include flexbox(space-around, center, row);
-      width: 100%;
-      margin: .5rem;
-      padding: .5rem;
-      cursor: pointer;
-
-      &_avatar {
-        width: 30%;
-        height: 5rem;
-        @include flexbox(center, center, row);
-        img {
-          @include avatar-big;
-        }
-      }
-      &_info {
-        width: 30%;
-        text-align: left;
-
-        h3 {
-          font-size: get-font-size(medium);
-          font-weight: bold;
-          padding: 0.5rem 0;
-        }
-        p {
-          font-size: get-font-size(small);
-          font-style: italic;
-        }
-      }
-      &_btn {
-        @include flexbox(center, center, row);
-        width: 30%;
-        p {
-          font-size: get-font-size(small);
-        }
-      }
-      &:hover,
-      &:active {
-        background-color: darken(get-color(shadow), 55%);
-        border-radius: 4px;
-      }
-    }
   }
 
   &_footer {
