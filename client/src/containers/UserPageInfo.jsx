@@ -3,14 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import * as action from "../store/actions";
+import UserInfoSidebar from "../components/UserInfoSidebar/UserInfoSidebar";
 
 const UserPageInfo = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const isFriend = useSelector((state) => state.userInfo.isFriend);
+  const loading = useSelector((state) => state.userInfo.loading);
 
   useEffect(() => {
-    dispatch(action.getUserInfo(+userId))
+    dispatch(action.getUserInfo(+userId));
   }, [userId, dispatch]);
+
+  const handleAddFriend = () => {
+    const data = {
+      friendId: +userId,
+    };
+    dispatch(action.addFriend(data));
+  };
 
   return (
     <div
@@ -23,7 +34,11 @@ const UserPageInfo = () => {
         flexWrap: "wrap",
       }}
     >
-      ...DetailuserInfo
+      <UserInfoSidebar
+        isFriend={isFriend}
+        userProfile={userInfo}
+        addFriend={handleAddFriend}
+      />
     </div>
   );
 };

@@ -28,11 +28,9 @@ export const getUserInfo = (userId) => {
     axios
       .get(`/api/users/info/${userId}`)
       .then(res => {
-        console.log(res.data);
         dispatch(getUserInfoSuccess(res.data.user, res.data.isFriend))
       })
       .catch((err) => {
-        console.log(err);
         dispatch(errorCreator(err.response));
       });
   };

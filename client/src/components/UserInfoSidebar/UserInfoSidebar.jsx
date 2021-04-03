@@ -8,7 +8,7 @@ import Card from "../UI/Card/Card";
 import { parseDateTime } from "../../utils/utilities";
 import Button from "../UI/Button/Button";
 
-export const UserInfoSidebar = ({ userProfile, showMyself, isFriend }) => {
+export const UserInfoSidebar = ({ userProfile, showMyself, isFriend, addFriend }) => {
   return (
     <Card type="small_card">
       <div className={classes.userInfo}>
@@ -41,7 +41,7 @@ export const UserInfoSidebar = ({ userProfile, showMyself, isFriend }) => {
                 <FontAwesomeIcon icon={faCheck} color="green" />{" "}
               </div>
             ) : (
-              <Button>Add friend</Button>
+              <Button clicked={addFriend}>Add friend</Button>
             )}
           </div>
         )}
