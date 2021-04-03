@@ -1,5 +1,17 @@
 @import "../../style/imports.scss";
 
 .likes {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
   
+  h2 {
+    font-size: get-font-size(medium);
+  }
+}
+
+.users {
+  max-height: 18.75rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

@@ -5,12 +5,12 @@ import User from "../User/User";
 
 const ShowLikes = ({ showLike }) => {
   return (
-    <div>
+    <div className={classes.likes}>
       <h2>
-        People who {showLike.likeType === 1 ? "like" : "dislike"} your post
+        People who {showLike.likeType === 1 ? "like" : "dislike"} this post
       </h2>
       <hr/>
-      <div className={classes.likes}>
+      <div className={classes.users}>
         {showLike.users.map((user) => (
           <User user={user} key={user.id} />
         ))}
