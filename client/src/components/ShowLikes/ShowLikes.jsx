@@ -11,9 +11,9 @@ const ShowLikes = ({ showLike }) => {
       </h2>
       <hr/>
       <div className={classes.users}>
-        {showLike.users.map((user) => (
+        { showLike.users.length > 0 ? showLike.users.map((user) => (
           <User user={user} key={user.id} />
-        ))}
+        )) : <p>No like or dislike</p>}
       </div>
     </div>
   );

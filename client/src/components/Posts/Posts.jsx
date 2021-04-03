@@ -41,12 +41,13 @@ export const Posts = ({
   };
 
   const showLikeHelper = (likes, likeType) => {
-    const updatedLikes = likes.map((like) => {
-      if (like.status !== likeType) {
-        return;
-      }
-      return { ...like.User };
+    let updatedLikes = likes.map((like) => {
+      console.log(like.status, likeType);
+      if (like.status === likeType) {
+        return { ...like.User };
+      } 
     });
+    if ( typeof updatedLikes[0] === "undefined") updatedLikes = [];
     return updatedLikes;
   };
 

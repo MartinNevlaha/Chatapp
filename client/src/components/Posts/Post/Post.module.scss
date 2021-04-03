@@ -59,6 +59,12 @@
 
         p {
           padding: 0 0.3rem;
+          color: get-color(primary);
+        }
+        span {
+          text-decoration: underline;
+          color: get-color(primary);
+          cursor: pointer;
         }
       }
     }
