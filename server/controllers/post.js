@@ -250,7 +250,7 @@ exports.getFriendsPosts = async (req, res, next) => {
 
 exports.likeOrUnlikePost = async (req, res, next) => {
   try {
-    if (req.isFriend) {
+    if (req.isFriend === friendRequest.accept) {
       const isAllReadyLiked = await Likes.findOne({
         where: {
           postId: +req.params.postId,

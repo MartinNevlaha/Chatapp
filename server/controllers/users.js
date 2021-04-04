@@ -4,7 +4,7 @@ const models = require("../models");
 const { User, Friendship, Post, Likes } = models;
 
 const { getFriendHelper } = require("../utils/utilities");
-const friendStatus = require("../config/friendRequestStatus");
+const friendRequest = require("../config/friendRequestStatus");
 
 exports.getUsers = async (req, res, next) => {
   const limit = parseInt(req.query.limit);
@@ -166,7 +166,7 @@ exports.getUserPosts = async (req, res, next) => {
   try {
     let findedPosts;
     let countOfPosts;
-    if (isFriend) {
+    if (isFriend === friendRequest.accept) {
       const posts = await Post.findAndCountAll({
         where: {
           userId: req.params.userId,
@@ -212,7 +212,7 @@ exports.getUserFriends = async (req, res, next) => {
   const userId = req.params.userId;
   try {
     let friendship;
-    if (isFriend) {
+    if (isFriend === friendRequest.accept) {
       const userFriendship = await Friendship.findAll({
         where: {
           [Op.or]: [
@@ -222,7 +222,7 @@ exports.getUserFriends = async (req, res, next) => {
             },
             {
               user_2: userId,
-              status: friendStatus.accept,
+              status: friendStatus.a,
             },
           ],
         },
