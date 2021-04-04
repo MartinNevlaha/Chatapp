@@ -4,6 +4,7 @@ const { Post, Friendship, User, Likes } = models;
 
 const { removePostImage } = require("../utils/utilities");
 const friendRequest = require("../config/friendRequestStatus");
+const likeStatus = require("../config/likeStatus");
 
 exports.getPosts = async (req, res, next) => {
   // dorobit pagination
@@ -265,37 +266,37 @@ exports.likeOrUnlikePost = async (req, res, next) => {
           userId: req.user.id,
           status: req.body.likeOrUnlike,
         });
-      } else if (isAllReadyLiked.status === 0 && req.body.likeOrUnlike === 0) {
+      } else if (isAllReadyLiked.status === likeStatus.dislike && req.body.likeOrUnlike === likeStatus.dislike) {
         await Likes.destroy({
           where: {
             postId: +req.params.postId,
             userId: req.user.id,
-            status: 0,
+            status: likeStatus.dislike,
           },
         });
         like = {
           id: isAllReadyLiked.id,
           postId: +req.params.postId,
           userId: req.user.id,
-          status: 0,
+          status: likeStatus.dislike,
         };
         likeAction = "deleted";
-      } else if (isAllReadyLiked.status === 1 && req.body.likeOrUnlike === 1) {
+      } else if (isAllReadyLiked.status === likeStatus.like && req.body.likeOrUnlike === likeStatus.like) {
         await Likes.destroy({
           where: {
             postId: +req.params.postId,
             userId: req.user.id,
-            status: 1,
+            status: likeStatus.like,
           },
         });
         like = {
           id: isAllReadyLiked.id,
           postId: +req.params.postId,
           userId: req.user.id,
-          status: 1,
+          status: likeStatus.like,
         };
         likeAction = "deleted";
-      } else if (isAllReadyLiked.status === 0 || isAllReadyLiked.status === 1) {
+      } else if (isAllReadyLiked.status === likeStatus.dislike || isAllReadyLiked.status === likeStatus.like) {
         const updatedLike = await Likes.update(
           { status: req.body.likeOrUnlike },
           {
