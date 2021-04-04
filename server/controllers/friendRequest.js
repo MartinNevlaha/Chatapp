@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const models = require("../models");
 const { User, Friendship } = models;
+const friendStatus = require("../config/friendRequestStatus");
 
 exports.sendFriendRequest = async (req, res, next) => {
   try {
@@ -52,7 +53,7 @@ exports.getPendingFriendRequest = async (req, res, next) => {
     const friendRequest = await Friendship.findAll({
       where: {
         user_2: req.user.id,
-        status: 0,
+        status: friendStatus.pending,
       },
       include: {
         model: User,

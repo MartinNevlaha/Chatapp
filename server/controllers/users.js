@@ -4,6 +4,7 @@ const models = require("../models");
 const { User, Friendship, Post, Likes } = models;
 
 const { getFriendHelper } = require("../utils/utilities");
+const friendStatus = require("../config/friendRequestStatus");
 
 exports.getUsers = async (req, res, next) => {
   const limit = parseInt(req.query.limit);
@@ -217,11 +218,11 @@ exports.getUserFriends = async (req, res, next) => {
           [Op.or]: [
             {
               user_1: userId,
-              status: 1,
+              status: friendStatus.accept,
             },
             {
               user_2: userId,
-              status: 1,
+              status: friendStatus.accept,
             },
           ],
         },

@@ -1,13 +1,14 @@
 const Friendship = require("../models").Friendship;
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
+const friendStatus = require("../config/friendRequestStatus");
 
 exports.clearRejectedRequest = async () => {
   try {
     let rejectedRequests = [];
     const rejectedFriendshipRequests = await Friendship.findAll({
       where: {
-        status: 2,
+        status: friendStatus.reject,
       },
     });
     if (rejectedFriendshipRequests.length > 0) {

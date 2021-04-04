@@ -2,6 +2,8 @@ const { Op } = require("sequelize");
 const models = require("../models");
 const { Friendship } = models;
 
+const friendStatus = require("../config/friendRequestStatus");
+
 
 const isFriend = async (req, res, next) => {
   let friendId;
@@ -17,12 +19,12 @@ const isFriend = async (req, res, next) => {
           {
             user_1: req.user.id,
             user_2: friendId,
-            status: 1,
+            status: friendStatus.accept,
           },
           {
             user_1: friendId,
             user_2: req.user.id,
-            status: 1,
+            status: friendStatus.accept,
           },
         ],
       },

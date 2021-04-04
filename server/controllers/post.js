@@ -3,6 +3,7 @@ const models = require("../models/");
 const { Post, Friendship, User, Likes } = models;
 
 const { removePostImage } = require("../utils/utilities");
+const friendRequest = require("../config/friendRequestStatus");
 
 exports.getPosts = async (req, res, next) => {
   // dorobit pagination
@@ -168,11 +169,11 @@ exports.getFriendsPosts = async (req, res, next) => {
         [Op.or]: [
           {
             user_1: req.user.id,
-            status: 1,
+            status: friendRequest.accept,
           },
           {
             user_2: req.user.id,
-            status: 1,
+            status: friendRequest.accept,
           },
         ],
       },
