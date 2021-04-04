@@ -14,7 +14,11 @@ const UserPageInfo = () => {
 
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
-  }, [userId, dispatch]);
+
+    return () => {
+      console.log("clean up on unmount");
+    }
+  }, [dispatch]);
 
   const handleAddFriend = () => {
     const data = {

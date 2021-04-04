@@ -57,10 +57,10 @@
   &_friendship {
     padding: 0.3rem;
     margin-bottom: 0.5rem;
-
-    &_container {
-      @include flexbox(space-around, center, row);
-      
+    @include flexbox(space-around, center, row);
+    p {
+      font-size: get-font-size(small);
+      font-style: italic;
     }
   }
 }

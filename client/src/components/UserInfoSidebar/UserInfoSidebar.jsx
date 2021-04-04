@@ -1,14 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faCheck,
+  faTimesCircle,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./UserInfoSidebar.module.scss";
 import Card from "../UI/Card/Card";
 import { parseDateTime } from "../../utils/utilities";
 import Button from "../UI/Button/Button";
+import { friendStatus } from "../../config/friendStatus";
 
-export const UserInfoSidebar = ({ userProfile, showMyself, isFriend, addFriend }) => {
+export const UserInfoSidebar = ({
+  userProfile,
+  showMyself,
+  isFriend,
+  addFriend,
+}) => {
+  let friendStatusContent = <Button clicked={addFriend}>Add friend</Button>;
+  if (isFriend === friendStatus.accept) {
+    friendStatusContent = (
+      <React.Fragment>
+        <p>Request accepted</p>
+        <FontAwesomeIcon icon={faCheck} color="green" />{" "}
+      </React.Fragment>
+    );
+  } else if (isFriend === friendStatus.pending) {
+    friendStatusContent = (
+      <React.Fragment>
+        <p>Request pending</p>
+        <FontAwesomeIcon icon={faQuestionCircle} />
+      </React.Fragment>
+    );
+  } else if (isFriend === friendStatus.reject) {
+    friendStatusContent = (
+      <React.Fragment>
+        <p>Request rejected</p>
+        <FontAwesomeIcon icon={faTimesCircle} />
+      </React.Fragment>
+    );
+  }
+
   return (
     <Card type="small_card">
       <div className={classes.userInfo}>
@@ -35,14 +70,7 @@ export const UserInfoSidebar = ({ userProfile, showMyself, isFriend, addFriend }
         </div>
         {!showMyself && (
           <div className={classes.userInfo_friendship}>
-            {isFriend ? (
-              <div className={classes.userInfo_friendship_container}>
-                <p>Allready friends</p>
-                <FontAwesomeIcon icon={faCheck} color="green" />{" "}
-              </div>
-            ) : (
-              <Button clicked={addFriend}>Add friend</Button>
-            )}
+            {friendStatusContent}
           </div>
         )}
       </div>
