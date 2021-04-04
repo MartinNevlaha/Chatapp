@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/actions/";
 import UserSideBar from "../components/UserInfoSidebar/UserInfoSidebar";
 import Posts from "../components/Posts/Posts";
+import { likeStatus } from "../config/likeStatus";
 
 const Dasboard = () => {
   const LIMIT = 15;
@@ -35,7 +36,7 @@ const Dasboard = () => {
   const handleLiker = (status, friendId, postId) => {
     const data = {
       friendId,
-      likeOrUnlike: status === "like" ? 1 : 0,
+      likeOrUnlike: status === likeStatus.like ? likeStatus.like : likeStatus.dislike,
     };
     dispatch(action.likePost(postId, data));
   };

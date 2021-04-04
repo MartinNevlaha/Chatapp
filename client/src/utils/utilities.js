@@ -1,4 +1,5 @@
 import moment from "moment";
+import { likeStatus } from "../config/likeStatus";
 
 export const updateObj = (oldObject, updatedProperties) => {
   return {
@@ -22,15 +23,15 @@ export const generateRandomNumbers = () => {
 
 export const getLikeNumber = (likesArr, type) => {
   let likes = 0;
-  if (type === "like") {
+  if (type === likeStatus.like) {
     likesArr.forEach((like) => {
-      if (like.status === 1) {
+      if (like.status === likeStatus.like) {
         likes += 1;
       }
     });
-  } else if (type === "unlike") {
+  } else if (type === likeStatus.dislike) {
     likesArr.forEach((like) => {
-      if (like.status === 0) {
+      if (like.status === likeStatus.dislike) {
         likes += 1;
       }
     });
