@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Modal from "../UI/Modal/Modal";
 import ShowLikes from "../ShowLikes/ShowLikes";
 
-export const Posts = ({
+const Posts = ({
   createPost,
   posts,
   loadAnothnerPosts,
@@ -41,13 +41,11 @@ export const Posts = ({
   };
 
   const showLikeHelper = (likes, likeType) => {
-    let updatedLikes = likes.map((like) => {
-      if (like.status === likeType) {
-        return { ...like.User };
-      } 
-    });
-    if ( typeof updatedLikes[0] === "undefined") updatedLikes = [];
-    return updatedLikes;
+    let updatedUserLikes = [];
+    likes.forEach(like => {
+      if (like.status === likeType) updatedUserLikes.push(like.User);
+    })
+    return updatedUserLikes;
   };
 
   const handleModalClose = () => {

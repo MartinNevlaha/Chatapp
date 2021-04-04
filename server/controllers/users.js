@@ -218,11 +218,11 @@ exports.getUserFriends = async (req, res, next) => {
           [Op.or]: [
             {
               user_1: userId,
-              status: friendStatus.accept,
+              status: friendRequest.accept,
             },
             {
               user_2: userId,
-              status: friendStatus.a,
+              status: friendRequest.accept,
             },
           ],
         },

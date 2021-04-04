@@ -130,7 +130,7 @@ const Post = ({
                     size="1x"
                     cursor="pointer"
                     className={
-                      isLiked(post.Likes, userId, likeStatus.like)
+                      isLiked(post.Likes, userId, likeStatus.dislike)
                         ? [classes.post_icon, classes.is_liked].join(" ")
                         : classes.post_icon
                     }

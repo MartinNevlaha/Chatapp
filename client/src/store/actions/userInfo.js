@@ -27,8 +27,8 @@ export const getUserInfo = (userId) => {
     dispatch(getUserInfoStart());
     axios
       .get(`/api/users/info/${userId}`)
-      .then(res => {
-        dispatch(getUserInfoSuccess(res.data.user, res.data.isFriend))
+      .then((res) => {
+        dispatch(getUserInfoSuccess(res.data.user, res.data.isFriend));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
@@ -36,3 +36,28 @@ export const getUserInfo = (userId) => {
   };
 };
 
+export const getUserFriendsStart = () => {
+  return {
+    type: actionTypes.GET_USER_FRIENDS_START,
+  };
+};
+
+export const getUserFriendsSuccess = (friendList) => {
+  return {
+    type: actionTypes.GET_USER_FRIENDS_SUCCESS,
+    friendList,
+  };
+};
+
+export const getUserFriendsFailed = () => {
+  return {
+    type: actionTypes.GET_USER_FRIENDS_FAILLED,
+  };
+};
+
+export const getUserFriends = () => {
+  return dispatch => {
+    dispatch(getUserFriendsStart());
+    axios.get("").then().catch();
+  }
+}
