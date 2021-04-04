@@ -130,6 +130,7 @@ exports.searchUser = async (req, res, next) => {
 
 exports.getUserInfo = async (req, res, next) => {
   const isFriend = req.isFriend;
+  console.log(isFriend);
   try {
     const user = await User.findOne({
       where: {

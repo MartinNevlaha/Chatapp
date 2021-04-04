@@ -24,6 +24,7 @@ export const getUserInfoFailed = () => {
 
 export const getUserInfo = (userId) => {
   return (dispatch) => {
+    console.log(userId);
     dispatch(getUserInfoStart());
     axios
       .get(`/api/users/info/${userId}`)
@@ -55,9 +56,14 @@ export const getUserFriendsFailed = () => {
   };
 };
 
-export const getUserFriends = () => {
+export const getUserFriends = (userId) => {
   return dispatch => {
     dispatch(getUserFriendsStart());
-    axios.get("").then().catch();
+    axios.get(`/api/users/friends/${userId}`)
+    .then()
+    .catch(err => {
+      dispatch(getUserFriendsFailed());
+      dispatch(errorCreator(err.response))
+    });
   }
 }

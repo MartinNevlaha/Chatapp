@@ -39,7 +39,7 @@ export const UserInfoSidebar = ({
     friendStatusContent = (
       <React.Fragment>
         <p>Request rejected</p>
-        <FontAwesomeIcon icon={faTimesCircle} />
+        <FontAwesomeIcon icon={faTimesCircle} color="red"/>
       </React.Fragment>
     );
   }
