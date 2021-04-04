@@ -1,7 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
 import updateArray from "react-addons-update";
-import { searchUsersStart } from "../actions/users";
 
 const initialState = {
   users: [],

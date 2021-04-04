@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
-import updateArray from "react-addons-update";
+
+import { friendStatus } from "../../config/friendStatus";
 
 const initialState = {
   userInfo: {},
@@ -26,6 +27,10 @@ const getUserInfoFailed = (state, action) => {
   return updateObj(state, { loading: false });
 };
 
+const addUserOnInfoPage = (state, action) => {
+  return updateObj(state, { ...state.userInfo, isFriend: friendStatus.pending });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USER_INFO_START:
@@ -34,6 +39,8 @@ const reducer = (state = initialState, action) => {
       return getUserInfoSuccess(state, action);
     case actionTypes.GET_USER_INFO_FAILED:
       return getUserInfoFailed(state, action);
+    case actionTypes.ADD_USER_ON_INFO_PAGE:
+      return addUserOnInfoPage(state, action);
     default:
       return state;
   }

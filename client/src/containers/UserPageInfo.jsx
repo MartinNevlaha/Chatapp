@@ -24,7 +24,7 @@ const UserPageInfo = () => {
     const data = {
       friendId: +userId,
     };
-    dispatch(action.addFriend(data));
+    dispatch(action.addFriend(data, 'onInfoPage'));
   };
 
   return (

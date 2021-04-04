@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
 import { errorCreator, successCreator } from "./requestStatus";
 import axiosOrigin from 'axios';
+import { addUserOnInfoPage } from "../actions/userInfo";
 
 let CancelToken = axiosOrigin.CancelToken;
 let cancel; 
@@ -67,7 +68,7 @@ export const addFriendFailed = (recipient) => {
   };
 };
 
-export const addFriend = (userId) => {
+export const addFriend = (userId, requestType) => {
   return (dispatch) => {
     dispatch(addFriendStart(userId.friendId));
     axios
@@ -80,10 +81,15 @@ export const addFriend = (userId) => {
             res.data.friendship.status
           )
         );
+        if (requestType === "onInfoPage") {
+          dispatch(addUserOnInfoPage());
+        }
       })
       .catch((err) => {
+        console.log(err);
         dispatch(addFriendFailed(userId.friendId));
         dispatch(errorCreator(err.response));
+
       });
   };
 };

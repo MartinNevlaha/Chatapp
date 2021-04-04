@@ -22,6 +22,12 @@ export const getUserInfoFailed = () => {
   };
 };
 
+export const addUserOnInfoPage = () => {
+  return {
+    type: actionTypes.ADD_USER_ON_INFO_PAGE,
+  };
+};
+
 export const getUserInfo = (userId) => {
   return (dispatch) => {
     console.log(userId);
@@ -57,13 +63,14 @@ export const getUserFriendsFailed = () => {
 };
 
 export const getUserFriends = (userId) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(getUserFriendsStart());
-    axios.get(`/api/users/friends/${userId}`)
-    .then()
-    .catch(err => {
-      dispatch(getUserFriendsFailed());
-      dispatch(errorCreator(err.response))
-    });
-  }
-}
+    axios
+      .get(`/api/users/friends/${userId}`)
+      .then()
+      .catch((err) => {
+        dispatch(getUserFriendsFailed());
+        dispatch(errorCreator(err.response));
+      });
+  };
+};
