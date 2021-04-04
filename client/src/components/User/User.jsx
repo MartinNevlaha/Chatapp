@@ -3,6 +3,7 @@ import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
 
+import { friendStatus } from "../../config/friendStatus";
 import classes from "./User.module.scss";
 
 const User = ({user}) => {
@@ -23,9 +24,9 @@ const User = ({user}) => {
         <h2>{user.fullName}</h2>
       </div>
       <div className={classes.user_isFriend}>
-        {user.friendStatus && user.friendStatus === 1 && (
+        {user.friendStatus && user.friendStatus === friendStatus.accept ? (
           <FontAwesomeIcon icon={faCheck} color="green" />
-        )}
+        ): null}
       </div>
     </div>
   );

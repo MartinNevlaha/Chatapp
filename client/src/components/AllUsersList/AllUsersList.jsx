@@ -10,6 +10,7 @@ import classes from "./AllUsersList.module.scss";
 import Button from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 import User from "./User/User";
+import { friendStatus } from "../../config/friendStatus";
 
 const AllUsersList = ({
   users,
@@ -28,11 +29,11 @@ const AllUsersList = ({
         Add friend
       </Button>
     );
-    if (user.friendStatus === 0) {
+    if (user.friendStatus === friendStatus.pending) {
       requestStatusElement = (
         <FontAwesomeIcon icon={faQuestionCircle} size="2x" />
       );
-    } else if (user.friendStatus === 1) {
+    } else if (user.friendStatus === friendStatus.accept) {
       requestStatusElement = (
         <FontAwesomeIcon icon={faCheckCircle} size="2x" color="green" />
       );
