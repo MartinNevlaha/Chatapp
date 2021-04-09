@@ -10,13 +10,13 @@ const User = ({ user, requestStatusElement }) => {
   const history = useHistory();
 
   const handleRedirectToUserInfo = (userId) => {
-    history.push(`/user-info/${userId}`);
+  history.push(`/user-info/${userId}`);
   };
 
   return (
     <div
       className={classes.user}
-      onClick={() => handleRedirectToUserInfo(user.id)}
+      onClick={(e) => handleRedirectToUserInfo(user.id)}
     >
       <div className={classes.user_avatar}>
         {user.avatar ? (

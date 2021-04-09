@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const models = require("../models");
 const { User, Friendship } = models;
 
-const { getFriendHelper } = require("../utils/utilities");
+const { getUserFriendHelper } = require("../utils/utilities");
 const friendStatus = require("../config/friendRequestStatus");
 
 exports.getFriends = async (req, res, next) => {
@@ -41,7 +41,7 @@ exports.getFriends = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-    const friends = getFriendHelper(userFriendship, req.user.id);
+    const friends = getUserFriendHelper(userFriendship, req.user.id);
     res.json({
       status: "Ok",
       message: "Friends list was fetched",

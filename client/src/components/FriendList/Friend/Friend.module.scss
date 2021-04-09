@@ -1,0 +1,38 @@
+@import "../../../style/imports.scss";
+
+.friend {
+  @include flexbox(center, center, column);
+  padding: 0.3rem;
+  margin: 0.2rem;
+
+  &_avatar {
+    &_image {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 3px solid get-color(primary);
+      @include flexbox(center, center, column);
+
+      img {
+        @include avatar-medium;
+      }
+    }
+
+    &_icon {
+      @extend .friend_avatar_image;
+      background-color: lighten(gray, 20%);
+    }
+  }
+
+  &_name {
+    background-color: get-color(primary);
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    border-radius: 8px;
+    max-width: 130px;
+
+    P {
+      color: white;
+    }
+  }
+}

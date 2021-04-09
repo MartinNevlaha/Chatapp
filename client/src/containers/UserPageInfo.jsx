@@ -50,7 +50,7 @@ const UserPageInfo = () => {
           userProfile={userInfo}
           addFriend={handleAddFriend}
         />
-        <FriedList loading={loadingUserFriends} friendList={userFriendList} />
+        <FriedList loading={loadingUserFriends} userFriends={userFriendList} />
       </div>
     </div>
   );

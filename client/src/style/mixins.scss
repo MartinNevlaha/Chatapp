@@ -71,6 +71,13 @@
   object-fit: cover;
 }
 
+@mixin avatar-medium {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 @mixin avatar-big {
   width: 80px;
   height: 80px;

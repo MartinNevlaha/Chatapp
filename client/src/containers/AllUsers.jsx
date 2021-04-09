@@ -28,7 +28,8 @@ const AllUsers = () => {
     dispatch(action.fetchActiveUsers(0, e.target.value));
   };
 
-  const handleAddFriend = (userId) => {
+  const handleAddFriend = (e, userId) => {
+    e.stopPropagation();
     const data = {
       friendId: userId,
     };

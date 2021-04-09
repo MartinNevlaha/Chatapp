@@ -25,7 +25,7 @@ const AllUsersList = ({
 
   let content = users.map((user) => {
     let requestStatusElement = (
-      <Button type="button" clicked={() => addFriend(user.id)}>
+      <Button type="button" clicked={(e) => addFriend(e, user.id)}>
         Add friend
       </Button>
     );

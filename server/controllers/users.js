@@ -3,7 +3,7 @@ const config = require("../config/app");
 const models = require("../models");
 const { User, Friendship, Post, Likes } = models;
 
-const { getFriendHelper } = require("../utils/utilities");
+const { getUserFriendHelper } = require("../utils/utilities");
 const friendRequest = require("../config/friendRequestStatus");
 
 exports.getUsers = async (req, res, next) => {
@@ -248,7 +248,7 @@ exports.getUserFriends = async (req, res, next) => {
         error.statusCode = 404;
         return next(error);
       }
-      friendship = getFriendHelper(userFriendship, userId);
+      friendship = getUserFriendHelper(userFriendship, userId)
     } else {
       friendship = [];
     }
