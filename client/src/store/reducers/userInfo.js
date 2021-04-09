@@ -5,6 +5,7 @@ import { friendStatus } from "../../config/friendStatus";
 
 const initialState = {
   userInfo: {},
+  userFriends: [],
   isFriend: null,
   loading: false,
   loadingPost: false,
@@ -28,7 +29,25 @@ const getUserInfoFailed = (state, action) => {
 };
 
 const addUserOnInfoPage = (state, action) => {
-  return updateObj(state, { ...state.userInfo, isFriend: friendStatus.pending });
+  return updateObj(state, {
+    ...state.userInfo,
+    isFriend: friendStatus.pending,
+  });
+};
+
+const getUserFriendsStart = (state, action) => {
+  return updateObj(state, { loadingFriends: true });
+};
+
+const getUserFriendsSuccess = (state, action) => {
+  return updateObj(state, {
+    loadingFriends: false,
+    userFriends: action.friendsList,
+  });
+};
+
+const getUserFriendsFailed = (state, action) => {
+  return updateObj(state, { loading: false });
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +60,12 @@ const reducer = (state = initialState, action) => {
       return getUserInfoFailed(state, action);
     case actionTypes.ADD_USER_ON_INFO_PAGE:
       return addUserOnInfoPage(state, action);
+    case actionTypes.GET_USER_FRIENDS_START:
+      return getUserFriendsStart(state, action);
+    case actionTypes.GET_USER_FRIENDS_SUCCESS:
+      return getUserFriendsSuccess(state, action);
+    case actionTypes.GET_USER_FRIENDS_FAILLED:
+      return getUserFriendsFailed(state, action);
     default:
       return state;
   }

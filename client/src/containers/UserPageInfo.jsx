@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import * as action from "../store/actions";
 import UserInfoSidebar from "../components/UserInfoSidebar/UserInfoSidebar";
+import FriedList from "../components/FriendList/FriendList";
 
 const UserPageInfo = () => {
   const dispatch = useDispatch();
@@ -11,20 +12,25 @@ const UserPageInfo = () => {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const isFriend = useSelector((state) => state.userInfo.isFriend);
   const loading = useSelector((state) => state.userInfo.loading);
+  const loadingUserFriends = useSelector(
+    (state) => state.userInfo.loadingUserFriends
+  );
+  const userFriendList = useSelector((state) => state.userInfo.userFriends);
 
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
+    dispatch(action.getUserFriends(+userId));
 
     return () => {
       console.log("clean up on unmount");
-    }
-  }, [dispatch]);
+    };
+  }, [dispatch, userId]);
 
   const handleAddFriend = () => {
     const data = {
       friendId: +userId,
     };
-    dispatch(action.addFriend(data, 'onInfoPage'));
+    dispatch(action.addFriend(data, "onInfoPage"));
   };
 
   return (
@@ -38,11 +44,14 @@ const UserPageInfo = () => {
         flexWrap: "wrap",
       }}
     >
-      <UserInfoSidebar
-        isFriend={isFriend}
-        userProfile={userInfo}
-        addFriend={handleAddFriend}
-      />
+      <div>
+        <UserInfoSidebar
+          isFriend={isFriend}
+          userProfile={userInfo}
+          addFriend={handleAddFriend}
+        />
+        <FriedList loading={loadingUserFriends} friendList={userFriendList} />
+      </div>
     </div>
   );
 };

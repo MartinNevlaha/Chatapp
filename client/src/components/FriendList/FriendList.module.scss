@@ -1,0 +1,12 @@
+@import "../../style/imports.scss";
+
+.friendList {
+  width: 100%;
+  h2 {
+    font-size: get-font-size(medium);
+  }
+  hr {
+    width: 95%;
+    color: lighten(get-color(text), 55%);
+  }
+}

@@ -49,12 +49,12 @@ export const getUserFriendsStart = () => {
   };
 };
 
-export const getUserFriendsSuccess = (friendList) => {
+export const getUserFriendsSuccess = (friendsList) => {
   return {
     type: actionTypes.GET_USER_FRIENDS_SUCCESS,
-    friendList,
-  };
-};
+    friendsList
+  }
+}
 
 export const getUserFriendsFailed = () => {
   return {
@@ -67,7 +67,7 @@ export const getUserFriends = (userId) => {
     dispatch(getUserFriendsStart());
     axios
       .get(`/api/users/friends/${userId}`)
-      .then()
+      .then((res) => dispatch(getUserFriendsSuccess(res.data.friendships)))
       .catch((err) => {
         dispatch(getUserFriendsFailed());
         dispatch(errorCreator(err.response));
