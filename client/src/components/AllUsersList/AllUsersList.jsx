@@ -23,6 +23,8 @@ const AllUsersList = ({
 }) => {
   let arrayOfPages = Array.from(Array(+pages).keys());
 
+  console.log(pages);
+
   let content = users.map((user) => {
     let requestStatusElement = (
       <Button type="button" clicked={(e) => addFriend(e, user.id)}>
