@@ -18,5 +18,9 @@
   &_container {
     @include flexbox(space-evenly, center, row);
     flex-wrap: wrap;
+
+    &_noFriend {
+      margin: 0.3rem;
+    }
   }
 }
