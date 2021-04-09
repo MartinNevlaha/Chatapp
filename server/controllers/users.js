@@ -210,7 +210,7 @@ exports.getUserPosts = async (req, res, next) => {
 
 exports.getUserFriends = async (req, res, next) => {
   const isFriend = req.isFriend;
-  const userId = req.params.userId;
+  const userId = +req.params.userId;
   try {
     let friendship;
     if (isFriend === friendRequest.accept) {
