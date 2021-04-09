@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import { parseDateTime } from "../../../utils/utilities";
 import classes from "./Post.module.scss";
@@ -32,6 +33,17 @@ const Post = ({
   const handleRedirectToUserInfo = (userId) => {
     history.push(`/user-info/${userId}`);
   };
+
+  Post.propTypes = {
+    post: PropTypes.object,
+    liker: PropTypes.func,
+    userId: PropTypes.number,
+    deletePost: PropTypes.func,
+    setEditMode: PropTypes.func,
+    deleteImage: PropTypes.func,
+    updatePost: PropTypes.func,
+    showLikes: PropTypes.func
+  }
 
   return (
     <div className={classes.post}>

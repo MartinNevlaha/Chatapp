@@ -3,6 +3,7 @@ import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 import classes from "./NewPost.module.scss";
 import Card from "../../UI/Card/Card";
@@ -32,6 +33,10 @@ export const NewPost = ({ createPost }) => {
       })
       .notRequired(),
   });
+
+  NewPost.propTypes = {
+    createPost: PropTypes.func
+  }
 
   return (
     <Formik

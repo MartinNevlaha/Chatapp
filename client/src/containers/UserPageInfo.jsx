@@ -21,9 +21,6 @@ const UserPageInfo = () => {
     dispatch(action.getUserInfo(+userId));
     dispatch(action.getUserFriends(+userId));
 
-    return () => {
-      console.log("clean up on unmount");
-    };
   }, [dispatch, userId]);
 
   const handleAddFriend = () => {

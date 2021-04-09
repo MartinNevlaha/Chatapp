@@ -7,6 +7,7 @@ import {
   faTimesCircle,
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 import classes from "./UserInfoSidebar.module.scss";
 import Card from "../UI/Card/Card";
@@ -42,6 +43,13 @@ export const UserInfoSidebar = ({
         <FontAwesomeIcon icon={faTimesCircle} color="red"/>
       </React.Fragment>
     );
+  }
+
+  UserInfoSidebar.propTypes = {
+    userProfile: PropTypes.object,
+    showMyself: PropTypes.bool,
+    isFriend: PropTypes.oneOf([0, 1, 2, 3]),
+    addFriend: PropTypes.func
   }
 
   return (

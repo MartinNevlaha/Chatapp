@@ -8,6 +8,7 @@ import Spinner from "../UI/Spinner/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Modal from "../UI/Modal/Modal";
 import ShowLikes from "../ShowLikes/ShowLikes";
+import PropTypes from "prop-types";
 
 const Posts = ({
   createPost,
@@ -42,9 +43,9 @@ const Posts = ({
 
   const showLikeHelper = (likes, likeType) => {
     let updatedUserLikes = [];
-    likes.forEach(like => {
+    likes.forEach((like) => {
       if (like.status === likeType) updatedUserLikes.push(like.User);
-    })
+    });
     return updatedUserLikes;
   };
 
@@ -52,11 +53,22 @@ const Posts = ({
     setIsModalOpen(false);
   };
 
+  Posts.propTypes = {
+    createPost: PropTypes.func,
+    posts: PropTypes.array.isRequired,
+    loadAnothnerPosts: PropTypes.func,
+    liker: PropTypes.func,
+    userId: PropTypes.number,
+    deletePost: PropTypes.func,
+    setEditMode: PropTypes.func,
+    deleteImage: PropTypes.func,
+    updatePost: PropTypes.func,
+  };
 
   return (
     <React.Fragment>
       <Modal show={isModalOpen} cancel={handleModalClose}>
-        <ShowLikes showLike={showLike}/>
+        <ShowLikes showLike={showLike} />
       </Modal>
       <div className={classes.posts}>
         <NewPost createPost={createPost} />

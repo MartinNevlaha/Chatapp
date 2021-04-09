@@ -5,6 +5,7 @@ import {
   faTimesCircle,
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 import classes from "./AllUsersList.module.scss";
 import Button from "../UI/Button/Button";
@@ -22,8 +23,6 @@ const AllUsersList = ({
   addFriend,
 }) => {
   let arrayOfPages = Array.from(Array(+pages).keys());
-
-  console.log(pages);
 
   let content = users.map((user) => {
     let requestStatusElement = (
@@ -57,6 +56,17 @@ const AllUsersList = ({
   if (loading) {
     content = <Spinner />;
   }
+
+  AllUsersList.propTypes = {
+    users: PropTypes.array,
+    loading: PropTypes.bool,
+    page: PropTypes.number,
+    handleCurrentPage: PropTypes.func,
+    handleSetLimit: PropTypes.func,
+    limit: PropTypes.number,
+    addFriend: PropTypes.func
+  }
+
   return (
     <div className={classes.users}>
       <div className={classes.users_header}>
