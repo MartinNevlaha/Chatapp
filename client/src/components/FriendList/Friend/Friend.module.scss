@@ -6,6 +6,8 @@
   margin: 0.2rem;
 
   &_avatar {
+    cursor: pointer;
+    
     &_image {
       width: 65px;
       height: 65px;
@@ -27,7 +29,6 @@
   &_name {
     background-color: get-color(primary);
     padding: 0.2rem;
-    margin-top: 0.2rem;
     border-radius: 8px;
     max-width: 130px;
 

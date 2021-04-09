@@ -7,10 +7,12 @@ import Friend from "./Friend/Friend";
 import { friendStatus } from "../../config/friendStatus";
 
 const FriendList = ({ loading, userFriends, isFriend }) => {
-  let content = <Spinner />
+  let content = <Spinner />;
   if (!loading) {
-    content = userFriends.map((friend, i) => <Friend friend={friend} key={i} />)
-  } 
+    content = userFriends.map((friend, i) => (
+      <Friend friend={friend} key={i} />
+    ));
+  }
   return (
     <Card type="small_card">
       <div className={classes.friendList}>
@@ -18,7 +20,17 @@ const FriendList = ({ loading, userFriends, isFriend }) => {
         <p>Number of friends {userFriends ? userFriends.length : 0}</p>
         <hr />
         <div className={classes.friendList_container}>
-          {isFriend === friendStatus.accept ? content : <p className={classes.friendList_container_noFriend}>You have to be friends to see this</p>}
+          {isFriend === friendStatus.accept ? (
+            content
+          ) : (
+            <React.Fragment>
+              <div className={classes.friendList_container_blur}>
+              </div>
+              <div className={classes.friendList_container_blur_text}>
+                  <p>You have to be friends to see this</p>
+                </div>
+            </React.Fragment>
+          )}
         </div>
       </div>
     </Card>
