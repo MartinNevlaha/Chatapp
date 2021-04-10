@@ -52,9 +52,9 @@ export const getUserFriendsStart = () => {
 export const getUserFriendsSuccess = (friendsList) => {
   return {
     type: actionTypes.GET_USER_FRIENDS_SUCCESS,
-    friendsList
-  }
-}
+    friendsList,
+  };
+};
 
 export const getUserFriendsFailed = () => {
   return {
@@ -71,6 +71,38 @@ export const getUserFriends = (userId) => {
       .catch((err) => {
         dispatch(getUserFriendsFailed());
         dispatch(errorCreator(err.response));
+      });
+  };
+};
+
+export const getUserPostsStart = () => {
+  return {
+    type: actionTypes.GET_USER_POSTS_START,
+  };
+};
+
+export const getUserPostSuccess = (userPosts) => {
+  return {
+    type: actionTypes.GET_USER_POSTS_SUCCESS,
+    userPosts
+  };
+};
+
+export const getUserPostFailed = () => {
+  return {
+    type: actionTypes.GET_USER_POSTS_FAILED,
+  };
+};
+
+export const getUserPosts = (userId) => {
+  return (dispatch) => {
+    dispatch(getUserPostsStart());
+    axios
+      .get(`/api/users/posts/${userId}`)
+      .then((res) => dispatch(getUserPostSuccess(res.data.posts)))
+      .catch((err) => {
+        dispatch(errorCreator(err.response));
+        dispatch(getUserPostFailed());
       });
   };
 };

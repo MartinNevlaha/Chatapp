@@ -6,6 +6,7 @@ import { friendStatus } from "../../config/friendStatus";
 const initialState = {
   userInfo: {},
   userFriends: [],
+  userPosts: [],
   isFriend: null,
   loading: false,
   loadingPost: false,
@@ -50,6 +51,18 @@ const getUserFriendsFailed = (state, action) => {
   return updateObj(state, { loading: false });
 };
 
+const getUserPostsStart = (state, action) => {
+  return updateObj(state, { loadingPost: true });
+};
+
+const getUserPostsSuccess = (state, action) => {
+  return updateObj(state, { userPosts: action.userPosts, loadingPost: false });
+};
+
+const getUserPostFailed = (state, action) => {
+  return updateObj(state, { loadingPost: false });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USER_INFO_START:
@@ -66,6 +79,12 @@ const reducer = (state = initialState, action) => {
       return getUserFriendsSuccess(state, action);
     case actionTypes.GET_USER_FRIENDS_FAILLED:
       return getUserFriendsFailed(state, action);
+    case actionTypes.GET_USER_POSTS_START:
+      return getUserPostsStart(state, action);
+    case actionTypes.GET_USER_POSTS_SUCCESS:
+      return getUserPostsSuccess(state, action);
+    case actionTypes.GET_USER_POSTS_FAILED:
+      return getUserPostFailed(state, action);
     default:
       return state;
   }

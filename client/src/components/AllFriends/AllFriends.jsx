@@ -1,9 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import classes from "./AllFriends.module.scss";
 import Spinner from "../UI/Spinner/Spinner";
 
 const AllFriends = ({friendships, loading}) => {
+
+  AllFriends.propTypes = {
+    friendships: PropTypes.array,
+    loading: PropTypes.bool
+  }
 
   const friendsContent = friendships.map((friendship) => {
     return (

@@ -10,8 +10,10 @@ const UserPageInfo = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const userPosts = useSelector((state) => state.userInfo.userPosts);
   const isFriend = useSelector((state) => state.userInfo.isFriend);
   const loading = useSelector((state) => state.userInfo.loading);
+  const loadingPosts = useSelector((state) => state.userInfo.loadingPost);
   const loadingUserFriends = useSelector(
     (state) => state.userInfo.loadingUserFriends
   );
@@ -20,7 +22,8 @@ const UserPageInfo = () => {
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
     dispatch(action.getUserFriends(+userId));
-
+    dispatch(action.getUserPosts(+userId));
+    
   }, [dispatch, userId]);
 
   const handleAddFriend = () => {

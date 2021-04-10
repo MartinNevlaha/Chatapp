@@ -1,10 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import classes from "./FriendRequest.module.scss";
 import Button from "../UI/Button/Button";
 import { parseDateTime } from "../../utils/utilities";
 
-const FriendRequests = ({pendingRequests, handleFriendRequest}) => {
+const FriendRequests = ({ pendingRequests, handleFriendRequest }) => {
+  
+  FriendRequests.propTypes = {
+    pendingRequests: PropTypes.array,
+    handleFriendRequest: PropTypes.func,
+  };
+
   return (
     <div className={classes.friendRequest}>
       <div className={classes.friendRequest_header}>
@@ -17,18 +24,27 @@ const FriendRequests = ({pendingRequests, handleFriendRequest}) => {
               className={classes.friendRequest_request_container}
               key={request.id}
             >
-              <div
-                className={classes.friendRequest_request_container_avatar}
-              >
-                <img src={request.requestor.avatar} alt="avatar"/>
+              <div className={classes.friendRequest_request_container_avatar}>
+                <img src={request.requestor.avatar} alt="avatar" />
               </div>
               <div className={classes.friendRequest_request_container_info}>
                 <h3>{request.requestor.fullName}</h3>
                 <p>Request was send: {parseDateTime(request.createdAt)}</p>
               </div>
               <div className={classes.friendRequest_request_container_button}>
-                <Button type="button" danger={true} clicked={() => handleFriendRequest(request.id, 2)}>Reject</Button>
-                <Button type="button" clicked={() => handleFriendRequest(request.id, 1)}>Accept</Button>
+                <Button
+                  type="button"
+                  danger={true}
+                  clicked={() => handleFriendRequest(request.id, 2)}
+                >
+                  Reject
+                </Button>
+                <Button
+                  type="button"
+                  clicked={() => handleFriendRequest(request.id, 1)}
+                >
+                  Accept
+                </Button>
               </div>
             </div>
           );

@@ -3,6 +3,7 @@ import { useParams, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import jwt_decode from "jwt-decode";
+import PropTypes from "prop-types";
 
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
@@ -16,6 +17,12 @@ const EmailActivation = ({ activation, loading, history }) => {
   const handleClick = () => {
     activation(token, history);
   };
+
+  EmailActivation.propTypes = {
+    activation: PropTypes.func,
+    loading: PropTypes.bool,
+    history: PropTypes.node
+  }
 
   return (
     <Card type="small_card">
