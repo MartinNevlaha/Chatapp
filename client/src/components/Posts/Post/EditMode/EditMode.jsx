@@ -3,6 +3,7 @@ import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 import classes from "./EditMode.module.scss";
 import AreaField from "../../../Inputs/AreaField/AreaField";
@@ -34,6 +35,12 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
       .notRequired(),
   });
 
+  EditMode.propTypes = {
+    post: PropTypes.object,
+    deleteImage: PropTypes.func,
+    updatePost: PropTypes.func,
+  };
+
   return (
     <Formik
       enableReinitialize={true}
@@ -47,7 +54,7 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
         for (const [key, value] of Object.entries(postData)) {
           data.append(key, value);
         }
-        resetForm()
+        resetForm();
         updatePost(post.id, data);
       }}
     >
@@ -70,14 +77,14 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
                 {imagePreview && (
                   <div>
                     <img src={imagePreview} alt="image-preview" />
-                    <ErrorMessage 
-                    component="div"
-                    style={{
-                      color: "red",
-                      fontSize: ".8rem",
-                      padding: ".5rem",
-                    }}
-                    name="image"
+                    <ErrorMessage
+                      component="div"
+                      style={{
+                        color: "red",
+                        fontSize: ".8rem",
+                        padding: ".5rem",
+                      }}
+                      name="image"
                     />
                   </div>
                 )}

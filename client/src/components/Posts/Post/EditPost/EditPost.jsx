@@ -5,6 +5,7 @@ import {
   faEdit,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 import classes from "./EditPost.module.scss";
 
@@ -28,6 +29,12 @@ export const EditPost = ({ deletePost, postId, setEditMode }) => {
 
   const handleOpen = () => {
     setOpenMenu(true);
+  };
+
+  EditPost.propTypes = {
+    deletePost: PropTypes.func,
+    postId: PropTypes.number,
+    setEditMode: PropTypes.func,
   };
 
   return (

@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from "react";
-import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import classes from "./SearchResults.module.scss";
 import User from "../../User/User";
+import PropTypes from "prop-types";
 
 export const SearchResults = ({
   users,
@@ -29,6 +28,15 @@ export const SearchResults = ({
     }
   };
 
+  SearchResults.propTypes = {
+    users: PropTypes.array,
+    show: PropTypes.bool,
+    close: PropTypes.func,
+    numberOfPages: PropTypes.number,
+    setPage: PropTypes.func,
+    currentPage: PropTypes.number,
+  }
+
   return (
     <div
       ref={resultRef}
@@ -51,7 +59,7 @@ export const SearchResults = ({
 
       <hr />
       {users.length !== 0 ? (
-        users.map((user) => <User user={user} key={user.id}/>)
+        users.map((user) => <User user={user} close={close} key={user.id}/>)
       ) : (
         <p className={classes.search_results_empty}>No users found</p>
       )}
