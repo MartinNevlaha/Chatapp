@@ -20,6 +20,8 @@ const Posts = ({
   setEditMode,
   deleteImage,
   updatePost,
+  placeOfUsage,
+  isFriend
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showLike, setShowLike] = useState({
@@ -63,6 +65,8 @@ const Posts = ({
     setEditMode: PropTypes.func,
     deleteImage: PropTypes.func,
     updatePost: PropTypes.func,
+    placeOfUsage: PropTypes.oneOf(["userPageInfo", "dashboard"]),
+    isFriend: PropTypes.bool
   };
 
   return (
@@ -71,8 +75,12 @@ const Posts = ({
         <ShowLikes showLike={showLike} />
       </Modal>
       <div className={classes.posts}>
-        <NewPost createPost={createPost} />
-        <hr />
+        {placeOfUsage === "dashboard" && (
+          <React.Fragment>
+            <NewPost createPost={createPost} />
+            <hr />
+          </React.Fragment>
+        )}
         <div className={classes.posts_all}>
           <InfiniteScroll
             dataLength={posts.length}
@@ -91,6 +99,7 @@ const Posts = ({
                 deleteImage={deleteImage}
                 updatePost={updatePost}
                 showLikes={handleShowLikes}
+                placeOfUsage={placeOfUsage}
               />
             ))}
             {loading && <Spinner />}

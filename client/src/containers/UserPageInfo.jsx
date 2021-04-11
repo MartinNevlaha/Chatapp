@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import * as action from "../store/actions";
 import UserInfoSidebar from "../components/UserInfoSidebar/UserInfoSidebar";
 import FriedList from "../components/FriendList/FriendList";
+import UserPost from "../components/UserPosts/UserPosts";
+import { likeStatus } from "../config/likeStatus";
 
 const UserPageInfo = () => {
   const dispatch = useDispatch();
+  const LIMIT = 15;
+  const [page, setPage] = useState(0);
   const { userId } = useParams();
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const userPosts = useSelector((state) => state.userInfo.userPosts);
@@ -23,7 +27,6 @@ const UserPageInfo = () => {
     dispatch(action.getUserInfo(+userId));
     dispatch(action.getUserFriends(+userId));
     dispatch(action.getUserPosts(+userId));
-    
   }, [dispatch, userId]);
 
   const handleAddFriend = () => {
@@ -32,6 +35,14 @@ const UserPageInfo = () => {
     };
     dispatch(action.addFriend(data, "onInfoPage"));
   };
+
+  const handleLiker = (status, postId) => {
+
+  }
+
+  const handleLoadAnotherPosts = () => {
+
+  }
 
   return (
     <div
@@ -56,6 +67,12 @@ const UserPageInfo = () => {
           isFriend={isFriend}
         />
       </div>
+      <UserPost
+          isFriend={isFriend}
+          posts={userPosts}
+          placeOfUsage="userPageInfo"
+          liker={handleLiker}
+        />
     </div>
   );
 };

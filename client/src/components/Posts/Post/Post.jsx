@@ -27,6 +27,7 @@ const Post = ({
   deleteImage,
   updatePost,
   showLikes,
+  placeOfUsage,
 }) => {
   const history = useHistory();
 
@@ -42,8 +43,9 @@ const Post = ({
     setEditMode: PropTypes.func,
     deleteImage: PropTypes.func,
     updatePost: PropTypes.func,
-    showLikes: PropTypes.func
-  }
+    showLikes: PropTypes.func,
+    placeOfUsage: PropTypes.oneOf(["userPageInfo", "dashboard"]),
+  };
 
   return (
     <div className={classes.post}>
@@ -51,7 +53,7 @@ const Post = ({
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
             <p>Created: {parseDateTime(post.createdAt)}</p>
-            {userId === post.User.id && (
+            {placeOfUsage === "dashboard" && userId === post.User.id &&  (
               <EditPost
                 deletePost={deletePost}
                 postId={post.id}
@@ -63,49 +65,51 @@ const Post = ({
           {!post.editMode ? (
             <React.Fragment>
               <div className={classes.post_content_container}>
-                <div
-                  onClick={() => handleRedirectToUserInfo(post.User.id)}
-                  className={classes.post_content_container_avatar}
-                >
-                  {post.User.avatar ? (
-                    <React.Fragment>
-                      <img
-                        src={post.User.avatar}
-                        alt="avatar"
-                        data-tip
-                        data-for="userFullName"
-                      />
-                      <p>{post.User.fullName}</p>
-                      <ReactTooltip
-                        id="userFullName"
-                        place="top"
-                        effect="solid"
-                        border={true}
-                      >
-                        Click for user detail
-                      </ReactTooltip>
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment>
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        size="2x"
-                        data-tip
-                        data-for="userFullName"
-                        cursor="pointer"
-                      />
-                      <p>{post.User.fullName}</p>
-                      <ReactTooltip
-                        id="userFullName"
-                        place="top"
-                        effect="solid"
-                        border={true}
-                      >
-                        Click for user detail
-                      </ReactTooltip>
-                    </React.Fragment>
-                  )}
-                </div>
+                {placeOfUsage === "dashboard" && (
+                  <div
+                    onClick={() => handleRedirectToUserInfo(post.User.id)}
+                    className={classes.post_content_container_avatar}
+                  >
+                    {post.User.avatar ? (
+                      <React.Fragment>
+                        <img
+                          src={post.User.avatar}
+                          alt="avatar"
+                          data-tip
+                          data-for="userFullName"
+                        />
+                        <p>{post.User.fullName}</p>
+                        <ReactTooltip
+                          id="userFullName"
+                          place="top"
+                          effect="solid"
+                          border={true}
+                        >
+                          Click for user detail
+                        </ReactTooltip>
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          size="2x"
+                          data-tip
+                          data-for="userFullName"
+                          cursor="pointer"
+                        />
+                        <p>{post.User.fullName}</p>
+                        <ReactTooltip
+                          id="userFullName"
+                          place="top"
+                          effect="solid"
+                          border={true}
+                        >
+                          Click for user detail
+                        </ReactTooltip>
+                      </React.Fragment>
+                    )}
+                  </div>
+                )}
                 <div className={classes.post_content_container_main}>
                   {post.image && (
                     <div className={classes.post_content_container_main_image}>
@@ -129,11 +133,15 @@ const Post = ({
                         ? [classes.post_icon, classes.is_liked].join(" ")
                         : classes.post_icon
                     }
-                    onClick={() => liker(likeStatus.like, post.User.id, post.id)}
+                    onClick={() =>
+                      liker(likeStatus.like, post.User.id, post.id)
+                    }
                   />
                   <p>
                     {getLikeNumber(post.Likes, likeStatus.like)}{" "}
-                    <span onClick={() => showLikes(post.id, likeStatus.like)}>likes</span>
+                    <span onClick={() => showLikes(post.id, likeStatus.like)}>
+                      likes
+                    </span>
                   </p>
                 </div>
                 <div className={classes.post_content_footer_likes}>
@@ -146,11 +154,17 @@ const Post = ({
                         ? [classes.post_icon, classes.is_liked].join(" ")
                         : classes.post_icon
                     }
-                    onClick={() => liker(likeStatus.dislike, post.User.id, post.id)}
+                    onClick={() =>
+                      liker(likeStatus.dislike, post.User.id, post.id)
+                    }
                   />
                   <p>
                     {getLikeNumber(post.Likes, likeStatus.dislike)}{" "}
-                    <span onClick={() => showLikes(post.id, likeStatus.dislike)}>dislikes</span>
+                    <span
+                      onClick={() => showLikes(post.id, likeStatus.dislike)}
+                    >
+                      dislikes
+                    </span>
                   </p>
                 </div>
               </div>

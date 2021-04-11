@@ -79,6 +79,7 @@ const Dasboard = () => {
         setEditMode={handleEditMode}
         deleteImage={handleDeletePostImage}
         updatePost={handleUpdatePost}
+        placeOfUsage="dashboard"
       />
     </div>
   );

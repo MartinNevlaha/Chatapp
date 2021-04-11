@@ -84,7 +84,7 @@ export const getUserPostsStart = () => {
 export const getUserPostSuccess = (userPosts) => {
   return {
     type: actionTypes.GET_USER_POSTS_SUCCESS,
-    userPosts
+    userPosts,
   };
 };
 
@@ -99,7 +99,9 @@ export const getUserPosts = (userId) => {
     dispatch(getUserPostsStart());
     axios
       .get(`/api/users/posts/${userId}`)
-      .then((res) => dispatch(getUserPostSuccess(res.data.posts)))
+      .then((res) => {
+        dispatch(getUserPostSuccess(res.data.posts))
+      })
       .catch((err) => {
         dispatch(errorCreator(err.response));
         dispatch(getUserPostFailed());
