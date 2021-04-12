@@ -57,7 +57,10 @@ const getUserPostsStart = (state, action) => {
 };
 
 const getUserPostsSuccess = (state, action) => {
-  return updateObj(state, { userPosts: action.userPosts, loadingPost: false });
+  return updateObj(state, {
+    userPosts: state.userPosts.concat(action.userPosts),
+    loadingPost: false,
+  });
 };
 
 const getUserPostFailed = (state, action) => {

@@ -181,6 +181,8 @@ exports.getUserPosts = async (req, res, next) => {
             },
           },
         },
+        limit: limit,
+        offset: offset
       });
       if (!posts) {
         const error = new Error("Cant fetch user posts");

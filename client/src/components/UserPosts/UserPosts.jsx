@@ -8,8 +8,9 @@ import Spinner from "../UI/Spinner/Spinner";
 import Modal from "../UI/Modal/Modal";
 import ShowLikes from "../ShowLikes/ShowLikes";
 import { showLikeHelper } from "../../utils/utilities";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-const UserPosts = ({ isFriend, posts, placeOfUsage, liker, loading }) => {
+const UserPosts = ({ isFriend, posts, placeOfUsage, liker, loading, loadAnotherPosts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showLike, setShowLike] = useState({
     likeType: null,
@@ -36,6 +37,7 @@ const UserPosts = ({ isFriend, posts, placeOfUsage, liker, loading }) => {
     placeOfUsage: PropTypes.string,
     liker: PropTypes.func,
     loading: PropTypes.bool,
+    loadAnotherPosts: PropTypes.func
   };
 
   let content = <Spinner />;
@@ -60,7 +62,11 @@ const UserPosts = ({ isFriend, posts, placeOfUsage, liker, loading }) => {
       <div className={classes.userPosts}>
         <h2>User posts</h2>
         {isFriend === friendStatus.accept ? (
-          content
+          <InfiniteScroll 
+          dataLength={posts.length}
+          next={loadAnotherPosts}
+          hasMore={true}
+          >{content}</InfiniteScroll>
         ) : (
           <div className={classes.userPosts_blur}>
             <div className={classes.userPosts_blur_background}></div>

@@ -94,11 +94,11 @@ export const getUserPostFailed = () => {
   };
 };
 
-export const getUserPosts = (userId) => {
+export const getUserPosts = (userId, page, limit) => {
   return (dispatch) => {
     dispatch(getUserPostsStart());
     axios
-      .get(`/api/users/posts/${userId}`)
+      .get(`/api/users/posts/${userId}?page=${page}&limit=${limit}`)
       .then((res) => {
         dispatch(getUserPostSuccess(res.data.posts));
       })

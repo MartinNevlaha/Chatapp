@@ -26,7 +26,7 @@ const UserPageInfo = () => {
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
     dispatch(action.getUserFriends(+userId));
-    dispatch(action.getUserPosts(+userId));
+    dispatch(action.getUserPosts(+userId, page, LIMIT));
 
     return () => {
       //clean up
@@ -50,7 +50,10 @@ const UserPageInfo = () => {
     dispatch(action.likeUserPost(postId, data));
   };
 
-  const handleLoadAnotherPosts = () => {};
+  const handleLoadAnotherPosts = () => {
+    setPage(page + 1);
+    dispatch(action.getUserPosts(+userId, page + 1, LIMIT));
+  };
 
   return (
     <div
@@ -81,6 +84,7 @@ const UserPageInfo = () => {
         loading={loadingPosts}
         placeOfUsage="userPageInfo"
         liker={handleLiker}
+        loadAnotherPosts={handleLoadAnotherPosts}
       />
     </div>
   );
