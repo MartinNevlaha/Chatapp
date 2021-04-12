@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { friendStatus } from "../../config/friendStatus";
+import { friendStatus } from "../../constants/friendStatus";
 import classes from "./User.module.scss";
 
 const User = ({ user, close }) => {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/actions/";
 import UserSideBar from "../components/UserInfoSidebar/UserInfoSidebar";
 import Posts from "../components/Posts/Posts";
-import { likeStatus } from "../config/likeStatus";
+import { likeStatus } from "../constants/likeStatus";
 
 const Dasboard = () => {
   const LIMIT = 15;

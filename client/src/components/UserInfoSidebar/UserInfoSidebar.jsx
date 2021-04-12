@@ -13,7 +13,7 @@ import classes from "./UserInfoSidebar.module.scss";
 import Card from "../UI/Card/Card";
 import { parseDateTime } from "../../utils/utilities";
 import Button from "../UI/Button/Button";
-import { friendStatus } from "../../config/friendStatus";
+import { friendStatus } from "../../constants/friendStatus";
 
 export const UserInfoSidebar = ({
   userProfile,

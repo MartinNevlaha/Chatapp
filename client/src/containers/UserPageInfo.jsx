@@ -6,7 +6,7 @@ import * as action from "../store/actions";
 import UserInfoSidebar from "../components/UserInfoSidebar/UserInfoSidebar";
 import FriedList from "../components/FriendList/FriendList";
 import UserPost from "../components/UserPosts/UserPosts";
-import { likeStatus } from "../config/likeStatus";
+import { likeStatus } from "../constants/likeStatus";
 
 const UserPageInfo = () => {
   const dispatch = useDispatch();

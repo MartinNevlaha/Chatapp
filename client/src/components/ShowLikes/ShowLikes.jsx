@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import classes from "./ShowLikes.module.scss";
 import User from "../User/User";
-import { likeStatus } from "../../config/likeStatus";
+import { likeStatus } from "../../constants/likeStatus";
 
 const ShowLikes = ({ showLike, close }) => {
   ShowLikes.propTypes = {

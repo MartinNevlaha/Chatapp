@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 import updateArray from "react-addons-update";
 
 import { updateObj, likePostReducerHelper } from "../../utils/utilities";
-import { friendStatus } from "../../config/friendStatus";
+import { friendStatus } from "../../constants/friendStatus";
 
 const initialState = {
   userInfo: {},

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import classes from "./UserPosts.module.scss";
 import Post from "../Posts/Post/Post";
-import { friendStatus } from "../../config/friendStatus";
+import { friendStatus } from "../../constants/friendStatus";
 import Spinner from "../UI/Spinner/Spinner";
 import Modal from "../UI/Modal/Modal";
 import ShowLikes from "../ShowLikes/ShowLikes";

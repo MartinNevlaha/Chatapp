@@ -1,5 +1,5 @@
 import moment from "moment";
-import { likeStatus } from "../config/likeStatus";
+import { likeStatus } from "../constants/likeStatus";
 
 export const updateObj = (oldObject, updatedProperties) => {
   return {

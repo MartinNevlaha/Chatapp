@@ -4,7 +4,7 @@ import classes from "./FriendList.module.scss";
 import Card from "../UI/Card/Card";
 import Spinner from "../UI/Spinner/Spinner";
 import Friend from "./Friend/Friend";
-import { friendStatus } from "../../config/friendStatus";
+import { friendStatus } from "../../constants/friendStatus";
 
 const FriendList = ({ loading, userFriends, isFriend }) => {
   let content = <Spinner />;

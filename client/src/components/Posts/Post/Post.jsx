@@ -16,7 +16,7 @@ import LazyImage from "../../UI/LazyImage/LazyImage";
 import EditPost from "./EditPost/EditPost";
 import EditMode from "./EditMode/EditMode";
 import { getLikeNumber, isLiked } from "../../../utils/utilities";
-import { likeStatus } from "../../../config/likeStatus";
+import { likeStatus } from "../../../constants/likeStatus";
 
 const Post = ({
   post,
@@ -122,52 +122,7 @@ const Post = ({
                 </div>
               </div>
 
-              <div className={classes.post_content_footer}>
-                <div className={classes.post_content_footer_likes}>
-                  <FontAwesomeIcon
-                    icon={faThumbsUp}
-                    size="1x"
-                    cursor="pointer"
-                    className={
-                      isLiked(post.Likes, userId, likeStatus.like)
-                        ? [classes.post_icon, classes.is_liked].join(" ")
-                        : classes.post_icon
-                    }
-                    onClick={() =>
-                      liker(likeStatus.like, post.userId, post.id)
-                    }
-                  />
-                  <p>
-                    {getLikeNumber(post.Likes, likeStatus.like)}{" "}
-                    <span onClick={() => showLikes(post.id, likeStatus.like)}>
-                      likes
-                    </span>
-                  </p>
-                </div>
-                <div className={classes.post_content_footer_likes}>
-                  <FontAwesomeIcon
-                    icon={faThumbsDown}
-                    size="1x"
-                    cursor="pointer"
-                    className={
-                      isLiked(post.Likes, userId, likeStatus.dislike)
-                        ? [classes.post_icon, classes.is_liked].join(" ")
-                        : classes.post_icon
-                    }
-                    onClick={() =>
-                      liker(likeStatus.dislike, post.userId, post.id)
-                    }
-                  />
-                  <p>
-                    {getLikeNumber(post.Likes, likeStatus.dislike)}{" "}
-                    <span
-                      onClick={() => showLikes(post.id, likeStatus.dislike)}
-                    >
-                      dislikes
-                    </span>
-                  </p>
-                </div>
-              </div>
+
             </React.Fragment>
           ) : (
             <EditMode

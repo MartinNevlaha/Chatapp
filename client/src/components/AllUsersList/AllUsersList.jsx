@@ -11,7 +11,7 @@ import classes from "./AllUsersList.module.scss";
 import Button from "../UI/Button/Button";
 import Spinner from "../UI/Spinner/Spinner";
 import User from "./User/User";
-import { friendStatus } from "../../config/friendStatus";
+import { friendStatus } from "../../constants/friendStatus";
 
 const AllUsersList = ({
   users,
