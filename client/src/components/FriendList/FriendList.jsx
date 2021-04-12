@@ -27,7 +27,7 @@ const FriendList = ({ loading, userFriends, isFriend }) => {
             <React.Fragment>
               <div className={classes.friendList_container_blur}></div>
               <div className={classes.friendList_container_blur_text}>
-                <p>You have to be friends to see this</p>
+                <p>You have to be friends to see all user friends</p>
               </div>
             </React.Fragment>
           )}

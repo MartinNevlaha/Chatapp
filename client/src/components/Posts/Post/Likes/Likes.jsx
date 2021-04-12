@@ -57,7 +57,7 @@ const Likes = ({ liker, showLikes, userId, post }) => {
         ) : (
           <FontAwesomeIcon
             icon={faThumbsDown}
-            size="1"
+            size="1x"
             style={{margin: "1rem"}}
           />
         )}
