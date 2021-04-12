@@ -3,10 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
+import classes from "./Likes.module.scss";
 import { getLikeNumber, isLiked } from "../../../../utils/utilities";
 import { likeStatus } from "../../../../constants/likeStatus";
 
-const Likes = ({liker}) => {
+const Likes = ({ liker, showLikes, userId, post }) => {
+  Likes.propTypes = {
+    liker: PropTypes.func,
+    showLikes: PropTypes.func,
+    userId: PropTypes.number,
+    post: PropTypes.object,
+  };
   return (
     <div className={classes.post_content_footer}>
       <div className={classes.post_content_footer_likes}>

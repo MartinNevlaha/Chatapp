@@ -1,5 +1,35 @@
 @import "../../../../style/imports.scss";
 
-.likes {
-  
+.post_content {
+  &_footer {
+    width: 100%;
+    @include flexbox(flex-start, center, row);
+    &_likes {
+      @include flexbox(flex-start, center, row);
+
+      p {
+        padding: 0 0.3rem;
+        color: get-color(primary);
+      }
+      span {
+        text-decoration: underline;
+        color: get-color(primary);
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.post_icon {
+  color: get-color(primary);
+  margin: 1rem;
+
+  &:hover,
+  &:active {
+    color: get-color(secondary);
+  }
+}
+
+.is_liked {
+  color: get-color(secondary);
 }

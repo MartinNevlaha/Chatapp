@@ -51,23 +51,7 @@
       width: 95%;
     }
 
-    &_footer {
-      width: 100%;
-      @include flexbox(flex-start, center, row);
-      &_likes {
-        @include flexbox(flex-start, center, row);
 
-        p {
-          padding: 0 0.3rem;
-          color: get-color(primary);
-        }
-        span {
-          text-decoration: underline;
-          color: get-color(primary);
-          cursor: pointer;
-        }
-      }
-    }
   }
 
   &_icon {

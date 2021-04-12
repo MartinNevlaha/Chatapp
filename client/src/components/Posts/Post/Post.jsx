@@ -1,10 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -15,8 +11,7 @@ import Card from "../../UI/Card/Card";
 import LazyImage from "../../UI/LazyImage/LazyImage";
 import EditPost from "./EditPost/EditPost";
 import EditMode from "./EditMode/EditMode";
-import { getLikeNumber, isLiked } from "../../../utils/utilities";
-import { likeStatus } from "../../../constants/likeStatus";
+import Likes from "./Likes/Likes";
 
 const Post = ({
   post,
@@ -53,7 +48,7 @@ const Post = ({
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
             <p>Created: {parseDateTime(post.createdAt)}</p>
-            {placeOfUsage === "dashboard" && userId === post.User.id &&  (
+            {placeOfUsage === "dashboard" && userId === post.User.id && (
               <EditPost
                 deletePost={deletePost}
                 postId={post.id}
@@ -121,8 +116,12 @@ const Post = ({
                   <p>{post.text}</p>
                 </div>
               </div>
-
-
+              <Likes
+                showLikes={showLikes}
+                userId={userId}
+                post={post}
+                liker={liker}
+              />
             </React.Fragment>
           ) : (
             <EditMode
