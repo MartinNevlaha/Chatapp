@@ -35,4 +35,5 @@ export {
   getUserFriends,
   getUserPosts,
   cleanUpUserInfo,
+  likeUserPost
 } from "./userInfo";

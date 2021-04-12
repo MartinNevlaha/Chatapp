@@ -31,7 +31,7 @@ const UserPageInfo = () => {
     return () => {
       //clean up
       dispatch(action.cleanUpUserInfo());
-    }
+    };
   }, [dispatch, userId]);
 
   const handleAddFriend = () => {
@@ -41,13 +41,16 @@ const UserPageInfo = () => {
     dispatch(action.addFriend(data, "onInfoPage"));
   };
 
-  const handleLiker = (status, postId) => {
+  const handleLiker = (status, postUserId, postId) => {
+    const data = {
+      friendId: postUserId,
+      likeOrUnlike:
+        status === likeStatus.like ? likeStatus.like : likeStatus.dislike,
+    };
+    dispatch(action.likeUserPost(postId, data));
+  };
 
-  }
-
-  const handleLoadAnotherPosts = () => {
-
-  }
+  const handleLoadAnotherPosts = () => {};
 
   return (
     <div
@@ -73,12 +76,12 @@ const UserPageInfo = () => {
         />
       </div>
       <UserPost
-          isFriend={isFriend}
-          posts={userPosts}
-          loading={loadingPosts}
-          placeOfUsage="userPageInfo"
-          liker={handleLiker}
-        />
+        isFriend={isFriend}
+        posts={userPosts}
+        loading={loadingPosts}
+        placeOfUsage="userPageInfo"
+        liker={handleLiker}
+      />
     </div>
   );
 };

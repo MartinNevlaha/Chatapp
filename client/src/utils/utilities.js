@@ -58,3 +58,25 @@ export const numberOfPages = (totalRecords, limit) => {
   console.log(number);
   return number;
 };
+
+export const likePostReducerHelper = (postIndex, postsArr, action) => {
+  let updatedArr = [];
+  if (action.likeAction === "deleted") {
+    updatedArr = postsArr[postIndex].Likes.filter(
+      (like) => like.id !== action.likes.id
+    );
+  } else if (action.likeAction === "created") {
+    updatedArr = postsArr[postIndex].Likes.concat(action.likes);
+  } else if (action.likeAction === "updated") {
+    const likeIndex = postsArr[postIndex].Likes.findIndex(
+      (like) => like.id === action.likes.id
+    );
+    updatedArr = postsArr[postIndex].Likes.map((like, i) => {
+      if (i === likeIndex) {
+        like.status = action.likes.status;
+      }
+      return like;
+    });
+  }
+  return updatedArr;
+};

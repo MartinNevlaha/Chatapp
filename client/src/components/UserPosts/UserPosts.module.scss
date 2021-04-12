@@ -3,7 +3,12 @@
 .userPosts {
   font-size: get-font-size(medium);
   margin: 2rem;
-  width: 60vw;
+  width: 70%;
+  @include flexbox(center, center, column);
+
+  h2 {
+   text-decoration: underline;
+  }
 
   &_blur {
     position: relative;

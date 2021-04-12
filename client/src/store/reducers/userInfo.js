@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObj } from "../../utils/utilities";
+import updateArray from "react-addons-update";
 
+import { updateObj, likePostReducerHelper } from "../../utils/utilities";
 import { friendStatus } from "../../config/friendStatus";
 
 const initialState = {
@@ -65,7 +66,22 @@ const getUserPostFailed = (state, action) => {
 
 const cleanUpUserInfo = (state, action) => {
   return initialState;
-}
+};
+
+const likeUserPostSucces = (state, action) => {
+  const postIndex = state.userPosts.findIndex(
+    (post) => post.id === action.likes.postId
+  );
+  const updatedArr = likePostReducerHelper(postIndex, state.userPosts, action);
+
+  return updateArray(state, {
+    userPosts: {
+      [postIndex]: {
+        Likes: { $set: updatedArr },
+      },
+    },
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -89,8 +105,10 @@ const reducer = (state = initialState, action) => {
       return getUserPostsSuccess(state, action);
     case actionTypes.GET_USER_POSTS_FAILED:
       return getUserPostFailed(state, action);
+    case actionTypes.LIKE_USER_POST:
+      return likeUserPostSucces(state, action);
     case actionTypes.CLEAN_UP_USER_INFO:
-      return cleanUpUserInfo(state, action)
+      return cleanUpUserInfo(state, action);
     default:
       return state;
   }

@@ -134,7 +134,7 @@ const Post = ({
                         : classes.post_icon
                     }
                     onClick={() =>
-                      liker(likeStatus.like, post.User.id, post.id)
+                      liker(likeStatus.like, post.userId, post.id)
                     }
                   />
                   <p>
@@ -155,7 +155,7 @@ const Post = ({
                         : classes.post_icon
                     }
                     onClick={() =>
-                      liker(likeStatus.dislike, post.User.id, post.id)
+                      liker(likeStatus.dislike, post.userId, post.id)
                     }
                   />
                   <p>

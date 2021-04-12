@@ -106,7 +106,6 @@ export const likePostSuccess = (likes, likeAction) => {
 };
 
 export const likePost = (postId, data) => {
-  console.log(data);
   return (dispatch) => {
     axios
       .patch(`/api/posts/like-status/${postId}`, data)

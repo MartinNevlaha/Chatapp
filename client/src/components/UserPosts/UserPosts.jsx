@@ -34,7 +34,6 @@ const UserPosts = ({ isFriend, posts, placeOfUsage, liker, loading }) => {
   return (
     <div className={classes.userPosts}>
       <h2>User posts</h2>
-      <hr />
       {isFriend === friendStatus.accept ? (
         content
       ) : (

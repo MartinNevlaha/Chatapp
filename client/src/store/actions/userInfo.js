@@ -114,3 +114,22 @@ export const cleanUpUserInfo = () => {
     type: actionTypes.CLEAN_UP_USER_INFO,
   };
 };
+
+export const likeUserPostSucces = (likes, likeAction) => {
+  return {
+    type: actionTypes.LIKE_USER_POST,
+    likes,
+    likeAction,
+  };
+};
+
+export const likeUserPost = (postId, data) => {
+  return (dispatch) => {
+    axios
+      .patch(`/api/posts/like-status/${postId}`, data)
+      .then((res) => {
+        dispatch(likeUserPostSucces(res.data.likes, res.data.likeAction));
+      })
+      .catch((err) => dispatch(errorCreator(err.response)));
+  };
+};

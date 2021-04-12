@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObj } from "../../utils/utilities";
+import { updateObj, likePostReducerHelper } from "../../utils/utilities";
 import updateArray from "react-addons-update";
 
 const initialState = {
@@ -54,24 +54,7 @@ const likePostSuccess = (state, action) => {
   const postIndex = state.posts.findIndex(
     (post) => post.id === action.likes.postId
   );
-  let updatedArr = [];
-  if (action.likeAction === "deleted") {
-    updatedArr = state.posts[postIndex].Likes.filter(
-      (like) => like.id !== action.likes.id
-    );
-  } else if (action.likeAction === "created") {
-    updatedArr = state.posts[postIndex].Likes.concat(action.likes);
-  } else if (action.likeAction === "updated") {
-    const likeIndex = state.posts[postIndex].Likes.findIndex(
-      (like) => like.id === action.likes.id
-    );
-    updatedArr = state.posts[postIndex].Likes.map((like, i) => {
-      if (i === likeIndex) {
-        like.status = action.likes.status;
-      }
-      return like;
-    });
-  }
+  const updatedArr = likePostReducerHelper(postIndex, state.posts, action);
 
   return updateArray(state, {
     posts: {
@@ -131,10 +114,10 @@ const updatePostSuccess = (state, action) => {
   );
   const updatedPost = {
     ...action.updatedPost,
-    User: {...state.posts[index].User},
+    User: { ...state.posts[index].User },
     Likes: [...state.posts[index].Likes],
-    editMode: false
-  }
+    editMode: false,
+  };
   return updateArray(state, {
     loading: { $set: false },
     posts: {
