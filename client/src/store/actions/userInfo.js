@@ -100,11 +100,17 @@ export const getUserPosts = (userId) => {
     axios
       .get(`/api/users/posts/${userId}`)
       .then((res) => {
-        dispatch(getUserPostSuccess(res.data.posts))
+        dispatch(getUserPostSuccess(res.data.posts));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));
         dispatch(getUserPostFailed());
       });
+  };
+};
+
+export const cleanUpUserInfo = () => {
+  return {
+    type: actionTypes.CLEAN_UP_USER_INFO,
   };
 };

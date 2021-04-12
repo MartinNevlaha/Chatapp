@@ -30,4 +30,9 @@ export {
   updatePost,
 } from "./post";
 
-export { getUserInfo, getUserFriends, getUserPosts } from "./userInfo";
+export {
+  getUserInfo,
+  getUserFriends,
+  getUserPosts,
+  cleanUpUserInfo,
+} from "./userInfo";

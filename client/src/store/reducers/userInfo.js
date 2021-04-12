@@ -63,6 +63,10 @@ const getUserPostFailed = (state, action) => {
   return updateObj(state, { loadingPost: false });
 };
 
+const cleanUpUserInfo = (state, action) => {
+  return initialState;
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USER_INFO_START:
@@ -85,6 +89,8 @@ const reducer = (state = initialState, action) => {
       return getUserPostsSuccess(state, action);
     case actionTypes.GET_USER_POSTS_FAILED:
       return getUserPostFailed(state, action);
+    case actionTypes.CLEAN_UP_USER_INFO:
+      return cleanUpUserInfo(state, action)
     default:
       return state;
   }

@@ -27,6 +27,11 @@ const UserPageInfo = () => {
     dispatch(action.getUserInfo(+userId));
     dispatch(action.getUserFriends(+userId));
     dispatch(action.getUserPosts(+userId));
+
+    return () => {
+      //clean up
+      dispatch(action.cleanUpUserInfo());
+    }
   }, [dispatch, userId]);
 
   const handleAddFriend = () => {
