@@ -20,15 +20,15 @@ const FriendList = ({ loading, userFriends, isFriend }) => {
         <p>Number of friends {userFriends ? userFriends.length : 0}</p>
         <hr />
         <div className={classes.friendList_container}>
-          {isFriend === friendStatus.accept ? (
+          {isFriend === friendStatus.accept ||
+          isFriend === friendStatus.myself ? (
             content
           ) : (
             <React.Fragment>
-              <div className={classes.friendList_container_blur}>
-              </div>
+              <div className={classes.friendList_container_blur}></div>
               <div className={classes.friendList_container_blur_text}>
-                  <p>You have to be friends to see this</p>
-                </div>
+                <p>You have to be friends to see this</p>
+              </div>
             </React.Fragment>
           )}
         </div>

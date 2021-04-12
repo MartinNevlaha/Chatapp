@@ -22,6 +22,7 @@ export const UserInfoSidebar = ({
   addFriend,
 }) => {
   let friendStatusContent = <Button clicked={addFriend}>Add friend</Button>;
+
   if (isFriend === friendStatus.accept) {
     friendStatusContent = (
       <React.Fragment>
@@ -43,6 +44,8 @@ export const UserInfoSidebar = ({
         <FontAwesomeIcon icon={faTimesCircle} color="red"/>
       </React.Fragment>
     );
+  } else if (isFriend === friendStatus.myself) {
+    friendStatusContent = null;
   }
 
   UserInfoSidebar.propTypes = {
@@ -69,7 +72,7 @@ export const UserInfoSidebar = ({
           </div>
         </div>
         <div className={classes.userInfo_content}>
-          <Link to="/update-profile">
+          <Link to={`/user-info/${userProfile.id}`}>
             <h2>{userProfile.fullName}</h2>
           </Link>
           <hr />
