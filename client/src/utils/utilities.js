@@ -80,3 +80,11 @@ export const likePostReducerHelper = (postIndex, postsArr, action) => {
   }
   return updatedArr;
 };
+
+export const showLikeHelper = (likes, likeType) => {
+  let updatedUserLikes = [];
+  likes.forEach((like) => {
+    if (like.status === likeType) updatedUserLikes.push(like.User);
+  });
+  return updatedUserLikes;
+}

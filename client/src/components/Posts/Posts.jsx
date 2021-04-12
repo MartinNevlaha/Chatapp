@@ -9,6 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Modal from "../UI/Modal/Modal";
 import ShowLikes from "../ShowLikes/ShowLikes";
 import PropTypes from "prop-types";
+import { showLikeHelper } from "../../utils/utilities";
 
 const Posts = ({
   createPost,
@@ -42,14 +43,6 @@ const Posts = ({
     });
   };
 
-  const showLikeHelper = (likes, likeType) => {
-    let updatedUserLikes = [];
-    likes.forEach((like) => {
-      if (like.status === likeType) updatedUserLikes.push(like.User);
-    });
-    return updatedUserLikes;
-  };
-
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
@@ -70,7 +63,7 @@ const Posts = ({
   return (
     <React.Fragment>
       <Modal show={isModalOpen} cancel={handleModalClose}>
-        <ShowLikes showLike={showLike} />
+        <ShowLikes showLike={showLike} close={handleModalClose} />
       </Modal>
       <div className={classes.posts}>
         {placeOfUsage === "dashboard" && (
