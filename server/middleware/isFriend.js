@@ -6,12 +6,14 @@ const friendStatus = require("../config/friendRequestStatus");
 
 const isFriend = async (req, res, next) => {
   let friendId;
+  let friend; 
   if (req.body.friendId) {
     friendId = +req.body.friendId;
   } else if (req.params.userId) {
     friendId = +req.params.userId;
   }
   try {
+    if (+req.user.id !== friendId) {
     const userFriendship = await Friendship.findAll({
       where: {
         [Op.or]: [
@@ -27,7 +29,7 @@ const isFriend = async (req, res, next) => {
       },
       raw: true,
     });
-    let friend; 
+
     if (userFriendship.length === 0) {
         friend = friendStatus.doesntExist;
     } else if (userFriendship[0].status === friendStatus.accept) {
@@ -37,6 +39,9 @@ const isFriend = async (req, res, next) => {
     } else if (userFriendship[0].status === friendStatus.reject) {
       friend = friendStatus.reject;
     } 
+    } else {
+      friend = friendStatus.myself
+    }
     req.isFriend = friend;
     next();
   } catch (error) {

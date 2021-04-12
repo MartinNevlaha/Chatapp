@@ -10,14 +10,11 @@ const { rules: likePostRules } = require("../validators/post/likePost");
 const { userPostImageUpload } = require("../middleware/fileUpload");
 const {
   createPost,
-  getPosts,
   updatePost,
   deletePost,
   getFriendsPosts,
   likeOrUnlikePost,
 } = require("../controllers/post");
-
-router.get("/", isAuth, getPosts);
 
 router.get("/friends-post", isAuth, getFriendsPosts);
 

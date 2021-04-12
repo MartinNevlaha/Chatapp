@@ -130,7 +130,6 @@ exports.searchUser = async (req, res, next) => {
 
 exports.getUserInfo = async (req, res, next) => {
   const isFriend = req.isFriend;
-  console.log(isFriend);
   try {
     const user = await User.findOne({
       where: {
@@ -167,7 +166,10 @@ exports.getUserPosts = async (req, res, next) => {
   try {
     let findedPosts;
     let countOfPosts;
-    if (isFriend === friendRequest.accept) {
+    if (
+      isFriend === friendRequest.accept ||
+      isFriend === friendRequest.myself
+    ) {
       const posts = await Post.findAndCountAll({
         where: {
           userId: req.params.userId,
@@ -182,7 +184,7 @@ exports.getUserPosts = async (req, res, next) => {
           },
         },
         limit: limit,
-        offset: offset
+        offset: offset,
       });
       if (!posts) {
         const error = new Error("Cant fetch user posts");
@@ -215,7 +217,10 @@ exports.getUserFriends = async (req, res, next) => {
   const userId = +req.params.userId;
   try {
     let friendship;
-    if (isFriend === friendRequest.accept) {
+    if (
+      isFriend === friendRequest.accept ||
+      isFriend === friendRequest.myself
+    ) {
       const userFriendship = await Friendship.findAll({
         where: {
           [Op.or]: [
@@ -250,7 +255,7 @@ exports.getUserFriends = async (req, res, next) => {
         error.statusCode = 404;
         return next(error);
       }
-      friendship = getUserFriendHelper(userFriendship, userId)
+      friendship = getUserFriendHelper(userFriendship, userId);
     } else {
       friendship = [];
     }
