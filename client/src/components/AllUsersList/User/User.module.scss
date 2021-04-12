@@ -14,6 +14,13 @@
     img {
       @include avatar-big;
     }
+    &_icon {
+      @include flexbox(center, center, row);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: get-color(gray_profile);
+    }
   }
   &_info {
     width: 30%;

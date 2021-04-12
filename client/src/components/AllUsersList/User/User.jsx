@@ -28,7 +28,10 @@ const User = ({ user, requestStatusElement }) => {
         {user.avatar ? (
           <img src={user.avatar} alt="avatar" />
         ) : (
-          <FontAwesomeIcon icon={faUser} size="4x" />
+          <div className={classes.user_avatar_icon}>
+            <FontAwesomeIcon icon={faUser} size="3x" />
+          </div>
+          
         )}
       </div>
       <div className={classes.user_info}>
