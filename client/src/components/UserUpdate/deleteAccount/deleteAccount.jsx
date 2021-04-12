@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import classes from "./deleteAccount.module.scss";
-import Button from "../UI/Button/Button";
+import Button from "../../UI/Button/Button";
 import RetypeCheck from "./RetypeCheck/RetypeCheck";
-import { generateRandomNumbers } from "../../utils/utilities";
-import Modal from "../UI/Modal/Modal";
+import { generateRandomNumbers } from "../../../utils/utilities";
+import Modal from "../../UI/Modal/Modal";
 
 export const DeleteAccount = ({deleteAccount}) => {
   const [isRetypeShow, setIsRetypeShow] = useState(false);

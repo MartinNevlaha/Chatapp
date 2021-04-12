@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import UserUpdateForm from "../components/UserUpdate/UserUpdateForm";
-import DeleteAccount from "../components/deleteAccount/deleteAccount";
+import DeleteAccount from "../components/UserUpdate/deleteAccount/deleteAccount";
 import * as action from "../store/actions";
 import Spinner from "../components/UI/Spinner/Spinner";
 

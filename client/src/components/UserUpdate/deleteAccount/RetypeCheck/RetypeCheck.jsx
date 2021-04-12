@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./RetypeCheck.module.scss";
-import Button from "../../UI/Button/Button";
+import Button from "../../../UI/Button/Button";
 
 export const RetypeCheck = ({
   isRetypeShow,
