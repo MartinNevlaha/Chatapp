@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import classes from "./UserPosts.module.scss";
 import Post from "../Posts/Post/Post";
 import { friendStatus } from "../../config/friendStatus";
+import Spinner from "../UI/Spinner/Spinner";
 
-const UserPosts = ({ isFriend, posts, placeOfUsage, liker }) => {
+const UserPosts = ({ isFriend, posts, placeOfUsage, liker, loading }) => {
   const handleShowLikes = () => {};
 
   UserPosts.propTypes = {
@@ -13,22 +14,29 @@ const UserPosts = ({ isFriend, posts, placeOfUsage, liker }) => {
     posts: PropTypes.array,
     placeOfUsage: PropTypes.string,
     liker: PropTypes.func,
+    loading: PropTypes.bool,
   };
+
+  let content = <Spinner />;
+
+  if (!loading) {
+    content = posts.map((post) => (
+      <Post
+        key={post.id}
+        post={post}
+        liker={liker}
+        showLikes={handleShowLikes}
+        placeOfUsage={placeOfUsage}
+      />
+    ));
+  }
 
   return (
     <div className={classes.userPosts}>
       <h2>User posts</h2>
       <hr />
       {isFriend === friendStatus.accept ? (
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            post={post}
-            liker={liker}
-            showLikes={handleShowLikes}
-            placeOfUsage={placeOfUsage}
-          />
-        ))
+        content
       ) : (
         <div className={classes.userPosts_blur}>
           <div className={classes.userPosts_blur_background}></div>

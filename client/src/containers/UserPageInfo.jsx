@@ -19,7 +19,7 @@ const UserPageInfo = () => {
   const loading = useSelector((state) => state.userInfo.loading);
   const loadingPosts = useSelector((state) => state.userInfo.loadingPost);
   const loadingUserFriends = useSelector(
-    (state) => state.userInfo.loadingUserFriends
+    (state) => state.userInfo.loadingFriends
   );
   const userFriendList = useSelector((state) => state.userInfo.userFriends);
 
@@ -75,6 +75,7 @@ const UserPageInfo = () => {
       <UserPost
           isFriend={isFriend}
           posts={userPosts}
+          loading={loadingPosts}
           placeOfUsage="userPageInfo"
           liker={handleLiker}
         />
