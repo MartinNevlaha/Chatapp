@@ -28,6 +28,13 @@
           @include avatar-big;
           cursor: pointer;
         }
+        &_wrapper {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background-color: get-color(gray_profile);
+          @include flexbox(center, center, column);
+        }
       }
       &_main {
         @include flexbox (center, center, column);

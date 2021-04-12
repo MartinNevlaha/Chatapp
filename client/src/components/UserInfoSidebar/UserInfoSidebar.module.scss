@@ -28,7 +28,7 @@
         @include flexbox(center, center, row);
         width: 100px;
         height: 100px;
-        background-color: lighten(gray, 20%);
+        background-color: get-color(gray_profile);
         border-radius: 50%;
         border: 2px solid white;
       }

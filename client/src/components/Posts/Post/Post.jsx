@@ -85,13 +85,15 @@ const Post = ({
                       </React.Fragment>
                     ) : (
                       <React.Fragment>
-                        <FontAwesomeIcon
-                          icon={faUser}
-                          size="2x"
-                          data-tip
-                          data-for="userFullName"
-                          cursor="pointer"
-                        />
+                        <div className={classes.post_content_container_avatar_wrapper}>
+                          <FontAwesomeIcon
+                            icon={faUser}
+                            size="2x"
+                            data-tip
+                            data-for="userFullName"
+                            cursor="pointer"
+                          />
+                        </div>
                         <p>{post.User.fullName}</p>
                         <ReactTooltip
                           id="userFullName"

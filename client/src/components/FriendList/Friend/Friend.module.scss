@@ -22,7 +22,7 @@
 
     &_icon {
       @extend .friend_avatar_image;
-      background-color: lighten(gray, 20%);
+      background-color: get-color(gray_profile);
     }
   }
 
