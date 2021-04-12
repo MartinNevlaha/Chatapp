@@ -75,7 +75,7 @@ const UserPosts = ({
             next={loadAnotherPosts}
             hasMore={true}
           >
-            {content}
+            {posts.length ? content : <p>User has no posts yet</p>}
           </InfiniteScroll>
         ) : (
           <div className={classes.userPosts_blur}>
