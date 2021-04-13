@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import classes from "./Layout.module.scss";
 import Topbar from "../components/Menu/Topbar/Topbar";
 import SideDrawer from "../components/Menu/SideDrawer/SideDrawer";
+import ChatToast from "../components/Chat/ChatToast/ChatToast";
 
 const Layout = (props) => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
@@ -25,11 +26,17 @@ const Layout = (props) => {
         </header>
       )}
       <main className={classes.main_wrapper}>
-          <SideDrawer
-            isOpen={sideDrawerOpen}
-            closeSideDrawer={closeSideDrawer}
-          />
-          <div className={isAuth ? classes.main_wrapper_content : [classes.main_wrapper_content, classes.linear].join(" ")}>{props.children}</div>
+        <SideDrawer isOpen={sideDrawerOpen} closeSideDrawer={closeSideDrawer} />
+        <div
+          className={
+            isAuth
+              ? classes.main_wrapper_content
+              : [classes.main_wrapper_content, classes.linear].join(" ")
+          }
+        >
+          {props.children}
+        </div>
+        {isAuth && <ChatToast />}
       </main>
     </React.Fragment>
   );
