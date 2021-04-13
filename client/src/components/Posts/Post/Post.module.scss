@@ -21,6 +21,7 @@
         min-width: 10%;
         padding: 1rem;
         margin: 0 2rem;
+        @include flexbox(center, center, column);
         p {
           padding: 1rem;
         }
