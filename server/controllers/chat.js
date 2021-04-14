@@ -4,7 +4,6 @@ const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 
 const friendStatus = require("../config/friendRequestStatus");
-const isFriend = require("../middleware/isFriend");
 
 exports.getUserChatData = async (req, res, next) => {
   try {
@@ -145,6 +144,61 @@ exports.createChat = async (req, res, next) => {
     }
   } catch (error) {
     await t.rollback();
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
+
+exports.getMessages = async (req, res, next) => {
+  const limit = 10;
+  const page = req.query.page || 0;
+  const offset = page * limit;
+
+  try {
+    const messages = await Message.findAndCountAll({
+      where: {
+        chatId: req.query.id,
+      },
+      limit: limit,
+      offset: offset,
+      order: [["id", "DESC"]],
+    });
+
+    if (!messages) {
+      const error = new Error("Cant fetch messages");
+      error.statusCode = 404;
+      return next(error);
+    }
+
+    res.json({
+      status: "Ok",
+      message: "Message was fetched",
+      messages: messages.rows,
+      count: messages.count,
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+};
+
+exports.deleteChat = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    await Chat.destroy({
+      where: {
+        id: id,
+      },
+    });
+    res.json({
+      status: "Ok",
+      message: "Chat was deleted",
+    });
+  } catch (error) {
     if (error.statusCode) {
       error.statusCode = 500;
     }
