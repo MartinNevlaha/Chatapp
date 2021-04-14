@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as action from "../store/actions";
-import ChatToast from "../components/Chat/ChatToast/ChatToast";
+import ChatToast from "../components/Chat/ChatToast";
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const [openChatMenu, setOpenChatMenu] = useState(false);
   const chatData = useSelector((state) => state.chat.chatData);
   const loadingChatData = useSelector((state) => state.chat.loadingChatData);
 
-  useEffect(() => {
+  const handleOpenChatMenu = () => {
+    setOpenChatMenu(true);
     dispatch(action.fetchChatData());
-  }, [dispatch]);
+  };
 
-  return <div>
-    <ChatToast />
-    {console.log(chatData)}
-    </div>;
+  return (
+    <div>
+      <ChatToast onOpenChatMenu={handleOpenChatMenu} />
+      {console.log(chatData)}
+    </div>
+  );
 };
 
 export default Chat;
