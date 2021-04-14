@@ -35,5 +35,7 @@ export {
   getUserFriends,
   getUserPosts,
   cleanUpUserInfo,
-  likeUserPost
+  likeUserPost,
 } from "./userInfo";
+
+export { fetchChatData } from "./chat";

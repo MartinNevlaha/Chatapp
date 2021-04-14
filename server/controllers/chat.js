@@ -46,7 +46,7 @@ exports.getUserChatData = async (req, res, next) => {
     res.json({
       status: "Ok",
       message: "User chat data was fetched",
-      chatData: user,
+      chatsData: user.Chats,
     });
   } catch (error) {
     if (error.statusCode) {

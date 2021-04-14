@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import classes from "./Layout.module.scss";
 import Topbar from "../components/Menu/Topbar/Topbar";
 import SideDrawer from "../components/Menu/SideDrawer/SideDrawer";
-import ChatToast from "../components/Chat/ChatToast/ChatToast";
+import Chat from "../containers/Chat";
 
 const Layout = (props) => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
@@ -36,7 +36,7 @@ const Layout = (props) => {
         >
           {props.children}
         </div>
-        {isAuth && <ChatToast />}
+        {isAuth && <Chat />}
       </main>
     </React.Fragment>
   );
