@@ -2,11 +2,14 @@ const models = require("../models");
 const { User, Chat, ChatUser, Message } = models;
 const { Op } = require("sequelize");
 
-exports.index = async (req, res, next) => {
+exports.getUserChatData = async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
         id: req.user.id,
+      },
+      attributes: {
+        exclude: ["password", "activationToken", "activated", "email"],
       },
       include: [
         {
@@ -18,6 +21,9 @@ exports.index = async (req, res, next) => {
                 [Op.not]: {
                   id: req.user.id,
                 },
+              },
+              attributes: {
+                exclude: ["password", "activationToken", "activated", "email"],
               },
             },
             {
