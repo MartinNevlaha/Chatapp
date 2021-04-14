@@ -1,38 +1,30 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Posts', {
+    await queryInterface.createTable("ChatUsers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+      },
+      chatId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Chats",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "Users",
-          key: "id"
+          key: "id",
         },
-        onDelete: "CASCADE"
-      },
-      text: {
-        type: Sequelize.STRING
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      like: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        defaultValue: 0
-      },
-      unlike: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        defaultValue: 0
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,
@@ -43,10 +35,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("NOW()"),
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Posts');
-  }
+    await queryInterface.dropTable("ChatUsers");
+  },
 };
