@@ -1,9 +1,10 @@
 const models = require("../models");
 const { User, Chat, ChatUser, Message } = models;
 const { Op } = require("sequelize");
-const sequelize = require("sequelize");
+const { sequelize } = require("../models");
 
 const friendStatus = require("../config/friendRequestStatus");
+const isFriend = require("../middleware/isFriend");
 
 exports.getUserChatData = async (req, res, next) => {
   try {
@@ -57,10 +58,9 @@ exports.getUserChatData = async (req, res, next) => {
 };
 
 exports.createChat = async (req, res, next) => {
-  const t = sequelize.transaction();
-
+  const { friendId } = req.body;
+  const t = await sequelize.transaction();
   try {
-    const { friendId } = req.body;
     if (req.isFriend === friendStatus.accept) {
       const user = await User.findOne({
         where: {
@@ -83,30 +83,68 @@ exports.createChat = async (req, res, next) => {
       });
 
       //check if dual chat exists between this two users
-      if (user && user.Chats.lenght > 0) {
+      if (user && user.Chats.length > 0) {
         const error = new Error("Chat allready exists");
         error.statusCode = 403;
         return next(error);
       }
 
       const chat = await Chat.create({ type: "dual" }, { transaction: t });
-      const chatUser = await ChatUser.bulkCreate([
-        {
-          chatId: chat.id,
-          userId: req.user.id
+      const chatUser = await ChatUser.bulkCreate(
+        [
+          {
+            chatId: chat.id,
+            userId: req.user.id,
+          },
+          {
+            chatId: chat.id,
+            userId: friendId,
+          },
+        ],
+        { transaction: t }
+      );
+
+      await t.commit();
+
+      const createdChat = await Chat.findOne({
+        where: {
+          id: chat.id,
         },
-        {
-          chatId: chat.id,
-          userId: friendId
-        }
-      ])
-      //dorob video na 6:55 a pc 60
+        include: [
+          {
+            model: User,
+            where: {
+              [Op.not]: {
+                id: req.user.id,
+              },
+            },
+            attributes: {
+              exclude: ["password", "activationToken", "activated", "email"],
+            },
+          },
+          {
+            model: Message,
+          },
+        ],
+      });
+      if (!createdChat) {
+        const error = new Error("Cant create new chat");
+        error.statusCode = 500;
+        return next(error);
+      }
+
+      res.status(201).json({
+        status: "Ok",
+        message: "Chat was created",
+        chat: createdChat,
+      });
     } else {
-      const error = new Error("User arent friends");
+      const error = new Error("Users are not friends");
       error.statusCode = 403;
       return next(error);
     }
   } catch (error) {
+    await t.rollback();
     if (error.statusCode) {
       error.statusCode = 500;
     }
