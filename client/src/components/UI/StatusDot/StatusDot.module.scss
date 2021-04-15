@@ -1,0 +1,23 @@
+@import "../../../style/imports.scss";
+
+.status {
+  @include flexbox(center, center, row);
+
+  p {
+    font-size: get-font-size(small);
+    color: get-color(text);
+    padding: .5rem;
+  }
+
+  &_dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
+
+.online {
+  background-color: green;
+}

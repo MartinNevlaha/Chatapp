@@ -1,0 +1,5 @@
+@import "../../../../style/imports.scss";
+
+.chatFriend {
+  @include flexbox(space-evenly, center, row);
+}

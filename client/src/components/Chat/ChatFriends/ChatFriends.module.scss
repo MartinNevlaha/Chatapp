@@ -1,0 +1,21 @@
+@import "../../../style/imports.scss";
+
+.chatFriends {
+  min-width: 250px;
+  width: 25vw;
+  height: 80vh;
+  background-color: get-color(gray_profile);
+  border-radius: 8px;
+  overflow: hidden;
+
+  &_header {
+    width: 100%;
+    height: auto;
+    background-color: get-color(primary);
+    h2 {
+      color: white;
+      font-size: get-font-size(medium);
+      padding: .5rem;
+    }
+  }
+}

@@ -67,7 +67,11 @@ export const getUserFriends = (userId) => {
     dispatch(getUserFriendsStart());
     axios
       .get(`/api/users/friends/${userId}`)
-      .then((res) => dispatch(getUserFriendsSuccess(res.data.friendships)))
+      .then((res) => {
+        const data = res.data.friendships;
+        data.forEach((friendship) => friendship.status = "offline");
+        dispatch(getUserFriendsSuccess(data));
+      })
       .catch((err) => {
         dispatch(getUserFriendsFailed());
         dispatch(errorCreator(err.response));
