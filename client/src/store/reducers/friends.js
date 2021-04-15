@@ -23,34 +23,34 @@ const getUserFriendsFailed = (state, action) => {
 };
 
 const friendsOnline = (state, action) => {
-  const updateFriendship = [...state.friends];
-  action.friends.forEach((onlineFriend) => {
+  const updateFriendship = [...state.userFriends];
+  action.userFriends.forEach((onlineFriend) => {
     const index = updateFriendship.findIndex(
       (friendship) => friendship.id === onlineFriend
     );
     const updatedObj = {
       ...updateFriendship[index],
-      friend: {
-        ...updateFriendship[index].friend,
+      userFriends: {
+        ...updateFriendship[index].userFriends,
         online: true,
       },
     };
     updateFriendship[index] = updatedObj;
   });
-  return updateObj(state, { friends: updateFriendship });
+  return updateObj(state, { userFriends: updateFriendship });
 };
 
 const friendOffline = (state, action) => {
-  const index = state.friends.findIndex(
+  const index = state.userFriends.findIndex(
     (friendship) => (friendship.id = action.friend)
   );
   return updateArray(state, {
-    friends: {
+    userFriends: {
       [index]: {
-        friend: {
-          ...state.friends[index].friend,
+        userFriends: {
+          ...state.userFriends[index].friend,
           online: { $set: false },
-        }
+        },
       },
     },
   });
@@ -62,12 +62,12 @@ const reducer = (state = initialState, action) => {
       return friendsOnline(state, action);
     case actionTypes.FRIEND_OFFLINE:
       return friendOffline(state, action);
-      case actionTypes.GET_USER_FRIENDS_START:
-        return getUserFriendsStart(state, action);
-      case actionTypes.GET_USER_FRIENDS_SUCCESS:
-        return getUserFriendsSuccess(state, action);
-      case actionTypes.GET_USER_FRIENDS_FAILLED:
-        return getUserFriendsFailed(state, action);
+    case actionTypes.GET_USER_FRIENDS_START:
+      return getUserFriendsStart(state, action);
+    case actionTypes.GET_USER_FRIENDS_SUCCESS:
+      return getUserFriendsSuccess(state, action);
+    case actionTypes.GET_USER_FRIENDS_FAILLED:
+      return getUserFriendsFailed(state, action);
     default:
       return state;
   }

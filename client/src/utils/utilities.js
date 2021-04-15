@@ -87,4 +87,22 @@ export const showLikeHelper = (likes, likeType) => {
     if (like.status === likeType) updatedUserLikes.push(like.User);
   });
   return updatedUserLikes;
-}
+};
+
+const filterByUserChoice = (friends, filterBy) => {
+  if (filterBy !== "all") {
+    return friends.filter((friend) => friend.status === filterBy);
+  } else {
+    return friends;
+  }
+};
+
+export const searchFriendsHelper = (friends, filterBy, searchValue) => {
+  if (searchValue.length > 0) {
+    return filterByUserChoice(friends, filterBy).filter((val) =>
+      val.fullName.toString().toLowerCase().includes(searchValue.toLowerCase())
+    );
+  } else {
+    return filterByUserChoice(friends, filterBy);
+  }
+};
