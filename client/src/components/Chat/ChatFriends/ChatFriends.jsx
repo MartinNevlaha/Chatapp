@@ -29,6 +29,7 @@ const ChatFriends = ({ friends, loading }) => {
           filterBy={handleSetFilter}
           searchValue={searchValue}
           onSearch={(e) => setSearchValue(e.target.value)}
+          activeBtn={filterBy}
         />
       </div>
       <div className={classes.chatFriends_container}>

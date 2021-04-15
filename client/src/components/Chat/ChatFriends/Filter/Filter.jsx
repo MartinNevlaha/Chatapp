@@ -6,8 +6,10 @@ import PropTypes from "prop-types";
 
 import classes from "./Filter.module.scss";
 
-const Filter = ({ filterBy, searchValue, onSearch }) => {
+const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
   const { t } = useTranslation();
+
+  const btns = ["all", "online", "offline"];
 
   Filter.propTypes = {
     filterBy: PropTypes.func,
@@ -32,27 +34,18 @@ const Filter = ({ filterBy, searchValue, onSearch }) => {
       </div>
       <div className={classes.filter_btns}>
         <p>Show friends</p>
-        <button
-          onClick={() => {
-            filterBy("all");
-          }}
-        >
-          All
-        </button>
-        <button
-          onClick={() => {
-            filterBy("online");
-          }}
-        >
-          Online
-        </button>
-        <button
-          onClick={() => {
-            filterBy("offline");
-          }}
-        >
-          Offline
-        </button>
+        {btns.map((btn) => (
+          <button
+            onClick={() => filterBy(btn)}
+            className={
+              btn === activeBtn
+                ? [classes.active, classes.filter_btns_btn].join(" ")
+                : classes.filter_btns_btn
+            }
+          >
+            {btn}
+          </button>
+        ))}
       </div>
       <div className={classes.filter_input}></div>
     </div>

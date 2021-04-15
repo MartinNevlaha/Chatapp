@@ -42,7 +42,7 @@
     width: 70%;
     @include flexbox(space-evenly, center, row);
 
-    button {
+    &_btn {
       border: none;
       color: white;
       background-color: transparent;
@@ -59,4 +59,9 @@
       }
     }
   }
+}
+
+.active {
+  color: get-color(gray_profile);
+  text-decoration: underline;
 }
