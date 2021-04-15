@@ -4,7 +4,7 @@
   min-width: 250px;
   width: 25vw;
   height: 80vh;
-  background-color: get-color(gray_profile);
+  background-color: lighten(get-color(gray_profile), 15%);
   border-radius: 8px;
   overflow: hidden;
 
@@ -17,5 +17,9 @@
       font-size: get-font-size(medium);
       padding: .5rem;
     }
+  }
+
+  &_container {
+    overflow-y: scroll;
   }
 }

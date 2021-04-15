@@ -18,11 +18,13 @@ const ChatFriends = ({ friends, loading }) => {
         <h2>Friends</h2>
         <Filter />
       </div>
-      {loading ? (
-        <Spinner />
-      ) : (
-        friends.map((friend) => <ChatFriend friend={friend} />)
-      )}
+      <div className={classes.chatFriends_container}>
+        {loading ? (
+          <Spinner />
+        ) : (
+          friends.map((friend) => <ChatFriend friend={friend} />)
+        )}
+      </div>
     </div>
   );
 };
