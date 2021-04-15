@@ -10,7 +10,7 @@
   "sideDrawer" : {
     "title": "Hlavné menu",
     "dashboard": "Hlavný prehľad",
-    "friendsList": "Zoznam priateľov",
+    "chat": "Chat",
     "userList": "Zoznam užívateľov",
     "schedule": "Naplánuj pohovor",
     "calendar": "Kalendár pohovorov",

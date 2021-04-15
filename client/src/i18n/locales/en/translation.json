@@ -10,7 +10,7 @@
   "sideDrawer" : {
     "title": "Main menu",
     "dashboard": "Dashboard",
-    "friendsList": "Friends list",
+    "chat": "Chat",
     "userList": "Users list",
     "schedule": "Schedule an interview",
     "calendar": "Interviews calendar",

@@ -8,6 +8,7 @@ import {
   faCalendar,
   faUserCheck,
   faUser,
+  faCommentDots
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
@@ -54,7 +55,7 @@ const SideDrawer = (props) => {
             {t("sideDrawer.dashboard")}
           </NavItem>
           <NavItem icon={faUser} link="/users-list">{t("sideDrawer.userList")}</NavItem>
-          <NavItem icon={faUserCheck} link="/friends-list">{t("sideDrawer.friendsList")}</NavItem>
+          <NavItem icon={faCommentDots} link="/chat">{t("sideDrawer.chat")}</NavItem>
           <NavItem icon={faList} link="/job-offers">{t("sideDrawer.showJobOffer")}</NavItem>
           <NavItem icon={faClock} link="/schedule-interview">
             {t("sideDrawer.schedule")}
