@@ -1,0 +1,32 @@
+@import "../../../style/imports.scss";
+
+.search {
+  @include flexbox(space-between, center, row);
+  min-width: 13rem;
+  height: 1.875rem;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.274);
+  transition: all 0.5s ease-in-out;
+  color: white;
+
+  &_icon {
+    padding: 0 5px;
+    font-size: 30px;
+  }
+
+  input {
+    width: 10rem;
+    border: none;
+    background-color: transparent;
+    color: white;
+    margin: 0 10px;
+    outline: none;
+  }
+
+  input:focus {
+    width: 12rem;
+  }
+  &:hover {
+    background-color: lighten(rgba(255, 255, 255, 0.39), 10%);
+  }
+}

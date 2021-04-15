@@ -3,9 +3,8 @@
 .chatFriends {
   min-width: 250px;
   width: 25vw;
-  height: 80vh;
+  height: 100%;
   background-color: lighten(get-color(gray_profile), 15%);
-  border-radius: 8px;
   overflow: hidden;
 
   &_header {
