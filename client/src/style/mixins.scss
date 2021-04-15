@@ -91,3 +91,35 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+@mixin search($min_w, $w, $focus_w ) {  
+  position: relative;
+  @include flexbox(space-between, center, row);
+  min-width: $min_w;
+  height: 1.875rem;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.274);
+  transition: all 0.5s ease-in-out;
+  color: white;
+
+  .icon {
+    padding: 0 5px;
+    font-size: 30px;
+  }
+
+  input {
+    width: $w;
+    border: none;
+    background-color: transparent;
+    color: white;
+    margin: 0 10px;
+    outline: none;
+  }
+
+  input:focus {
+    width: $focus_w;
+  }
+  &:hover {
+    background-color: lighten(rgba(255, 255, 255, 0.39), 10%);
+  }
+}

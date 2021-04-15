@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 
 import classes from "./Topbar.module.scss";
 import BackDropMenu from "./BackDropMenu/BackdropMenu";
-import SearchUsers from "../../SearchUsers/SearchUsers";
+import SearchUsers from "./SearchUsers/SearchUsers";
 
 const Topbar = (props) => {
   const { t } = useTranslation();

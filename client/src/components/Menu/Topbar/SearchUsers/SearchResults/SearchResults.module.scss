@@ -1,4 +1,4 @@
-@import "../../../style/imports.scss";
+@import "../../../../../style/imports.scss";
 
 .search_results {
   position: absolute;
@@ -6,7 +6,7 @@
   top: 30px;
   left: 0;
   min-width: 300px;
-  width: 350px;
+  width: 21.875rem;
   height: auto;
   background-color: get-color(dark-white);
   border-bottom-left-radius: 4px;

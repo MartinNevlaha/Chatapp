@@ -19,7 +19,7 @@ const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
 
   return (
     <div className={classes.filter}>
-      <SearchInput currentValue={searchValue} onChangeInput={onSearch} />
+      <SearchInput currentValue={searchValue} onChangeInput={onSearch} styleType="small" />
       <div className={classes.filter_btns}>
         <p>Show friends</p>
         {btns.map((btn) => (

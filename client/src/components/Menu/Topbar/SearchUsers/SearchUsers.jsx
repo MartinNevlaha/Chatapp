@@ -1,13 +1,11 @@
-import React, { useState, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as action from "../../store/actions";
-import { numberOfPages } from "../../utils/utilities";
-import classes from "./SearchUsers.module.scss";
+import * as action from "../../../../store/actions";
+import { numberOfPages } from "../../../../utils/utilities";
 import SearchResults from "./SearchResults/SearchResults";
+import SearchInput from "../../../Inputs/SearchInputs/SearchInputs";
 
 export const SearchUsers = () => {
   const [searchString, setSearchString] = useState("");
@@ -37,7 +35,7 @@ export const SearchUsers = () => {
   const handleSetPage = (type) => {
     if (type === "next") {
       setCurrentPage(currentPage + 1);
-      dispatch(action.searchUsers(searchString, LIMIT, currentPage + 1 ));
+      dispatch(action.searchUsers(searchString, LIMIT, currentPage + 1));
     } else {
       setCurrentPage(currentPage - 1);
       dispatch(action.searchUsers(searchString, LIMIT, currentPage - 1));
@@ -45,18 +43,11 @@ export const SearchUsers = () => {
   };
 
   return (
-    <div className={classes.search}>
-      <FontAwesomeIcon
-        icon={faSearch}
-        size="1x"
-        className={classes.search_icon}
-      />
-      <input
-        type="text"
-        placeholder={t("topNavbar.search")}
-        value={searchString}
-        onChange={handleOnChangeInput}
-      />
+    <SearchInput
+      currentValue={searchString}
+      onChangeInput={handleOnChangeInput}
+      styleType="medium"
+    >
       <SearchResults
         users={findedUsers}
         show={isResultsOpen}
@@ -65,7 +56,7 @@ export const SearchUsers = () => {
         setPage={handleSetPage}
         currentPage={currentPage}
       />
-    </div>
+    </SearchInput>
   );
 };
 

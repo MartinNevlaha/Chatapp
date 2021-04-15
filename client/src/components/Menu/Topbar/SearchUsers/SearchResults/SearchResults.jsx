@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
 import classes from "./SearchResults.module.scss";
-import User from "../../User/User";
+import User from "../../../../User/User";
 import PropTypes from "prop-types";
 
 export const SearchResults = ({

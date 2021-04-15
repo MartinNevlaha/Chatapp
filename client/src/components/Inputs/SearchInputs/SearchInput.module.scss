@@ -1,32 +1,13 @@
 @import "../../../style/imports.scss";
 
-.search {
-  @include flexbox(space-between, center, row);
-  min-width: 13rem;
-  height: 1.875rem;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.274);
-  transition: all 0.5s ease-in-out;
-  color: white;
+.small {
+  @include search(13rem, 10rem, 12rem);
+}
 
-  &_icon {
-    padding: 0 5px;
-    font-size: 30px;
-  }
+.medium {
+  @include search(19rem, 16rem, 19rem);
+}
 
-  input {
-    width: 10rem;
-    border: none;
-    background-color: transparent;
-    color: white;
-    margin: 0 10px;
-    outline: none;
-  }
-
-  input:focus {
-    width: 12rem;
-  }
-  &:hover {
-    background-color: lighten(rgba(255, 255, 255, 0.39), 10%);
-  }
+.large {
+  @include search(22rem, 18rem, 22rem);
 }
