@@ -15,7 +15,6 @@ const ChatFriends = ({ friends, loading }) => {
     setFilterBy(value);
   };
 
-
   ChatFriends.propTypes = {
     friends: PropTypes.array,
     loading: PropTypes.bool,

@@ -52,10 +52,8 @@ export const isLiked = (likeArr, userId, status) => {
 };
 
 export const numberOfPages = (totalRecords, limit) => {
-  console.log(totalRecords, limit);
   let number = 1;
   if (totalRecords > limit) number = (totalRecords + limit - 1) / limit;
-  console.log(number);
   return number;
 };
 

@@ -15,6 +15,7 @@ const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
     filterBy: PropTypes.func,
     searchValue: PropTypes.string,
     onSearch: PropTypes.func,
+    activeBtn: PropTypes.oneOf(["all", "online", "offline"]),
   };
 
   return (
@@ -36,6 +37,7 @@ const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
         <p>Show friends</p>
         {btns.map((btn) => (
           <button
+            key={btn}
             onClick={() => filterBy(btn)}
             className={
               btn === activeBtn
