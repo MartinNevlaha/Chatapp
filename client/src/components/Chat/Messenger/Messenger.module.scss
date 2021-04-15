@@ -5,6 +5,17 @@
   height: 100%;
 
   &_header {
-    background-color: lighten(get-color(gray_profile), 15%);
+    width: 100%;
+    height: auto;
+    background-color: get-color(primary);
+    h2 {
+      color: white;
+      font-size: get-font-size(medium);
+      padding: .5rem;
+    }
+
+    &_input {
+      width: 40%;
+    }
   }
 }
