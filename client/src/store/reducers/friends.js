@@ -3,22 +3,22 @@ import { updateObj } from "../../utils/utilities";
 import updateArray from "react-addons-update";
 
 const initialState = {
-  friendships: [],
+  userFriends: [],
   loading: false,
 };
 
-const fetchFriendsStart = (state, action) => {
+const getUserFriendsStart = (state, action) => {
   return updateObj(state, { loading: true });
 };
 
-const fetchFriendsSuccess = (state, action) => {
+const getUserFriendsSuccess = (state, action) => {
   return updateObj(state, {
     loading: false,
-    friendships: action.friendships,
+    userFriends: action.friendsList,
   });
 };
 
-const fetchFriendsFailed = (state, action) => {
+const getUserFriendsFailed = (state, action) => {
   return updateObj(state, { loading: false });
 };
 
@@ -58,16 +58,16 @@ const friendOffline = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_FRIENDS_START:
-      return fetchFriendsStart(state, action);
-    case actionTypes.FETCH_FRIENDS_SUCCESS:
-      return fetchFriendsSuccess(state, action);
-    case actionTypes.FETCH_FRIENDS_FAILED:
-      return fetchFriendsFailed(state, action);
     case actionTypes.FRIEND_ONLINE:
       return friendsOnline(state, action);
     case actionTypes.FRIEND_OFFLINE:
       return friendOffline(state, action);
+      case actionTypes.GET_USER_FRIENDS_START:
+        return getUserFriendsStart(state, action);
+      case actionTypes.GET_USER_FRIENDS_SUCCESS:
+        return getUserFriendsSuccess(state, action);
+      case actionTypes.GET_USER_FRIENDS_FAILLED:
+        return getUserFriendsFailed(state, action);
     default:
       return state;
   }

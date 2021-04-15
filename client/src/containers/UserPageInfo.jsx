@@ -16,12 +16,9 @@ const UserPageInfo = () => {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const userPosts = useSelector((state) => state.userInfo.userPosts);
   const isFriend = useSelector((state) => state.userInfo.isFriend);
-  const loading = useSelector((state) => state.userInfo.loading);
   const loadingPosts = useSelector((state) => state.userInfo.loadingPost);
-  const loadingUserFriends = useSelector(
-    (state) => state.userInfo.loadingFriends
-  );
-  const userFriendList = useSelector((state) => state.userInfo.userFriends);
+  const userFriendList = useSelector((state) => state.friends.userFriends);
+  const loadingUserFriends = useSelector(state => state.friends.loading);
 
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));

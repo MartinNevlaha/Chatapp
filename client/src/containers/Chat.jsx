@@ -9,8 +9,8 @@ const Chat = () => {
   const userId = useSelector((state) => state.userProfile.user.id);
   const chatData = useSelector((state) => state.chat.chatData);
   const loadingChatData = useSelector((state) => state.chat.loadingChatData);
-  const friends = useSelector((state) => state.userInfo.userFriends);
-  const loadingFriends = useSelector((state) => state.userInfo.loadingFriends);
+  const friends = useSelector((state) => state.friends.userFriends);
+  const loadingFriends = useSelector((state) => state.friends.loading);
 
   useEffect(() => {
     dispatch(action.fetchChatData());

@@ -6,12 +6,10 @@ import { friendStatus } from "../../constants/friendStatus";
 
 const initialState = {
   userInfo: {},
-  userFriends: [],
   userPosts: [],
   isFriend: null,
   loading: false,
   loadingPost: false,
-  loadingFriends: false,
 };
 
 const getUserInfoStart = (state, action) => {
@@ -35,21 +33,6 @@ const addUserOnInfoPage = (state, action) => {
     ...state.userInfo,
     isFriend: friendStatus.pending,
   });
-};
-
-const getUserFriendsStart = (state, action) => {
-  return updateObj(state, { loadingFriends: true });
-};
-
-const getUserFriendsSuccess = (state, action) => {
-  return updateObj(state, {
-    loadingFriends: false,
-    userFriends: action.friendsList,
-  });
-};
-
-const getUserFriendsFailed = (state, action) => {
-  return updateObj(state, { loading: false });
 };
 
 const getUserPostsStart = (state, action) => {
@@ -96,12 +79,6 @@ const reducer = (state = initialState, action) => {
       return getUserInfoFailed(state, action);
     case actionTypes.ADD_USER_ON_INFO_PAGE:
       return addUserOnInfoPage(state, action);
-    case actionTypes.GET_USER_FRIENDS_START:
-      return getUserFriendsStart(state, action);
-    case actionTypes.GET_USER_FRIENDS_SUCCESS:
-      return getUserFriendsSuccess(state, action);
-    case actionTypes.GET_USER_FRIENDS_FAILLED:
-      return getUserFriendsFailed(state, action);
     case actionTypes.GET_USER_POSTS_START:
       return getUserPostsStart(state, action);
     case actionTypes.GET_USER_POSTS_SUCCESS:

@@ -2,47 +2,41 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
 import { errorCreator } from "./requestStatus";
 
-export const fetchFriendsStart = () => {
+export const getUserFriendsStart = () => {
   return {
-    type: actionTypes.FETCH_FRIENDS_START,
+    type: actionTypes.GET_USER_FRIENDS_START,
   };
 };
 
-export const fetchFriendsSuccess = (friendships) => {
+export const getUserFriendsSuccess = (friendsList) => {
   return {
-    type: actionTypes.FETCH_FRIENDS_SUCCESS,
-    friendships,
+    type: actionTypes.GET_USER_FRIENDS_SUCCESS,
+    friendsList,
   };
 };
 
-export const fetchFriendsFailed = () => {
+export const getUserFriendsFailed = () => {
   return {
-    type: actionTypes.FETCH_FRIENDS_FAILED,
+    type: actionTypes.GET_USER_FRIENDS_FAILLED,
   };
 };
 
-export const fetchFriends = () => {
-  return dispatch => {
-    dispatch(fetchFriendsStart());
-    axios.get("/api/friends/")
-    .then(res => {
-      const friends = res.data.friendships.map(friendship => {
-        return {
-          ...friendship,
-          friend: {
-            ...friendship.friend,
-            online: false
-          }
-        }
+export const getUserFriends = (userId) => {
+  return (dispatch) => {
+    dispatch(getUserFriendsStart());
+    axios
+      .get(`/api/users/friends/${userId}`)
+      .then((res) => {
+        const data = res.data.friendships;
+        data.forEach((friendship) => friendship.status = "offline");
+        dispatch(getUserFriendsSuccess(data));
       })
-      dispatch(fetchFriendsSuccess(friends))
-    })
-    .catch(err => {
-      dispatch(fetchFriendsFailed());
-      dispatch(errorCreator(err.response))
-    })
-  }
-}
+      .catch((err) => {
+        dispatch(getUserFriendsFailed());
+        dispatch(errorCreator(err.response));
+      });
+  };
+};
 
 export const friendsOnline = (friends) => {
   return {
