@@ -46,7 +46,7 @@ export const friendsOnline = (friends) => {
 }
 
 export const friendOffline = (friend) => {
-  return {
+  return  {
     type: actionTypes.FRIEND_OFFLINE,
     friend,
   }

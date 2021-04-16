@@ -39,11 +39,15 @@ const friendOffline = (state, action) => {
   const index = state.userFriends.findIndex(
     (friend) => (friend.id === action.friend)
   );
-  return updateArray(state, {
-    userFriends: {
-      [index]: { status: { $set: "offline" } },
-    },
-  });
+  if (index !== -1) {
+    return updateArray(state, {
+      userFriends: {
+        [index]: { status: { $set: "offline" } },
+      },
+    });
+  } else {
+    return updateObj(state, state.userFriends)
+  }
 };
 
 const reducer = (state = initialState, action) => {
