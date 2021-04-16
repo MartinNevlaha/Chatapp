@@ -4,7 +4,6 @@ const timestamp = require("time-stamp");
 const users = new Map();
 const sockets = new Map();
 
-
 const SocketServer = (server) => {
   const io = require("socket.io")(server, {
     cors: {
@@ -14,59 +13,54 @@ const SocketServer = (server) => {
   });
 
   io.on("connection", (socket) => {
+    let onlineUsers = [];
     socket.on("join", (user) => {
       if (users.has(user.id)) {
         return;
       } else {
-        users.set(user, { id: user, sockets: [socket.id] });
+        users.set(user.id, { id: user.id, sockets: [socket.id] });
       }
       if (sockets.has(socket.id)) {
         return;
       } else {
-        sockets.set(socket, {id: socket.id, user: user})
+        sockets.set(socket.id, { id: socket.id, user: user.id });
       }
-      let onlineUsers = [];
-      users.forEach((user) => {
-        onlineUsers.push(user.id);
-      });
+
+      onlineUsers = Array.from(users).map(([name, value]) => name)
 
       //send array of online users to every active socket
       sockets.forEach((socket) => {
         try {
           io.to(socket.id).emit("onlineUsers", onlineUsers);
         } catch (error) {
-          logger.log({
+          logger.error({
             time: timestamp("YYYY/MM/DD/HH:mm:ss"),
             level: "error",
             message: error,
-          })
+          });
         }
       });
     });
 
     socket.on("disconnect", () => {
-      let user;
-      sockets.forEach(sock => {
-        if (sock.id === socket.id) {
-          user = sock.user
-        }
-      })
+      const user = sockets.get(socket.id).user;
       sockets.delete(socket.id);
       users.delete(user);
+      onlineUsers = onlineUsers.filter(userId => userId !== user);
+      console.log(onlineUsers);
       //send user id when user is going to offline to every active socket
-      sockets.forEach(sock => {
+      sockets.forEach(socket => {
         try {
-          io.to(sock.id).emit("offline", user);
+          io.to(socket.id).emit("offline", user);
         } catch (error) {
-          logger.log({
+          logger.error({
             time: timestamp("YYYY/MM/DD/HH:mm:ss"),
             level: "error",
             message: error,
-          })
+          });
         }
-        
       })
-    })
+    });
   });
 };
 

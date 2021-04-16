@@ -23,35 +23,25 @@ const getUserFriendsFailed = (state, action) => {
 };
 
 const friendsOnline = (state, action) => {
-  const updateFriendship = [...state.userFriends];
-  action.userFriends.forEach((onlineFriend) => {
-    const index = updateFriendship.findIndex(
-      (friendship) => friendship.id === onlineFriend
+  const updateFriends = [...state.userFriends];
+  action.friends.forEach((onlineFriend) => {
+    const index = updateFriends.findIndex(
+      (friend) => friend.id === onlineFriend
     );
-    const updatedObj = {
-      ...updateFriendship[index],
-      userFriends: {
-        ...updateFriendship[index].userFriends,
-        online: true,
-      },
-    };
-    updateFriendship[index] = updatedObj;
+    if (index !== -1) {
+      updateFriends[index].status = "online";
+    }
   });
-  return updateObj(state, { userFriends: updateFriendship });
+  return updateObj(state, { userFriends: updateFriends });
 };
 
 const friendOffline = (state, action) => {
   const index = state.userFriends.findIndex(
-    (friendship) => (friendship.id = action.friend)
+    (friend) => (friend.id = action.friend)
   );
   return updateArray(state, {
     userFriends: {
-      [index]: {
-        userFriends: {
-          ...state.userFriends[index].friend,
-          online: { $set: false },
-        },
-      },
+      [index]: { online: { $set: "offline" } },
     },
   });
 };

@@ -107,3 +107,15 @@ exports.getUserFriendHelper = (friendshipsArr, userId) => {
   });
   return friends;
 };
+
+exports.getUserFriendIds = (friendshipsArr, userId) => {
+  let friendIds = [];
+  friendshipsArr.forEach((friendship) => {
+    if (friendship.requestor.id === userId) {
+      friendIds.push(friendship.User.id)
+    } else {
+      friendIds.push(friendship.requestor.id)
+    }
+  });
+  return friendIds;
+};

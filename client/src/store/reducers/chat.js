@@ -12,7 +12,6 @@ const fetchChatDataStart = (state, action) => {
 };
 
 const fetchChatDataSuccess = (state, action) => {
-  console.log(action.chatData);
   return updateObj(state, {
     loadingChatData: false,
     chatData: action.chatData,
