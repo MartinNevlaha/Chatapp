@@ -37,11 +37,11 @@ const friendsOnline = (state, action) => {
 
 const friendOffline = (state, action) => {
   const index = state.userFriends.findIndex(
-    (friend) => (friend.id = action.friend)
+    (friend) => (friend.id === action.friend)
   );
   return updateArray(state, {
     userFriends: {
-      [index]: { online: { $set: "offline" } },
+      [index]: { status: { $set: "offline" } },
     },
   });
 };

@@ -8,13 +8,13 @@ const useSocket = (user, dispatch) => {
     const socket = socketClient.connect("http://localhost:8000");
 
     socket.emit("join", user);
-    
+
     socket.on("onlineUsers", (onlineUsers) =>
       dispatch(action.friendsOnline(onlineUsers))
     );
   
 
-    socket.on("offline", (user) => console.log(user, "goes to offline"));
+    socket.on("offline", (user) => dispatch(action.friendOffline(user)));
 
     return () => {
       socket.disconnect();
