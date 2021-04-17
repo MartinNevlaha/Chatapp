@@ -2,9 +2,11 @@
 
 .chat {
   @include flexbox(center, flex-start, row);
-  width: 80vw;
+  width: 89vw;
   margin: 50px 0 20px 20px;
   height: 80vh;
   border-radius: 8px;
   overflow: hidden;
+
+  @include shadow;
 }

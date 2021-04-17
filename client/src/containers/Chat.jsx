@@ -22,7 +22,12 @@ const Chat = () => {
 
   return (
     <div>
-      <ChatComp friends={friends} loadingFriends={loadingFriends} />
+      <ChatComp
+        friends={friends}
+        loadingFriends={loadingFriends}
+        chatData={chatData}
+        loadingChatData={loadingChatData}
+      />
     </div>
   );
 };
