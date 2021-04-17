@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 
 import classes from "./StatusDot.module.scss";
 
-const StatusDot = ({ status }) => {
+const StatusDot = ({ status, statusShow }) => {
   StatusDot.propTypes = {
     status: PropTypes.oneOf(["online", "offline"]),
+    statusShow: PropTypes.bool
   };
 
   return (
-    <div className={classes.status} >
+    <div className={classes.status}>
       <span
         className={
           status === "online"
@@ -17,7 +18,7 @@ const StatusDot = ({ status }) => {
             : classes.status_dot
         }
       ></span>
-      <p>{status}</p>
+      {statusShow && <p>{status}</p>}
     </div>
   );
 };

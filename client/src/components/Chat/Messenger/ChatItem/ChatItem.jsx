@@ -27,7 +27,7 @@ const ChatItem = ({ chat }) => {
     <div className={classes.chatItem}>
       <div className={classes.chatItem_friendsHeader}>
         {chat.Users.map((user) => (
-          <div key={user.id}>
+          <div key={user.id} className={classes.chatItem_friendsHeader_user}>
             <h4>{user.fullName}</h4>
             <StatusDot status={user.status} />
           </div>

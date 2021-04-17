@@ -15,7 +15,7 @@ const ChatFriend = ({ friend }) => {
       <Friend friend={friend} />
       <div className={classes.chatFriend_status}>
         <span className={classes.chatFriend_dot}></span>
-        <StatusDot status={friend.status} />
+        <StatusDot status={friend.status} statusShow/>
       </div>
       <Button>Add to chat</Button>
     </div>
