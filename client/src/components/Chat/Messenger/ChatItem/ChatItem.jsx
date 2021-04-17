@@ -8,8 +8,9 @@ import classes from "./ChatItem.module.scss";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 import { parseDateTime } from "../../../../utils/utilities";
 
-const ChatItem = ({ chat }) => {
+const ChatItem = ({ chat, onOpenChat }) => {
   ChatItem.propTypes = {
+    onOpenChat: PropTypes.func,
     chat: PropTypes.exact({
       id: PropTypes.number,
       type: PropTypes.oneOf(["dual", "group"]),
@@ -29,6 +30,7 @@ const ChatItem = ({ chat }) => {
   return (
     <div className={classes.chatItem}>
       <div className={classes.chatItem_friendsHeader}>
+        <h2>Message from</h2>
         {chat.Users.map((user) => (
           <div key={user.id} className={classes.chatItem_friendsHeader_user}>
             <h4>{user.fullName}</h4>
@@ -38,6 +40,7 @@ const ChatItem = ({ chat }) => {
       </div>
       <div
         className={classes.chatItem_lastMessage}
+        onClick={() => onOpenChat(chat.id)}
         data-tip
         data-for="lastMessage"
       >

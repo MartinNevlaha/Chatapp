@@ -44,7 +44,7 @@ const SideDrawer = (props) => {
         <div className={classes.sideDrawer_content_title}>
           <FontAwesomeIcon
             icon={faChevronLeft}
-            size="2x"
+            size="1x"
             cursor="pointer"
             onClick={props.closeSideDrawer}
             color="rgb(80, 79, 79)"

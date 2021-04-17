@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./Messenger.module.scss";
 import SearchInput from "../../Inputs/SearchInputs/SearchInputs";
 import Spinner from "../../UI/Spinner/Spinner";
 import ChatItem from "./ChatItem/ChatItem";
+import Messages from "./Messages/Messages";
 
 const Messenger = ({ chatData, loadingChatData }) => {
+  const [openedChatId, setOpenedChatId] = useState(null);
+
+  const handleOpenChat = (chatId) => {
+    setOpenedChatId(chatId);
+  };
+
+  const handleCloseChat = () => {
+    setOpenedChatId(null);
+  };
+
+  const messageFromUserId = (chatData) => {
+    const currentChat = chatData.filter((chat) => chat.id === openedChatId);
+    return currentChat[0].Users[0].id;
+  };
+
+  let content = chatData.map((chat) => (
+    <ChatItem key={chat.id} chat={chat} onOpenChat={handleOpenChat} />
+  ));
+
+  if (loadingChatData) {
+    content = <Spinner />;
+  } else if (openedChatId) {
+    content = (
+      <Messages
+        chatId={openedChatId}
+        onCloseChat={handleCloseChat}
+        fromUserId={messageFromUserId(chatData)}
+      />
+    );
+  }
+
   Messenger.propTypes = {
     chatData: PropTypes.array,
     loadingChatData: PropTypes.bool,
   };
+
   return (
     <div className={classes.messenger}>
       <div className={classes.messenger_header}>
@@ -19,13 +52,7 @@ const Messenger = ({ chatData, loadingChatData }) => {
           <SearchInput styleType="large" />
         </div>
       </div>
-      <div className={classes.messenger_chats}>
-        {loadingChatData ? (
-          <Spinner />
-        ) : (
-          chatData.map((chat) => <ChatItem key={chat.id} chat={chat} />)
-        )}
-      </div>
+      <div className={classes.messenger_chats}>{content}</div>
     </div>
   );
 };

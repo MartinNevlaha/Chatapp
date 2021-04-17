@@ -10,6 +10,12 @@
   border-bottom: 1px solid gray;
   @include shadow-down;
   
+  h2 {
+    font-size: get-font-size(small);
+    font-style: italic;
+    font-weight: bold;
+    padding: .5rem;
+  }
 
   &_friendsHeader {
     width: 100%;
@@ -34,13 +40,6 @@
     margin: .3rem;
     width: 100%;
     text-align: left;
-
-    h2 {
-      font-size: get-font-size(small);
-      font-style: italic;
-      font-weight: bold;
-      padding: .5rem;
-    }
 
     &_content {
       font-size: get-font-size(small);
