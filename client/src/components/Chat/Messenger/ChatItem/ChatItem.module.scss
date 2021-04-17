@@ -8,12 +8,14 @@
   margin: .5rem;
   @include flexbox(center, center, column);
   border-bottom: 1px solid gray;
+  @include shadow-down;
   
 
   &_friendsHeader {
     width: 100%;
     @include flexbox(flex-start, center, row);
     flex-wrap: wrap;
+    border-bottom: 1px solid lighten(gray, 25%);
 
     &_user {
       @include flexbox("center", "center", row);
@@ -28,5 +30,42 @@
     }
   }
 
-  
+  &_lastMessage {
+    margin: .3rem;
+    width: 100%;
+    text-align: left;
+
+    h2 {
+      font-size: get-font-size(small);
+      font-style: italic;
+      font-weight: bold;
+      padding: .5rem;
+    }
+
+    &_content {
+      font-size: get-font-size(small);
+      font-style: italic;
+      p {
+        padding: .5rem;
+      }
+    }
+    &:hover,
+    &:active {
+      @include hover-effect;  
+    }
+  }
+
+  &_delete {
+    width: 100%;
+    text-align: right;
+
+    &_icon {
+      cursor: pointer;
+      margin: 1rem .5rem 0 0;
+
+      &:hover, &:active {
+        color: get-color(secondary);
+      }
+    }
+  }
 }

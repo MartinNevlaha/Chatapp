@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import ReactTooltip from "react-tooltip";
 
 import classes from "./ChatItem.module.scss";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 import { parseDateTime } from "../../../../utils/utilities";
-import Button from ".././../../UI/Button/Button";
 
 const ChatItem = ({ chat }) => {
   ChatItem.propTypes = {
@@ -23,6 +25,7 @@ const ChatItem = ({ chat }) => {
       Messages: PropTypes.array,
     }),
   };
+
   return (
     <div className={classes.chatItem}>
       <div className={classes.chatItem_friendsHeader}>
@@ -33,19 +36,35 @@ const ChatItem = ({ chat }) => {
           </div>
         ))}
       </div>
-      <div className={classes.chatItem_lastMessage}>
+      <div
+        className={classes.chatItem_lastMessage}
+        data-tip
+        data-for="lastMessage"
+      >
         <h2>Last message</h2>
         {chat.Messages.length === 0 ? (
           <p>No message content</p>
         ) : (
-          <div>
+          <div className={classes.chatItem_lastMessage_content}>
             <p>{chat.Messages[0].message}</p>
             <p>Send: {parseDateTime(chat.Messages[0].createdAt)}</p>
           </div>
         )}
       </div>
-      <div className={classes.chatItem_btns}>
-          <Button danger>Delete chat</Button>
+      <ReactTooltip id="lastMessage" place="top" effect="solid" border={true}>
+        Click to open chat
+      </ReactTooltip>
+      <div className={classes.chatItem_delete}>
+        <FontAwesomeIcon
+          icon={faTrashAlt}
+          size="1x"
+          className={classes.chatItem_delete_icon}
+          data-tip
+          data-for="deleteChat"
+        />
+        <ReactTooltip id="deleteChat" place="top" effect="solid" border={true}>
+          Click to delete chat
+        </ReactTooltip>
       </div>
     </div>
   );
