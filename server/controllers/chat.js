@@ -31,7 +31,7 @@ exports.getUserChatData = async (req, res, next) => {
             },
             {
               model: Message,
-              limit: 20,
+              limit: 1,
               order: [["id", "DESC"]],
             },
           ],
