@@ -3,8 +3,9 @@ import { updateObj } from "../../utils/utilities";
 
 const initialState = {
   chatData: [],
-  currentChats: [],
+  currentChats: {},
   loadingChatData: false,
+  loadingMessages: false,
 };
 
 const fetchChatDataStart = (state, action) => {
@@ -24,6 +25,24 @@ const fetchChatDataFailed = (state, action) => {
   });
 };
 
+const fetchMessagesStart = (state, action) => {
+  return updateObj(state, {
+    loadingMessages: true,
+  });
+};
+
+const fetchMessagesSuccess = (state, action) => {
+  console.log(action.messagesData);
+  return updateObj(state, {
+    loadingMessages: false,
+    currentChats: action.messagesData,
+  });
+};
+
+const fetchMessagesFailed = (state, action) => {
+  return updateObj(state, { loadingMessages: false });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_CHAT_DATA_START:
@@ -32,6 +51,12 @@ const reducer = (state = initialState, action) => {
       return fetchChatDataSuccess(state, action);
     case actionTypes.FETCH_CHAT_DATA_FAILED:
       return fetchChatDataFailed(state, action);
+    case actionTypes.FETCH_MESSAGES_START:
+      return fetchMessagesStart(state, action);
+    case actionTypes.FETCH_MESSAGES_SUCCESS:
+      return fetchMessagesSuccess(state, action);
+    case actionTypes.FETCH_MESSAGES_FAILED:
+      return fetchMessagesFailed(state, action);
     default:
       return state;
   }

@@ -14,10 +14,10 @@ const SocketServer = (server) => {
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     },
   });
+  // auth socket connection by token when its failed user unble connect to chat
   io.use((socket, next) => isAuthSocket(socket, next, config.jwtSecret));
 
   io.on("connection", (socket) => {
-    console.log("preslo to sem", socket.auth);
     let onlineUsers = [];
     socket.on("join", (user) => {
       if (users.has(user.id)) {

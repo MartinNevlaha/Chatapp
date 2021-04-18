@@ -159,7 +159,7 @@ exports.getMessages = async (req, res, next) => {
   try {
     const messages = await Message.findAndCountAll({
       where: {
-        chatId: req.query.id,
+        chatId: req.query.chatId,
       },
       limit: limit,
       offset: offset,

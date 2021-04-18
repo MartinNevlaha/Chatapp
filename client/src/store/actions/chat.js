@@ -31,10 +31,44 @@ export const fetchChatData = () => {
 
         data.forEach((chat) => {
           chat.Users.forEach((user) => (user.status = "offline"));
-          chat.Messages.reverse()
+          chat.Messages.reverse();
         });
         dispatch(fetchChatDataSuccess(data));
       })
       .catch((err) => dispatch(errorCreator(err.response)));
+  };
+};
+
+export const fetchMessagesStart = () => {
+  return {
+    type: actionTypes.FETCH_MESSAGES_START,
+  };
+};
+
+export const fetchMessagesSuccess = (messagesData) => {
+  return {
+    type: actionTypes.FETCH_MESSAGES_SUCCESS,
+    messagesData,
+  };
+};
+
+export const fetchMessagesFailed = () => {
+  return {
+    type: actionTypes.FETCH_MESSAGES_FAILED,
+  };
+};
+
+export const fetchMessages = (chatId, userId, page) => {
+  return (dispatch) => {
+    dispatch(fetchMessagesStart());
+    axios.get(
+      `/api/chat/messages?chatId=${chatId}&userId=${userId}&page=${page}`
+    ).then(res => {
+      const messagesData = {
+        messages: res.data.messages,
+        count: res.data.count
+      }
+      dispatch(fetchMessagesSuccess(messagesData));
+    }).catch(err => dispatch(errorCreator(err.message)))
   };
 };

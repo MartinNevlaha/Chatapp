@@ -5,15 +5,15 @@ import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 
 import classes from "./Messages.module.scss";
+import * as action from "../../../../store/actions";
 
 const Messages = ({ chatId, onCloseChat, fromUserId }) => {
   const dispatch = useDispatch();
 
   useEffect(()=> {
-    // dorob fetchovanie sprav
+    dispatch(action.fetchMessages(chatId, fromUserId, 0));
 
     return () => {
-
     }
   }, [dispatch])
 

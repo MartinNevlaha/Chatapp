@@ -14,7 +14,7 @@ router.get("/", isAuth, getUserChatData);
 
 router.post("/create", [isAuth, isFriend], createChat);
 
-router.get("/messages", isAuth, getMessages);
+router.get("/messages", [isAuth, isFriend], getMessages);
 
 router.delete("/delete/:id", isAuth, deleteChat);
 

@@ -11,6 +11,8 @@ const isFriend = async (req, res, next) => {
     friendId = +req.body.friendId;
   } else if (req.params.userId) {
     friendId = +req.params.userId;
+  } else if (req.query.userId) {
+    friendId = +req.query.userId
   }
   try {
     if (+req.user.id !== friendId) {
