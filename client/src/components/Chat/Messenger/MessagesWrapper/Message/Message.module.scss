@@ -1,0 +1,42 @@
+@import "../../../../../style/imports.scss";
+
+.message {
+  width: 100%;
+  padding: .5rem;
+  margin: .5rem;
+  @include flexbox(flex-start, center, row);
+
+  &_avatar {
+    width: 10%;
+
+    &_image {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 3px solid get-color(primary);
+      @include flexbox(center, center, column);
+
+      img {
+        @include avatar;
+      }
+    }
+
+    &_icon {
+      @extend .message_avatar_image;
+      background-color: get-color(gray_profile);
+    }
+  }
+
+  &_container {
+    width: 70%;
+
+    &_content {
+      @include flexbox(center, flex-start, column);
+      background-color: get-color(gray_profile);
+      padding: .5rem;
+      border-radius: 10px;
+      @include shadow;
+    }
+  }
+
+}

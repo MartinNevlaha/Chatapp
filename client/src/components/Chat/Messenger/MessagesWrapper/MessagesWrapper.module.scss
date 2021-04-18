@@ -1,6 +1,6 @@
 @import "../../../../style/imports.scss";
 
-.messages {
+.MessagesWrapper {
   width: 100%;
   height: 100%;
 
@@ -9,8 +9,8 @@
     width: 100%;
     min-height: 3.125rem;
     height: 10%;
-    background-color: blue;
-
+    border-bottom: 1px solid gray;
+    @include shadow-down;
     &_icon {
       cursor: pointer;
     }
