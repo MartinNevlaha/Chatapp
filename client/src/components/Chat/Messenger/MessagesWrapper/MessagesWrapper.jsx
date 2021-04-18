@@ -4,8 +4,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-
-import classes from "./Messages.module.scss";
+import classes from "./MessagesWrapper.module.scss";
 import Spinner from "../../../UI/Spinner/Spinner";
 import * as action from "../../../../store/actions";
 

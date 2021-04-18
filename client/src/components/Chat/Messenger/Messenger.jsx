@@ -5,7 +5,7 @@ import classes from "./Messenger.module.scss";
 import SearchInput from "../../Inputs/SearchInputs/SearchInputs";
 import Spinner from "../../UI/Spinner/Spinner";
 import ChatItem from "./ChatItem/ChatItem";
-import Messages from "./Messages/Messages";
+import MessagesWrapper from "./MessagesWrapper/MessagesWrapper";
 
 const Messenger = ({ chatData, loadingChatData }) => {
   const [openedChatId, setOpenedChatId] = useState(null);
@@ -31,7 +31,7 @@ const Messenger = ({ chatData, loadingChatData }) => {
     content = <Spinner />;
   } else if (openedChatId) {
     content = (
-      <Messages
+      <MessagesWrapper
         chatId={openedChatId}
         onCloseChat={handleCloseChat}
         fromUserId={messageFromUserId(chatData)}

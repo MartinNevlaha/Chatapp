@@ -161,6 +161,12 @@ exports.getMessages = async (req, res, next) => {
       where: {
         chatId: req.query.chatId,
       },
+      include: {
+        model: User,
+        attributes: {
+          exclude: ["password", "activationToken", "activated", "email"],
+        },
+      },
       limit: limit,
       offset: offset,
       order: [["id", "DESC"]],
