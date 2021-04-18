@@ -10,7 +10,7 @@ import Spinner from "../../../UI/Spinner/Spinner";
 import * as action from "../../../../store/actions";
 import Message from "./Message/Message";
 
-const MessagesWrapper = ({ chatId, onCloseChat, fromUserId }) => {
+const MessagesWrapper = ({ chatId, onCloseChat, fromUserId, userId }) => {
   const dispatch = useDispatch();
   const messages = useSelector(
     (state) => state.chat.currentChats.messages || []
@@ -28,6 +28,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUserId }) => {
     chatId: PropTypes.number,
     onCloseChat: PropTypes.func,
     fromUserId: PropTypes.number.isRequired,
+    userId: PropTypes.number,
   };
   return (
     <div className={classes.MessagesWrapper}>
@@ -44,7 +45,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUserId }) => {
           <Spinner />
         ) : (
           messages.map((message) => (
-            <Message key={message.id} message={message} />
+            <Message key={message.id} message={message} userId={userId} />
           ))
         )}
       </div>

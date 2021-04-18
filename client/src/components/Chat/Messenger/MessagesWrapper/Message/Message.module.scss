@@ -4,10 +4,12 @@
   width: 100%;
   padding: .5rem;
   margin: .5rem;
-  @include flexbox(flex-start, center, row);
+  @include flexbox(flex-start, flex-start, row);
 
   &_avatar {
-    width: 10%;
+    min-width: 50px;
+    width: 5%;
+    @include flexbox(center, center, row);
 
     &_image {
       width: 42px;
@@ -28,15 +30,41 @@
   }
 
   &_container {
-    width: 70%;
+    width: 60%;
 
     &_content {
-      @include flexbox(center, flex-start, column);
-      background-color: get-color(gray_profile);
-      padding: .5rem;
+      h2 {
+        font-size: get-font-size(small);
+        font-style: italic;
+        padding: .3rem
+      }
+      @include flexbox(flex-start, flex-start, column);
+      background-color: lighten(get-color(gray_profile), 20%);
+      padding: 1rem;
+      margin: .2rem;
       border-radius: 10px;
       @include shadow;
+      font-size: get-font-size(small);
+      p {
+        text-align: left;
+      }
+    }
+    &_created {
+      font-size: get-font-size(small);
+      font-style: italic;
+      padding: .3rem;
+      p {
+        text-align: right;
+      }
     }
   }
+}
 
+.rightAlign {
+  justify-content: flex-end;
+}
+
+.rightAlignColors {
+  background-color: get-color(primary);
+  color: white;
 }
