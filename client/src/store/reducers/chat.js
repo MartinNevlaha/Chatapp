@@ -32,7 +32,6 @@ const fetchMessagesStart = (state, action) => {
 };
 
 const fetchMessagesSuccess = (state, action) => {
-  console.log(action.messagesData);
   return updateObj(state, {
     loadingMessages: false,
     currentChats: action.messagesData,
