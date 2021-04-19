@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
+import updateArray from "react-addons-update";
 
 const initialState = {
   chatData: [],
@@ -48,6 +49,26 @@ const cleanUpMessages = (state, action) => {
   return updateObj(state, { currentChats: [] });
 };
 
+const onlineChatFriends = (state, action) => {
+  const chatDataCopy = [...state.chatData];
+  action.friends.forEach((friend) => {
+    const index = chatDataCopy.findIndex((chat) => chat.Users[0].id === friend);
+    if (index !== -1) {
+      chatDataCopy[index].Users[0].status = "online";
+    }
+  });
+  return updateObj(state, { chatData: chatDataCopy });
+};
+
+const offlineChatFriend = (state, action) => {
+  const chatDataCopy = [...state.chatData];
+  const index = state.chatData.findIndex(
+    (chat) => chat.Users[0].id === action.friend
+  );
+  chatDataCopy[index].Users[0].status = "offline";
+  return updateObj(state, { chatData: chatDataCopy });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_CHAT_DATA_START:
@@ -64,6 +85,10 @@ const reducer = (state = initialState, action) => {
       return fetchMessagesFailed(state, action);
     case actionTypes.CLEAN_UP_MESSAGES:
       return cleanUpMessages(state, action);
+    case actionTypes.FRIEND_ONLINE:
+      return onlineChatFriends(state, action);
+    case actionTypes.FRIEND_OFFLINE:
+      return offlineChatFriend(state, action);
     default:
       return state;
   }
