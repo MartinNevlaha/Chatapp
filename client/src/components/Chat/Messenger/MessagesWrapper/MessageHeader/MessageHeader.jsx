@@ -9,8 +9,9 @@ import {
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
 
+import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
-
+// dorob status bodku na avatare
 const MessageHeader = ({ user, onCloseChat }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
@@ -54,7 +55,7 @@ const MessageHeader = ({ user, onCloseChat }) => {
           icon={faVolumeMute}
           className={classes.messageHeader_user_video}
           data-tip
-          data-for="mute"
+          data-for="video"
         />
         <ReactTooltip id="mute" place="top" effect="solid" border={true}>
           Mute chat sounds

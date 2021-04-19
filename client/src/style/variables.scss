@@ -7,7 +7,8 @@ $colors: (
   danger: red,
   success: green,
   transparent_gray: rgba(0, 0, 0, 0.5),
-  gray_profile: lighten(gray, 20%)
+  gray_profile: lighten(gray, 20%),
+  online: rgb(83, 231, 83),
 );
 
 @function get-color($color-name) {
