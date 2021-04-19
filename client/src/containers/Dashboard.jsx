@@ -9,6 +9,8 @@ import { likeStatus } from "../constants/likeStatus";
 const Dasboard = () => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
+  const totalPosts = useSelector(state => state.posts.count);
   const friendsPost = useSelector((state) => state.posts.posts || []);
   const userProfile = useSelector((state) => state.userProfile.user);
   const userId = useSelector((state) => state.userAuth.user.userId);
@@ -30,6 +32,10 @@ const Dasboard = () => {
 
   const handlerLoadAnothnerPosts = () => {
     setPage(page + 1);
+    if (friendsPost.length >= totalPosts) {
+      setHasMorePosts(false);
+      return;
+    }
     dispatch(action.fetchFriendsPost(page + 1, LIMIT));
   };
 
@@ -80,6 +86,7 @@ const Dasboard = () => {
         deleteImage={handleDeletePostImage}
         updatePost={handleUpdatePost}
         placeOfUsage="dashboard"
+        hasMorePosts={hasMorePosts}
       />
     </div>
   );

@@ -10,12 +10,11 @@ import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 
 const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
-  const LIMIT = 4;
+  const LIMIT = 15;
   const [page, setPage] = useState(0);
   const [hasMoreMessages, sethasMoreMessages] = useState(true);
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.chat.currentChats);
-  const loadingMessages = useSelector((state) => state.chat.loadingMessages);
   const totalMesages = useSelector((state) => state.chat.countMessages);
   useEffect(() => {
     dispatch(action.fetchMessages(chatId, fromUser.id, 0, LIMIT));
@@ -49,7 +48,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
           dataLength={messages.length}
           next={handleLoadAnotherMessages}
           hasMore={hasMoreMessages}
-          height={530}
+          height={535}
           loader={<Spinner />}
         >
           {messages.map((message) => (

@@ -22,6 +22,7 @@ const Posts = ({
   deleteImage,
   updatePost,
   placeOfUsage,
+  hasMorePosts
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showLike, setShowLike] = useState({
@@ -58,6 +59,7 @@ const Posts = ({
     deleteImage: PropTypes.func,
     updatePost: PropTypes.func,
     placeOfUsage: PropTypes.oneOf(["userPageInfo", "dashboard"]),
+    hasMorePosts: PropTypes.bool
   };
 
   return (
@@ -76,7 +78,7 @@ const Posts = ({
           <InfiniteScroll
             dataLength={posts.length}
             next={loadAnothnerPosts}
-            hasMore={true}
+            hasMore={hasMorePosts}
           >
             {loadingCreatePost && <Spinner />}
             {posts.map((post) => (
