@@ -9,8 +9,9 @@ import classes from "./MessagesWrapper.module.scss";
 import Spinner from "../../../UI/Spinner/Spinner";
 import * as action from "../../../../store/actions";
 import Message from "./Message/Message";
+import MessageHeader from "./MessageHeader/MessageHeader";
 
-const MessagesWrapper = ({ chatId, onCloseChat, fromUserId, userId }) => {
+const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
   const dispatch = useDispatch();
   const messages = useSelector(
     (state) => state.chat.currentChats.messages || []
@@ -19,27 +20,21 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUserId, userId }) => {
   const loadingMessages = useSelector((state) => state.chat.loadingMessages);
 
   useEffect(() => {
-    dispatch(action.fetchMessages(chatId, fromUserId, 0));
+    dispatch(action.fetchMessages(chatId, fromUser.id, 0));
 
     return () => {};
   }, [dispatch]);
 
+
   MessagesWrapper.propTypes = {
     chatId: PropTypes.number,
     onCloseChat: PropTypes.func,
-    fromUserId: PropTypes.number.isRequired,
+    fromUserId: PropTypes.object,
     userId: PropTypes.number,
   };
   return (
     <div className={classes.MessagesWrapper}>
-      <div className={classes.MessagesWrapper_back}>
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          onClick={onCloseChat}
-          className={classes.MessagesWrapper_back_icon}
-        />
-        <p>Back</p>
-      </div>
+      <MessageHeader onCloseChat={onCloseChat} user={fromUser} />
       <div className={classes.MessagesWrapper_container}>
         {loadingMessages ? (
           <Spinner />

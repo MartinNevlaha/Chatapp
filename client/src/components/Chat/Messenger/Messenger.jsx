@@ -18,9 +18,9 @@ const Messenger = ({ chatData, loadingChatData, userId }) => {
     setOpenedChatId(null);
   };
 
-  const messageFromUserId = (chatData) => {
+  const messageFromUser = (chatData) => {
     const currentChat = chatData.filter((chat) => chat.id === openedChatId);
-    return currentChat[0].Users[0].id;
+    return currentChat[0].Users[0]
   };
 
   let content = chatData.map((chat) => (
@@ -34,7 +34,7 @@ const Messenger = ({ chatData, loadingChatData, userId }) => {
       <MessagesWrapper
         chatId={openedChatId}
         onCloseChat={handleCloseChat}
-        fromUserId={messageFromUserId(chatData)}
+        fromUser={messageFromUser(chatData)}
         userId={userId}
       />
     );

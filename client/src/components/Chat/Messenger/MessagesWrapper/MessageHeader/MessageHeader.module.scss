@@ -1,0 +1,55 @@
+@import "../../../../../style/imports.scss";
+
+.messageHeader {
+  @include flexbox(space-between, center, row);
+  width: 100%;
+  min-height: 3.125rem;
+  height: 10%;
+  background-color: lighten(get-color(gray_profile), 20%);
+  @include shadow-down;
+
+  &_backBtn {
+    cursor: pointer;
+    margin: 2rem;
+    @include flexbox(center, center, row);
+    p {
+      margin-left: .5rem;
+    }
+  }
+
+  &_user {
+      @include flexbox(center, center, row);
+      margin: 0 2rem;
+  
+      &_image {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 3px solid get-color(primary);
+        @include flexbox(center, center, column);
+        overflow: hidden;
+  
+        img {
+          @include avatar;
+        }
+      }
+  
+      &_icon {
+        @extend .messageHeader_user_image;
+        background-color: get-color(gray_profile);
+            }
+      p {
+        padding: .3rem;
+        margin: .5rem;
+      }
+      &_video {
+        cursor: pointer;
+        color: get-color(primary);
+        margin: 0 .5rem;
+
+        &:hover, &:active {
+          color: get-color(secondary);
+        }
+      }
+    }
+}
