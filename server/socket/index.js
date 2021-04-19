@@ -2,10 +2,10 @@ const logger = require("../config/winston");
 const timestamp = require("time-stamp");
 const config = require("../config/app");
 
-const isAuthSocket = require("./middleware/isAuthSocket");
+const IoSocket = require("./middleware/IoSocket");
+const Users = require("./users/users");
 
-const users = new Map();
-const sockets = new Map();
+let users = new Users()
 
 const SocketServer = (server) => {
   const io = require("socket.io")(server, {
@@ -14,29 +14,27 @@ const SocketServer = (server) => {
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     },
   });
+  const IoSocketInstance = new IoSocket(io, config.jwtSecret);
   // auth socket connection by token when its failed user unble connect to chat
-  io.use((socket, next) => isAuthSocket(socket, next, config.jwtSecret));
+  IoSocketInstance.authenticate();
 
   io.on("connection", (socket) => {
-    let onlineUsers = [];
     socket.on("join", (user) => {
-      if (users.has(user.id)) {
+      let onlineUsers = [];
+
+      if (users.getUser(user.id)) {
         return;
       } else {
-        users.set(user.id, { id: user.id, sockets: [socket.id] });
-      }
-      if (sockets.has(socket.id)) {
-        return;
-      } else {
-        sockets.set(socket.id, { id: socket.id, user: user.id });
+        users.addUser(user.id, socket.id);
       }
 
-      onlineUsers = Array.from(users).map(([name, value]) => name);
+      onlineUsers = users.getOnlineUsers();
 
       //send array of online users to every active socket
+      const sockets = users.getOnlineSockets();
       sockets.forEach((socket) => {
         try {
-          io.to(socket.id).emit("onlineUsers", onlineUsers);
+          io.to(socket).emit("onlineUsers", onlineUsers);
         } catch (error) {
           logger.error({
             time: timestamp("YYYY/MM/DD/HH:mm:ss"),
@@ -48,16 +46,14 @@ const SocketServer = (server) => {
     });
 
     socket.on("disconnect", () => {
-      const user = sockets.get(socket.id).user;
-      sockets.delete(socket.id);
-      users.delete(user);
-      onlineUsers = onlineUsers.filter((userId) => userId !== user);
-      console.log(onlineUsers);
+      const user = users.removeUser(null, socket.id);
+      const sockets = users.getOnlineSockets();
       //send user id when user is going to offline to every active socket
       sockets.forEach((socket) => {
         try {
-          io.to(socket.id).emit("offline", user);
+          io.to(socket).emit("offline", user.userId);
         } catch (error) {
+          console.log(error);
           logger.error({
             time: timestamp("YYYY/MM/DD/HH:mm:ss"),
             level: "error",
