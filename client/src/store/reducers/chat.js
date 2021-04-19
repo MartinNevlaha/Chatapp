@@ -3,7 +3,8 @@ import { updateObj } from "../../utils/utilities";
 
 const initialState = {
   chatData: [],
-  currentChats: {},
+  currentChats: [],
+  countMessages: null,
   loadingChatData: false,
   loadingMessages: false,
 };
@@ -34,12 +35,17 @@ const fetchMessagesStart = (state, action) => {
 const fetchMessagesSuccess = (state, action) => {
   return updateObj(state, {
     loadingMessages: false,
-    currentChats: action.messagesData,
+    countMessages: action.count,
+    currentChats: [...state.currentChats, ...action.messages],
   });
 };
 
 const fetchMessagesFailed = (state, action) => {
   return updateObj(state, { loadingMessages: false });
+};
+
+const cleanUpMessages = (state, action) => {
+  return updateObj(state, { currentChats: [] });
 };
 
 const reducer = (state = initialState, action) => {
@@ -56,6 +62,8 @@ const reducer = (state = initialState, action) => {
       return fetchMessagesSuccess(state, action);
     case actionTypes.FETCH_MESSAGES_FAILED:
       return fetchMessagesFailed(state, action);
+    case actionTypes.CLEAN_UP_MESSAGES:
+      return cleanUpMessages(state, action);
     default:
       return state;
   }

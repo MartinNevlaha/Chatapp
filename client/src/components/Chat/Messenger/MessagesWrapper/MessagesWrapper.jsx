@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -12,19 +10,30 @@ import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 
 const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
+  const LIMIT = 4;
+  const [page, setPage] = useState(0);
+  const [hasMoreMessages, sethasMoreMessages] = useState(true);
   const dispatch = useDispatch();
-  const messages = useSelector(
-    (state) => state.chat.currentChats.messages || []
-  );
-  const count = useSelector((state) => state.chat.currentChats.count);
+  const messages = useSelector((state) => state.chat.currentChats);
   const loadingMessages = useSelector((state) => state.chat.loadingMessages);
-
+  const totalMesages = useSelector((state) => state.chat.countMessages);
   useEffect(() => {
-    dispatch(action.fetchMessages(chatId, fromUser.id, 0));
+    dispatch(action.fetchMessages(chatId, fromUser.id, 0, LIMIT));
 
-    return () => {};
+    return () => {
+      dispatch(action.cleanUpMessages());
+    };
   }, [dispatch]);
 
+  const handleLoadAnotherMessages = () => {
+    setPage(page + 1);
+    if (messages.length >= totalMesages) {
+      console.log("uz nenacivam");
+      sethasMoreMessages(false);
+      return;
+    }
+    dispatch(action.fetchMessages(chatId, fromUser.id, page + 1, LIMIT));
+  };
 
   MessagesWrapper.propTypes = {
     chatId: PropTypes.number,
@@ -36,13 +45,17 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
     <div className={classes.MessagesWrapper}>
       <MessageHeader onCloseChat={onCloseChat} user={fromUser} />
       <div className={classes.MessagesWrapper_container}>
-        {loadingMessages ? (
-          <Spinner />
-        ) : (
-          messages.map((message) => (
+        <InfiniteScroll
+          dataLength={messages.length}
+          next={handleLoadAnotherMessages}
+          hasMore={hasMoreMessages}
+          height={530}
+          loader={<Spinner />}
+        >
+          {messages.map((message) => (
             <Message key={message.id} message={message} userId={userId} />
-          ))
-        )}
+          ))}
+        </InfiniteScroll>
       </div>
       <div className={classes.MessagesWrapper_input}>...input</div>
     </div>

@@ -152,7 +152,7 @@ exports.createChat = async (req, res, next) => {
 };
 
 exports.getMessages = async (req, res, next) => {
-  const limit = 10;
+  const limit = req.query.limit;
   const page = req.query.page || 0;
   const offset = page * limit;
 

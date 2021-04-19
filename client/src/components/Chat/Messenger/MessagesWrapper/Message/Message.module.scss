@@ -1,7 +1,7 @@
 @import "../../../../../style/imports.scss";
 
 .message {
-  width: 100%;
+  width: 90%;
   padding: .5rem;
   margin: .5rem;
   @include flexbox(flex-start, flex-start, row);
