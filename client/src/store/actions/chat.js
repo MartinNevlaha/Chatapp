@@ -47,7 +47,6 @@ export const fetchMessagesSuccess = (messages, count) => {
   };
 };
 
-
 export const fetchMessages = (chatId, userId, page, limit) => {
   return (dispatch) => {
     axios
@@ -75,3 +74,17 @@ export const setSocket = (socket) => {
     socket,
   };
 };
+
+export const sendMessage = (message) => {
+  return {
+    type: actionTypes.SEND_MESSAGE,
+    message,
+  };
+};
+
+export const receiveMessage = (message) => {
+  return {
+    type: actionTypes.RECEIVE_MESSAGE,
+    message
+  }
+}

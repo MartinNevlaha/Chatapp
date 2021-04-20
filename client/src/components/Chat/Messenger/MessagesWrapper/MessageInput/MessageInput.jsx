@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmileWink, faImage } from "@fortawesome/free-solid-svg-icons";
 import { Picker } from "emoji-mart";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import * as action from "../../../../../store/actions";
 import classes from "./MessageInput.module.scss";
 import "emoji-mart/css/emoji-mart.css";
 
 const MessageInput = ({ user, toUserId, chatId }) => {
+  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const socket = useSelector(state => state.chat.socket);
@@ -38,6 +40,14 @@ const MessageInput = ({ user, toUserId, chatId }) => {
 
     // send message
     socket.emit("sendMessage", msg);
+    const messageToRedux = {
+      type: msg.type,
+      User: msg.fromUser,
+      chatId: msg.chatId,
+      fromUserId: msg.fromUser.id,
+      message: message
+    }
+    dispatch(action.sendMessage(messageToRedux));
   };
 
   MessageInput.propTypes = {

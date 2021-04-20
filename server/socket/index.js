@@ -1,6 +1,7 @@
 const config = require("../config/app");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
+const moment = require("moment");
 
 const { createMessage } = require("./dbQueries");
 const IoSocket = require("./middleware/IoSocket");
@@ -57,6 +58,8 @@ const SocketServer = (server) => {
         if (recipient) {
           msg.User = msg.fromUser;
           msg.fromUserId = msg.fromUser.id;
+          msg.createdAt = moment();
+          msg.updatedAt = moment();
           io.to(recipient.socketId).emit("receiveMessage", msg);
         }
       } catch (error) {
@@ -69,6 +72,7 @@ const SocketServer = (server) => {
     });
 
     socket.on("disconnect", () => {
+      console.log(socket.id);
       const user = users.removeUser(null, socket.id);
       //send user id when user is going to offline to every active socket
       io.emit("offline", user.userId);

@@ -42,4 +42,6 @@ export {
   fetchMessages,
   cleanUpMessages,
   setSocket,
+  sendMessage,
+  receiveMessage
 } from "./chat";

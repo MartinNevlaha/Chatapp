@@ -63,6 +63,10 @@ const setSocket = (state, action) => {
   return updateObj(state, { socket: action.socket });
 };
 
+const sendMessage = (state, action) => {
+  
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_CHAT_DATA_START:
