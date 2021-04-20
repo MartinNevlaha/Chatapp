@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import classes from "./Message.module.scss";
 import { parseDateTime } from "../../../../../utils/utilities";
+import LazyImage from "../../../../UI/LazyImage/LazyImage";
 
 const Message = ({ message, userId }) => {
   Message.propTypes = {
@@ -43,8 +44,14 @@ const Message = ({ message, userId }) => {
               : classes.message_container_content
           }
         >
-          <h2>{`${message.User.firstName}s wrote:`}</h2>
-          <p>{message.message}</p>
+          {message.type === "text" ? (
+            <React.Fragment>
+              <h2>{`${message.User.firstName}s wrote:`}</h2>
+              <p>{message.message}</p>
+            </React.Fragment>
+          ) : (
+            <LazyImage image={{ src: message.image, alt: "messageImage" }} />
+          )}
         </div>
         <div className={classes.message_container_created}>
           <p>{parseDateTime(message.createdAt)}</p>
