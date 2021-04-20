@@ -62,7 +62,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
         </InfiniteScroll>
       </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput userId={userId} toUserId={fromUser.id} chatId={chatId} />
+        <MessageInput userId={userId} toUser={fromUser} chatId={chatId} />
       </div>
     </div>
   );
