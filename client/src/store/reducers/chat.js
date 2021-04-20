@@ -7,7 +7,7 @@ const initialState = {
   currentChats: [],
   countMessages: null,
   loadingChatData: false,
-  loadingMessages: false,
+  socket: null,
 };
 
 const fetchChatDataStart = (state, action) => {
@@ -27,22 +27,12 @@ const fetchChatDataFailed = (state, action) => {
   });
 };
 
-const fetchMessagesStart = (state, action) => {
-  return updateObj(state, {
-    loadingMessages: true,
-  });
-};
 
 const fetchMessagesSuccess = (state, action) => {
   return updateObj(state, {
-    loadingMessages: false,
     countMessages: action.count,
     currentChats: [...state.currentChats, ...action.messages],
   });
-};
-
-const fetchMessagesFailed = (state, action) => {
-  return updateObj(state, { loadingMessages: false });
 };
 
 const cleanUpMessages = (state, action) => {
@@ -69,6 +59,10 @@ const offlineChatFriend = (state, action) => {
   return updateObj(state, { chatData: chatDataCopy });
 };
 
+const setSocket = (state, action) => {
+  return updateObj(state, { socket: action.socket });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_CHAT_DATA_START:
@@ -77,18 +71,16 @@ const reducer = (state = initialState, action) => {
       return fetchChatDataSuccess(state, action);
     case actionTypes.FETCH_CHAT_DATA_FAILED:
       return fetchChatDataFailed(state, action);
-    case actionTypes.FETCH_MESSAGES_START:
-      return fetchMessagesStart(state, action);
     case actionTypes.FETCH_MESSAGES_SUCCESS:
       return fetchMessagesSuccess(state, action);
-    case actionTypes.FETCH_MESSAGES_FAILED:
-      return fetchMessagesFailed(state, action);
     case actionTypes.CLEAN_UP_MESSAGES:
       return cleanUpMessages(state, action);
     case actionTypes.FRIEND_ONLINE:
       return onlineChatFriends(state, action);
     case actionTypes.FRIEND_OFFLINE:
       return offlineChatFriend(state, action);
+    case actionTypes.SET_SOCKET:
+      return setSocket(state, action);
     default:
       return state;
   }

@@ -37,4 +37,9 @@ export {
   likeUserPost,
 } from "./userInfo";
 
-export { fetchChatData, fetchMessages, cleanUpMessages } from "./chat";
+export {
+  fetchChatData,
+  fetchMessages,
+  cleanUpMessages,
+  setSocket,
+} from "./chat";

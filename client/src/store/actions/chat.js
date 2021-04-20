@@ -39,12 +39,6 @@ export const fetchChatData = () => {
   };
 };
 
-export const fetchMessagesStart = () => {
-  return {
-    type: actionTypes.FETCH_MESSAGES_START,
-  };
-};
-
 export const fetchMessagesSuccess = (messages, count) => {
   return {
     type: actionTypes.FETCH_MESSAGES_SUCCESS,
@@ -53,15 +47,9 @@ export const fetchMessagesSuccess = (messages, count) => {
   };
 };
 
-export const fetchMessagesFailed = () => {
-  return {
-    type: actionTypes.FETCH_MESSAGES_FAILED,
-  };
-};
 
 export const fetchMessages = (chatId, userId, page, limit) => {
   return (dispatch) => {
-    dispatch(fetchMessagesStart());
     axios
       .get(
         `/api/chat/messages?chatId=${chatId}&userId=${userId}&page=${page}&limit=${limit}`
@@ -70,7 +58,6 @@ export const fetchMessages = (chatId, userId, page, limit) => {
         dispatch(fetchMessagesSuccess(res.data.messages, res.data.count));
       })
       .catch((err) => {
-        console.log(err);
         dispatch(errorCreator(err.message));
       });
   };
@@ -79,5 +66,12 @@ export const fetchMessages = (chatId, userId, page, limit) => {
 export const cleanUpMessages = () => {
   return {
     type: actionTypes.CLEAN_UP_MESSAGES,
+  };
+};
+
+export const setSocket = (socket) => {
+  return {
+    type: actionTypes.SET_SOCKET,
+    socket,
   };
 };

@@ -11,6 +11,8 @@ const useSocket = (user, dispatch) => {
       },
     });
 
+    dispatch(action.setSocket(socket));
+
     socket.emit("join", user);
 
     socket.on("onlineUsers", (onlineUsers) =>
