@@ -27,7 +27,6 @@ const fetchChatDataFailed = (state, action) => {
   });
 };
 
-
 const fetchMessagesSuccess = (state, action) => {
   return updateObj(state, {
     countMessages: action.count,
@@ -64,8 +63,16 @@ const setSocket = (state, action) => {
 };
 
 const sendMessage = (state, action) => {
-  
-}
+  return updateObj(state, {
+    currentChats: [action.message, ...state.currentChats],
+  });
+};
+
+const receiveMessage = (state, action) => {
+  return updateObj(state, {
+    currentChats: [action.message, ...state.currentChats],
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -85,6 +92,10 @@ const reducer = (state = initialState, action) => {
       return offlineChatFriend(state, action);
     case actionTypes.SET_SOCKET:
       return setSocket(state, action);
+    case actionTypes.SEND_MESSAGE:
+      return sendMessage(state, action);
+    case actionTypes.RECEIVE_MESSAGE:
+      return receiveMessage(state, action);
     default:
       return state;
   }

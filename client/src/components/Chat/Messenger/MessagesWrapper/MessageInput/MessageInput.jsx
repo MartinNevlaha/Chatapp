@@ -9,7 +9,7 @@ import * as action from "../../../../../store/actions";
 import classes from "./MessageInput.module.scss";
 import "emoji-mart/css/emoji-mart.css";
 
-const MessageInput = ({ user, toUserId, chatId }) => {
+const MessageInput = ({ user, toUserId, chatId, }) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
@@ -20,7 +20,6 @@ const MessageInput = ({ user, toUserId, chatId }) => {
 
     // notify typing
   };
-
   const handleKeyDown = (e, imageUpload) => {
     if (e.key === "Enter") sendMessage(imageUpload);
   };
@@ -37,15 +36,15 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     };
     setMessage("");
     setImage("");
-
     // send message
     socket.emit("sendMessage", msg);
     const messageToRedux = {
+      id: 0,
       type: msg.type,
       User: msg.fromUser,
       chatId: msg.chatId,
       fromUserId: msg.fromUser.id,
-      message: message
+      message: message,
     }
     dispatch(action.sendMessage(messageToRedux));
   };
@@ -54,6 +53,8 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     user: PropTypes.object,
     toUserId: PropTypes.number,
     chatId: PropTypes.number,
+    lastId: PropTypes.number,
+    messages: PropTypes.array
   };
 
   return (

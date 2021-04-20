@@ -2,6 +2,7 @@ const config = require("../config/app");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
 const moment = require("moment");
+const { v4: uuidv4 } = require("uuid");
 
 const { createMessage } = require("./dbQueries");
 const IoSocket = require("./middleware/IoSocket");
@@ -29,7 +30,7 @@ const SocketServer = (server) => {
       } else {
         users.addUser(user.id, socket.id);
       }
-
+      console.log("join", users.getOnlineUsers());
       onlineUsers = users.getOnlineUsers();
 
       //send array of online users to every active socket
@@ -52,14 +53,16 @@ const SocketServer = (server) => {
     });
 
     socket.on("sendMessage", async (msg) => {
+      console.log("sendMessage", users.getOnlineUsers());
       const recipient = users.getUser(msg.toUserId);
       try {
-        await createMessage(msg);
+        const savedMsg = await createMessage(msg);
         if (recipient) {
+          msg.id = savedMsg.id;
           msg.User = msg.fromUser;
           msg.fromUserId = msg.fromUser.id;
-          msg.createdAt = moment();
-          msg.updatedAt = moment();
+          msg.createdAt = savedMsg.createdAt;
+          msg.updatedAt = savedMsg.updatedAt;
           io.to(recipient.socketId).emit("receiveMessage", msg);
         }
       } catch (error) {
@@ -74,6 +77,11 @@ const SocketServer = (server) => {
     socket.on("disconnect", () => {
       console.log(socket.id);
       const user = users.removeUser(null, socket.id);
+      console.log(
+        "disconect",
+        users.getOnlineUsers(),
+        users.getOnlineSockets()
+      );
       //send user id when user is going to offline to every active socket
       io.emit("offline", user.userId);
       /*

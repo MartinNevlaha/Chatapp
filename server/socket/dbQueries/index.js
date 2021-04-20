@@ -8,8 +8,8 @@ exports.createMessage = async (msg) => {
     type: msg.type,
     chatId: msg.chatId,
     fromUserId: msg.fromUser.id,
-    message: msg.message
-  }
+    message: msg.message,
+  };
   try {
     const createdMsg = await Message.create(message);
     if (!createdMsg) {
@@ -19,12 +19,8 @@ exports.createMessage = async (msg) => {
         message: "Message cannot be save in DB",
       });
     }
-    
+    return createdMsg;
   } catch (error) {
-    logger.error({
-      time: timestamp("YYYY/MM/DD/HH:mm:ss"),
-      level: "error",
-      message: error,
-    });
+    throw error;
   }
-}
+};

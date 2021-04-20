@@ -50,11 +50,13 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
           next={handleLoadAnotherMessages}
           hasMore={hasMoreMessages}
           height={550}
+          style={{ display: "flex", flexDirection: "column-reverse" }}
+          inverse={true}
           loader={messages.length > 0 && <Spinner />}
         >
           {messages.length > 0 ? (
-            messages.map((message) => (
-              <Message key={message.id} message={message} userId={user.id} />
+            messages.map((message, i) => (
+              <Message key={i} message={message} userId={user.id} />
             ))
           ) : (
             <p>No messages</p>
@@ -62,7 +64,11 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
         </InfiniteScroll>
       </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput user={user} toUserId={fromUser.id} chatId={chatId} />
+        <MessageInput
+          user={user}
+          toUserId={fromUser.id}
+          chatId={chatId}
+        />
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const useSocket = (user, dispatch) => {
 
     socket.on("offline", (user) => dispatch(action.friendOffline(user)));
 
-    socket.on("receiveMessage", msg => console.log(msg))
+    socket.on("receiveMessage", msg => dispatch(action.receiveMessage(msg)));
 
     socket.on("connect_error", (err) => {
       console.log(err);
