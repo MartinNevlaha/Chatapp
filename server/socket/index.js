@@ -1,4 +1,6 @@
 const config = require("../config/app");
+const logger = require("../config/winston");
+const timestamp = require("time-stamp");
 
 const { createMessage } = require("./dbQueries");
 const IoSocket = require("./middleware/IoSocket");
@@ -49,11 +51,18 @@ const SocketServer = (server) => {
     });
 
     socket.on("sendMessage", async (msg) => {
-      console.log(msg);
       const recipient = users.getUser(msg.toUser.id);
-      await createMessage(msg);
-      if (recipient) {
-        io.to(recipient.socketId).emit("receiveMessage", msg);
+      try {
+        await createMessage(msg);
+        if (recipient) {
+          io.to(recipient.socketId).emit("receiveMessage", msg);
+        }
+      } catch (error) {
+        logger.error({
+          time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+          level: "error",
+          message: error,
+        });
       }
     });
 

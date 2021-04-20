@@ -169,7 +169,7 @@ exports.getMessages = async (req, res, next) => {
       },
       limit: limit,
       offset: offset,
-      order: [["id", "DESC"]],
+      order: [["id", "ASC"]],
     });
 
     if (!messages) {
