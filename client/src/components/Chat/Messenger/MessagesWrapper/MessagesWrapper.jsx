@@ -10,7 +10,7 @@ import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 import MessageInput from "./MessageInput/MessageInput";
 
-const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
+const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
   const [hasMoreMessages, sethasMoreMessages] = useState(true);
@@ -39,7 +39,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
     chatId: PropTypes.number,
     onCloseChat: PropTypes.func,
     fromUser: PropTypes.object,
-    userId: PropTypes.number,
+    user: PropTypes.object,
   };
   return (
     <div className={classes.MessagesWrapper}>
@@ -54,7 +54,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
         >
           {messages.length > 0 ? (
             messages.map((message) => (
-              <Message key={message.id} message={message} userId={userId} />
+              <Message key={message.id} message={message} userId={user.id} />
             ))
           ) : (
             <p>No messages</p>
@@ -62,7 +62,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
         </InfiniteScroll>
       </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput userId={userId} toUser={fromUser} chatId={chatId} />
+        <MessageInput user={user} toUserId={fromUser.id} chatId={chatId} />
       </div>
     </div>
   );

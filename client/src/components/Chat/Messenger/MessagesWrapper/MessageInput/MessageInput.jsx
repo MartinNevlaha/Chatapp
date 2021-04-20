@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import classes from "./MessageInput.module.scss";
 import "emoji-mart/css/emoji-mart.css";
 
-const MessageInput = ({ userId, toUser, chatId }) => {
+const MessageInput = ({ user, toUserId, chatId }) => {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const socket = useSelector(state => state.chat.socket);
@@ -28,8 +28,8 @@ const MessageInput = ({ userId, toUser, chatId }) => {
 
     const msg = {
       type: imageUpload ? "image" : "text",
-      fromUserId: userId,
-      toUser: toUser,
+      fromUser: user,
+      toUserId: toUserId,
       chatId: chatId,
       message: imageUpload ? image : message,
     };
@@ -41,8 +41,8 @@ const MessageInput = ({ userId, toUser, chatId }) => {
   };
 
   MessageInput.propTypes = {
-    userId: PropTypes.number,
-    toUser: PropTypes.object,
+    user: PropTypes.object,
+    toUserId: PropTypes.number,
     chatId: PropTypes.number,
   };
 

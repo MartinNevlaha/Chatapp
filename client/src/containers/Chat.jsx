@@ -27,7 +27,7 @@ const Chat = () => {
         loadingFriends={loadingFriends}
         chatData={chatData}
         loadingChatData={loadingChatData}
-        userId={user.id}
+        user={user}
       />
     </div>
   );

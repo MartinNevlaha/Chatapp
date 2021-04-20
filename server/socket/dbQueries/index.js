@@ -7,7 +7,7 @@ exports.createMessage = async (msg) => {
   const message = {
     type: msg.type,
     chatId: msg.chatId,
-    fromUserId: msg.fromUserId,
+    fromUserId: msg.fromUser.id,
     message: msg.message
   }
   try {

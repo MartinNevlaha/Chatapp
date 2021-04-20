@@ -51,10 +51,12 @@ const SocketServer = (server) => {
     });
 
     socket.on("sendMessage", async (msg) => {
-      const recipient = users.getUser(msg.toUser.id);
+      const recipient = users.getUser(msg.toUserId);
       try {
         await createMessage(msg);
         if (recipient) {
+          msg.User = msg.fromUser;
+          msg.fromUserId = msg.fromUser.id;
           io.to(recipient.socketId).emit("receiveMessage", msg);
         }
       } catch (error) {

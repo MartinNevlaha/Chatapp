@@ -7,7 +7,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 import ChatItem from "./ChatItem/ChatItem";
 import MessagesWrapper from "./MessagesWrapper/MessagesWrapper";
 
-const Messenger = ({ chatData, loadingChatData, userId }) => {
+const Messenger = ({ chatData, loadingChatData, user }) => {
   const [openedChatId, setOpenedChatId] = useState(null);
 
   const handleOpenChat = (chatId) => {
@@ -35,7 +35,7 @@ const Messenger = ({ chatData, loadingChatData, userId }) => {
         chatId={openedChatId}
         onCloseChat={handleCloseChat}
         fromUser={messageFromUser(chatData)}
-        userId={userId}
+        user={user}
       />
     );
   }
@@ -43,7 +43,7 @@ const Messenger = ({ chatData, loadingChatData, userId }) => {
   Messenger.propTypes = {
     chatData: PropTypes.array,
     loadingChatData: PropTypes.bool,
-    userId: PropTypes.number
+    user: PropTypes.object
   };
 
   return (
