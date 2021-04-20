@@ -1,11 +1,10 @@
-const logger = require("../config/winston");
-const timestamp = require("time-stamp");
 const config = require("../config/app");
 
+const { createMessage } = require("./dbQueries");
 const IoSocket = require("./middleware/IoSocket");
 const Users = require("./users/users");
 
-let users = new Users()
+let users = new Users();
 
 const SocketServer = (server) => {
   const io = require("socket.io")(server, {
@@ -32,7 +31,7 @@ const SocketServer = (server) => {
 
       //send array of online users to every active socket
       io.emit("onlineUsers", onlineUsers);
-    
+
       /*
       const sockets = users.getOnlineSockets();
       sockets.forEach((socket) => {
@@ -47,17 +46,16 @@ const SocketServer = (server) => {
         }
       });
       */
-
     });
 
     socket.on("sendMessage", async (msg) => {
-      console.log(msg.toUser.id);
+      console.log(msg);
       const recipient = users.getUser(msg.toUser.id);
-      
+      await createMessage(msg);
       if (recipient) {
         io.to(recipient.socketId).emit("receiveMessage", msg);
       }
-    })
+    });
 
     socket.on("disconnect", () => {
       const user = users.removeUser(null, socket.id);
