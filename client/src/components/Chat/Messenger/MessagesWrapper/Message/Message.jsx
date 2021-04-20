@@ -11,7 +11,6 @@ const Message = ({ message, userId }) => {
     message: PropTypes.object,
     userId: PropTypes.number,
   };
-
   return (
     <div
       className={

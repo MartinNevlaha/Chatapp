@@ -11,7 +11,7 @@ import ReactTooltip from "react-tooltip";
 
 import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
-// dorob status bodku na avatare
+
 const MessageHeader = ({ user, onCloseChat }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
@@ -41,6 +41,7 @@ const MessageHeader = ({ user, onCloseChat }) => {
             <FontAwesomeIcon icon={faUser} size="2x" />
           </div>
         )}
+        <StatusDot status={user.status}/>
         <p>{user.fullName}</p>
         <FontAwesomeIcon
           icon={faVideo}

@@ -3,15 +3,21 @@
 .MessagesWrapper {
   width: 100%;
   height: 100%;
+  @include flexbox(flex-start, center, column);
 
   &_container {
     width: 100%;
-    height: 70%;
+    height: 34.375rem;
+    overflow: hidden;
+    p{
+      padding: 1rem;
+      margin: 1rem;
+    }
   }
 
   &_input {
     width: 100%;
-    height: 10%;
+    height: 75px;
     min-height: 3.125rem;
     background-color: get-color(primary);
   }

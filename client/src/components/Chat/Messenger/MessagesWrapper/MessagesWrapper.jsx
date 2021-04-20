@@ -8,6 +8,7 @@ import Spinner from "../../../UI/Spinner/Spinner";
 import * as action from "../../../../store/actions";
 import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
+import MessageInput from "./MessageInput/MessageInput";
 
 const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
   const LIMIT = 15;
@@ -48,15 +49,17 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, userId }) => {
           dataLength={messages.length}
           next={handleLoadAnotherMessages}
           hasMore={hasMoreMessages}
-          height={535}
-          loader={<Spinner />}
+          height={550}
+          loader={messages.length > 0 && <Spinner />}
         >
-          {messages.map((message) => (
+          {messages.length > 0 ? messages.map((message) => (
             <Message key={message.id} message={message} userId={userId} />
-          ))}
+          )) : <p>No messages</p>}
         </InfiniteScroll>
       </div>
-      <div className={classes.MessagesWrapper_input}>...input</div>
+      <div className={classes.MessagesWrapper_input}>
+        <MessageInput />
+      </div>
     </div>
   );
 };
