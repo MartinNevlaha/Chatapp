@@ -31,6 +31,9 @@ const SocketServer = (server) => {
       onlineUsers = users.getOnlineUsers();
 
       //send array of online users to every active socket
+      io.emit("onlineUsers", onlineUsers);
+    
+      /*
       const sockets = users.getOnlineSockets();
       sockets.forEach((socket) => {
         try {
@@ -43,12 +46,24 @@ const SocketServer = (server) => {
           });
         }
       });
+      */
+
     });
+
+    socket.on("sendMessage", async (msg) => {
+      console.log(msg.toUser.id);
+      const recipient = users.getUser(msg.toUser.id);
+      
+      if (recipient) {
+        io.to(recipient.socketId).emit("receiveMessage", msg);
+      }
+    })
 
     socket.on("disconnect", () => {
       const user = users.removeUser(null, socket.id);
-      const sockets = users.getOnlineSockets();
       //send user id when user is going to offline to every active socket
+      io.emit("offline", user.userId);
+      /*
       sockets.forEach((socket) => {
         try {
           io.to(socket).emit("offline", user.userId);
@@ -61,6 +76,7 @@ const SocketServer = (server) => {
           });
         }
       });
+      */
     });
   });
 };

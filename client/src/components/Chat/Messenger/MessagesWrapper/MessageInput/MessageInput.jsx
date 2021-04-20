@@ -14,7 +14,7 @@ const MessageInput = ({ userId, toUser, chatId }) => {
   const socket = useSelector(state => state.chat.socket);
 
   const handleMessageInput = (e) => {
-    setMessage(e.targer.value);
+    setMessage(e.target.value);
 
     // notify typing
   };
@@ -53,6 +53,7 @@ const MessageInput = ({ userId, toUser, chatId }) => {
         <input
           type="text"
           placeholder="Message..."
+          value={message}
           onChange={(e) => handleMessageInput(e)}
           onKeyDown={(e) => handleKeyDown(e, false)}
         />

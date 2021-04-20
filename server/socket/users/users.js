@@ -12,9 +12,9 @@ class Users {
   getUser(userId = null, socketId = null) {
     let user;
     if (userId) {
-      user = this.users.filter((user) => user.userId === userId.toString());
+      user = this.users.filter((user) => parseInt(user.userId) === parseInt(userId));
     } else {
-      user = this.users.filter((user) => user.socketId === socketId.toString());
+      user = this.users.filter((user) => parseInt(user.socketId) === parseInt(socketId));
     }
     return user[0];
   }
