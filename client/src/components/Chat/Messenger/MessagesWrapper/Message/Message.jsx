@@ -12,6 +12,7 @@ const Message = ({ message, userId }) => {
     message: PropTypes.object,
     userId: PropTypes.number,
   };
+
   return (
     <div
       className={
@@ -50,7 +51,7 @@ const Message = ({ message, userId }) => {
               <p>{message.message}</p>
             </React.Fragment>
           ) : (
-            <LazyImage image={{ src: message.image, alt: "messageImage" }} />
+            <LazyImage image={{ src: message.message, alt: "messageImage" }} />
           )}
         </div>
         <div className={classes.message_container_created}>

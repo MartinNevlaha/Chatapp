@@ -30,15 +30,16 @@
   }
 
   &_container {
-    width: 60%;
-
+    min-width: 25rem;
     &_content {
       h2 {
+        width: 100%;
+        text-align: left;
         font-size: get-font-size(small);
         font-style: italic;
-        padding: .3rem
+        padding: .3rem;
       }
-      @include flexbox(flex-start, flex-start, column);
+      @include flexbox(flex-start, center, column);
       background-color: lighten(get-color(gray_profile), 20%);
       padding: 1rem;
       margin: .2rem;
@@ -46,7 +47,8 @@
       @include shadow;
       font-size: get-font-size(small);
       p {
-        text-align: left;
+        width: 100%;
+        text-align: justify;
         margin: 0 1rem;
       }
       img {
