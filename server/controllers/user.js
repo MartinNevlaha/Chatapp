@@ -1,6 +1,6 @@
 const brycpt = require("bcryptjs");
 const models = require("../models");
-const User = models.User;
+const User = models.User
 
 const { removeAllAccountFiles } = require("../utils/utilities");
 

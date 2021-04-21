@@ -7,7 +7,6 @@ const Card = ({type, children}) => {
 
   Card.propTypes = {
     type: PropTypes.string,
-    children: PropTypes.element
   };
 
   return (
