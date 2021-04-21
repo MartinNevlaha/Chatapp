@@ -6,6 +6,7 @@ const initialState = {
   chatData: [],
   currentChats: [],
   countMessages: null,
+  scrollBottom: 0,
   loadingChatData: false,
   socket: null,
 };
@@ -63,13 +64,26 @@ const setSocket = (state, action) => {
 };
 
 const sendMessage = (state, action) => {
+  const index = state.chatData.findIndex(
+    (chat) => chat.id === action.message.chatId
+  );
+  const copyChatData = [...state.chatData];
+  copyChatData[index].Messages[0] = action.message;
   return updateObj(state, {
+    chatData: copyChatData,
     currentChats: [action.message, ...state.currentChats],
   });
 };
 
 const receiveMessage = (state, action) => {
+  const index = state.chatData.findIndex(
+    (chat) => chat.id === action.message.chatId
+  );
+  const copyChatData = [...state.chatData];
+  copyChatData[index].Messages[0] = action.message;
+
   return updateObj(state, {
+    chatData: copyChatData,
     currentChats: [action.message, ...state.currentChats],
   });
 };
