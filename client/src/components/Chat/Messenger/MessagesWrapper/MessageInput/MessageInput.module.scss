@@ -5,19 +5,46 @@
   height: 100%;
   @include flexbox(space-around, center, row);
 
-  &_imageUp {
-    color: white;
-    cursor: pointer;
+  &_imageUpload {
+    width: 40%;
+    &_image {
+      input {
+        opacity: 0;
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+      label {
+        padding-left: 1rem;
+      }
+      &_icon {
+        color: white;
+        cursor: pointer;
+      }
+    }
+    &_details {
+      width: 50%;
+      min-width: 150px;
+      @include flexbox(space-around, center, row);
+      
+      p {
+        color: white;
+        font-size: get-font-size(small);
+        padding: 0 0.5rem;
+      }
+    }
   }
 
   &_messageInput {
-    width: 40%;
+    width: 50%;
     position: relative;
 
     input {
       width: 100%;
       height: 2.5rem;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       padding-left: 2rem;
       padding-right: 0.2rem;
       border: 1px solid gray;
@@ -25,11 +52,12 @@
       background-color: white;
       @include shadow-down;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         outline: none;
         border: 1px solid darken(get-color(secondary), 10%);
         box-shadow: 0 0 3pt 2pt rgba(255, 255, 255, 0.514);
-    }
+      }
     }
 
     &_icon {
