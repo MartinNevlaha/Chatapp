@@ -33,9 +33,9 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     if (e.key === "Enter") sendMessage(imageUpload);
   };
 
-  const sendMessage = (imageUpload, imageUrl) => {
+  const sendMessage = (imageUpload, imageUrl, imageForSendEvent) => {
     if (message.length < 1 && !imageUpload) return;
-    console.log(imageUrl);
+
     const msg = {
       type: imageUpload ? "image" : "text",
       fromUser: user,
@@ -53,7 +53,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
       User: msg.fromUser,
       chatId: msg.chatId,
       fromUserId: msg.fromUser.id,
-      message: msg.message,
+      message: msg.type === "text" ? msg.message : imageForSendEvent,
     };
     dispatch(action.sendMessage(messageToRedux));
   };

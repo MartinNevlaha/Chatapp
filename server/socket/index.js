@@ -53,10 +53,10 @@ const SocketServer = (server) => {
     });
 
     socket.on("sendMessage", async (msg) => {
-      console.log("sendMessage", users.getOnlineUsers());
       const recipient = users.getUser(msg.toUserId);
       try {
         const savedMsg = await createMessage(msg);
+        console.log(savedMsg);
         if (recipient) {
           msg.id = savedMsg.id;
           msg.message = savedMsg.message;

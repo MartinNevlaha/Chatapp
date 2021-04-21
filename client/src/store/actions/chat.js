@@ -76,6 +76,7 @@ export const setSocket = (socket) => {
 };
 
 export const sendMessage = (message) => {
+  console.log(message);
   return {
     type: actionTypes.SEND_MESSAGE,
     message,
@@ -127,7 +128,7 @@ export const imageChatUpload = (imageData, sendMessage) => {
       .post("/api/chat/upload-image", imageData, config)
       .then((res) => {
         dispatch(imageUploadSuccess());
-        sendMessage(true, res.data.imageUrl);
+        sendMessage(true, res.data.imageUrl, res.data.imageUrlForSendEvent);
       })
       .catch((err) => dispatch(errorCreator(err.response)));
   };

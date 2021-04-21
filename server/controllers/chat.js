@@ -2,6 +2,7 @@ const models = require("../models");
 const { User, Chat, ChatUser, Message } = models;
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
+const config = require("../config/app");
 
 const friendStatus = require("../config/friendRequestStatus");
 
@@ -214,7 +215,10 @@ exports.deleteChat = async (req, res, next) => {
 
 exports.imageUpload = (req, res, next) => {
   if (req.file) {
-    return res.json({ imageUrl: req.file.filename });
+    return res.json({
+      imageUrl: req.file.filename,
+      imageUrlForSendEvent: `${config.appUrl}:${config.appPort}/users/${req.user.id}/chats/${req.body.id}/${content}`,
+    });
   } else {
     const error = new Error("No file to upload");
     error.statusCode = 500;
