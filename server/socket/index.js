@@ -59,6 +59,7 @@ const SocketServer = (server) => {
         const savedMsg = await createMessage(msg);
         if (recipient) {
           msg.id = savedMsg.id;
+          msg.message = savedMsg.message;
           msg.User = msg.fromUser;
           msg.fromUserId = msg.fromUser.id;
           msg.createdAt = savedMsg.createdAt;

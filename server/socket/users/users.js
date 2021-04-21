@@ -20,7 +20,7 @@ class Users {
         (user) => user.socketId.toString() === socketId.toString()
       );
     }
-    return user[0];
+    if (user[0]) return user[0];
   }
 
   getOnlineUsers() {
@@ -35,7 +35,6 @@ class Users {
 
   removeUser(userId = null, socketId = null) {
     let user = this.getUser(userId, socketId);
-    console.log(user, "is from instance users");
     if (user)
       this.users = this.users.filter((usr) => usr.userId !== user.userId);
     return user;
