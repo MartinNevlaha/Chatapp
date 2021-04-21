@@ -217,7 +217,7 @@ exports.imageUpload = (req, res, next) => {
   if (req.file) {
     return res.json({
       imageUrl: req.file.filename,
-      imageUrlForSendEvent: `${config.appUrl}:${config.appPort}/users/${req.user.id}/chats/${req.body.id}/${content}`,
+      imageUrlForSendEvent: `${config.appUrl}:${config.appPort}/users/${req.user.id}/chats/${req.body.id}/${req.file.filename}`,
     });
   } else {
     const error = new Error("No file to upload");
