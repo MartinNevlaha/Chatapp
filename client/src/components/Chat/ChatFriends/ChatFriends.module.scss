@@ -1,6 +1,7 @@
 @import "../../../style/imports.scss";
 
 .chatFriends {
+  display: block;
   min-width: 250px;
   width: 25vw;
   height: 100%;
@@ -24,5 +25,9 @@
     height: 80%;
     width: 100%;
     padding-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    
   }
 }

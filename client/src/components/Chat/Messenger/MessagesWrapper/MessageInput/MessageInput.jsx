@@ -20,6 +20,9 @@ const MessageInput = ({ user, toUserId, chatId }) => {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const socket = useSelector((state) => state.chat.socket);
+  const imageUploadProgress = useSelector(
+    (state) => state.chat.imageUploadProgress
+  );
 
   const handleMessageInput = (e) => {
     setMessage(e.target.value);
@@ -30,15 +33,15 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     if (e.key === "Enter") sendMessage(imageUpload);
   };
 
-  const sendMessage = (imageUpload) => {
+  const sendMessage = (imageUpload, imageUrl) => {
     if (message.length < 1 && !imageUpload) return;
-
+    console.log(imageUrl);
     const msg = {
       type: imageUpload ? "image" : "text",
       fromUser: user,
       toUserId: toUserId,
       chatId: chatId,
-      message: imageUpload ? image : message,
+      message: imageUpload ? imageUrl : message,
     };
     setMessage("");
     setImage("");
@@ -50,15 +53,17 @@ const MessageInput = ({ user, toUserId, chatId }) => {
       User: msg.fromUser,
       chatId: msg.chatId,
       fromUserId: msg.fromUser.id,
-      message: message,
+      message: msg.message,
     };
     dispatch(action.sendMessage(messageToRedux));
   };
 
   const handleImageUpload = () => {
     const formData = new FormData();
-    formData.append('id', chatId);
+    formData.append("id", chatId);
     formData.append("image", image);
+
+    dispatch(action.imageChatUpload(formData, sendMessage));
   };
 
   MessageInput.propTypes = {
@@ -94,16 +99,21 @@ const MessageInput = ({ user, toUserId, chatId }) => {
           {image.name && (
             <React.Fragment>
               <p>{image.name}</p>
-              <FontAwesomeIcon
-                icon={faUpload}
-                className={classes.input_imageUpload_image_icon}
-                onClick={() => handleImageUpload}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={classes.input_imageUpload_image_icon}
-                onClick={() => setImage("")}
-              />
+              {imageUploadProgress > 0 && <p>{imageUploadProgress} %</p>}
+              {imageUploadProgress !== 100 && (
+                <React.Fragment>
+                  <FontAwesomeIcon
+                    icon={faUpload}
+                    className={classes.input_imageUpload_image_icon}
+                    onClick={() => handleImageUpload()}
+                  />
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className={classes.input_imageUpload_image_icon}
+                    onClick={() => setImage("")}
+                  />
+                </React.Fragment>
+              )}
             </React.Fragment>
           )}
         </div>

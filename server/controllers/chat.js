@@ -214,7 +214,7 @@ exports.deleteChat = async (req, res, next) => {
 
 exports.imageUpload = (req, res, next) => {
   if (req.file) {
-    return res.json({ url: req.file.filename });
+    return res.json({ imageUrl: req.file.filename });
   } else {
     const error = new Error("No file to upload");
     error.statusCode = 500;

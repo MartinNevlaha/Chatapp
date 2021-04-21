@@ -85,6 +85,50 @@ export const sendMessage = (message) => {
 export const receiveMessage = (message) => {
   return {
     type: actionTypes.RECEIVE_MESSAGE,
-    message
+    message,
+  };
+};
+
+export const imageUploadProgress = (progress) => {
+  return {
+    type: actionTypes.IMAGE_UPLOAD_PROGRESS,
+    progress,
+  };
+};
+
+export const imageUploadSuccess = () => {
+  return {
+    type: actionTypes.IMAGE_UPLOAD_SUCCESS,
+  };
+};
+
+export const imageUploadFailed = () => {
+  return {
+    type: actionTypes.IMAGE_UPLOAD_FAILED
   }
 }
+
+export const imageChatUpload = (imageData, sendMessage) => {
+  return (dispatch) => {
+    const config = {
+      onUploadProgress: (progressEvent) => {
+        let percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        if (percentCompleted !== null || percentCompleted !== 0) {
+          dispatch(imageUploadProgress(percentCompleted));
+        }
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    };
+    axios
+      .post("/api/chat/upload-image", imageData, config)
+      .then((res) => {
+        dispatch(imageUploadSuccess());
+        sendMessage(true, res.data.imageUrl);
+      })
+      .catch((err) => dispatch(errorCreator(err.response)));
+  };
+};

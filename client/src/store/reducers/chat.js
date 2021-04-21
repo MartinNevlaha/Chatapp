@@ -1,11 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
-import updateArray from "react-addons-update";
 
 const initialState = {
   chatData: [],
   currentChats: [],
   countMessages: null,
+  imageUploadProgress: 0,
   scrollBottom: 0,
   loadingChatData: false,
   socket: null,
@@ -88,6 +88,20 @@ const receiveMessage = (state, action) => {
   });
 };
 
+const imageUploadProgress = (state, action) => {
+  return updateObj(state, {
+    imageUploadProgress: action.progress,
+  });
+};
+
+const imageUploadSuccess = (state, action) => {
+  return updateObj(state, { imageUploadProgress: 0 });
+};
+
+const imageUploadFailed = (state, action) => {
+  return updateObj(state, { imageUploadProgress: 0 });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_CHAT_DATA_START:
@@ -110,6 +124,12 @@ const reducer = (state = initialState, action) => {
       return sendMessage(state, action);
     case actionTypes.RECEIVE_MESSAGE:
       return receiveMessage(state, action);
+    case actionTypes.IMAGE_UPLOAD_PROGRESS:
+      return imageUploadProgress(state, action);
+    case actionTypes.IMAGE_UPLOAD_SUCCESS:
+      return imageUploadSuccess(state, action);
+    case actionTypes.IMAGE_UPLOAD_FAILED:
+      return imageUploadFailed(state, action);
     default:
       return state;
   }

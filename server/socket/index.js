@@ -83,7 +83,7 @@ const SocketServer = (server) => {
         users.getOnlineSockets()
       );
       //send user id when user is going to offline to every active socket
-      io.emit("offline", user.userId);
+      if (user) io.emit("offline", user.userId);
       /*
       sockets.forEach((socket) => {
         try {

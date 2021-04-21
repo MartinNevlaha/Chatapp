@@ -43,5 +43,6 @@ export {
   cleanUpMessages,
   setSocket,
   sendMessage,
-  receiveMessage
+  receiveMessage,
+  imageChatUpload
 } from "./chat";
