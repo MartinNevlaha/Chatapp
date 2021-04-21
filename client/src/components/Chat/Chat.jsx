@@ -23,5 +23,4 @@ const ChatComp = ({ friends, loadingFriends, chatData, loadingChatData, user }) 
 };
 
 export default ChatComp;
-{
-}
+
