@@ -57,3 +57,26 @@ exports.userPostImageUpload = ((req, res, next) => {
 
   return multer({ storage, imageFilter }).single("image");
 })();
+
+exports.userChatFileUpload = ((req, res, next) => {
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const userId = req.user.id;
+      const chatId = req.paramss.chatId;
+      const dest = `uploads/users/${userId}/chats/${chatId}`;
+
+      fs.access(dest, (error) => {
+        if (error) {
+          return fs.mkdir(dest, { recursive: true }, (error) => {
+            cb(error, dest);
+          });
+        } else {
+          return cb(null, dest);
+        }
+      });
+    },
+    filename: generateFileName,
+  });
+
+  return multer({ storage, imageFilter }).single("image");
+})();

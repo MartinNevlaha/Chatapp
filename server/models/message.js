@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 
           return type === "text"
             ? content
-            : `${config.appUrl}:${config.appPort}/users/${userId}/chat/${chatId}/${content}`;
+            : `${config.appUrl}:${config.appPort}/users/${userId}/chats/${chatId}/${content}`;
         },
       },
     },

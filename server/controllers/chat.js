@@ -211,3 +211,13 @@ exports.deleteChat = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.imageUpload = (req, res, next) => {
+  if (req.file) {
+    return res.json({ url: req.file.filename });
+  } else {
+    const error = new Error("No file to upload");
+    error.statusCode = 500;
+    return next(error);
+  }
+};
