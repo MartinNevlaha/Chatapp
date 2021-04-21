@@ -4,17 +4,17 @@
   width: 95%;
   height: auto;
   //background-color: gray;
-  padding: .5rem;
-  margin: .5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
   @include flexbox(center, center, column);
   border-bottom: 1px solid gray;
   @include shadow-down;
-  
+
   h2 {
     font-size: get-font-size(small);
     font-style: italic;
     font-weight: bold;
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   &_friendsHeader {
@@ -30,14 +30,14 @@
       padding: 0.2rem;
       margin: 0.5rem;
       h4 {
-        padding: .2rem;
+        padding: 0.2rem;
         color: white;
       }
     }
   }
 
   &_lastMessage {
-    margin: .3rem;
+    margin: 0.3rem;
     width: 100%;
     text-align: left;
 
@@ -45,12 +45,21 @@
       font-size: get-font-size(small);
       font-style: italic;
       p {
-        padding: .5rem;
+        padding: 0.5rem;
+      }
+      &_image {
+        width: 100%;
+        @include flexbox(center, center, row);
+        img {
+          width: 350px;
+          height: 250px;
+          object-fit: cover;
+        }
       }
     }
     &:hover,
     &:active {
-      @include hover-effect;  
+      @include hover-effect;
     }
   }
 
@@ -60,9 +69,10 @@
 
     &_icon {
       cursor: pointer;
-      margin: 1rem .5rem 0 0;
+      margin: 1rem 0.5rem 0 0;
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         color: get-color(secondary);
       }
     }

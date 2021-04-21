@@ -7,6 +7,7 @@ import ReactTooltip from "react-tooltip";
 import classes from "./ChatItem.module.scss";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 import { parseDateTime } from "../../../../utils/utilities";
+import LazyImage from "../../../UI/LazyImage/LazyImage";
 
 const ChatItem = ({ chat, onOpenChat }) => {
   ChatItem.propTypes = {
@@ -49,7 +50,15 @@ const ChatItem = ({ chat, onOpenChat }) => {
           <p>No message content</p>
         ) : (
           <div className={classes.chatItem_lastMessage_content}>
-            <p>{chat.Messages[0].message}</p>
+            {chat.Messages[0].message.type === "text" ? (
+              <p>{chat.Messages[0].message}</p>
+            ) : (
+              <div className={classes.chatItem_lastMessage_content_image}>
+                <LazyImage
+                  image={{ src: chat.Messages[0].message, alt: "chatImage" }}
+                />
+              </div>
+            )}
             <p>Send: {parseDateTime(chat.Messages[0].createdAt)}</p>
           </div>
         )}
