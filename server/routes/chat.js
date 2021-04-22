@@ -11,6 +11,7 @@ const {
   getMessages,
   deleteChat,
   imageUpload,
+  seeMessage,
 } = require("../controllers/chat");
 
 router.get("/", isAuth, getUserChatData);
@@ -26,5 +27,7 @@ router.post(
   [isAuth, userChatFileUpload, imageResize],
   imageUpload
 );
+
+router.patch("/see-message", isAuth, seeMessage);
 
 module.exports = router;

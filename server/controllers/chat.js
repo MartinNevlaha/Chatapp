@@ -3,6 +3,7 @@ const { User, Chat, ChatUser, Message, LastReadMessage } = models;
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const config = require("../config/app");
+const moment = require("moment");
 
 const friendStatus = require("../config/friendRequestStatus");
 
@@ -239,3 +240,32 @@ exports.imageUpload = (req, res, next) => {
     return next(error);
   }
 };
+
+exports.seeMessage = async (req, res, next) => {
+  try {
+    const updatedLastSeenMessage = await LastReadMessage.update(
+      {lastSeenMessage: moment()}, {
+        where: {
+          chatId: req.body.chatId,
+          userId: req.user.id
+        }, 
+        returning: true,
+      }
+    );
+    if (!updatedLastSeenMessage) {
+      const error = new Error("Cant update last seen message on chat");
+      error.statusCode = 500;
+      return next(error);
+    }
+    res.json({
+      status: "Ok",
+      message: "LastSeenMessage was successfully updated",
+      post: updatedLastSeenMessage[1][0],
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      error.statusCode = 500;
+    }
+    return next(error);
+  }
+}
