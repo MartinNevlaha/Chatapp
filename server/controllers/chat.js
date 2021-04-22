@@ -1,5 +1,5 @@
 const models = require("../models");
-const { User, Chat, ChatUser, Message } = models;
+const { User, Chat, ChatUser, Message, LastReadMessage } = models;
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const config = require("../config/app");
@@ -34,6 +34,9 @@ exports.getUserChatData = async (req, res, next) => {
               model: Message,
               limit: 1,
               order: [["id", "DESC"]],
+            },
+            {
+              model: LastReadMessage,
             },
           ],
         },
@@ -96,6 +99,17 @@ exports.createChat = async (req, res, next) => {
             chatId: chat.id,
             userId: req.user.id,
           },
+          {
+            chatId: chat.id,
+            userId: friendId,
+          },
+        ],
+        { transaction: t }
+      );
+
+      const lastReadMessage = await LastReadMessage.bulkCreate(
+        [
+          { chatId: chat.id, userId: req.user.id },
           {
             chatId: chat.id,
             userId: friendId,
