@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
+const resizeImage = require("../middleware/resizeImage");
 const { validateResults } = require("../validators");
 const {
   rules: createOrUpdatePostRules,
@@ -20,13 +21,13 @@ router.get("/friends-post", isAuth, getFriendsPosts);
 
 router.post(
   "/create",
-  [isAuth, userPostImageUpload, createOrUpdatePostRules, validateResults],
+  [isAuth, userPostImageUpload, resizeImage, createOrUpdatePostRules, validateResults],
   createPost
 );
 
 router.put(
   "/update/:postId",
-  [isAuth, userPostImageUpload, createOrUpdatePostRules, validateResults],
+  [isAuth, userPostImageUpload, resizeImage, createOrUpdatePostRules, validateResults],
   updatePost
 );
 

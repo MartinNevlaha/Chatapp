@@ -8,8 +8,7 @@ exports.userAvatarUpload = ((req, res, next) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       const { id } = req.user;
-      const dest = `uploads/users/${id}`;
-
+      const dest = `uploads/users/${id}/`;
       fs.access(dest, (error) => {
         //folder doesnt exists
         if (error) {
@@ -32,7 +31,6 @@ exports.userAvatarUpload = ((req, res, next) => {
     },
     filename: generateFileName,
   });
-
   return multer({ storage, imageFilter }).single("avatar");
 })();
 

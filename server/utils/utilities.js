@@ -4,6 +4,7 @@ const fs = require("fs-extra");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
 const config = require("../config/app");
+const {imageDimension} = require("../config/imageDimension");
 
 exports.hashPwd = async (user) => {
   if (user.changed("password")) {
@@ -100,9 +101,9 @@ exports.getUserFriendHelper = (friendshipsArr, userId) => {
   let friends = [];
   friendshipsArr.forEach((friendship) => {
     if (friendship.requestor.id === userId) {
-      friends.push(friendship.User)
+      friends.push(friendship.User);
     } else {
-      friends.push(friendship.requestor)
+      friends.push(friendship.requestor);
     }
   });
   return friends;
@@ -112,10 +113,20 @@ exports.getUserFriendIds = (friendshipsArr, userId) => {
   let friendIds = [];
   friendshipsArr.forEach((friendship) => {
     if (friendship.requestor.id === userId) {
-      friendIds.push(friendship.User.id)
+      friendIds.push(friendship.User.id);
     } else {
-      friendIds.push(friendship.requestor.id)
+      friendIds.push(friendship.requestor.id);
     }
   });
   return friendIds;
+};
+
+exports.getImageResizeOpt = (routerPath) => {
+  let imageDim;
+  if (routerPath === "/api/user/update") {
+    imageDim = imageDimension.avatar;
+  } else {
+    imageDim = imageDimension.other;
+  }
+  return imageDim;
 };

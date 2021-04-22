@@ -17,7 +17,7 @@ const isAuth = async (req, res, next) => {
         return next(error);
       }
       return user;
-    });  
+    });
     const userReq = await User.findOne({
       where: {
         id: decodedToken.userId,
