@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(models.ChatUser, { foreignKey: "userId" });
       this.hasMany(models.Message, { foreignKey: "fromUserId" });
-      this.hasMany(models.LastReadMessage, { foreignKey: "userId" });
+      this.hasMany(models.LastReadMessage, { foreignKey: "chatId" });
     }
   }
   User.init(

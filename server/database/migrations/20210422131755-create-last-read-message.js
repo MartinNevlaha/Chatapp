@@ -1,30 +1,30 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('LastReadMessages', {
+    await queryInterface.createTable("LastReadMessages", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       chatId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-       references: {
-         model: "Chats",
-         key: "id"
-       },
-        onDelete: "CASCADE"
+        references: {
+          model: "Chats",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "Users",
-          key: "id"
+          key: "id",
         },
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
       },
       lastSeenMessage: {
         type: Sequelize.DATE,
@@ -33,15 +33,17 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("NOW()"),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("NOW()"),
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('LastReadMessages');
-  }
+    await queryInterface.dropTable("LastReadMessages");
+  },
 };
