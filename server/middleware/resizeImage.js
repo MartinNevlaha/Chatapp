@@ -10,7 +10,7 @@ const resizeImage = async (req, res, next) => {
     const imageSize = getImageResizeOpt(req.originalUrl);
     if (req.file) {
       let buffer = await sharp(req.file.path, { failOnError: false })
-        .resize(imageSize.width, imageSize.heigth, { fit: sharp.fit.inside, withoutEnlargement: true })
+        .resize(imageSize.width, imageSize.heigth, { fit: sharp.fit.fill, withoutEnlargement: true })
         .toBuffer();
       if (!buffer) {
         logger.error({

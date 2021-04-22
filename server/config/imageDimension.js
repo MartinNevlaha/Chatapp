@@ -4,7 +4,7 @@ module.exports.imageDimension = {
     heigth: 200,
   },
   other: {
-    width: 450,
+    width: 550,
     heigth: 350,
   },
 };

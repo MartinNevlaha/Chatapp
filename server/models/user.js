@@ -15,10 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Friendship, { foreignKey: "user_1" });
       this.hasMany(models.Friendship, { foreignKey: "user_2" });
       this.hasMany(models.Post, { foreignKey: "userId" });
-      this.hasMany(models.Likes, {foreignKey: "userId"});
-      this.belongsToMany(models.Chat, {through: "ChatUser", foreignKey: "userId"});
-      this.hasMany(models.ChatUser, {foreignKey: "userId"});
-      this.hasMany(models.Message, {foreignKey: "fromUserId"});
+      this.hasMany(models.Likes, { foreignKey: "userId" });
+      this.belongsToMany(models.Chat, {
+        through: "ChatUser",
+        foreignKey: "userId",
+      });
+      this.hasMany(models.ChatUser, { foreignKey: "userId" });
+      this.hasMany(models.Message, { foreignKey: "fromUserId" });
+      this.hasMany(models.LastReadMessage, { foreignKey: "userId" });
     }
   }
   User.init(
