@@ -246,7 +246,7 @@ exports.seeMessage = async (req, res, next) => {
     const updatedLastSeenMessage = await LastReadMessage.update(
       {lastSeenMessage: moment()}, {
         where: {
-          chatId: req.body.chatId,
+          chatId: req.params.chatId,
           userId: req.user.id
         }, 
         returning: true,

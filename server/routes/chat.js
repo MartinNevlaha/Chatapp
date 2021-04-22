@@ -28,6 +28,6 @@ router.post(
   imageUpload
 );
 
-router.patch("/see-message", isAuth, seeMessage);
+router.patch("/see-message/:chatId", isAuth, seeMessage);
 
 module.exports = router;
