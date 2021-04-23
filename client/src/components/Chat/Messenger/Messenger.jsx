@@ -20,11 +20,16 @@ const Messenger = ({ chatData, loadingChatData, user }) => {
 
   const messageFromUser = (chatData) => {
     const currentChat = chatData.filter((chat) => chat.id === openedChatId);
-    return currentChat[0].Users[0]
+    return currentChat[0].Users[0];
   };
 
   let content = chatData.map((chat) => (
-    <ChatItem key={chat.id} chat={chat} onOpenChat={handleOpenChat} />
+    <ChatItem
+      key={chat.id}
+      chat={chat}
+      lastMessage={chat.Messages[0] && chat.Messages[0]}
+      onOpenChat={handleOpenChat}
+    />
   ));
 
   if (loadingChatData) {
@@ -43,7 +48,7 @@ const Messenger = ({ chatData, loadingChatData, user }) => {
   Messenger.propTypes = {
     chatData: PropTypes.array,
     loadingChatData: PropTypes.bool,
-    user: PropTypes.object
+    user: PropTypes.object,
   };
 
   return (

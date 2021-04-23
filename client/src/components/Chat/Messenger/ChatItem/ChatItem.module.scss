@@ -17,20 +17,36 @@
     padding: 0.5rem;
   }
 
-  &_friendsHeader {
+  &_header {
     width: 100%;
-    @include flexbox(flex-start, center, row);
-    flex-wrap: wrap;
+    @include flexbox(space-between, center, row);
     border-bottom: 1px solid lighten(gray, 25%);
 
-    &_user {
-      @include flexbox("center", "center", row);
-      background-color: get-color(primary);
-      border-radius: 10px;
-      padding: 0.2rem;
-      margin: 0.5rem;
-      h4 {
+    &_friends {
+      width: 100%;
+      @include flexbox(flex-start, center, row);
+      flex-wrap: wrap;
+
+      &_user {
+        @include flexbox("center", "center", row);
+        background-color: get-color(primary);
+        border-radius: 10px;
         padding: 0.2rem;
+        margin: 0.5rem;
+        h4 {
+          padding: 0.2rem;
+          color: white;
+        }
+      }
+    }
+    &_newMessage {
+      &_no {
+        @extend .chatItem_header_friends_user;
+        background-color: gray;
+        color: white;
+      }
+      &_yes {
+        @extend .chatItem_header_friends_user;
         color: white;
       }
     }
