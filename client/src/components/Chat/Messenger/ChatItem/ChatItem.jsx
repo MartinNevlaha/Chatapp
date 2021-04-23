@@ -5,14 +5,31 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
 
 import classes from "./ChatItem.module.scss";
-import StatusDot from "../../../UI/StatusDot/StatusDot";
 import { parseDateTime } from "../../../../utils/utilities";
 import LazyImage from "../../../UI/LazyImage/LazyImage";
+import StatusDot from "../../../UI/StatusDot/StatusDot";
 
-const ChatItem = ({ chat, onOpenChat, lastMessage }) => {
+const ChatItem = ({ chat, onOpenChat, userId }) => {
+  const unreadMessages = () => {
+    let lastReadMessageDate;
+    const lastReadMessage = chat.LastReadMessages.filter(
+      (message) => message.userId === userId
+    );
+    if (lastReadMessage.length > 0)
+      lastReadMessageDate = lastReadMessage[0].lastSeenMessage;
+    const onlyFriendMessages = chat.Messages.filter(message => message.fromUserId !== userId);
+    const newMessages = onlyFriendMessages.filter(
+      (message) => new Date(message.createdAt) > new Date(lastReadMessageDate)
+    );
+    return {
+      hasUnreadMessages: newMessages.length > 0 ? true : false,
+      numberOfUnreadMessages: newMessages.length,
+    };
+  };
+
   ChatItem.propTypes = {
     onOpenChat: PropTypes.func,
-    lastMessage: PropTypes.object,
+    userId: PropTypes.number,
     chat: PropTypes.exact({
       id: PropTypes.number,
       type: PropTypes.oneOf(["dual", "group"]),
@@ -26,7 +43,7 @@ const ChatItem = ({ chat, onOpenChat, lastMessage }) => {
       }),
       Users: PropTypes.array,
       Messages: PropTypes.array,
-      LastReadMessages: PropTypes.array
+      LastReadMessages: PropTypes.array,
     }),
   };
 
@@ -43,15 +60,16 @@ const ChatItem = ({ chat, onOpenChat, lastMessage }) => {
           ))}
         </div>
         <div className={classes.chatItem_header_newMessage}>
-          {true ? (
+          {unreadMessages().hasUnreadMessages ? (
             <div className={classes.chatItem_header_newMessage_yes}>
               <p>New message</p>
-              <StatusDot status="online" />
+              <div>
+                <p>{unreadMessages().numberOfUnreadMessages}</p>
+              </div>
             </div>
           ) : (
             <div className={classes.chatItem_header_newMessage_no}>
               <p>No new messages</p>
-              <StatusDot />
             </div>
           )}
         </div>
@@ -63,21 +81,20 @@ const ChatItem = ({ chat, onOpenChat, lastMessage }) => {
         data-for="lastMessage"
       >
         <h2>Last message</h2>
-        {!lastMessage ? (
+        {!chat.Messages[chat.Messages.length - 1] ? (
           <p>No message content</p>
         ) : (
           <div className={classes.chatItem_lastMessage_content}>
-            {console.log(lastMessage.type)}
-            {lastMessage.type === "text" ? (
-              <p>{lastMessage.message}</p>
+            {chat.Messages[chat.Messages.length - 1].type === "text" ? (
+              <p>{chat.Messages[chat.Messages.length - 1].message}</p>
             ) : (
               <div className={classes.chatItem_lastMessage_content_image}>
                 <LazyImage
-                  image={{ src: lastMessage.message, alt: "chatImage" }}
+                  image={{ src: chat.Messages[chat.Messages.length - 1].message, alt: "chatImage" }}
                 />
               </div>
             )}
-            <p>Send: {parseDateTime(chat.Messages[0].createdAt)}</p>
+            <p>Send: {parseDateTime(chat.Messages[chat.Messages.length - 1].createdAt)}</p>
           </div>
         )}
       </div>

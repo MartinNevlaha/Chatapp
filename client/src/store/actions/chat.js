@@ -105,9 +105,9 @@ export const imageUploadSuccess = () => {
 
 export const imageUploadFailed = () => {
   return {
-    type: actionTypes.IMAGE_UPLOAD_FAILED
-  }
-}
+    type: actionTypes.IMAGE_UPLOAD_FAILED,
+  };
+};
 
 export const imageChatUpload = (imageData, sendMessage) => {
   return (dispatch) => {
@@ -130,6 +130,22 @@ export const imageChatUpload = (imageData, sendMessage) => {
         dispatch(imageUploadSuccess());
         sendMessage(true, res.data.imageUrl, res.data.imageUrlForSendEvent);
       })
+      .catch((err) => dispatch(errorCreator(err.response)));
+  };
+};
+
+export const seeNewMessageSuccess = (messageData) => {
+  return {
+    type: actionTypes.SEE_NEW_MESSAGE_SUCCESS,
+    messageData,
+  };
+};
+
+export const seeNewMessage = (chatId) => {
+  return (dispatch) => {
+    axios
+      .patch(`/api/chat/see-message/${chatId}`)
+      .then((res) => dispatch(seeNewMessageSuccess(res.data.lastMessage)))
       .catch((err) => dispatch(errorCreator(err.response)));
   };
 };

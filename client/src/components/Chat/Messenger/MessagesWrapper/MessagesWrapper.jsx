@@ -19,8 +19,10 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   const totalMesages = useSelector((state) => state.chat.countMessages);
   useEffect(() => {
     dispatch(action.fetchMessages(chatId, fromUser.id, 0, LIMIT));
+    if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
 
     return () => {
+      if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
       dispatch(action.cleanUpMessages());
     };
   }, [dispatch]);

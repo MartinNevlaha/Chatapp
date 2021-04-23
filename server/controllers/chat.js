@@ -33,7 +33,7 @@ exports.getUserChatData = async (req, res, next) => {
             },
             {
               model: Message,
-              limit: 1,
+              limit: 15,
               order: [["id", "DESC"]],
             },
             {
@@ -260,7 +260,7 @@ exports.seeMessage = async (req, res, next) => {
     res.json({
       status: "Ok",
       message: "LastSeenMessage was successfully updated",
-      post: updatedLastSeenMessage[1][0],
+      lastMessage: updatedLastSeenMessage[1][0],
     });
   } catch (error) {
     if (error.statusCode) {

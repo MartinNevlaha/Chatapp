@@ -68,7 +68,9 @@ const sendMessage = (state, action) => {
     (chat) => chat.id === action.message.chatId
   );
   const copyChatData = [...state.chatData];
-  copyChatData[index].Messages[0] = action.message;
+  const updatedMessages = [...copyChatData[index].Messages, action.message];
+  copyChatData[index].Messages = updatedMessages;
+
   return updateObj(state, {
     chatData: copyChatData,
     currentChats: [action.message, ...state.currentChats],
@@ -80,7 +82,8 @@ const receiveMessage = (state, action) => {
     (chat) => chat.id === action.message.chatId
   );
   const copyChatData = [...state.chatData];
-  copyChatData[index].Messages[0] = action.message;
+  const updatedMessages = [...copyChatData[index].Messages, action.message];
+  copyChatData[index].Messages = updatedMessages;
 
   return updateObj(state, {
     chatData: copyChatData,
@@ -100,6 +103,21 @@ const imageUploadSuccess = (state, action) => {
 
 const imageUploadFailed = (state, action) => {
   return updateObj(state, { imageUploadProgress: 0 });
+};
+
+const seeNewMessageSuccess = (state, action) => {
+  const indexOfChat = state.chatData.findIndex(
+    (chat) => chat.id === action.messageData.chatId
+  );
+  const indexOfLastReadMessage = state.chatData[
+    indexOfChat
+  ].LastReadMessages.findIndex(
+    (mess) => mess.userId === action.messageData.userId
+  );
+  const copyOfChatData = [...state.chatData];
+  copyOfChatData[indexOfChat].LastReadMessages[indexOfLastReadMessage] =
+    action.messageData;
+  return updateObj(state, { chatData: copyOfChatData });
 };
 
 const reducer = (state = initialState, action) => {
@@ -130,6 +148,8 @@ const reducer = (state = initialState, action) => {
       return imageUploadSuccess(state, action);
     case actionTypes.IMAGE_UPLOAD_FAILED:
       return imageUploadFailed(state, action);
+    case actionTypes.SEE_NEW_MESSAGE_SUCCESS:
+      return seeNewMessageSuccess(state, action);
     default:
       return state;
   }

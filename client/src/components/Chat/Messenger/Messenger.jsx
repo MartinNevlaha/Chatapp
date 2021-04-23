@@ -25,9 +25,9 @@ const Messenger = ({ chatData, loadingChatData, user }) => {
 
   let content = chatData.map((chat) => (
     <ChatItem
+      userId={user.id}
       key={chat.id}
       chat={chat}
-      lastMessage={chat.Messages[0] && chat.Messages[0]}
       onOpenChat={handleOpenChat}
     />
   ));

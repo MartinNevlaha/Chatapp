@@ -44,5 +44,6 @@ export {
   setSocket,
   sendMessage,
   receiveMessage,
-  imageChatUpload
+  imageChatUpload,
+  seeNewMessage
 } from "./chat";
