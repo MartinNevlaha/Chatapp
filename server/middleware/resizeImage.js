@@ -1,16 +1,16 @@
 const sharp = require("sharp");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
-const { getImageResizeOpt } = require("../utils/utilities");
+const { imageDimension } = require("../config/imageDimension");
+
 
 sharp.cache(false);
 
 const resizeImage = async (req, res, next) => {
   try {
-    const imageSize = getImageResizeOpt(req.originalUrl);
     if (req.file) {
       let buffer = await sharp(req.file.path, { failOnError: false })
-        .resize(imageSize.width, imageSize.heigth, { fit: sharp.fit.fill, withoutEnlargement: true })
+        .resize(imageDimension.width, imageDimension.heigth, { fit: sharp.fit.fill, withoutEnlargement: true })
         .toBuffer();
       if (!buffer) {
         logger.error({

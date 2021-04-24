@@ -3,7 +3,6 @@ const router = require("express").Router();
 const isAuth = require("../middleware/isAuth");
 const { userChatFileUpload } = require("../middleware/fileUpload");
 const isFriend = require("../middleware/isFriend");
-const imageResize = require("../middleware/resizeImage");
 
 const {
   getUserChatData,
@@ -24,7 +23,7 @@ router.delete("/delete/:id", isAuth, deleteChat);
 
 router.post(
   "/upload-image",
-  [isAuth, userChatFileUpload, imageResize],
+  [isAuth, userChatFileUpload],
   imageUpload
 );
 

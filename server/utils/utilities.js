@@ -120,13 +120,3 @@ exports.getUserFriendIds = (friendshipsArr, userId) => {
   });
   return friendIds;
 };
-
-exports.getImageResizeOpt = (routerPath) => {
-  let imageDim;
-  if (routerPath === "/api/user/update") {
-    imageDim = imageDimension.avatar;
-  } else {
-    imageDim = imageDimension.other;
-  }
-  return imageDim;
-};
