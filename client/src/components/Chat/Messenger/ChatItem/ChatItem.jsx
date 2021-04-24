@@ -8,25 +8,9 @@ import classes from "./ChatItem.module.scss";
 import { parseDateTime } from "../../../../utils/utilities";
 import LazyImage from "../../../UI/LazyImage/LazyImage";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
+import { unreadMessages } from "../../../../utils/utilities";
 
 const ChatItem = ({ chat, onOpenChat, userId }) => {
-  const unreadMessages = () => {
-    let lastReadMessageDate;
-    const lastReadMessage = chat.LastReadMessages.filter(
-      (message) => message.userId === userId
-    );
-    if (lastReadMessage.length > 0)
-      lastReadMessageDate = lastReadMessage[0].lastSeenMessage;
-    const onlyFriendMessages = chat.Messages.filter(message => message.fromUserId !== userId);
-    const newMessages = onlyFriendMessages.filter(
-      (message) => new Date(message.createdAt) > new Date(lastReadMessageDate)
-    );
-    return {
-      hasUnreadMessages: newMessages.length > 0 ? true : false,
-      numberOfUnreadMessages: newMessages.length,
-    };
-  };
-
   ChatItem.propTypes = {
     onOpenChat: PropTypes.func,
     userId: PropTypes.number,
@@ -60,11 +44,17 @@ const ChatItem = ({ chat, onOpenChat, userId }) => {
           ))}
         </div>
         <div className={classes.chatItem_header_newMessage}>
-          {unreadMessages().hasUnreadMessages ? (
+          {unreadMessages(userId, chat.LastReadMessages, chat.Messages)
+            .hasUnreadMessages ? (
             <div className={classes.chatItem_header_newMessage_yes}>
               <p>New message</p>
               <div>
-                <p>{unreadMessages().numberOfUnreadMessages}</p>
+                <p>
+                  {
+                    unreadMessages(userId, chat.LastReadMessages, chat.Messages)
+                      .numberOfUnreadMessages
+                  }
+                </p>
               </div>
             </div>
           ) : (
@@ -90,11 +80,17 @@ const ChatItem = ({ chat, onOpenChat, userId }) => {
             ) : (
               <div className={classes.chatItem_lastMessage_content_image}>
                 <LazyImage
-                  image={{ src: chat.Messages[chat.Messages.length - 1].message, alt: "chatImage" }}
+                  image={{
+                    src: chat.Messages[chat.Messages.length - 1].message,
+                    alt: "chatImage",
+                  }}
                 />
               </div>
             )}
-            <p>Send: {parseDateTime(chat.Messages[chat.Messages.length - 1].createdAt)}</p>
+            <p>
+              Send:{" "}
+              {parseDateTime(chat.Messages[chat.Messages.length - 1].createdAt)}
+            </p>
           </div>
         )}
       </div>

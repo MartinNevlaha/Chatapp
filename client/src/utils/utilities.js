@@ -104,3 +104,23 @@ export const searchFriendsHelper = (friends, filterBy, searchValue) => {
     return filterByUserChoice(friends, filterBy);
   }
 };
+
+export const unreadMessages = (userId, lastReadMessages, messages) => {
+  let lastReadMessageDate;
+  const lastUserReadMessage = lastReadMessages.filter(
+    (message) => message.userId === userId
+  );
+  if (lastUserReadMessage.length > 0)
+    lastReadMessageDate = lastUserReadMessage[0].lastSeenMessage;
+  const onlyFriendMessages = messages.filter(
+    (message) => message.fromUserId !== userId
+  );
+  const newMessages = onlyFriendMessages.filter(
+    (message) => new Date(message.createdAt) > new Date(lastReadMessageDate)
+  );
+
+  return {
+    hasUnreadMessages: newMessages.length > 0 ? true : false,
+    numberOfUnreadMessages: newMessages.length,
+  };
+};

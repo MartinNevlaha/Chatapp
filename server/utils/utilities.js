@@ -4,7 +4,6 @@ const fs = require("fs-extra");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
 const config = require("../config/app");
-const {imageDimension} = require("../config/imageDimension");
 
 exports.hashPwd = async (user) => {
   if (user.changed("password")) {
