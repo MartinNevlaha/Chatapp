@@ -17,20 +17,25 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.chat.currentChats);
   const totalMesages = useSelector((state) => state.chat.countMessages);
+
   useEffect(() => {
     dispatch(action.fetchMessages(chatId, fromUser.id, 0, LIMIT));
-    if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
 
     return () => {
-      if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
       dispatch(action.cleanUpMessages());
     };
-  }, [dispatch]);
+  }, [dispatch, chatId, LIMIT, fromUser.id]);
+
+  useEffect(() => {
+    if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
+    return () => {
+      if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
+    };
+  }, [dispatch, chatId, messages]);
 
   const handleLoadAnotherMessages = () => {
     setPage(page + 1);
     if (messages.length >= totalMesages) {
-      console.log("uz nenacivam");
       sethasMoreMessages(false);
       return;
     }
@@ -66,11 +71,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
         </InfiniteScroll>
       </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput
-          user={user}
-          toUserId={fromUser.id}
-          chatId={chatId}
-        />
+        <MessageInput user={user} toUserId={fromUser.id} chatId={chatId} />
       </div>
     </div>
   );
