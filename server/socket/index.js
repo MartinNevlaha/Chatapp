@@ -75,8 +75,14 @@ const SocketServer = (server) => {
       }
     });
 
+    socket.on("typing", (msg) => {
+      const recipient = users.getUser(msg.toUserId);
+      if (recipient) {
+        io.to(recipient.socketId).emit("typing", msg);
+      }
+    });
+
     socket.on("disconnect", () => {
-      console.log(socket.id);
       const user = users.removeUser(null, socket.id);
       console.log(
         "disconect",

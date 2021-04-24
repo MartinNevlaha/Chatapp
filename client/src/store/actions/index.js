@@ -45,5 +45,6 @@ export {
   sendMessage,
   receiveMessage,
   imageChatUpload,
-  seeNewMessage
+  seeNewMessage,
+  userTyping
 } from "./chat";

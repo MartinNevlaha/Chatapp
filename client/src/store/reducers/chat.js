@@ -9,6 +9,7 @@ const initialState = {
   scrollBottom: 0,
   loadingChatData: false,
   socket: null,
+  isTyping: false,
 };
 
 const fetchChatDataStart = (state, action) => {
@@ -120,6 +121,10 @@ const seeNewMessageSuccess = (state, action) => {
   return updateObj(state, { chatData: copyOfChatData });
 };
 
+const userTyping = (state, action) => {
+  return updateObj(state, { isTyping: action.isTyping });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_CHAT_DATA_START:
@@ -150,6 +155,8 @@ const reducer = (state = initialState, action) => {
       return imageUploadFailed(state, action);
     case actionTypes.SEE_NEW_MESSAGE_SUCCESS:
       return seeNewMessageSuccess(state, action);
+    case actionTypes.USER_IS_TYPING:
+      return userTyping(state, action);
     default:
       return state;
   }

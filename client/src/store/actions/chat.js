@@ -149,3 +149,10 @@ export const seeNewMessage = (chatId) => {
       .catch((err) => dispatch(errorCreator(err.response)));
   };
 };
+
+export const userTyping = (isTyping) => {
+  return {
+    type: actionTypes.USER_IS_TYPING,
+    isTyping
+  }
+}

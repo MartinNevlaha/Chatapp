@@ -21,11 +21,18 @@ const useSocket = (user, dispatch) => {
 
     socket.on("offline", (user) => dispatch(action.friendOffline(user)));
 
-    socket.on("receiveMessage", msg => dispatch(action.receiveMessage(msg)));
+    socket.on("receiveMessage", (msg) => dispatch(action.receiveMessage(msg)));
+
+    socket.on("typing", (msg) => {
+      dispatch(action.userTyping(msg.typing));
+      setTimeout(() => {
+        dispatch(action.userTyping(false));
+      }, 2500);
+    });
 
     socket.on("connect_error", (err) => {
       console.log(err);
-    })
+    });
 
     return () => {
       socket.disconnect();

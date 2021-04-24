@@ -25,9 +25,23 @@ const MessageInput = ({ user, toUserId, chatId }) => {
   );
 
   const handleMessageInput = (e) => {
-    setMessage(e.target.value);
+    const value = e.target.value;
+    setMessage(value);
 
-    // notify typing
+    // user is typing notification
+    const receiver = {
+      chatId: chatId,
+      fromUser: user.id,
+      toUserId: toUserId,
+    };
+
+    if (value.length >= 1) {
+      receiver.typing = true;
+      socket.emit("typing", receiver);
+    } else if (value.length === 0) {
+      receiver.typing = false;
+      socket.emit("typing", receiver);
+    }
   };
   const handleKeyDown = (e, imageUpload) => {
     if (e.key === "Enter") sendMessage(imageUpload);
@@ -45,6 +59,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     };
     setMessage("");
     setImage("");
+    dispatch(action.userTyping(false));
     // send message
     socket.emit("sendMessage", msg);
     const messageToRedux = {

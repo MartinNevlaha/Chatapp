@@ -17,14 +17,16 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.chat.currentChats);
   const totalMesages = useSelector((state) => state.chat.countMessages);
+  const isTyping = useSelector((state) => state.chat.isTyping);
+  const fromUserId = fromUser.id;
 
   useEffect(() => {
-    dispatch(action.fetchMessages(chatId, fromUser.id, 0, LIMIT));
+    dispatch(action.fetchMessages(chatId, fromUserId, 0, LIMIT));
 
     return () => {
       dispatch(action.cleanUpMessages());
     };
-  }, [dispatch, chatId, LIMIT, fromUser.id]);
+  }, [dispatch, chatId, LIMIT, fromUserId]);
 
   useEffect(() => {
     if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
@@ -39,7 +41,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
       sethasMoreMessages(false);
       return;
     }
-    dispatch(action.fetchMessages(chatId, fromUser.id, page + 1, LIMIT));
+    dispatch(action.fetchMessages(chatId, fromUserId, page + 1, LIMIT));
   };
 
   MessagesWrapper.propTypes = {
@@ -56,7 +58,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
           dataLength={messages.length}
           next={handleLoadAnotherMessages}
           hasMore={hasMoreMessages}
-          height={550}
+          height={530}
           style={{ display: "flex", flexDirection: "column-reverse" }}
           inverse={true}
           loader={messages.length > 0 && <Spinner />}
@@ -70,8 +72,14 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
           )}
         </InfiniteScroll>
       </div>
+
+      <div className={classes.MessagesWrapper_isTyping}>
+        {isTyping && (
+            <Spinner type="beat" />
+        )}
+      </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput user={user} toUserId={fromUser.id} chatId={chatId} />
+        <MessageInput user={user} toUserId={fromUserId} chatId={chatId} />
       </div>
     </div>
   );
