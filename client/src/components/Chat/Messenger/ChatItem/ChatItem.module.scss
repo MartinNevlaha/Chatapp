@@ -40,6 +40,7 @@
       }
     }
     &_newMessage {
+
       &_no {
         @extend .chatItem_header_friends_user;
         background-color: gray;
@@ -47,7 +48,21 @@
       }
       &_yes {
         @extend .chatItem_header_friends_user;
+        @include flexbox(center, center, row);
         color: white;
+
+        &_number {
+          @include flexbox(center, center, column);
+          width: 17px;
+          height: 17px;
+          background-color: red;
+          border-radius: 50%;
+
+          P {
+            font-size: get-font-size(small);
+            font-weight: bold;
+          }
+        }
       }
     }
   }

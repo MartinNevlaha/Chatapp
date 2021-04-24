@@ -48,7 +48,7 @@ const ChatItem = ({ chat, onOpenChat, userId }) => {
             .hasUnreadMessages ? (
             <div className={classes.chatItem_header_newMessage_yes}>
               <p>New message</p>
-              <div>
+              <div className={classes.chatItem_header_newMessage_yes_number}>
                 <p>
                   {
                     unreadMessages(userId, chat.LastReadMessages, chat.Messages)
