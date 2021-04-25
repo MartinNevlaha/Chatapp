@@ -211,14 +211,12 @@ exports.getMessages = async (req, res, next) => {
 exports.deleteChat = async (req, res, next) => {
   const id = req.params.chatId;
   try {
-
-    /*
     await Chat.destroy({
       where: {
         id: id,
       },
     });
-    */
+
     res.json({
       status: "Ok",
       message: "Chat was deleted",
