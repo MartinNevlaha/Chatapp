@@ -6,9 +6,11 @@ import SearchInput from "../../Inputs/SearchInputs/SearchInputs";
 import Spinner from "../../UI/Spinner/Spinner";
 import ChatItem from "./ChatItem/ChatItem";
 import MessagesWrapper from "./MessagesWrapper/MessagesWrapper";
+import { searchMsgHelper } from "../../../utils/utilities";
 
 const Messenger = ({ chatData, loadingChatData, user }) => {
   const [openedChatId, setOpenedChatId] = useState(null);
+  const [searchMessageValue, setSearchMessageValue] = useState("");
 
   const handleOpenChat = (chatId) => {
     setOpenedChatId(chatId);
@@ -23,7 +25,9 @@ const Messenger = ({ chatData, loadingChatData, user }) => {
     return currentChat[0].Users[0];
   };
 
-  let content = chatData.map((chat) => (
+
+
+  let content = searchMsgHelper(chatData, searchMessageValue).map((chat) => (
     <ChatItem
       userId={user.id}
       key={chat.id}
@@ -56,7 +60,11 @@ const Messenger = ({ chatData, loadingChatData, user }) => {
       <div className={classes.messenger_header}>
         <h2>Messenger</h2>
         <div className={classes.messenger_header_input}>
-          <SearchInput styleType="large" />
+          <SearchInput
+            styleType="large"
+            currentValue={searchMessageValue}
+            onChangeInput={(e) => setSearchMessageValue(e.target.value)}
+          />
         </div>
       </div>
       <div className={classes.messenger_chats}>{content}</div>

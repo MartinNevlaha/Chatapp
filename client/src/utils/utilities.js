@@ -11,7 +11,7 @@ export const updateObj = (oldObject, updatedProperties) => {
 export const parseDateTime = (ISOString) => {
   const convertDate = moment(ISOString);
   const date = convertDate.utcOffset("+0200").format("YYYY-MM-DD");
-  const time = convertDate.utcOffset("+0200").format("HH:mm:ss");
+  const time = convertDate.utcOffset("0200").format("HH:mm:ss");
   return date + " " + time;
 };
 
@@ -102,6 +102,19 @@ export const searchFriendsHelper = (friends, filterBy, searchValue) => {
     );
   } else {
     return filterByUserChoice(friends, filterBy);
+  }
+};
+
+export const searchMsgHelper = (chatData, searchValue) => {
+  if (searchValue.length > 0) {
+    return chatData.filter((chatItem) =>
+      chatItem.Users[0].fullName
+        .toString()
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+    );
+  } else {
+    return chatData;
   }
 };
 

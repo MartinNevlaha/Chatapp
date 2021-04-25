@@ -12,14 +12,13 @@ import ReactTooltip from "react-tooltip";
 
 import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
-import * as action from "../../../../../store/actions";
 
 const MessageHeader = ({ user, onCloseChat, muteSound, setMuteSound }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
     onCloseChat: PropTypes.func,
     muteSound: PropTypes.bool,
-    setMuteSound: PropTypes.func
+    setMuteSound: PropTypes.func,
   };
   return (
     <div className={classes.messageHeader}>
@@ -58,7 +57,7 @@ const MessageHeader = ({ user, onCloseChat, muteSound, setMuteSound }) => {
         </ReactTooltip>
         <FontAwesomeIcon
           icon={muteSound ? faVolumeMute : faVolumeUp}
-          onClick={()=> setMuteSound(!muteSound)}
+          onClick={() => setMuteSound(!muteSound)}
           className={classes.messageHeader_user_video}
           data-tip
           data-for="mute"
