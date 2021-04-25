@@ -18,6 +18,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   const messages = useSelector((state) => state.chat.currentChats);
   const totalMesages = useSelector((state) => state.chat.countMessages);
   const isTyping = useSelector((state) => state.chat.isTyping);
+  const [muteSound, setMuteSound] = useState(false);
   const fromUserId = fromUser.id;
 
   useEffect(() => {
@@ -52,7 +53,12 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   };
   return (
     <div className={classes.MessagesWrapper}>
-      <MessageHeader onCloseChat={onCloseChat} user={fromUser} />
+      <MessageHeader
+        onCloseChat={onCloseChat}
+        user={fromUser}
+        muteSound={muteSound}
+        setMuteSound={setMuteSound}
+      />
       <div className={classes.MessagesWrapper_container}>
         <InfiniteScroll
           dataLength={messages.length}
@@ -74,12 +80,15 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
       </div>
 
       <div className={classes.MessagesWrapper_isTyping}>
-        {isTyping && (
-            <Spinner type="beat" />
-        )}
+        {isTyping && <Spinner type="beat" />}
       </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput user={user} toUserId={fromUserId} chatId={chatId} />
+        <MessageInput
+          user={user}
+          toUserId={fromUserId}
+          chatId={chatId}
+          muteSound={muteSound}
+        />
       </div>
     </div>
   );

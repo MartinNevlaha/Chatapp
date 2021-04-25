@@ -5,17 +5,21 @@ import {
   faUser,
   faVideo,
   faVolumeMute,
+  faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
 
 import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
+import * as action from "../../../../../store/actions";
 
-const MessageHeader = ({ user, onCloseChat }) => {
+const MessageHeader = ({ user, onCloseChat, muteSound, setMuteSound }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
     onCloseChat: PropTypes.func,
+    muteSound: PropTypes.bool,
+    setMuteSound: PropTypes.func
   };
   return (
     <div className={classes.messageHeader}>
@@ -41,7 +45,7 @@ const MessageHeader = ({ user, onCloseChat }) => {
             <FontAwesomeIcon icon={faUser} size="2x" />
           </div>
         )}
-        <StatusDot status={user.status}/>
+        <StatusDot status={user.status} />
         <p>{user.fullName}</p>
         <FontAwesomeIcon
           icon={faVideo}
@@ -53,10 +57,11 @@ const MessageHeader = ({ user, onCloseChat }) => {
           Click start video call
         </ReactTooltip>
         <FontAwesomeIcon
-          icon={faVolumeMute}
+          icon={muteSound ? faVolumeMute : faVolumeUp}
+          onClick={()=> setMuteSound(!muteSound)}
           className={classes.messageHeader_user_video}
           data-tip
-          data-for="video"
+          data-for="mute"
         />
         <ReactTooltip id="mute" place="top" effect="solid" border={true}>
           Mute chat sounds

@@ -153,6 +153,7 @@ export const seeNewMessage = (chatId) => {
 export const userTyping = (isTyping) => {
   return {
     type: actionTypes.USER_IS_TYPING,
-    isTyping
-  }
-}
+    isTyping,
+  };
+};
+

@@ -10,6 +10,7 @@ const initialState = {
   loadingChatData: false,
   socket: null,
   isTyping: false,
+  muteSound: false,
 };
 
 const fetchChatDataStart = (state, action) => {
@@ -124,6 +125,7 @@ const seeNewMessageSuccess = (state, action) => {
 const userTyping = (state, action) => {
   return updateObj(state, { isTyping: action.isTyping });
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
