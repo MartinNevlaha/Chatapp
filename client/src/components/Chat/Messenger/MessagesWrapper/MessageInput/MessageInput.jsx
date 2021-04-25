@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSmileWink,
+  faSmile,
   faUpload,
   faTimes,
   faImage,
@@ -16,6 +16,7 @@ import "emoji-mart/css/emoji-mart.css";
 
 const MessageInput = ({ user, toUserId, chatId }) => {
   const fileUpload = useRef(null);
+  const msgInput = useRef(null);
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
@@ -23,6 +24,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
   const imageUploadProgress = useSelector(
     (state) => state.chat.imageUploadProgress
   );
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const handleMessageInput = (e) => {
     const value = e.target.value;
@@ -81,6 +83,23 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     dispatch(action.imageChatUpload(formData, sendMessage));
   };
 
+  const selectEmoji = (emoji) => {
+    const startPosition = msgInput.current.selectionStart;
+    const endPosition = msgInput.current.selectionEnd;
+    const emojiLength = emoji.native.length;
+    const value = msgInput.current.value;
+
+    setMessage(
+      value.substring(0, startPosition) +
+        emoji.native +
+        value.substring(endPosition, value.length)
+    );
+
+    msgInput.current.focus();
+    msgInput.current.selectionEnd = endPosition + emojiLength;
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
   MessageInput.propTypes = {
     user: PropTypes.object,
     toUserId: PropTypes.number,
@@ -135,6 +154,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
       </div>
       <div className={classes.input_messageInput}>
         <input
+          ref={msgInput}
           type="text"
           placeholder="Message..."
           value={message}
@@ -142,9 +162,19 @@ const MessageInput = ({ user, toUserId, chatId }) => {
           onKeyDown={(e) => handleKeyDown(e, false)}
         />
         <FontAwesomeIcon
-          icon={faSmileWink}
+          icon={faSmile}
           className={classes.input_messageInput_icon}
+          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
         />
+        {console.log(showEmojiPicker)}
+        {showEmojiPicker && (
+          <Picker
+            title="Pick your emoji"
+            emoji="point_up"
+            style={{ position: "absolute", bottom: "20px", left: "20px" }}
+            onSelect={selectEmoji}
+          />
+        )}
       </div>
     </div>
   );
