@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSmile,
@@ -9,10 +9,12 @@ import {
 import { Picker } from "emoji-mart";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
+import useSound from "use-sound";
 
 import * as action from "../../../../../store/actions";
 import classes from "./MessageInput.module.scss";
 import "emoji-mart/css/emoji-mart.css";
+import msgSound from "../.././../../../assets/sounds/message.mp3";
 
 const MessageInput = ({ user, toUserId, chatId }) => {
   const fileUpload = useRef(null);
@@ -20,11 +22,19 @@ const MessageInput = ({ user, toUserId, chatId }) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
+  const [mute, setMute] = useState(false);
   const socket = useSelector((state) => state.chat.socket);
   const imageUploadProgress = useSelector(
     (state) => state.chat.imageUploadProgress
   );
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [play] = useSound(msgSound);
+
+  useEffect(() => {
+    socket.on("receiveMessage", (msg) => {
+      if (msg.chatId === chatId) play();
+    });
+  }, [socket, play]);
 
   const handleMessageInput = (e) => {
     const value = e.target.value;
