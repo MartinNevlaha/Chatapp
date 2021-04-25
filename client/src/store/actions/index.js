@@ -47,4 +47,5 @@ export {
   imageChatUpload,
   seeNewMessage,
   userTyping,
+  deleteChat
 } from "./chat";

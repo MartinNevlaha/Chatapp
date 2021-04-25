@@ -126,6 +126,11 @@ const userTyping = (state, action) => {
   return updateObj(state, { isTyping: action.isTyping });
 };
 
+const deleteChatSuccess = (state, action) => {
+  return updateObj(state, {
+    chatData: state.chatData.filter((chat) => chat.id !== action.chatId),
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -159,6 +164,8 @@ const reducer = (state = initialState, action) => {
       return seeNewMessageSuccess(state, action);
     case actionTypes.USER_IS_TYPING:
       return userTyping(state, action);
+    case actionTypes.DELETE_CHAT_SUCCES:
+      return deleteChatSuccess(state, action);
     default:
       return state;
   }

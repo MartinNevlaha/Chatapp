@@ -209,13 +209,16 @@ exports.getMessages = async (req, res, next) => {
 };
 
 exports.deleteChat = async (req, res, next) => {
-  const id = req.params.id;
+  const id = req.params.chatId;
   try {
+
+    /*
     await Chat.destroy({
       where: {
         id: id,
       },
     });
+    */
     res.json({
       status: "Ok",
       message: "Chat was deleted",
@@ -244,11 +247,12 @@ exports.imageUpload = (req, res, next) => {
 exports.seeMessage = async (req, res, next) => {
   try {
     const updatedLastSeenMessage = await LastReadMessage.update(
-      {lastSeenMessage: moment()}, {
+      { lastSeenMessage: moment() },
+      {
         where: {
           chatId: req.params.chatId,
-          userId: req.user.id
-        }, 
+          userId: req.user.id,
+        },
         returning: true,
       }
     );
@@ -268,4 +272,4 @@ exports.seeMessage = async (req, res, next) => {
     }
     return next(error);
   }
-}
+};

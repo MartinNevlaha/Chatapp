@@ -80,7 +80,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     formData.append("id", chatId);
     formData.append("image", image);
 
-    dispatch(action.imageChatUpload(formData, sendMessage));
+    dispatch(action.imageChatUpload(formData, sendMessage, chatId));
   };
 
   const selectEmoji = (emoji) => {

@@ -109,7 +109,7 @@ export const imageUploadFailed = () => {
   };
 };
 
-export const imageChatUpload = (imageData, sendMessage) => {
+export const imageChatUpload = (imageData, sendMessage, chatId) => {
   return (dispatch) => {
     const config = {
       onUploadProgress: (progressEvent) => {
@@ -125,7 +125,7 @@ export const imageChatUpload = (imageData, sendMessage) => {
       },
     };
     axios
-      .post("/api/chat/upload-image", imageData, config)
+      .post(`/api/chat/upload-image/${chatId}`, imageData, config)
       .then((res) => {
         dispatch(imageUploadSuccess());
         sendMessage(true, res.data.imageUrl, res.data.imageUrlForSendEvent);
@@ -157,3 +157,18 @@ export const userTyping = (isTyping) => {
   };
 };
 
+export const deleteChatSuccess = (chatId) => {
+  return {
+    type: actionTypes.DELETE_CHAT_SUCCES,
+    chatId
+  };
+};
+
+export const deleteChat = (chatId) => {
+  return (dispatch) => {
+    axios
+      .delete(`/api/chat/delete/${chatId}`)
+      .then((res) => dispatch(deleteChatSuccess(chatId)))
+      .catch((err) => dispatch(errorCreator(err.response)));
+  };
+};

@@ -10,9 +10,10 @@ import LazyImage from "../../../UI/LazyImage/LazyImage";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 import { unreadMessages } from "../../../../utils/utilities";
 
-const ChatItem = ({ chat, onOpenChat, userId }) => {
+const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
   ChatItem.propTypes = {
     onOpenChat: PropTypes.func,
+    openModal: PropTypes.func,
     userId: PropTypes.number,
     chat: PropTypes.exact({
       id: PropTypes.number,
@@ -102,6 +103,7 @@ const ChatItem = ({ chat, onOpenChat, userId }) => {
           icon={faTrashAlt}
           size="1x"
           className={classes.chatItem_delete_icon}
+          onClick={()=>openModal(chat.id)}
           data-tip
           data-for="deleteChat"
         />

@@ -20,6 +20,10 @@ const Chat = () => {
 
   useSocket(user, dispatch);
 
+  const deleteChat = (chatId) => {
+    dispatch(action.deleteChat(chatId));
+  };
+
   return (
     <div>
       <ChatComp
@@ -28,6 +32,7 @@ const Chat = () => {
         chatData={chatData}
         loadingChatData={loadingChatData}
         user={user}
+        onDeleteChat={deleteChat}
       />
     </div>
   );

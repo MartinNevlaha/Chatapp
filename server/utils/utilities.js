@@ -119,3 +119,11 @@ exports.getUserFriendIds = (friendshipsArr, userId) => {
   });
   return friendIds;
 };
+
+exports.isOneOfChattersHelper = (chatters, userId) => {
+  let result = false;
+  chatters.forEach((chatter) => {
+    if (chatter.userId === userId) result = true;
+  });
+  return result;
+};

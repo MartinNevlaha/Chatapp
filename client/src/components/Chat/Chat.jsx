@@ -5,22 +5,34 @@ import classes from "./Chat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
 
-const ChatComp = ({ friends, loadingFriends, chatData, loadingChatData, user }) => {
+const ChatComp = ({
+  friends,
+  loadingFriends,
+  chatData,
+  loadingChatData,
+  user,
+  onDeleteChat,
+}) => {
   ChatComp.propTypes = {
     friends: PropTypes.array,
     loadingFriends: PropTypes.bool,
     chatData: PropTypes.array,
     loadingChatData: PropTypes.bool,
-    user: PropTypes.object
+    user: PropTypes.object,
+    onDeleteChat: PropTypes.func,
   };
 
   return (
     <div className={classes.chat}>
       <ChatFriends friends={friends} loading={loadingFriends} />
-      <Messenger chatData={chatData} loadingChatData={loadingChatData} user={user} />
+      <Messenger
+        chatData={chatData}
+        loadingChatData={loadingChatData}
+        user={user}
+        onDeleteChat={onDeleteChat}
+      />
     </div>
   );
 };
 
 export default ChatComp;
-
