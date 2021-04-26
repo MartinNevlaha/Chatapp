@@ -140,6 +140,9 @@ exports.createChat = async (req, res, next) => {
           {
             model: Message,
           },
+          {
+            model: LastReadMessage
+          }
         ],
       });
       if (!createdChat) {
