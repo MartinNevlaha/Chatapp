@@ -13,6 +13,7 @@ const ChatComp = ({
   user,
   onDeleteChat,
 }) => {
+
   ChatComp.propTypes = {
     friends: PropTypes.array,
     loadingFriends: PropTypes.bool,
@@ -24,7 +25,7 @@ const ChatComp = ({
 
   return (
     <div className={classes.chat}>
-      <ChatFriends friends={friends} loading={loadingFriends} />
+      <ChatFriends friends={friends} loading={loadingFriends} chatData={chatData} />
       <Messenger
         chatData={chatData}
         loadingChatData={loadingChatData}

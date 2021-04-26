@@ -6,9 +6,10 @@ import Friend from "../../../FriendList/Friend/Friend";
 import Button from "../../../UI/Button/Button";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 
-const ChatFriend = ({ friend }) => {
+const ChatFriend = ({ friend, isInChat }) => {
   ChatFriend.propTypes = {
     friend: PropTypes.object,
+    isInChat: PropTypes.bool
   };
   return (
     <div className={classes.chatFriend}>
@@ -17,7 +18,7 @@ const ChatFriend = ({ friend }) => {
         <span className={classes.chatFriend_dot}></span>
         <StatusDot status={friend.status} statusShow/>
       </div>
-      <Button>Add to chat</Button>
+      <Button disabled={isInChat} >Add to chat</Button>
     </div>
   );
 };
