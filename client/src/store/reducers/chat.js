@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObj } from "../../utils/utilities";
+import { addToChat } from "../actions/chat";
 
 const initialState = {
   chatData: [],
@@ -131,6 +132,12 @@ const deleteChatSuccess = (state, action) => {
     chatData: state.chatData.filter((chat) => chat.id !== action.chatId),
   });
 };
+
+const addToChatSuccess = (state, action) => {
+  return updateObj(state, {
+    chatData: state.chatData.concat(action.chatData)
+  })
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

@@ -20,8 +20,15 @@ const Chat = () => {
 
   useSocket(user, dispatch);
 
-  const deleteChat = (chatId) => {
+  const handleDeleteChat = (chatId) => {
     dispatch(action.deleteChat(chatId));
+  };
+
+  const handleAddToChat = (friendId) => {
+    const friendData = {
+      friendId: friendId,
+    };
+    dispatch(action.addToChat(friendData));
   };
 
   return (
@@ -32,7 +39,8 @@ const Chat = () => {
         chatData={chatData}
         loadingChatData={loadingChatData}
         user={user}
-        onDeleteChat={deleteChat}
+        onDeleteChat={handleDeleteChat}
+        onAddToChat={handleAddToChat}
       />
     </div>
   );

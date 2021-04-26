@@ -160,7 +160,7 @@ export const userTyping = (isTyping) => {
 export const deleteChatSuccess = (chatId) => {
   return {
     type: actionTypes.DELETE_CHAT_SUCCES,
-    chatId
+    chatId,
   };
 };
 
@@ -169,6 +169,23 @@ export const deleteChat = (chatId) => {
     axios
       .delete(`/api/chat/delete/${chatId}`)
       .then((res) => dispatch(deleteChatSuccess(chatId)))
+      .catch((err) => dispatch(errorCreator(err.response)));
+  };
+};
+
+export const addToChatSuccess = (chatData) => {
+  console.log(chatData);
+  return {
+    type: actionTypes.ADD_TO_CHAT_SUCCESS,
+    chatData,
+  };
+};
+
+export const addToChat = (friendData) => {
+  return (dispatch) => {
+    axios
+      .post("/api/chat/create", friendData)
+      .then((res) => dispatch(addToChatSuccess(res.data.chat)))
       .catch((err) => dispatch(errorCreator(err.response)));
   };
 };

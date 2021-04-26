@@ -7,7 +7,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 import Filter from "./Filter/Filter";
 import { searchFriendsHelper } from "../../../utils/utilities";
 
-const ChatFriends = ({ friends, loading, chatData }) => {
+const ChatFriends = ({ friends, loading, chatData, onAddToChat }) => {
   const [filterBy, setFilterBy] = useState("all");
   const [searchValue, setSearchValue] = useState("");
 
@@ -29,6 +29,7 @@ const ChatFriends = ({ friends, loading, chatData }) => {
     friends: PropTypes.array,
     loading: PropTypes.bool,
     chatData: PropTypes.array,
+    onAddToChat: PropTypes.func
   };
 
   return (
@@ -52,6 +53,7 @@ const ChatFriends = ({ friends, loading, chatData }) => {
               key={friend.id}
               chatData={chatData}
               isInChat={isAllreadyInChat(friend.id, chatData)}
+              onAddToChat={onAddToChat}
             />
           ))
         )}
