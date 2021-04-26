@@ -18,7 +18,6 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
   const messages = useSelector((state) => state.chat.currentChats);
   const totalMesages = useSelector((state) => state.chat.countMessages);
   const isTyping = useSelector((state) => state.chat.isTyping);
-  const [muteSound, setMuteSound] = useState(false);
   const fromUserId = fromUser.id;
 
   useEffect(() => {
@@ -56,8 +55,6 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
       <MessageHeader
         onCloseChat={onCloseChat}
         user={fromUser}
-        muteSound={muteSound}
-        setMuteSound={setMuteSound}
       />
       <div className={classes.MessagesWrapper_container}>
         <InfiniteScroll
@@ -87,7 +84,6 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
           user={user}
           toUserId={fromUserId}
           chatId={chatId}
-          muteSound={muteSound}
         />
       </div>
     </div>

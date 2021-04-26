@@ -9,7 +9,6 @@ import MessagesWrapper from "./MessagesWrapper/MessagesWrapper";
 import { searchMsgHelper } from "../../../utils/utilities";
 import Modal from "../../UI/Modal/Modal";
 import Button from "../../UI/Button/Button";
-import { deleteChat } from "../../../store/actions";
 
 const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
   const [openedChatId, setOpenedChatId] = useState(null);

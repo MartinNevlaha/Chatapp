@@ -12,11 +12,12 @@ const Chat = () => {
   const loadingChatData = useSelector((state) => state.chat.loadingChatData);
   const friends = useSelector((state) => state.friends.userFriends);
   const loadingFriends = useSelector((state) => state.friends.loading);
+  const userId = +user.id;
 
   useEffect(() => {
     dispatch(action.fetchChatData());
-    dispatch(action.getUserFriends(+user.id));
-  }, [dispatch]);
+    dispatch(action.getUserFriends(userId));
+  }, [dispatch, userId]);
 
   useSocket(user, dispatch);
 
