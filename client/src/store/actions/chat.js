@@ -164,11 +164,15 @@ export const deleteChatSuccess = (chatId) => {
   };
 };
 
-export const deleteChat = (chatId) => {
-  return (dispatch) => {
+export const deleteChat = (chatId, deletedChat) => {
+  return (dispatch, getState) => {
+    const socket = getState().chat.socket;
     axios
       .delete(`/api/chat/delete/${chatId}`)
-      .then((res) => dispatch(deleteChatSuccess(chatId)))
+      .then((res) => {
+        dispatch(deleteChatSuccess(chatId));
+        socket.emit("deleteChat", deletedChat);
+      })
       .catch((err) => dispatch(errorCreator(err.response)));
   };
 };
@@ -181,10 +185,14 @@ export const addToChatSuccess = (chatData) => {
 };
 
 export const addToChat = (friendData) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const socket = getState().chat.socket;
     axios
       .post("/api/chat/create", friendData)
-      .then((res) => dispatch(addToChatSuccess(res.data.chat)))
+      .then((res) => {
+        dispatch(addToChatSuccess(res.data.chat));
+        socket.emit("createNewChat", res.data.chat);
+      })
       .catch((err) => dispatch(errorCreator(err.response)));
   };
 };

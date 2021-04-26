@@ -48,5 +48,7 @@ export {
   seeNewMessage,
   userTyping,
   deleteChat,
-  addToChat
+  deleteChatSuccess,
+  addToChat,
+  addToChatSuccess
 } from "./chat";

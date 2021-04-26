@@ -9,6 +9,7 @@ import MessagesWrapper from "./MessagesWrapper/MessagesWrapper";
 import { searchMsgHelper } from "../../../utils/utilities";
 import Modal from "../../UI/Modal/Modal";
 import Button from "../../UI/Button/Button";
+import { deleteChat } from "../../../store/actions";
 
 const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
   const [openedChatId, setOpenedChatId] = useState(null);
@@ -35,7 +36,8 @@ const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
   };
 
   const handleDeleteChat = () => {
-    onDeleteChat(choosenChatId);
+    const deletedChat = chatData.filter((chat) => chat.id === choosenChatId)[0];
+    onDeleteChat(choosenChatId, deletedChat);
     setShowModal(false);
   };
 
@@ -71,7 +73,7 @@ const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
 
   return (
     <React.Fragment>
-      <Modal show={showModal} cancel={() => setShowModal(false)} >
+      <Modal show={showModal} cancel={() => setShowModal(false)}>
         <p>Do you want to delete this chat</p>
         <div>
           <Button danger clicked={() => setShowModal(false)}>

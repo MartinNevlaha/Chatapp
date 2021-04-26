@@ -20,8 +20,8 @@ const Chat = () => {
 
   useSocket(user, dispatch);
 
-  const handleDeleteChat = (chatId) => {
-    dispatch(action.deleteChat(chatId));
+  const handleDeleteChat = (chatId, deletedChat) => {
+    dispatch(action.deleteChat(chatId, deletedChat));
   };
 
   const handleAddToChat = (friendId) => {

@@ -1,8 +1,6 @@
 const config = require("../config/app");
 const logger = require("../config/winston");
 const timestamp = require("time-stamp");
-const moment = require("moment");
-const { v4: uuidv4 } = require("uuid");
 
 const { createMessage } = require("./dbQueries");
 const IoSocket = require("./middleware/IoSocket");
@@ -35,28 +33,12 @@ const SocketServer = (server) => {
 
       //send array of online users to every active socket
       io.emit("onlineUsers", onlineUsers);
-
-      /*
-      const sockets = users.getOnlineSockets();
-      sockets.forEach((socket) => {
-        try {
-          io.to(socket).emit("onlineUsers", onlineUsers);
-        } catch (error) {
-          logger.error({
-            time: timestamp("YYYY/MM/DD/HH:mm:ss"),
-            level: "error",
-            message: error,
-          });
-        }
-      });
-      */
     });
 
     socket.on("sendMessage", async (msg) => {
       const recipient = users.getUser(msg.toUserId);
       try {
         const savedMsg = await createMessage(msg);
-        console.log(savedMsg);
         if (recipient) {
           msg.id = savedMsg.id;
           msg.message = savedMsg.message;
@@ -75,6 +57,19 @@ const SocketServer = (server) => {
       }
     });
 
+    socket.on("deleteChat", (deletedChat) => {
+      const friendId = deletedChat.Users[0].id;
+      const recipient = users.getUser(friendId);
+      if (recipient)
+        io.to(recipient.socketId).emit("deleteChat", deletedChat.id);
+    });
+
+    socket.on("createNewChat", (createdChat) => {
+      const friendId = createdChat.Users[0].id;
+      const recipient = users.getUser(friendId);
+      if (recipient) io.to(recipient.socketId).emit("createNewChat", createdChat);
+    });
+
     socket.on("typing", (msg) => {
       const recipient = users.getUser(msg.toUserId);
       if (recipient) {
@@ -84,27 +79,8 @@ const SocketServer = (server) => {
 
     socket.on("disconnect", () => {
       const user = users.removeUser(null, socket.id);
-      console.log(
-        "disconect",
-        users.getOnlineUsers(),
-        users.getOnlineSockets()
-      );
       //send user id when user is going to offline to every active socket
       if (user) io.emit("offline", user.userId);
-      /*
-      sockets.forEach((socket) => {
-        try {
-          io.to(socket).emit("offline", user.userId);
-        } catch (error) {
-          console.log(error);
-          logger.error({
-            time: timestamp("YYYY/MM/DD/HH:mm:ss"),
-            level: "error",
-            message: error,
-          });
-        }
-      });
-      */
     });
   });
 };

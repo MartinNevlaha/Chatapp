@@ -32,6 +32,14 @@ const useSocket = (user, dispatch) => {
       }, 2500);
     });
 
+    socket.on("deleteChat", (chatId) =>
+      dispatch(action.deleteChatSuccess(chatId))
+    );
+
+    socket.on("createNewChat", (chat) =>
+      dispatch(action.addToChatSuccess(chat))
+    );
+
     socket.on("connect_error", (err) => {
       console.log(err);
     });

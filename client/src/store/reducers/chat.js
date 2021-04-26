@@ -58,7 +58,9 @@ const offlineChatFriend = (state, action) => {
   const index = state.chatData.findIndex(
     (chat) => chat.Users[0].id === action.friend
   );
-  chatDataCopy[index].Users[0].status = "offline";
+  if (index !== -1) {
+    chatDataCopy[index].Users[0].status = "offline";
+  }
   return updateObj(state, { chatData: chatDataCopy });
 };
 
