@@ -135,9 +135,9 @@ const deleteChatSuccess = (state, action) => {
 
 const addToChatSuccess = (state, action) => {
   return updateObj(state, {
-    chatData: state.chatData.concat(action.chatData)
-  })
-}
+    chatData: state.chatData.concat(action.chatData),
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -173,6 +173,8 @@ const reducer = (state = initialState, action) => {
       return userTyping(state, action);
     case actionTypes.DELETE_CHAT_SUCCES:
       return deleteChatSuccess(state, action);
+    case actionTypes.ADD_TO_CHAT_SUCCESS:
+      return addToChatSuccess(state, action);
     default:
       return state;
   }

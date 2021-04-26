@@ -174,7 +174,6 @@ export const deleteChat = (chatId) => {
 };
 
 export const addToChatSuccess = (chatData) => {
-  console.log(chatData);
   return {
     type: actionTypes.ADD_TO_CHAT_SUCCESS,
     chatData,
