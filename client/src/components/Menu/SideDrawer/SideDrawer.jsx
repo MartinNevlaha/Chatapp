@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faTachometerAlt,
-  faList,
+  faVideo,
   faClock,
   faCalendar,
   faUserCheck,
@@ -56,7 +56,7 @@ const SideDrawer = (props) => {
           </NavItem>
           <NavItem icon={faUser} link="/users-list">{t("sideDrawer.userList")}</NavItem>
           <NavItem icon={faCommentDots} link="/chat">{t("sideDrawer.chat")}</NavItem>
-          <NavItem icon={faList} link="/job-offers">{t("sideDrawer.showJobOffer")}</NavItem>
+          <NavItem icon={faVideo} link="/video-chat">{t("sideDrawer.videoChat")}</NavItem>
           <NavItem icon={faClock} link="/schedule-interview">
             {t("sideDrawer.schedule")}
           </NavItem>

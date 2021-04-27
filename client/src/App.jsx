@@ -8,6 +8,7 @@ import Toast from "./components/UI/Toast/Toast";
 import ProtectedRoute from "./Router/ProtectedRoute";
 import * as action from "./store/actions";
 import Spinner from "./components/UI/Spinner/Spinner";
+import useSocket from "./hooks/socketConnect";
 
 //component lazy load
 const Login = lazy(() => import("./containers/Login"));
@@ -18,21 +19,23 @@ const EmailActivation = lazy(() => import("./containers/EmailActivation"));
 const FriendRequest = lazy(() => import("./containers/FriendRequest"));
 const AllUsers = lazy(() => import("./containers/AllUsers"));
 const UserPageInfo = lazy(() => import("./containers/UserPageInfo"));
+const VideoChat = lazy(() => import("./containers/VideoChat"));
 
 function App() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.requestStatus.error);
   const success = useSelector((state) => state.requestStatus.success);
   const isAuth = useSelector((state) => state.userAuth.token);
+  const user = useSelector((state) => state.userProfile.user);
 
   useEffect(() => {
     dispatch(action.authCheckState());
   }, [dispatch]);
 
-
   let routes = (
     <Suspense fallback={<Spinner />}>
       <Switch>
+        <ProtectedRoute path="/video-chat" component={VideoChat} />
         <ProtectedRoute path="/user-info/:userId" component={UserPageInfo} />
         <ProtectedRoute path="/users-list" component={AllUsers} />
         <ProtectedRoute path="/chat" component={Chat} />
