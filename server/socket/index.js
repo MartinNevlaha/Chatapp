@@ -67,7 +67,8 @@ const SocketServer = (server) => {
     socket.on("createNewChat", (createdChat) => {
       const friendId = createdChat.Users[0].id;
       const recipient = users.getUser(friendId);
-      if (recipient) io.to(recipient.socketId).emit("createNewChat", createdChat);
+      if (recipient)
+        io.to(recipient.socketId).emit("createNewChat", createdChat);
     });
 
     socket.on("typing", (msg) => {
@@ -76,6 +77,24 @@ const SocketServer = (server) => {
         io.to(recipient.socketId).emit("typing", msg);
       }
     });
+
+    socket.on("callFriend", ({ friendIdToCall, signalData, fromUserId }) => {
+      const callRecipient = users.getUser(friendIdToCall);
+      if (callRecipient) {
+        io.to(callRecipient.socketId).emit("callFriend", {
+          signal: signalData,
+          fromUserId,
+        });
+      }
+    });
+
+    socket.on("callAccepted", (data) => {
+      io.to(data.to).emit("callAccepted", data.signal);
+    });
+
+    socket.on("callRejected", (data) => {
+      io.to(data.to).emit("callRejected", data)
+    })
 
     socket.on("disconnect", () => {
       const user = users.removeUser(null, socket.id);
