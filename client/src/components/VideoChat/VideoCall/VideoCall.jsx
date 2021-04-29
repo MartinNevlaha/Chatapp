@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import * as action from "../../../store/actions";
 import classes from "./VideoCall.module.scss";
 
-const Video = () => {
+const VideoCall = ({ user, myVideo, friendVideo, connection }) => {
   const dispatch = useDispatch();
   const stream = useSelector((state) => state.videoCall.currentStream);
-  const myVideo = useRef();
-  const friendVideo = useRef();
 
   useEffect(() => {
     navigator.mediaDevices
@@ -21,17 +20,17 @@ const Video = () => {
       .catch((err) => console.log(err));
   }, [dispatch]);
 
+  VideoCall.propTypes = {
+    user: PropTypes.object,
+    myVideo: PropTypes.object,
+    friendVideo: PropTypes.object
+  };
 
   return (
     <div className={classes.video}>
       {stream && (
         <div className={classes.video_myStream}>
-          <video
-            playsInline
-            muted
-            ref={myVideo}
-            autoPlay
-          />
+          <video playsInline muted ref={myVideo} autoPlay />
         </div>
       )}
       <div className={classes.video_friendStream}>
@@ -41,4 +40,4 @@ const Video = () => {
   );
 };
 
-export default Video;
+export default VideoCall;

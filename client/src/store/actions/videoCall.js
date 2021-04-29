@@ -6,3 +6,9 @@ export const setVideoStream = (stream) => {
     stream,
   };
 };
+
+export const callAccepted = () => {
+  return {
+    type: actionTypes.CALL_ACCEPTED,
+  };
+};

@@ -40,6 +40,8 @@ const useSocket = (user, dispatch) => {
       dispatch(action.addToChatSuccess(chat))
     );
 
+
+
     socket.on("connect_error", (err) => {
       console.log(err);
     });

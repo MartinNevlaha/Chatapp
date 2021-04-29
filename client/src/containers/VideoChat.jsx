@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Peer from "simple-peer";
 
 import useSocket from "../hooks/socketConnect";
 import * as action from "../store/actions";
-import ChatComp from "../components/VideoChat/VideoChat";
+import VideoChat from "../components/VideoChat/VideoChat";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,11 @@ const Chat = () => {
   const loadingChatData = useSelector((state) => state.chat.loadingChatData);
   const friends = useSelector((state) => state.friends.userFriends);
   const loadingFriends = useSelector((state) => state.friends.loading);
+  const socket = useSelector((state) => state.chat.socket);
+  const stream = useSelector((state) => state.videoCall.currentStream);
+  const myVideo = useRef();
+  const friendVideo = useRef();
+  const connection = useRef();
   const userId = +user.id;
 
   useEffect(() => {
@@ -32,9 +38,32 @@ const Chat = () => {
     dispatch(action.addToChat(friendData));
   };
 
+  const handleCallToFriend = (friendId) => {
+    const peer = new Peer({ initiator: true, trickle: false, stream });
+
+    peer.on("signal", (data) => {
+      socket.emit("callToFriend", {
+        friendId: friendId,
+        signalData: data,
+        fromUser: user,
+      });
+    });
+
+    peer.on("stream", (currentStream) => {
+      friendVideo.current.srcObject = currentStream;
+    });
+
+    socket.on("callAccepted", (signal) => {
+      dispatch(action.callAccepted());
+      peer.signal(signal);
+    });
+
+    connection.current = peer;
+  };
+
   return (
     <div>
-      <ChatComp
+      <VideoChat
         friends={friends}
         loadingFriends={loadingFriends}
         chatData={chatData}
@@ -42,6 +71,9 @@ const Chat = () => {
         user={user}
         onDeleteChat={handleDeleteChat}
         onAddToChat={handleAddToChat}
+        myVideo={myVideo}
+        friendVideo={friendVideo}
+        connection={connection}
       />
     </div>
   );

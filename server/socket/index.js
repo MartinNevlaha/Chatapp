@@ -78,12 +78,12 @@ const SocketServer = (server) => {
       }
     });
 
-    socket.on("callFriend", ({ friendIdToCall, signalData, fromUserId }) => {
-      const callRecipient = users.getUser(friendIdToCall);
+    socket.on("callToFriend", ({ friendId, signalData, fromUser }) => {
+      const callRecipient = users.getUser(friendId);
       if (callRecipient) {
-        io.to(callRecipient.socketId).emit("callFriend", {
+        io.to(callRecipient.socketId).emit("callToFriend", {
           signal: signalData,
-          fromUserId,
+          fromUser,
         });
       }
     });
