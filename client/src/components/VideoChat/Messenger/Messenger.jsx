@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./Messenger.module.scss";
 import SearchInput from "../../Inputs/SearchInputs/SearchInputs";
@@ -10,7 +12,14 @@ import { searchMsgHelper } from "../../../utils/utilities";
 import Modal from "../../UI/Modal/Modal";
 import Button from "../../UI/Button/Button";
 
-const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
+const Messenger = ({
+  chatData,
+  loadingChatData,
+  user,
+  onDeleteChat,
+  onShowFriends,
+  showFriends,
+}) => {
   const [openedChatId, setOpenedChatId] = useState(null);
   const [searchMessageValue, setSearchMessageValue] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -68,6 +77,8 @@ const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
     loadingChatData: PropTypes.bool,
     user: PropTypes.object,
     onDeleteChat: PropTypes.func,
+    onShowFriends: PropTypes.func,
+    showFriends: PropTypes.bool,
   };
 
   return (
@@ -83,14 +94,24 @@ const Messenger = ({ chatData, loadingChatData, user, onDeleteChat }) => {
       </Modal>
       <div className={classes.messenger}>
         <div className={classes.messenger_header}>
-          <h2>Messenger</h2>
-          <div className={classes.messenger_header_input}>
-            <SearchInput
-              styleType="large"
-              currentValue={searchMessageValue}
-              onChangeInput={(e) => setSearchMessageValue(e.target.value)}
-            />
+          <div className={classes.messenger_header_title}>
+            <div
+              className={classes.messenger_header_title_friends}
+              onClick={() => onShowFriends(true)}
+            >
+              <FontAwesomeIcon icon={faUsers} color="white" />
+            </div>
+            <h2>Messenger</h2>
           </div>
+          {!showFriends && (
+            <div className={classes.messenger_header_input}>
+              <SearchInput
+                styleType="large"
+                currentValue={searchMessageValue}
+                onChangeInput={(e) => setSearchMessageValue(e.target.value)}
+              />
+            </div>
+          )}
         </div>
         <div className={classes.messenger_chats}>{content}</div>
       </div>

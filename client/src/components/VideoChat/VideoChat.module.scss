@@ -1,9 +1,10 @@
 @import "../../style/imports.scss";
 
-.chat {
+.videoChat {
+  position: relative;
   @include flexbox(center, flex-start, row);
   width: 90vw;
-  margin: 50px 0 20px 20px;
+  margin: 10px;
   height: 770px;
   border-radius: 8px;
   overflow: hidden;

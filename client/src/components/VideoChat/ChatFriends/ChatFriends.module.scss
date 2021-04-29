@@ -1,21 +1,47 @@
 @import "../../../style/imports.scss";
 
 .chatFriends {
-  display: block;
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  display: none;
   min-width: 250px;
   width: 25vw;
   height: 100%;
   background-color: lighten(get-color(gray_profile), 15%);
   overflow: hidden;
+  z-index: 10;
 
   &_header {
     width: 100%;
     height: 6.25rem;
     background-color: get-color(primary);
+    overflow: hidden;
+
+    &_title {
+      position: relative;
+
+      &_close {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        @include flexbox(center, center, row);
+
+        &:hover,
+        &:active {
+          background-color: get-color(shadow);
+          animation: pulse 2s infinite;
+        }
+      }
+    }
     h2 {
       color: white;
       font-size: get-font-size(medium);
-      padding: .5rem;
+      padding: 0.5rem;
     }
   }
 
@@ -26,8 +52,11 @@
     width: 100%;
     padding-bottom: 1rem;
   }
-
-  @media screen and (max-width: 800px) {
-    
-  }
 }
+
+.open {
+  display: block;
+  left: 0;
+}
+
+@include pulse;

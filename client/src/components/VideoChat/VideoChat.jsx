@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./VideoChat.module.scss";
@@ -14,6 +14,8 @@ const VideoChatComp = ({
   onDeleteChat,
   onAddToChat,
 }) => {
+  const [showFriendsList, setShowFriendsList] = useState(false);
+
   VideoChatComp.propTypes = {
     friends: PropTypes.array,
     loadingFriends: PropTypes.bool,
@@ -25,18 +27,22 @@ const VideoChatComp = ({
   };
 
   return (
-    <div className={classes.chat}>
+    <div className={classes.videoChat}>
       <ChatFriends
+        show={showFriendsList}
         friends={friends}
         loading={loadingFriends}
         chatData={chatData}
         onAddToChat={onAddToChat}
+        onShowFriends={setShowFriendsList}
       />
       <Messenger
         chatData={chatData}
         loadingChatData={loadingChatData}
         user={user}
         onDeleteChat={onDeleteChat}
+        onShowFriends={setShowFriendsList}
+        showFriends={showFriendsList}
       />
     </div>
   );

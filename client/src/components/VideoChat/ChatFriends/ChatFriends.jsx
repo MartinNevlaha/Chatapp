@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./ChatFriends.module.scss";
 import ChatFriend from "./ChatFriend/ChatFriend";
@@ -7,9 +9,31 @@ import Spinner from "../../UI/Spinner/Spinner";
 import Filter from "./Filter/Filter";
 import { searchFriendsHelper } from "../../../utils/utilities";
 
-const ChatFriends = ({ friends, loading, chatData, onAddToChat }) => {
+const ChatFriends = ({
+  friends,
+  loading,
+  chatData,
+  onAddToChat,
+  show,
+  onShowFriends,
+}) => {
   const [filterBy, setFilterBy] = useState("all");
   const [searchValue, setSearchValue] = useState("");
+  const friendsRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClose);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, [friendsRef]);
+
+  const handleClose = (event) => {
+    if (friendsRef.current && !friendsRef.current.contains(event.target)) {
+      onShowFriends(false);
+    }
+  };
 
   const handleSetFilter = (value) => {
     setFilterBy(value);
@@ -29,13 +53,30 @@ const ChatFriends = ({ friends, loading, chatData, onAddToChat }) => {
     friends: PropTypes.array,
     loading: PropTypes.bool,
     chatData: PropTypes.array,
-    onAddToChat: PropTypes.func
+    onAddToChat: PropTypes.func,
+    show: PropTypes.bool,
+    onShowFriends: PropTypes.func,
   };
 
   return (
-    <div className={classes.chatFriends}>
+    <div
+      ref={friendsRef}
+      className={
+        show
+          ? [classes.chatFriends, classes.open].join(" ")
+          : classes.chatFriends
+      }
+    >
       <div className={classes.chatFriends_header}>
-        <h2>Friends</h2>
+        <div className={classes.chatFriends_header_title}>
+          <div
+            className={classes.chatFriends_header_title_close}
+            onClick={() => onShowFriends(false)}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} color="white" />
+          </div>
+          <h2>Friends</h2>
+        </div>
         <Filter
           filterBy={handleSetFilter}
           searchValue={searchValue}
