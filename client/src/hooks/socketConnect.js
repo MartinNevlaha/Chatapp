@@ -4,7 +4,6 @@ import socketClient from "socket.io-client";
 import * as action from "../store/actions";
 
 const useSocket = (user, dispatch) => {
-
   useEffect(() => {
     const socket = socketClient.connect("http://localhost:8000", {
       extraHeaders: {
@@ -48,7 +47,7 @@ const useSocket = (user, dispatch) => {
     return () => {
       socket.disconnect();
     };
-  }, [dispatch]);
+  }, [dispatch, user]);
 };
 
 export default useSocket;

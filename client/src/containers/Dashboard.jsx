@@ -13,7 +13,7 @@ const Dasboard = () => {
   const totalPosts = useSelector(state => state.posts.count);
   const friendsPost = useSelector((state) => state.posts.posts || []);
   const userProfile = useSelector((state) => state.userProfile.user);
-  const userId = useSelector((state) => state.userAuth.user.userId);
+  const user = useSelector((state) => state.userAuth.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Dasboard = () => {
     return () => {
       dispatch(action.clearPosts());
     };
-  }, [dispatch]);
+  }, [dispatch, page, LIMIT]);
 
   const handleCreatePost = (data) => {
     dispatch(action.createPost(data));
@@ -76,7 +76,7 @@ const Dasboard = () => {
     >
       <UserSideBar userProfile={userProfile} showMyself={true} />
       <Posts
-        userId={userId}
+        userId={user.id}
         createPost={handleCreatePost}
         posts={friendsPost}
         loadAnothnerPosts={handlerLoadAnothnerPosts}

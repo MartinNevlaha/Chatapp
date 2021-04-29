@@ -1,29 +1,50 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import VideoChatComp from "../components/VideoChat/VideoChat";
+import useSocket from "../hooks/socketConnect";
+import * as action from "../store/actions";
+import ChatComp from "../components/VideoChat/VideoChat";
 
-const VideoChat = () => {
-  const [stream, setStream] = useState(null);
-  const socket = useSelector((state) => state.chat.socket);
-  const myVideo = useRef();
+const Chat = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userProfile.user);
+  const chatData = useSelector((state) => state.chat.chatData);
+  const loadingChatData = useSelector((state) => state.chat.loadingChatData);
+  const friends = useSelector((state) => state.friends.userFriends);
+  const loadingFriends = useSelector((state) => state.friends.loading);
+  const userId = +user.id;
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
+    dispatch(action.fetchChatData());
+    dispatch(action.getUserFriends(userId));
+  }, [dispatch, userId]);
 
-        //myVideo.current.srcObject = currentStream;
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useSocket(user, dispatch);
+
+  const handleDeleteChat = (chatId, deletedChat) => {
+    dispatch(action.deleteChat(chatId, deletedChat));
+  };
+
+  const handleAddToChat = (friendId) => {
+    const friendData = {
+      friendId: friendId,
+    };
+    dispatch(action.addToChat(friendData));
+  };
 
   return (
     <div>
-      <VideoChatComp />
+      <ChatComp
+        friends={friends}
+        loadingFriends={loadingFriends}
+        chatData={chatData}
+        loadingChatData={loadingChatData}
+        user={user}
+        onDeleteChat={handleDeleteChat}
+        onAddToChat={handleAddToChat}
+      />
     </div>
   );
 };
 
-export default VideoChat;
+export default Chat;

@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 
+import store from "../index";
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
 import { errorCreator, successCreator } from "./requestStatus";
@@ -60,6 +61,8 @@ export const loginFailed = () => {
 };
 
 export const logout = () => {
+  const socket = store.getState().chat.socket;
+  if (socket) socket.disconnect();;
   localStorage.removeItem("token");
   return {
     type: actionTypes.LOGOUT,
