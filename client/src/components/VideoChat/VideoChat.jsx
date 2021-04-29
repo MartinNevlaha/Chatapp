@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import classes from "./VideoChat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
-import Video from "./VideoCall/VideoCall";
+import VideoCall from "./VideoCall/VideoCall";
 
 const VideoChatComp = ({
   friends,
@@ -37,14 +37,18 @@ const VideoChatComp = ({
         onAddToChat={onAddToChat}
         onShowFriends={setShowFriendsList}
       />
-      <Messenger
-        chatData={chatData}
-        loadingChatData={loadingChatData}
-        user={user}
-        onDeleteChat={onDeleteChat}
-        onShowFriends={setShowFriendsList}
-        showFriends={showFriendsList}
-      />
+      {false ? (
+        <VideoCall />
+      ) : (
+        <Messenger
+          chatData={chatData}
+          loadingChatData={loadingChatData}
+          user={user}
+          onDeleteChat={onDeleteChat}
+          onShowFriends={setShowFriendsList}
+          showFriends={showFriendsList}
+        />
+      )}
     </div>
   );
 };

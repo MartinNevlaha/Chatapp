@@ -1,1 +1,37 @@
 @import "../../../style/imports.scss";
+
+.video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  @include flexbox(center, center, row);
+
+  &_myStream {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 21.875rem;
+    height: auto;
+    @include shadow;
+    border-radius: 8px;
+
+    video {
+      width: 21.875rem;
+      height: auto;
+      z-index: 10;
+      border-radius: 8px;
+    }
+  }
+
+  &_friendStream {
+    width: 100%;
+    height: auto;
+
+    video {
+      width: 75%;
+      height: auto;
+      border-radius: 8px;
+    }
+  }
+
+}
