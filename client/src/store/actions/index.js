@@ -50,5 +50,7 @@ export {
   deleteChat,
   deleteChatSuccess,
   addToChat,
-  addToChatSuccess
+  addToChatSuccess,
 } from "./chat";
+
+export { setVideoStream } from "./videoCall";

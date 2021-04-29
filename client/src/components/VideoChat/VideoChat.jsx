@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./VideoChat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
+import Video from "./VideoCall/VideoCall";
 
 const VideoChatComp = ({
   friends,
