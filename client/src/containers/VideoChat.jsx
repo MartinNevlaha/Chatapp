@@ -20,6 +20,8 @@ const Chat = () => {
     (state) => state.videoCall.isReceivingCall
   );
   const callFrom = useSelector((state) => state.videoCall.callFrom);
+  const isMeCalling = useSelector((state) => state.videoCall.isMeCalling);
+  const callTo = useSelector((state) => state.videoCall.callTo);
   const myVideo = useRef();
   const friendVideo = useRef();
   const connection = useRef();
@@ -52,6 +54,7 @@ const Chat = () => {
         signalData: data,
         fromUser: user,
       });
+      dispatch(action.callToFriend(friendId, data));
     });
 
     peer.on("stream", (currentStream) => {
@@ -68,6 +71,7 @@ const Chat = () => {
 
   const handleRejectCall = () => {
     socket.emit("callRejected", callFrom);
+    friendVideo.current.srcObject = null;
     dispatch(action.callReject());
   };
 
@@ -87,8 +91,9 @@ const Chat = () => {
         callToFriend={handleCallToFriend}
       />
       <VideoCallToast
-        isShow={isReceivingCall}
-        user={callFrom.user}
+        isShow={isReceivingCall || isMeCalling}
+        isMeCalling={isMeCalling}
+        user={isReceivingCall ? callFrom.user : callTo.user}
         onRejectCall={handleRejectCall}
       />
     </div>

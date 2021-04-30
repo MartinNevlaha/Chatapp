@@ -4,6 +4,11 @@ import { updateObj } from "../../utils/utilities";
 const initialState = {
   currentStream: null,
   callAccepted: false,
+  isMeCalling: false,
+  callTo: {
+    user: {},
+    signal: {},
+  },
   isReceivingCall: false,
   callFrom: {
     user: {},
@@ -13,6 +18,17 @@ const initialState = {
 
 const setVideoStream = (state, action) => {
   return updateObj(state, { currentStream: action.stream });
+};
+
+const callToFriend = (state, action) => {
+  return updateObj(state, {
+    isMeCalling: true,
+    callTo: {
+      ...state.callTo,
+      user: action.callData.toUser,
+      signal: action.callData.signal,
+    },
+  });
 };
 
 const callAccepted = (state, action) => {
@@ -40,6 +56,8 @@ const reducer = (state = initialState, action) => {
       return friendCalling(state, action);
     case actionTypes.CALL_REJECT:
       return initialState;
+    case actionTypes.CALL_TO_FRIEND:
+      return callToFriend(state, action);
     default:
       return state;
   }
