@@ -1,0 +1,47 @@
+@import "../../../style/imports.scss";
+
+.callToast {
+  position: fixed;
+  bottom: -100vh;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  height: auto;
+  overflow: hidden;
+  background-color: get-color(dark-white);
+  border-radius: 8px;
+  border: 1px solid get-color(primary);
+  @include shadow;
+  z-index: 35;
+
+  &_user {
+    width: 100%;
+    padding: 1rem;
+  }
+  &_btn_container {
+    @include flexbox(space-around, center, row);
+    padding: 1rem;
+  }
+
+  &_reject {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    @include flexbox(center, center, row);
+    cursor: pointer;
+  }
+
+  &_accept {
+    @extend .callToast_reject;
+    background-color: green;
+  }
+}
+
+.showed {
+  bottom: 10vh;
+  animation: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@include opacity;

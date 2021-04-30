@@ -5,6 +5,7 @@ import Peer from "simple-peer";
 import useSocket from "../hooks/socketConnect";
 import * as action from "../store/actions";
 import VideoChat from "../components/VideoChat/VideoChat";
+import VideoCallToast from "../components/UI/VideoCallToast/VideoCallToast";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ const Chat = () => {
   const loadingFriends = useSelector((state) => state.friends.loading);
   const socket = useSelector((state) => state.chat.socket);
   const stream = useSelector((state) => state.videoCall.currentStream);
+  const isReceivingCall = useSelector(state => state.videoCall.isReceivingCall);
+  const callFrom = useSelector(state => state.videoCall.callFrom);
   const myVideo = useRef();
   const friendVideo = useRef();
   const connection = useRef();
@@ -76,6 +79,7 @@ const Chat = () => {
         connection={connection}
         callToFriend={handleCallToFriend}
       />
+      <VideoCallToast isShow={isReceivingCall} user={callFrom.user}/>
     </div>
   );
 };
