@@ -45,6 +45,7 @@ const VideoChatComp = ({
         chatData={chatData}
         onAddToChat={onAddToChat}
         onShowFriends={setShowFriendsList}
+        callToFriend={callToFriend}
       />
       {false ? (
         <VideoCall
