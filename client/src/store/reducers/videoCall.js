@@ -56,6 +56,8 @@ const reducer = (state = initialState, action) => {
       return friendCalling(state, action);
     case actionTypes.CALL_REJECT:
       return initialState;
+    case actionTypes.CALL_REJECT_RECIPIENT:
+      return initialState;
     case actionTypes.CALL_TO_FRIEND:
       return callToFriend(state, action);
     default:

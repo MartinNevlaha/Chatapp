@@ -44,6 +44,10 @@ const useSocket = (user, dispatch) => {
       dispatch(action.friendCalling(data));
     });
 
+    socket.on("callRejected", () => {
+      dispatch(action.callRejectRecipient());
+    });
+
     socket.on("connect_error", (err) => {
       console.log(err);
     });

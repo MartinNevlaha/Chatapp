@@ -70,8 +70,8 @@ const Chat = () => {
   };
 
   const handleRejectCall = () => {
-    socket.emit("callRejected", callFrom);
-    friendVideo.current.srcObject = null;
+    const recipientData = isMeCalling ? callTo : callFrom;
+    socket.emit("callRejected", recipientData);
     dispatch(action.callReject());
   };
 

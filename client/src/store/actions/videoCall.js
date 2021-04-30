@@ -13,7 +13,7 @@ export const callToFriend = (friendId, signal) => {
   const user = friends.filter((friend) => friend.id === friendId)[0];
   const callData = {
     toUser: user,
-    signal: signal
+    signal: signal,
   };
   return {
     type: actionTypes.CALL_TO_FRIEND,
@@ -37,5 +37,11 @@ export const friendCalling = (callData) => {
 export const callReject = () => {
   return {
     type: actionTypes.CALL_REJECT,
+  };
+};
+
+export const callRejectRecipient = () => {
+  return {
+    type: actionTypes.CALL_REJECT_RECIPIENT,
   };
 };

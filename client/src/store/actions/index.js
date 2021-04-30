@@ -58,5 +58,6 @@ export {
   callAccepted,
   friendCalling,
   callReject,
-  callToFriend
+  callRejectRecipient,
+  callToFriend,
 } from "./videoCall";

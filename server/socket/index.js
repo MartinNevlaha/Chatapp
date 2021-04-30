@@ -93,8 +93,11 @@ const SocketServer = (server) => {
     });
 
     socket.on("callRejected", (data) => {
-      io.to(data.to).emit("callRejected", data)
-    })
+      const user = users.getUser(data.user.id);
+      if (user) {
+        io.to(user.socketId).emit("callRejected");
+      }
+    });
 
     socket.on("disconnect", () => {
       const user = users.removeUser(null, socket.id);
