@@ -53,4 +53,4 @@ export {
   addToChatSuccess,
 } from "./chat";
 
-export { setVideoStream, callAccepted } from "./videoCall";
+export { setVideoStream, callAccepted, friendCalling } from "./videoCall";

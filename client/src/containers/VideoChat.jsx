@@ -74,6 +74,7 @@ const Chat = () => {
         myVideo={myVideo}
         friendVideo={friendVideo}
         connection={connection}
+        callToFriend={handleCallToFriend}
       />
     </div>
   );

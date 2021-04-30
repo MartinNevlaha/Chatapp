@@ -17,6 +17,8 @@ const VideoChatComp = ({
   myVideo,
   friendVideo,
   connection,
+  callToFriend
+
 }) => {
   const [showFriendsList, setShowFriendsList] = useState(false);
 
@@ -30,7 +32,8 @@ const VideoChatComp = ({
     onAddToChat: PropTypes.func,
     myVideo: PropTypes.object,
     friendVideo: PropTypes.object,
-    connection: PropTypes.object
+    connection: PropTypes.object,
+    callToFriend: PropTypes.func
   };
 
   return (
@@ -43,7 +46,7 @@ const VideoChatComp = ({
         onAddToChat={onAddToChat}
         onShowFriends={setShowFriendsList}
       />
-      {true ? (
+      {false ? (
         <VideoCall
           user={user}
           myVideo={myVideo}
@@ -58,6 +61,7 @@ const VideoChatComp = ({
           onDeleteChat={onDeleteChat}
           onShowFriends={setShowFriendsList}
           showFriends={showFriendsList}
+          callToFriend={callToFriend}
         />
       )}
     </div>

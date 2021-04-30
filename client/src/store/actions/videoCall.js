@@ -12,3 +12,10 @@ export const callAccepted = () => {
     type: actionTypes.CALL_ACCEPTED,
   };
 };
+
+export const friendCalling = (callData) => {
+  return {
+    type: actionTypes.FRIEND_CALLING,
+    callData
+  }
+}

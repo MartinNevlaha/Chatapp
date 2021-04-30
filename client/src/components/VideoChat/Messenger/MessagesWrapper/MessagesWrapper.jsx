@@ -10,7 +10,7 @@ import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 import MessageInput from "./MessageInput/MessageInput";
 
-const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
+const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user, callToFriend }) => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
   const [hasMoreMessages, sethasMoreMessages] = useState(true);
@@ -49,12 +49,14 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user }) => {
     onCloseChat: PropTypes.func,
     fromUser: PropTypes.object,
     user: PropTypes.object,
+    callToFriend: PropTypes.func
   };
   return (
     <div className={classes.MessagesWrapper}>
       <MessageHeader
         onCloseChat={onCloseChat}
         user={fromUser}
+        callToFriend={callToFriend}
       />
       <div className={classes.MessagesWrapper_container}>
         <InfiniteScroll

@@ -81,7 +81,7 @@ const SocketServer = (server) => {
     socket.on("callToFriend", ({ friendId, signalData, fromUser }) => {
       const callRecipient = users.getUser(friendId);
       if (callRecipient) {
-        io.to(callRecipient.socketId).emit("callToFriend", {
+        io.to(callRecipient.socketId).emit("friendCalling", {
           signal: signalData,
           fromUser,
         });

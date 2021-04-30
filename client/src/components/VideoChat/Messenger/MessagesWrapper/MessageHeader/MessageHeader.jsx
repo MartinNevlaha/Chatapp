@@ -4,8 +4,6 @@ import {
   faChevronLeft,
   faUser,
   faVideo,
-  faVolumeMute,
-  faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
@@ -13,10 +11,11 @@ import ReactTooltip from "react-tooltip";
 import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
 
-const MessageHeader = ({ user, onCloseChat, }) => {
+const MessageHeader = ({ user, onCloseChat, callToFriend }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
     onCloseChat: PropTypes.func,
+    callToFriend: PropTypes.func
   };
   return (
     <div className={classes.messageHeader}>
@@ -49,6 +48,7 @@ const MessageHeader = ({ user, onCloseChat, }) => {
           className={classes.messageHeader_user_video}
           data-tip
           data-for="video"
+          onClick={()=>callToFriend(user.id)}
         />
         <ReactTooltip id="video" place="top" effect="solid" border={true}>
           Click start video call
