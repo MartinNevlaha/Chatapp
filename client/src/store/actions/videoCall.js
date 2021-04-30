@@ -16,6 +16,12 @@ export const callAccepted = () => {
 export const friendCalling = (callData) => {
   return {
     type: actionTypes.FRIEND_CALLING,
-    callData
+    callData,
+  };
+};
+
+export const callReject = () => {
+  return {
+    type: actionTypes.CALL_REJECT
   }
 }

@@ -16,8 +16,10 @@ const Chat = () => {
   const loadingFriends = useSelector((state) => state.friends.loading);
   const socket = useSelector((state) => state.chat.socket);
   const stream = useSelector((state) => state.videoCall.currentStream);
-  const isReceivingCall = useSelector(state => state.videoCall.isReceivingCall);
-  const callFrom = useSelector(state => state.videoCall.callFrom);
+  const isReceivingCall = useSelector(
+    (state) => state.videoCall.isReceivingCall
+  );
+  const callFrom = useSelector((state) => state.videoCall.callFrom);
   const myVideo = useRef();
   const friendVideo = useRef();
   const connection = useRef();
@@ -64,6 +66,11 @@ const Chat = () => {
     connection.current = peer;
   };
 
+  const handleRejectCall = () => {
+    socket.emit("callRejected", callFrom);
+    dispatch(action.callReject());
+  };
+
   return (
     <div>
       <VideoChat
@@ -79,7 +86,11 @@ const Chat = () => {
         connection={connection}
         callToFriend={handleCallToFriend}
       />
-      <VideoCallToast isShow={isReceivingCall} user={callFrom.user}/>
+      <VideoCallToast
+        isShow={isReceivingCall}
+        user={callFrom.user}
+        onRejectCall={handleRejectCall}
+      />
     </div>
   );
 };

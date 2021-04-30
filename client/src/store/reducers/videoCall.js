@@ -7,8 +7,8 @@ const initialState = {
   isReceivingCall: false,
   callFrom: {
     user: {},
-    signal: {}
-  }
+    signal: {},
+  },
 };
 
 const setVideoStream = (state, action) => {
@@ -25,10 +25,10 @@ const friendCalling = (state, action) => {
     callFrom: {
       ...state.callFrom,
       user: action.callData.fromUser,
-      signal: action.callData.signal
-    }
-  })
-}
+      signal: action.callData.signal,
+    },
+  });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -38,6 +38,8 @@ const reducer = (state = initialState, action) => {
       return callAccepted(state, action);
     case actionTypes.FRIEND_CALLING:
       return friendCalling(state, action);
+    case actionTypes.CALL_REJECT:
+      return initialState;
     default:
       return state;
   }
