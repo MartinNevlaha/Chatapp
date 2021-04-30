@@ -3,10 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhoneSlash, faPhone } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
+import LazyImage from "../../UI/LazyImage/LazyImage";
 import classes from "./VideoCallToast.module.scss";
 
-const VideoCallToast = ({ isShow, user, onRejectedCall }) => {
-
+const VideoCallToast = ({ isShow, user, onRejectCall }) => {
+  VideoCallToast.propTypes = {
+    isShow: PropTypes.bool,
+    user: PropTypes.object,
+    onRejectCall: PropTypes.func,
+  };
   return (
     <div
       className={
@@ -16,7 +21,10 @@ const VideoCallToast = ({ isShow, user, onRejectedCall }) => {
       }
     >
       <div className={classes.callToast_user}>
-        <p>{user.fullName} calling...</p>
+        <div className={classes.callToast_user_avatar}>
+          <LazyImage image={{src: user.avatar, alt: "avatar"}}/>
+        </div>
+        <p>{user.fullName} is calling...</p>
       </div>
       <div className={classes.callToast_btn_container}>
         <div className={classes.callToast_accept}>
@@ -24,6 +32,7 @@ const VideoCallToast = ({ isShow, user, onRejectedCall }) => {
         </div>
         <div
           className={classes.callToast_reject}
+          onClick={() => onRejectCall()}
         >
           <FontAwesomeIcon icon={faPhoneSlash} />
         </div>

@@ -13,10 +13,25 @@
   border: 1px solid get-color(primary);
   @include shadow;
   z-index: 35;
+  transition: all 0.8s ease-in-out;
 
   &_user {
+    @include flexbox(space-around, center, row);
     width: 100%;
     padding: 1rem;
+
+    &_avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+  
+      img {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+      }
+    }
   }
   &_btn_container {
     @include flexbox(space-around, center, row);
