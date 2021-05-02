@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import classes from "./VideoChat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
-import VideoCall from "./VideoCall/VideoCall";
 
 const VideoChatComp = ({
   friends,
@@ -14,13 +13,9 @@ const VideoChatComp = ({
   user,
   onDeleteChat,
   onAddToChat,
-  myVideo,
-  friendVideo,
-  connection,
-  callToFriend
-
 }) => {
   const [showFriendsList, setShowFriendsList] = useState(false);
+
 
   VideoChatComp.propTypes = {
     friends: PropTypes.array,
@@ -30,10 +25,6 @@ const VideoChatComp = ({
     user: PropTypes.object,
     onDeleteChat: PropTypes.func,
     onAddToChat: PropTypes.func,
-    myVideo: PropTypes.object,
-    friendVideo: PropTypes.object,
-    connection: PropTypes.object,
-    callToFriend: PropTypes.func
   };
 
   return (
@@ -45,26 +36,16 @@ const VideoChatComp = ({
         chatData={chatData}
         onAddToChat={onAddToChat}
         onShowFriends={setShowFriendsList}
-        callToFriend={callToFriend}
       />
-      {false ? (
-        <VideoCall
-          user={user}
-          myVideo={myVideo}
-          friendVideo={friendVideo}
-          connection={connection}
-        />
-      ) : (
-        <Messenger
-          chatData={chatData}
-          loadingChatData={loadingChatData}
-          user={user}
-          onDeleteChat={onDeleteChat}
-          onShowFriends={setShowFriendsList}
-          showFriends={showFriendsList}
-          callToFriend={callToFriend}
-        />
-      )}
+
+      <Messenger
+        chatData={chatData}
+        loadingChatData={loadingChatData}
+        user={user}
+        onDeleteChat={onDeleteChat}
+        onShowFriends={setShowFriendsList}
+        showFriends={showFriendsList}
+      />
     </div>
   );
 };

@@ -6,12 +6,19 @@ import PropTypes from "prop-types";
 import LazyImage from "../../UI/LazyImage/LazyImage";
 import classes from "./VideoCallToast.module.scss";
 
-const VideoCallToast = ({ isShow, user, onRejectCall, isMeCalling }) => {
+const VideoCallToast = ({
+  isShow,
+  user,
+  onRejectCall,
+  isMeCalling,
+  onAcceptCall,
+}) => {
   VideoCallToast.propTypes = {
     isShow: PropTypes.bool,
     user: PropTypes.object,
     onRejectCall: PropTypes.func,
     isMeCalling: PropTypes.bool,
+    onAcceptCall: PropTypes.func,
   };
   return (
     <div
@@ -32,10 +39,14 @@ const VideoCallToast = ({ isShow, user, onRejectCall, isMeCalling }) => {
         )}
       </div>
       <div className={classes.callToast_btn_container}>
-        {!isMeCalling &&
-        <div className={classes.callToast_accept}>
-          <FontAwesomeIcon icon={faPhone} />
-        </div> }
+        {!isMeCalling && (
+          <div
+            className={classes.callToast_accept}
+            onClick={() => onAcceptCall()}
+          >
+            <FontAwesomeIcon icon={faPhone} />
+          </div>
+        )}
         <div
           className={classes.callToast_reject}
           onClick={() => onRejectCall()}

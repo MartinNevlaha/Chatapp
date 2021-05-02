@@ -40,14 +40,6 @@ const useSocket = (user, dispatch) => {
       dispatch(action.addToChatSuccess(chat))
     );
 
-    socket.on("friendCalling", (data) => {
-      dispatch(action.friendCalling(data));
-    });
-
-    socket.on("callRejected", () => {
-      dispatch(action.callRejectRecipient());
-    });
-
     socket.on("connect_error", (err) => {
       console.log(err);
     });

@@ -1,29 +1,32 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import * as action from "../../../store/actions";
 import classes from "./VideoCall.module.scss";
+import { VideoContext } from "../../../context/VideoContext";
 
-const VideoCall = ({ user, myVideo, friendVideo, connection }) => {
-  const dispatch = useDispatch();
-  const stream = useSelector((state) => state.videoCall.currentStream);
+const VideoCall = ({ user, callAccepted }) => {
+  const myVideo = useRef(null);
+  const friendVideo = useRef(null);
+  const { setRefs, setStream, stream } = useContext(VideoContext);
 
   useEffect(() => {
+    if (myVideo && friendVideo) {
+      setRefs({ myVideo, friendVideo });
+    }
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
-        dispatch(action.setVideoStream(currentStream));
-
-        myVideo.current.srcObject = currentStream;
+        setStream(currentStream);
+        if (myVideo.current) myVideo.current.srcObject = currentStream;
       })
       .catch((err) => console.log(err));
-  }, [dispatch]);
+  }, [setRefs, myVideo, friendVideo]);
 
   VideoCall.propTypes = {
     user: PropTypes.object,
-    myVideo: PropTypes.object,
-    friendVideo: PropTypes.object
+    callAccepted: PropTypes.bool,
   };
 
   return (
@@ -31,11 +34,16 @@ const VideoCall = ({ user, myVideo, friendVideo, connection }) => {
       {stream && (
         <div className={classes.video_myStream}>
           <video playsInline muted ref={myVideo} autoPlay />
+          {myVideo.current && console.log("myVideo", myVideo.current.srcObject)}
         </div>
       )}
-      <div className={classes.video_friendStream}>
-        <video playsInline ref={friendVideo} autoPlay />
-      </div>
+      {callAccepted && (
+        <div className={classes.video_friendStream}>
+          <video playsInline ref={friendVideo} autoPlay />
+          {friendVideo.current &&
+            console.log("Friend video", friendVideo.current.srcObject)}
+        </div>
+      )}
     </div>
   );
 };

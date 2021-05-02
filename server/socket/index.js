@@ -89,7 +89,8 @@ const SocketServer = (server) => {
     });
 
     socket.on("callAccepted", (data) => {
-      io.to(data.to).emit("callAccepted", data.signal);
+      const recipient = users.getUser(data.user.id)
+      if (recipient) io.to(recipient.socketId).emit("callAccepted", data.signal);
     });
 
     socket.on("callRejected", (data) => {

@@ -13,6 +13,7 @@
     width: 21.875rem;
     height: auto;
     @include shadow;
+    border: 1px solid get-color(primary);
     border-radius: 8px;
 
     video {
@@ -28,10 +29,13 @@
     height: auto;
 
     video {
-      width: 75%;
+      width: 70%;
       height: auto;
       border-radius: 8px;
     }
   }
-
+  &_user {
+    width: 250px;
+    background-color: get-color(transparent_gray);
+  }
 }

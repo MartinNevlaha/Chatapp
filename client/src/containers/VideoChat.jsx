@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Peer from "simple-peer";
 
 import useSocket from "../hooks/socketConnect";
 import * as action from "../store/actions";
 import VideoChat from "../components/VideoChat/VideoChat";
-import VideoCallToast from "../components/UI/VideoCallToast/VideoCallToast";
+import { VideoContextProvider } from "../context/VideoContext";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -14,17 +13,6 @@ const Chat = () => {
   const loadingChatData = useSelector((state) => state.chat.loadingChatData);
   const friends = useSelector((state) => state.friends.userFriends);
   const loadingFriends = useSelector((state) => state.friends.loading);
-  const socket = useSelector((state) => state.chat.socket);
-  const stream = useSelector((state) => state.videoCall.currentStream);
-  const isReceivingCall = useSelector(
-    (state) => state.videoCall.isReceivingCall
-  );
-  const callFrom = useSelector((state) => state.videoCall.callFrom);
-  const isMeCalling = useSelector((state) => state.videoCall.isMeCalling);
-  const callTo = useSelector((state) => state.videoCall.callTo);
-  const myVideo = useRef();
-  const friendVideo = useRef();
-  const connection = useRef();
   const userId = +user.id;
 
   useEffect(() => {
@@ -45,38 +33,8 @@ const Chat = () => {
     dispatch(action.addToChat(friendData));
   };
 
-  const handleCallToFriend = (friendId) => {
-    const peer = new Peer({ initiator: true, trickle: false, stream });
-
-    peer.on("signal", (data) => {
-      socket.emit("callToFriend", {
-        friendId: friendId,
-        signalData: data,
-        fromUser: user,
-      });
-      dispatch(action.callToFriend(friendId, data));
-    });
-
-    peer.on("stream", (currentStream) => {
-      friendVideo.current.srcObject = currentStream;
-    });
-
-    socket.on("callAccepted", (signal) => {
-      dispatch(action.callAccepted());
-      peer.signal(signal);
-    });
-
-    connection.current = peer;
-  };
-
-  const handleRejectCall = () => {
-    const recipientData = isMeCalling ? callTo : callFrom;
-    socket.emit("callRejected", recipientData);
-    dispatch(action.callReject());
-  };
-
   return (
-    <div>
+    <VideoContextProvider>
       <VideoChat
         friends={friends}
         loadingFriends={loadingFriends}
@@ -85,18 +43,8 @@ const Chat = () => {
         user={user}
         onDeleteChat={handleDeleteChat}
         onAddToChat={handleAddToChat}
-        myVideo={myVideo}
-        friendVideo={friendVideo}
-        connection={connection}
-        callToFriend={handleCallToFriend}
       />
-      <VideoCallToast
-        isShow={isReceivingCall || isMeCalling}
-        isMeCalling={isMeCalling}
-        user={isReceivingCall ? callFrom.user : callTo.user}
-        onRejectCall={handleRejectCall}
-      />
-    </div>
+    </VideoContextProvider>
   );
 };
 
