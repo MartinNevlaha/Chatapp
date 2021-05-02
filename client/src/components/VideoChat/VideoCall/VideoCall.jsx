@@ -6,7 +6,13 @@ import CallControls from "./CallControls/CallControls";
 import { VideoContext } from "../../../context/VideoContext";
 import LazyImage from "../../UI/LazyImage/LazyImage";
 
-const VideoCall = ({ user, isMeCalling, isReceivingCall, callAccepted }) => {
+const VideoCall = ({
+  user,
+  isMeCalling,
+  isReceivingCall,
+  callAccepted,
+  onAcceptCall,
+}) => {
   const { setStream, stream, myVideoRef, friendVideoRef } = useContext(
     VideoContext
   );
@@ -26,7 +32,8 @@ const VideoCall = ({ user, isMeCalling, isReceivingCall, callAccepted }) => {
     isReceivingCall: PropTypes.bool,
     isMeCalling: PropTypes.bool,
     callAccepted: PropTypes.bool,
-    user: PropTypes.bool,
+    user: PropTypes.object,
+    onAcceptCall: PropTypes.func,
   };
 
   return (
@@ -40,7 +47,7 @@ const VideoCall = ({ user, isMeCalling, isReceivingCall, callAccepted }) => {
       )}
       {!callAccepted && (
         <div className={classes.video_user_avatar}>
-          <LazyImage image={{src: user.avatar, alt: "avatar"}}/>
+          <LazyImage image={{ src: user.avatar, alt: "avatar" }} />
         </div>
       )}
       <div className={classes.video_friendStream}>
@@ -49,13 +56,9 @@ const VideoCall = ({ user, isMeCalling, isReceivingCall, callAccepted }) => {
           console.log(
             "Friend video",
             friendVideoRef.current.srcObject,
-            friendVideoRef.current
           )}
       </div>
-      <CallControls
-        isMeCalling={isMeCalling}
-        isReceivingCall={isReceivingCall}
-      />
+      <CallControls isMeCalling={isMeCalling} onAcceptCall={onAcceptCall} />
     </div>
   );
 };

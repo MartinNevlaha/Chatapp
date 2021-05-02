@@ -9,7 +9,7 @@ export const VideoContext = createContext({});
 export const VideoContextProvider = ({ children }) => {
   const dispatch = useDispatch();
   const socket = useSelector((state) => state.chat.socket);
-  const callFrom = useSelector(state => state.videoCall.callFrom);
+  const callFrom = useSelector((state) => state.videoCall.callFrom);
   const me = useSelector((state) => state.userProfile.user);
   const [stream, setStream] = useState(null);
 
@@ -33,6 +33,7 @@ export const VideoContextProvider = ({ children }) => {
     });
 
     peer.on("stream", (currentStream) => {
+      console.log("call to", currentStream);
       friendVideoRef.current.srcObject = currentStream;
     });
 
@@ -51,6 +52,11 @@ export const VideoContextProvider = ({ children }) => {
 
     peer.on("signal", (data) => {
       socket.emit("callAccepted", { signal: data, user: callFrom.user });
+    });
+
+    peer.on("stream", (currentStream) => {
+      console.log("call accept", currentStream);
+      friendVideoRef.current.srcObject = currentStream;
     });
 
     peer.signal(callFrom.signal);

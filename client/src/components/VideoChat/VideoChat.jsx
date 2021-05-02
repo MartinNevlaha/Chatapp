@@ -55,6 +55,7 @@ const VideoChatComp = ({
           isMeCalling={isMeCalling}
           isReceivingCall={isReceivingCall}
           callAccepted={callAccepted}
+          onAcceptCall={acceptCall}
           user={isMeCalling ? callToUser : callFromUser}
         />
       ) : (

@@ -5,18 +5,19 @@ import PropTypes from "prop-types";
 
 import classes from "./CallControls.module.scss";
 
-const CallControls = ({ isMeCalling, isReceivingCall }) => {
-
+const CallControls = ({ isMeCalling, onAcceptCall }) => {
   CallControls.propTypes = {
     isMeCalling: PropTypes.bool,
-    isReceivingCall: PropTypes.bool
-  }
+    onAcceptCall: PropTypes.func,
+  };
 
   return (
     <div className={classes.callControls}>
-      {console.log(isMeCalling, isReceivingCall)}
       {!isMeCalling && (
-        <div className={classes.callControls_accept}>
+        <div
+          className={classes.callControls_accept}
+          onClick={() => onAcceptCall()}
+        >
           <FontAwesomeIcon icon={faPhone} />
         </div>
       )}
