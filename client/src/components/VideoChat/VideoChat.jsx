@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import classes from "./VideoChat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
+import VideoCall from "./VideoCall/VideoCall";
 import { VideoContext } from "../../context/VideoContext";
 
 const VideoChatComp = ({
@@ -17,12 +18,13 @@ const VideoChatComp = ({
   onAddToChat,
 }) => {
   const [showFriendsList, setShowFriendsList] = useState(false);
-  const {
-    isMeCalling,
-    isReceivingCall,
-    callToFriend,
-  } = useContext(VideoContext);
-
+  const { callToFriend, acceptCall } = useContext(VideoContext);
+  const isMeCalling = useSelector(
+    (state) => state.videoCall.callTo.isMeCalling
+  );
+  const isReceivingCall = useSelector(
+    (state) => state.videoCall.callFrom.isReceivingCall
+  );
 
   VideoChatComp.propTypes = {
     friends: PropTypes.array,
@@ -45,16 +47,23 @@ const VideoChatComp = ({
         onShowFriends={setShowFriendsList}
         onCallToFriend={callToFriend}
       />
-
-      <Messenger
-        chatData={chatData}
-        loadingChatData={loadingChatData}
-        user={user}
-        onDeleteChat={onDeleteChat}
-        onShowFriends={setShowFriendsList}
-        showFriends={showFriendsList}
-        onCallToFriend={callToFriend}
-      />
+      {isMeCalling || isReceivingCall ? (
+        <VideoCall
+          user={user}
+          isMeCalling={isMeCalling}
+          isReceivingCall={isReceivingCall}
+        />
+      ) : (
+        <Messenger
+          chatData={chatData}
+          loadingChatData={loadingChatData}
+          user={user}
+          onDeleteChat={onDeleteChat}
+          onShowFriends={setShowFriendsList}
+          showFriends={showFriendsList}
+          onCallToFriend={callToFriend}
+        />
+      )}
     </div>
   );
 };

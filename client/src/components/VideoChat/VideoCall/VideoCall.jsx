@@ -2,9 +2,10 @@ import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./VideoCall.module.scss";
+import CallControls from "./CallControls/CallControls";
 import { VideoContext } from "../../../context/VideoContext";
 
-const VideoCall = ({ user }) => {
+const VideoCall = ({ user, isMeCalling, isReceivingCall }) => {
   const { setStream, stream, myVideoRef, friendVideoRef } = useContext(
     VideoContext
   );
@@ -22,6 +23,8 @@ const VideoCall = ({ user }) => {
 
   VideoCall.propTypes = {
     user: PropTypes.object,
+    isReceivingCall: PropTypes.bool,
+    isMeCalling: PropTypes.bool,
   };
 
   return (
@@ -33,13 +36,19 @@ const VideoCall = ({ user }) => {
             console.log("myVideo", myVideoRef.current.srcObject)}
         </div>
       )}
-      {callAccepted && (
-        <div className={classes.video_friendStream}>
-          <video playsInline ref={friendVideoRef} autoPlay />
-          {friendVideoRef.current &&
-            console.log("Friend video", friendVideoRef.current.srcObject)}
-        </div>
-      )}
+      <div className={classes.video_friendStream}>
+        <video playsInline ref={friendVideoRef} autoPlay />
+        {friendVideoRef.current &&
+          console.log(
+            "Friend video",
+            friendVideoRef.current.srcObject,
+            friendVideoRef.current
+          )}
+      </div>
+      <CallControls
+        isMeCalling={isMeCalling}
+        isReceivingCall={isReceivingCall}
+      />
     </div>
   );
 };
