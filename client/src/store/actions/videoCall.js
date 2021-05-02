@@ -7,6 +7,7 @@ export const callTo = (callData) => {
   };
 };
 
+
 export const callFrom = (callData) => {
   return {
     type: actionTypes.CALL_FROM,
@@ -14,8 +15,10 @@ export const callFrom = (callData) => {
   };
 };
 
-export const callAccepted = () => {
+
+export const callAccepted = (callType) => {
   return {
     type: actionTypes.CALL_ACCEPTED,
+    callType
   };
 };

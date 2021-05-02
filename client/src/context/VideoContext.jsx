@@ -12,7 +12,6 @@ export const VideoContextProvider = ({ children }) => {
   const callFrom = useSelector(state => state.videoCall.callFrom);
   const me = useSelector((state) => state.userProfile.user);
   const [stream, setStream] = useState(null);
-  const [callAccepted, setCallAccepted] = useState(false);
 
   const myVideoRef = useRef();
   const friendVideoRef = useRef();
@@ -38,7 +37,7 @@ export const VideoContextProvider = ({ children }) => {
     });
 
     socket.on("callAccepted", (signal) => {
-      setCallAccepted(true);
+      dispatch(action.callAccepted("callTo"));
       peer.signal(signal);
     });
 
@@ -46,7 +45,7 @@ export const VideoContextProvider = ({ children }) => {
   };
 
   const acceptCall = () => {
-    setCallAccepted(true);
+    dispatch(action.callAccepted("callFrom"));
 
     const peer = new Peer({ initiator: false, trickle: false, stream: stream });
 
@@ -67,8 +66,6 @@ export const VideoContextProvider = ({ children }) => {
         myVideoRef,
         friendVideoRef,
         callToFriend,
-        callAccepted,
-        callFrom,
         acceptCall,
       }}
     >

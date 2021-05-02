@@ -6,13 +6,14 @@ const initalState = {
     isMeCalling: false,
     user: null,
     signal: null,
+    callAccepted: false,
   },
   callFrom: {
     isReceivingCall: false,
     user: null,
     signal: null,
+    callAccepted: false,
   },
-  callAccepted: false,
 };
 
 const callTo = (state, action) => {
@@ -39,9 +40,12 @@ const callFrom = (state, action) => {
 
 const callAccepted = (state, action) => {
   return updateObj(state, {
-    callAccepted: true
-  })
-}
+    [action.callType]: {
+      ...state[action.callType],
+      callAccepted: true,
+    },
+  });
+};
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
@@ -50,7 +54,7 @@ const reducer = (state = initalState, action) => {
     case actionTypes.CALL_FROM:
       return callFrom(state, action);
     case actionTypes.CALL_ACCEPTED:
-      return callAccepted(state, action)
+      return callAccepted(state, action);
     default:
       return state;
   }
