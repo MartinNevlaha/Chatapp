@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import classes from "./VideoChat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
+import { VideoContext } from "../../context/VideoContext";
 
 const VideoChatComp = ({
   friends,
@@ -15,6 +17,11 @@ const VideoChatComp = ({
   onAddToChat,
 }) => {
   const [showFriendsList, setShowFriendsList] = useState(false);
+  const {
+    isMeCalling,
+    isReceivingCall,
+    callToFriend,
+  } = useContext(VideoContext);
 
 
   VideoChatComp.propTypes = {
@@ -36,6 +43,7 @@ const VideoChatComp = ({
         chatData={chatData}
         onAddToChat={onAddToChat}
         onShowFriends={setShowFriendsList}
+        onCallToFriend={callToFriend}
       />
 
       <Messenger
@@ -45,6 +53,7 @@ const VideoChatComp = ({
         onDeleteChat={onDeleteChat}
         onShowFriends={setShowFriendsList}
         showFriends={showFriendsList}
+        onCallToFriend={callToFriend}
       />
     </div>
   );

@@ -11,11 +11,11 @@ import ReactTooltip from "react-tooltip";
 import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
 
-const MessageHeader = ({ user, onCloseChat, callToFriend }) => {
+const MessageHeader = ({ user, onCloseChat, onCallToFriend }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
     onCloseChat: PropTypes.func,
-    callToFriend: PropTypes.func
+    onCallToFriend: PropTypes.func
   };
   return (
     <div className={classes.messageHeader}>
@@ -48,7 +48,7 @@ const MessageHeader = ({ user, onCloseChat, callToFriend }) => {
           className={classes.messageHeader_user_video}
           data-tip
           data-for="video"
-          onClick={()=>callToFriend(user.id)}
+          onClick={()=>onCallToFriend(user)}
         />
         <ReactTooltip id="video" place="top" effect="solid" border={true}>
           Click start video call

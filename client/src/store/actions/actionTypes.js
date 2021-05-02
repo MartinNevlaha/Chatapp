@@ -115,3 +115,7 @@ export const MUTE_CHAT_SOUND = "MUTE_CHAT_SOUND";
 
 export const DELETE_CHAT_SUCCES = "DELETE_CHAT_SUCCESS";
 export const ADD_TO_CHAT_SUCCESS = "ADD_TO_CHAT_SUCCESS";
+
+export const CALL_TO = "CALL_TO";
+export const CALL_FROM = "CALL_FROM";
+export const CALL_ACCEPTED = "CALL_ACCEPTED";
