@@ -6,14 +6,13 @@ const initalState = {
     isMeCalling: false,
     user: null,
     signal: null,
-    callAccepted: false,
   },
   callFrom: {
     isReceivingCall: false,
     user: null,
     signal: null,
-    callAccepted: false,
   },
+  callAccepted: false,
 };
 
 const callTo = (state, action) => {
@@ -40,10 +39,7 @@ const callFrom = (state, action) => {
 
 const callAccepted = (state, action) => {
   return updateObj(state, {
-    [action.callType]: {
-      ...state[action.callType],
-      callAccepted: true,
-    },
+    callAccepted: true,
   });
 };
 

@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import classes from "./VideoCall.module.scss";
 import CallControls from "./CallControls/CallControls";
 import { VideoContext } from "../../../context/VideoContext";
+import LazyImage from "../../UI/LazyImage/LazyImage";
 
-const VideoCall = ({ user, isMeCalling, isReceivingCall }) => {
+const VideoCall = ({ user, isMeCalling, isReceivingCall, callAccepted }) => {
   const { setStream, stream, myVideoRef, friendVideoRef } = useContext(
     VideoContext
   );
@@ -22,9 +23,10 @@ const VideoCall = ({ user, isMeCalling, isReceivingCall }) => {
   }, [setStream, myVideoRef]);
 
   VideoCall.propTypes = {
-    user: PropTypes.object,
     isReceivingCall: PropTypes.bool,
     isMeCalling: PropTypes.bool,
+    callAccepted: PropTypes.bool,
+    user: PropTypes.bool,
   };
 
   return (
@@ -34,6 +36,11 @@ const VideoCall = ({ user, isMeCalling, isReceivingCall }) => {
           <video playsInline muted ref={myVideoRef} autoPlay />
           {myVideoRef.current &&
             console.log("myVideo", myVideoRef.current.srcObject)}
+        </div>
+      )}
+      {!callAccepted && (
+        <div className={classes.video_user_avatar}>
+          <LazyImage image={{src: user.avatar, alt: "avatar"}}/>
         </div>
       )}
       <div className={classes.video_friendStream}>

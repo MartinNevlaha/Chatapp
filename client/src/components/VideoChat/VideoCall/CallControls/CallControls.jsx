@@ -15,7 +15,7 @@ const CallControls = ({ isMeCalling, isReceivingCall }) => {
   return (
     <div className={classes.callControls}>
       {console.log(isMeCalling, isReceivingCall)}
-      {isMeCalling && (
+      {!isMeCalling && (
         <div className={classes.callControls_accept}>
           <FontAwesomeIcon icon={faPhone} />
         </div>

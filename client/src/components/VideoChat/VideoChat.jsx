@@ -25,6 +25,9 @@ const VideoChatComp = ({
   const isReceivingCall = useSelector(
     (state) => state.videoCall.callFrom.isReceivingCall
   );
+  const callAccepted = useSelector((state) => state.videoCall.callAccepted);
+  const callFromUser = useSelector((state) => state.videoCall.callFrom.user);
+  const callToUser = useSelector((state) => state.videoCall.callTo.user);
 
   VideoChatComp.propTypes = {
     friends: PropTypes.array,
@@ -49,9 +52,10 @@ const VideoChatComp = ({
       />
       {isMeCalling || isReceivingCall ? (
         <VideoCall
-          user={user}
           isMeCalling={isMeCalling}
           isReceivingCall={isReceivingCall}
+          callAccepted={callAccepted}
+          user={isMeCalling ? callToUser : callFromUser}
         />
       ) : (
         <Messenger

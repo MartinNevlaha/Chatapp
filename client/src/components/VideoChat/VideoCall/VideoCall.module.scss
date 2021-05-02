@@ -5,6 +5,7 @@
   width: 100%;
   height: 100%;
   @include flexbox(center, center, row);
+  background-color: gray;
 
   &_myStream {
     position: absolute;
@@ -13,7 +14,7 @@
     width: 21.875rem;
     height: auto;
     @include shadow;
-    border: 1px solid get-color(primary);
+    border: 1px solid white;
     border-radius: 8px;
 
     video {
@@ -34,8 +35,25 @@
       border-radius: 8px;
     }
   }
-  &_user {
-    width: 250px;
-    background-color: get-color(transparent_gray);
+  &_user_avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    @include flexbox(center, center, row);
+    animation: pulse .8s infinite;
+
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
   }
 }
+
+@include pulse;

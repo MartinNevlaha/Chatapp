@@ -9,7 +9,6 @@
   @include flexbox(space-around, center, row);
   background-color: get-color(gray_profile);
   border-radius: 8px;
-  animation: pulse 0.8s infinite;
 
   &_accept {
     @include flexbox(center, center, row);
@@ -27,5 +26,3 @@
     background-color: red;
   }
 }
-
-@include pulse;
