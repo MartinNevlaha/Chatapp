@@ -19,7 +19,7 @@ const Messenger = ({
   onDeleteChat,
   onShowFriends,
   showFriends,
-  onCallToFriend
+  onCallToInit
 }) => {
   const [openedChatId, setOpenedChatId] = useState(null);
   const [searchMessageValue, setSearchMessageValue] = useState("");
@@ -69,7 +69,7 @@ const Messenger = ({
         onCloseChat={handleCloseChat}
         fromUser={messageFromUser(chatData)}
         user={user}
-        onCallToFriend={onCallToFriend}
+        onCallToInit={onCallToInit}
       />
     );
   }
@@ -81,7 +81,7 @@ const Messenger = ({
     onDeleteChat: PropTypes.func,
     onShowFriends: PropTypes.func,
     showFriends: PropTypes.bool,
-    onCallToFriend: PropTypes.func
+    onCallToInit: PropTypes.func
   };
 
   return (

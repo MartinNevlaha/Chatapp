@@ -53,4 +53,4 @@ export {
   addToChatSuccess,
 } from "./chat";
 
-export { callFrom, callTo, callAccepted } from "./videoCall";
+export { callFrom, callToInit, callTo, callAccepted } from "./videoCall";

@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import classes from "./VideoChat.module.scss";
 import ChatFriends from "./ChatFriends/ChatFriends";
 import Messenger from "./Messenger/Messenger";
 import VideoCall from "./VideoCall/VideoCall";
 import { VideoContext } from "../../context/VideoContext";
+import * as action from "../../store/actions";
 
 const VideoChatComp = ({
   friends,
@@ -17,17 +18,23 @@ const VideoChatComp = ({
   onDeleteChat,
   onAddToChat,
 }) => {
+  const dispatch = useDispatch();
   const [showFriendsList, setShowFriendsList] = useState(false);
-  const { callToFriend, acceptCall } = useContext(VideoContext);
+  const { acceptCall } = useContext(VideoContext);
   const isMeCalling = useSelector(
     (state) => state.videoCall.callTo.isMeCalling
   );
+  const callToInit = useSelector((state) => state.videoCall.callTo.init);
   const isReceivingCall = useSelector(
     (state) => state.videoCall.callFrom.isReceivingCall
   );
   const callAccepted = useSelector((state) => state.videoCall.callAccepted);
   const callFromUser = useSelector((state) => state.videoCall.callFrom.user);
   const callToUser = useSelector((state) => state.videoCall.callTo.user);
+
+    const handleCallToInit = (friend) => {
+      dispatch(action.callToInit(friend))
+    }
 
   VideoChatComp.propTypes = {
     friends: PropTypes.array,
@@ -48,15 +55,15 @@ const VideoChatComp = ({
         chatData={chatData}
         onAddToChat={onAddToChat}
         onShowFriends={setShowFriendsList}
-        onCallToFriend={callToFriend}
+        onCallToInit={handleCallToInit}
       />
-      {isMeCalling || isReceivingCall ? (
+      {callToInit || isReceivingCall ? (
         <VideoCall
           isMeCalling={isMeCalling}
           isReceivingCall={isReceivingCall}
           callAccepted={callAccepted}
           onAcceptCall={acceptCall}
-          user={isMeCalling ? callToUser : callFromUser}
+          user={callToInit ? callToUser : callFromUser}
         />
       ) : (
         <Messenger
@@ -66,7 +73,7 @@ const VideoChatComp = ({
           onDeleteChat={onDeleteChat}
           onShowFriends={setShowFriendsList}
           showFriends={showFriendsList}
-          onCallToFriend={callToFriend}
+          onCallToInit={handleCallToInit}
         />
       )}
     </div>

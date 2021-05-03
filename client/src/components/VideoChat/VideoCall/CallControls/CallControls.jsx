@@ -13,7 +13,7 @@ const CallControls = ({ isMeCalling, onAcceptCall }) => {
 
   return (
     <div className={classes.callControls}>
-      {!isMeCalling && (
+      {isMeCalling && (
         <div
           className={classes.callControls_accept}
           onClick={() => onAcceptCall()}

@@ -16,7 +16,7 @@ const ChatFriends = ({
   onAddToChat,
   show,
   onShowFriends,
-  onCallToFriend
+  onCallToInit
 }) => {
   const [filterBy, setFilterBy] = useState("all");
   const [searchValue, setSearchValue] = useState("");
@@ -57,7 +57,7 @@ const ChatFriends = ({
     onAddToChat: PropTypes.func,
     show: PropTypes.bool,
     onShowFriends: PropTypes.func,
-    onCallToFriend: PropTypes.func
+    onCallToInit: PropTypes.func
   };
 
   return (
@@ -97,7 +97,7 @@ const ChatFriends = ({
               chatData={chatData}
               isInChat={isAllreadyInChat(friend.id, chatData)}
               onAddToChat={onAddToChat}
-              onCallToFriend={onCallToFriend}
+              onCallToInit={onCallToInit}
             />
           ))
         )}

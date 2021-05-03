@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Howl } from "howler";
 
 import classes from "./MessagesWrapper.module.scss";
 import Spinner from "../../../UI/Spinner/Spinner";
@@ -9,8 +10,21 @@ import * as action from "../../../../store/actions";
 import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 import MessageInput from "./MessageInput/MessageInput";
+import messageSound from "../../../../assets/sounds/messagefx.mp3";
 
-const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user, onCallToFriend }) => {
+const messageFx = new Howl({
+  src: [messageSound],
+  loop: false,
+  preload: true,
+});
+
+const MessagesWrapper = ({
+  chatId,
+  onCloseChat,
+  fromUser,
+  user,
+  onCallToInit,
+}) => {
   const LIMIT = 15;
   const [page, setPage] = useState(0);
   const [hasMoreMessages, sethasMoreMessages] = useState(true);
@@ -49,14 +63,14 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user, onCallToFriend }
     onCloseChat: PropTypes.func,
     fromUser: PropTypes.object,
     user: PropTypes.object,
-    onCallToFriend: PropTypes.func
+    onCallToInit: PropTypes.func,
   };
   return (
     <div className={classes.MessagesWrapper}>
       <MessageHeader
         onCloseChat={onCloseChat}
         user={fromUser}
-        onCallToFriend={onCallToFriend}
+        onCallToInit={onCallToInit}
       />
       <div className={classes.MessagesWrapper_container}>
         <InfiniteScroll
@@ -82,11 +96,7 @@ const MessagesWrapper = ({ chatId, onCloseChat, fromUser, user, onCallToFriend }
         {isTyping && <Spinner type="beat" />}
       </div>
       <div className={classes.MessagesWrapper_input}>
-        <MessageInput
-          user={user}
-          toUserId={fromUserId}
-          chatId={chatId}
-        />
+        <MessageInput user={user} toUserId={fromUserId} chatId={chatId} />
       </div>
     </div>
   );

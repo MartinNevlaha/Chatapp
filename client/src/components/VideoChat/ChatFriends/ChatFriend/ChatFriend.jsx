@@ -8,12 +8,12 @@ import Friend from "../../../FriendList/Friend/Friend";
 import Button from "../../../UI/Button/Button";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 
-const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToFriend }) => {
+const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToInit }) => {
   ChatFriend.propTypes = {
     friend: PropTypes.object,
     isInChat: PropTypes.bool,
     onAddToChat: PropTypes.func,
-    onCallToFriend: PropTypes.func,
+    onCallToInit: PropTypes.func,
   };
   return (
     <div className={classes.chatFriend}>
@@ -22,7 +22,7 @@ const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToFriend }) => {
       <FontAwesomeIcon
         icon={faVideo}
         className={classes.chatFriend_videoIcon}
-        onClick={() => onCallToFriend(friend)}
+        onClick={() => onCallToInit(friend)}
       />
       <Button disabled={isInChat} clicked={() => onAddToChat(friend.id)}>
         Add to chat

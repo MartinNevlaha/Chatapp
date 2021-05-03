@@ -9,24 +9,16 @@ import LazyImage from "../../UI/LazyImage/LazyImage";
 const VideoCall = ({
   user,
   isMeCalling,
-  isReceivingCall,
   callAccepted,
   onAcceptCall,
 }) => {
-  const { setStream, stream, myVideoRef, friendVideoRef } = useContext(
+  const { stream, myVideoRef, friendVideoRef, callToFriend } = useContext(
     VideoContext
   );
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
-
-        myVideoRef.current.srcObject = currentStream;
-      })
-      .catch((err) => console.log(err));
-  }, [setStream, myVideoRef]);
+    callToFriend(user);
+  }, [user]);
 
   VideoCall.propTypes = {
     isReceivingCall: PropTypes.bool,
@@ -34,29 +26,26 @@ const VideoCall = ({
     callAccepted: PropTypes.bool,
     user: PropTypes.object,
     onAcceptCall: PropTypes.func,
+    callToFriendId: PropTypes.number,
   };
 
   return (
     <div className={classes.video}>
-      {stream && (
-        <div className={classes.video_myStream}>
-          <video playsInline muted ref={myVideoRef} autoPlay />
-          {myVideoRef.current &&
-            console.log("myVideo", myVideoRef.current.srcObject)}
-        </div>
-      )}
+      <div className={classes.video_myStream}>
+        {stream && <video playsInline muted ref={myVideoRef} autoPlay />}
+        {myVideoRef.current &&
+          console.log("myVideo", myVideoRef.current.srcObject)}
+      </div>
       {!callAccepted && (
         <div className={classes.video_user_avatar}>
-          <LazyImage image={{ src: user.avatar, alt: "avatar" }} />
+          {console.log(user)}
+          {user && <LazyImage image={{ src: user.avatar, alt: "avatar" }} />}
         </div>
       )}
       <div className={classes.video_friendStream}>
         <video playsInline ref={friendVideoRef} autoPlay />
         {friendVideoRef.current &&
-          console.log(
-            "Friend video",
-            friendVideoRef.current.srcObject,
-          )}
+          console.log("Friend video", friendVideoRef.current.srcObject)}
       </div>
       <CallControls isMeCalling={isMeCalling} onAcceptCall={onAcceptCall} />
     </div>

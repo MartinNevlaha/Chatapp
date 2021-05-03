@@ -6,7 +6,9 @@ const initalState = {
     isMeCalling: false,
     user: null,
     signal: null,
+    init: false,
   },
+
   callFrom: {
     isReceivingCall: false,
     user: null,
@@ -15,12 +17,21 @@ const initalState = {
   callAccepted: false,
 };
 
+const callToInit = (state, action) => {
+  return updateObj(state, {
+    callTo: {
+      ...state.callTo,
+      init: true,
+      user: action.friend,
+    },
+  });
+};
+
 const callTo = (state, action) => {
   return updateObj(state, {
     callTo: {
       ...state.callTo,
       isMeCalling: true,
-      user: action.callData.friend,
       signal: action.callData.signal,
     },
   });
@@ -45,6 +56,8 @@ const callAccepted = (state, action) => {
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
+    case actionTypes.CALL_TO_INIT:
+      return callToInit(state, action);
     case actionTypes.CALL_TO:
       return callTo(state, action);
     case actionTypes.CALL_FROM:

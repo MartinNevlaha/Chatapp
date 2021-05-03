@@ -18,31 +18,45 @@ export const VideoContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   const callToFriend = (friend) => {
-    const peer = new Peer({ initiator: true, trickle: false, stream: stream });
+    navigator.mediaDevices.getUserMedia({video: true, audio: true})
+    .then(stream => {
+      setStream(stream);
 
-    peer.on("signal", (data) => {
-      const callData = {
-        friend: friend,
-        signal: data,
-        fromUser: me,
-      };
+      myVideoRef.current.srcObject = stream;
 
-      dispatch(action.callTo(callData));
+      // for production complte config IceSerers
+      const peer = new Peer({ initiator: true, trickle: false, stream: stream });
+      
+      connectionRef.current = peer;
 
-      socket.emit("callToFriend", callData);
-    });
+      peer.on("signal", (data) => {
+        const callData = {
+          friend: friend,
+          signal: data,
+          fromUser: me,
+        };
+  
+        dispatch(action.callTo(callData));
+  
+        socket.emit("callToFriend", callData);
+      });
 
-    peer.on("stream", (currentStream) => {
-      console.log("call to", currentStream);
-      friendVideoRef.current.srcObject = currentStream;
-    });
+      peer.on("stream", (currentStream) => {
+        console.log("call to", currentStream);
+        if (friendVideoRef.current) friendVideoRef.current.srcObject = currentStream;
+        
 
-    socket.on("callAccepted", (signal) => {
-      dispatch(action.callAccepted("callTo"));
-      peer.signal(signal);
-    });
+      });
 
-    connectionRef.current = peer;
+      socket.on("callAccepted", (signal) => {
+        dispatch(action.callAccepted("callTo"));
+        peer.signal(signal);
+      });
+
+    })
+    .catch(err => {
+      console.log(err)
+    })
   };
 
   const acceptCall = () => {
@@ -67,7 +81,6 @@ export const VideoContextProvider = ({ children }) => {
   return (
     <VideoContext.Provider
       value={{
-        setStream,
         stream,
         myVideoRef,
         friendVideoRef,

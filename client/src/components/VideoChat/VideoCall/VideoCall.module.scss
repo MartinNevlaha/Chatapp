@@ -9,16 +9,17 @@
 
   &_myStream {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 21.875rem;
+    top: 10px;
+    right: 10px;
+    min-width: 15rem;
+    width: 20%;
     height: auto;
     @include shadow;
     border: 1px solid white;
     border-radius: 8px;
 
     video {
-      width: 21.875rem;
+      width: 100%;
       height: auto;
       z-index: 10;
       border-radius: 8px;
@@ -26,13 +27,16 @@
   }
 
   &_friendStream {
+    min-width: 540px;
     width: 100%;
     height: auto;
 
     video {
-      width: 70%;
+      width: 80%;
       height: auto;
       border-radius: 8px;
+      border: 1px solid white;
+      @include shadow;
     }
   }
   &_user_avatar {
@@ -46,7 +50,7 @@
     overflow: hidden;
     border-radius: 50%;
     @include flexbox(center, center, row);
-    animation: pulse .8s infinite;
+    animation: pulse 0.8s infinite;
 
     img {
       width: 100px;
