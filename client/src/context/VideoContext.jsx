@@ -1,8 +1,17 @@
 import React, { createContext, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Peer from "simple-peer";
+import { Howl } from "howler";
 
+import callTone from "../assets/sounds/call.mp3";
 import * as action from "../store/actions";
+import { ICE_SERVERS } from "../config/iceServers";
+
+const callRingtone = new Howl({
+  src: [callTone],
+  loop: true,
+  preload: true,
+});
 
 export const VideoContext = createContext({});
 
@@ -18,45 +27,53 @@ export const VideoContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   const callToFriend = (friend) => {
-    navigator.mediaDevices.getUserMedia({video: true, audio: true})
-    .then(stream => {
-      setStream(stream);
+    callRingtone.play();
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        setStream(stream);
 
-      myVideoRef.current.srcObject = stream;
+        myVideoRef.current.srcObject = stream;
 
-      // for production complte config IceSerers
-      const peer = new Peer({ initiator: true, trickle: false, stream: stream });
-      
-      connectionRef.current = peer;
+        // for production complte config IceSerers
+        const peer = new Peer({
+          initiator: true,
+          trickle: false,
+          config: {
+            iceServers: ICE_SERVERS
+          },
+          stream: stream,
+        });
 
-      peer.on("signal", (data) => {
-        const callData = {
-          friend: friend,
-          signal: data,
-          fromUser: me,
-        };
-  
-        dispatch(action.callTo(callData));
-  
-        socket.emit("callToFriend", callData);
+        connectionRef.current = peer;
+
+        peer.on("signal", (data) => {
+          const callData = {
+            friend: friend,
+            signal: data,
+            fromUser: me,
+          };
+
+          dispatch(action.callTo(callData));
+
+          socket.emit("callToFriend", callData);
+        });
+
+        peer.on("stream", (currentStream) => {
+          if (friendVideoRef.current)
+            friendVideoRef.current.srcObject = currentStream;
+        });
+
+        socket.on("callAccepted", (signal) => {
+          dispatch(action.callAccepted("callTo"));
+          peer.signal(signal);
+          callRingtone.stop();
+          callRingtone.unload();
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-
-      peer.on("stream", (currentStream) => {
-        console.log("call to", currentStream);
-        if (friendVideoRef.current) friendVideoRef.current.srcObject = currentStream;
-        
-
-      });
-
-      socket.on("callAccepted", (signal) => {
-        dispatch(action.callAccepted("callTo"));
-        peer.signal(signal);
-      });
-
-    })
-    .catch(err => {
-      console.log(err)
-    })
   };
 
   const acceptCall = () => {
@@ -69,7 +86,6 @@ export const VideoContextProvider = ({ children }) => {
     });
 
     peer.on("stream", (currentStream) => {
-      console.log("call accept", currentStream);
       friendVideoRef.current.srcObject = currentStream;
     });
 
