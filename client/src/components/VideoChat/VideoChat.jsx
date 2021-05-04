@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -31,10 +31,11 @@ const VideoChatComp = ({
   const callAccepted = useSelector((state) => state.videoCall.callAccepted);
   const callFromUser = useSelector((state) => state.videoCall.callFrom.user);
   const callToUser = useSelector((state) => state.videoCall.callTo.user);
+  const muteAudio = useSelector(state => state.videoCall.muteAudio);
 
-    const handleCallToInit = (friend) => {
-      dispatch(action.callToInit(friend))
-    }
+  const handleCallToInit = (friend) => {
+    dispatch(action.callToInit(friend));
+  };
 
   VideoChatComp.propTypes = {
     friends: PropTypes.array,
@@ -60,10 +61,12 @@ const VideoChatComp = ({
       {callToInit || isReceivingCall ? (
         <VideoCall
           isMeCalling={isMeCalling}
+          callToInit={callToInit}
           isReceivingCall={isReceivingCall}
           callAccepted={callAccepted}
           onAcceptCall={acceptCall}
           user={callToInit ? callToUser : callFromUser}
+          muteAudio={muteAudio}
         />
       ) : (
         <Messenger

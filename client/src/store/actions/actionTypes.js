@@ -116,8 +116,12 @@ export const MUTE_CHAT_SOUND = "MUTE_CHAT_SOUND";
 export const DELETE_CHAT_SUCCES = "DELETE_CHAT_SUCCESS";
 export const ADD_TO_CHAT_SUCCESS = "ADD_TO_CHAT_SUCCESS";
 
+export const SET_STREAM = "SET_STREAM";
 export const CALL_TO_INIT = "CALL_TO_INIT";
 export const CALL_TO = "CALL_TO";
-export const CALL_FROM_INIT = "CALL_FROM_INIT";
 export const CALL_FROM = "CALL_FROM";
 export const CALL_ACCEPTED = "CALL_ACCEPTED";
+export const CALL_REJECTED = "CALL_REJECTED";
+export const CALL_REJECTED_RECEIVE = "CALL_REJECTED_RECEIVE";
+export const MUTE_AUDIO = "MUTE_AUDIO";
+

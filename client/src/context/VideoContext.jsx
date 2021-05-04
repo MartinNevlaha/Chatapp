@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef } from "react";
+import React, { createContext, useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Peer from "simple-peer";
 import { Howl } from "howler";
@@ -20,6 +20,7 @@ export const VideoContextProvider = ({ children }) => {
   const socket = useSelector((state) => state.chat.socket);
   const callFrom = useSelector((state) => state.videoCall.callFrom);
   const me = useSelector((state) => state.userProfile.user);
+  const muteAudio = useSelector(state => state.videoCall.muteAudio);
   const [stream, setStream] = useState(null);
 
   const myVideoRef = useRef();
@@ -27,7 +28,6 @@ export const VideoContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   const callToFriend = (friend) => {
-    callRingtone.play();
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -35,13 +35,12 @@ export const VideoContextProvider = ({ children }) => {
 
         myVideoRef.current.srcObject = stream;
 
-        // for production complte config IceSerers
         const peer = new Peer({
           initiator: true,
           trickle: false,
-          config: {
-            iceServers: ICE_SERVERS
-          },
+          /*config: {
+            iceServers: ICE_SERVERS,
+          },*/
           stream: stream,
         });
 
@@ -67,8 +66,6 @@ export const VideoContextProvider = ({ children }) => {
         socket.on("callAccepted", (signal) => {
           dispatch(action.callAccepted("callTo"));
           peer.signal(signal);
-          callRingtone.stop();
-          callRingtone.unload();
         });
       })
       .catch((err) => {
@@ -94,14 +91,29 @@ export const VideoContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
+  const callRejected = () => {
+    dispatch(action.callRejected())
+    
+  };
+
+  const onMuteAudio = () => {
+    if (stream) {
+      dispatch(action.muteAudio());
+      stream.getAudioTracks()[0].enabled = muteAudio;
+    }
+  }
+
   return (
     <VideoContext.Provider
       value={{
         stream,
         myVideoRef,
         friendVideoRef,
+        connectionRef,
         callToFriend,
         acceptCall,
+        callRejected,
+        onMuteAudio
       }}
     >
       {children}

@@ -1,14 +1,31 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhoneSlash, faPhone } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPhoneSlash,
+  faPhone,
+  faMicrophoneSlash,
+  faMicroscope,
+} from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 import classes from "./CallControls.module.scss";
 
-const CallControls = ({ isMeCalling, onAcceptCall }) => {
+const CallControls = ({
+  isMeCalling,
+  onAcceptCall,
+  onCallRejected,
+  callAccepted,
+  onMuteAudio,
+  muteAudio,
+}) => {
   CallControls.propTypes = {
     isMeCalling: PropTypes.bool,
     onAcceptCall: PropTypes.func,
+    onCallRejected: PropTypes.func,
+    callToInit: PropTypes.bool,
+    callAccepted: PropTypes.bool,
+    onMuteAudio: PropTypes.func,
+    muteAudio: PropTypes.bool,
   };
 
   return (
@@ -21,7 +38,20 @@ const CallControls = ({ isMeCalling, onAcceptCall }) => {
           <FontAwesomeIcon icon={faPhone} />
         </div>
       )}
-      <div className={classes.callControls_reject}>
+      {!callAccepted && (
+        <div
+          className={classes.callControls_microphone}
+          onClick={() => onMuteAudio()}
+        >
+          <FontAwesomeIcon
+            icon={muteAudio ? faMicrophoneSlash : faMicroscope}
+          />
+        </div>
+      )}
+      <div
+        className={classes.callControls_reject}
+        onClick={() => onCallRejected()}
+      >
         <FontAwesomeIcon icon={faPhoneSlash} />
       </div>
     </div>

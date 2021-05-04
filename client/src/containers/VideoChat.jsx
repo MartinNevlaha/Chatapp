@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import useSocket from "../hooks/socketConnect";
 import * as action from "../store/actions";
 import VideoChat from "../components/VideoChat/VideoChat";
 import { VideoContextProvider } from "../context/VideoContext";
+import useSocket from "../hooks/socketConnect";
 
 const Chat = () => {
   const dispatch = useDispatch();

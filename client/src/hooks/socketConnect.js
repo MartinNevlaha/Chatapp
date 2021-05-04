@@ -3,7 +3,10 @@ import socketClient from "socket.io-client";
 
 import * as action from "../store/actions";
 
-const useSocket = (user, dispatch) => {
+const useSocket = (
+  user,
+  dispatch,
+) => {
   useEffect(() => {
     const socket = socketClient.connect("http://localhost:8000", {
       extraHeaders: {
@@ -41,8 +44,11 @@ const useSocket = (user, dispatch) => {
     );
 
     socket.on("friendCalling", (data) => {
-      console.log("user is calling", data);
       dispatch(action.callFrom(data));
+    });
+
+    socket.on("callRejected", (data) => {
+      dispatch(action.callRejectedReceive());
     });
 
     socket.on("connect_error", (err) => {

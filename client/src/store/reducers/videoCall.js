@@ -15,6 +15,8 @@ const initalState = {
     signal: null,
   },
   callAccepted: false,
+  muteAudio: false,
+  muteVideo: false,
 };
 
 const callToInit = (state, action) => {
@@ -54,6 +56,21 @@ const callAccepted = (state, action) => {
   });
 };
 
+const callRejected = (state, action) => {
+  const sentToUser = state.callTo.isMeCalling ? state.callTo : state.callFrom;
+  action.socket.emit("callRejected", sentToUser);
+
+  return initalState;
+};
+
+const callRejectedReceive = (state, action) => {
+  return initalState;
+};
+
+const muteAudio = (state, action) => {
+  return updateObj(state, { muteAudio: !state.muteAudio });
+};
+
 const reducer = (state = initalState, action) => {
   switch (action.type) {
     case actionTypes.CALL_TO_INIT:
@@ -64,6 +81,12 @@ const reducer = (state = initalState, action) => {
       return callFrom(state, action);
     case actionTypes.CALL_ACCEPTED:
       return callAccepted(state, action);
+    case actionTypes.CALL_REJECTED:
+      return callRejected(state, action);
+    case actionTypes.CALL_REJECTED_RECEIVE:
+      return callRejectedReceive(state, action);
+    case actionTypes.MUTE_AUDIO:
+      return muteAudio(state, action);
     default:
       return state;
   }

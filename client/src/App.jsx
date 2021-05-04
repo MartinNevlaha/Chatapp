@@ -31,17 +31,17 @@ function App() {
 
   let routes = (
     <Suspense fallback={<Spinner />}>
-      <Switch>
-        <ProtectedRoute path="/user-info/:userId" component={UserPageInfo} />
-        <ProtectedRoute path="/users-list" component={AllUsers} />
-        <ProtectedRoute path="/chat" component={VideoChat} />
-        <ProtectedRoute path="/friend-requests" component={FriendRequest} />
-        <ProtectedRoute path="/update-profile" component={UserUpdate} />
-        <ProtectedRoute path="/" exact component={Dashboard} />
-        <Route path="/activation/:token" component={EmailActivation} />
-        {isAuth ? null : <Route path="/login" component={Login} />}
-        <Redirect to="/" />
-      </Switch>
+        <Switch>
+          <ProtectedRoute path="/user-info/:userId" component={UserPageInfo} />
+          <ProtectedRoute path="/users-list" component={AllUsers} />
+          <ProtectedRoute path="/chat" component={VideoChat} />
+          <ProtectedRoute path="/friend-requests" component={FriendRequest} />
+          <ProtectedRoute path="/update-profile" component={UserUpdate} />
+          <ProtectedRoute path="/" exact component={Dashboard} />
+          <Route path="/activation/:token" component={EmailActivation} />
+          {isAuth ? null : <Route path="/login" component={Login} />}
+          <Redirect to="/" />
+        </Switch>
     </Suspense>
   );
 

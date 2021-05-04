@@ -25,4 +25,10 @@
     @extend .callControls_accept;
     background-color: red;
   }
+
+  &_microphone {
+    @extend .callControls_accept;
+    background-color: gray;
+    color: white;
+  }
 }

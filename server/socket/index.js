@@ -94,6 +94,7 @@ const SocketServer = (server) => {
     });
 
     socket.on("callRejected", (data) => {
+      console.log(data.user.id);
       const user = users.getUser(data.user.id);
       if (user) {
         io.to(user.socketId).emit("callRejected");

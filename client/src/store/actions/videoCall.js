@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import store from "../index";
 
 export const callToInit = (friend) => {
   return {
@@ -25,5 +26,25 @@ export const callAccepted = (callType) => {
   return {
     type: actionTypes.CALL_ACCEPTED,
     callType,
+  };
+};
+
+export const callRejected = () => {
+  const socket = store.getState().chat.socket;
+  return {
+    type: actionTypes.CALL_REJECTED,
+    socket,
+  };
+};
+
+export const callRejectedReceive = () => {
+  return {
+    type: actionTypes.CALL_REJECTED_RECEIVE,
+  };
+};
+
+export const muteAudio = () => {
+  return {
+    type: actionTypes.MUTE_AUDIO,
   };
 };
