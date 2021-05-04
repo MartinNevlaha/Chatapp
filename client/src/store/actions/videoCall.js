@@ -54,3 +54,10 @@ export const muteVideo = () => {
     type: actionTypes.MUTE_VIDEO,
   };
 };
+
+export const setStream = (stream) => {
+  return {
+    type: actionTypes.SET_STREAM,
+    stream
+  };
+};

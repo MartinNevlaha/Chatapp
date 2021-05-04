@@ -12,10 +12,10 @@ const VideoCall = ({
   callAccepted,
   onAcceptCall,
   muteAudio,
-  muteVideo
+  muteVideo,
+  stream
 }) => {
   const {
-    stream,
     myVideoRef,
     friendVideoRef,
     callToFriend,
@@ -40,7 +40,8 @@ const VideoCall = ({
     onAcceptCall: PropTypes.func,
     callToFriendId: PropTypes.number,
     muteAudio: PropTypes.bool,
-    muteVideo: PropTypes.bool
+    muteVideo: PropTypes.bool,
+    stream: PropTypes.object
   };
 
   return (

@@ -22,7 +22,7 @@ export const VideoContextProvider = ({ children }) => {
   const me = useSelector((state) => state.userProfile.user);
   const muteAudio = useSelector((state) => state.videoCall.muteAudio);
   const muteVideo = useSelector((state) => state.videoCall.muteVideo);
-  const [stream, setStream] = useState(null);
+  const stream = useSelector(state => state.videoCall.stream)
 
   const myVideoRef = useRef();
   const friendVideoRef = useRef();
@@ -32,7 +32,7 @@ export const VideoContextProvider = ({ children }) => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        setStream(stream);
+        dispatch(action.setStream(stream));
 
         myVideoRef.current.srcObject = stream;
 
@@ -113,7 +113,6 @@ export const VideoContextProvider = ({ children }) => {
   return (
     <VideoContext.Provider
       value={{
-        stream,
         myVideoRef,
         friendVideoRef,
         connectionRef,
@@ -121,7 +120,7 @@ export const VideoContextProvider = ({ children }) => {
         acceptCall,
         callRejected,
         onMuteAudio,
-        onMuteVideo
+        onMuteVideo,
       }}
     >
       {children}

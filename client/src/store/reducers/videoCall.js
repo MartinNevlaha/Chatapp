@@ -17,6 +17,7 @@ const initalState = {
   callAccepted: false,
   muteAudio: false,
   muteVideo: false,
+  stream: null,
 };
 
 const callToInit = (state, action) => {
@@ -59,11 +60,12 @@ const callAccepted = (state, action) => {
 const callRejected = (state, action) => {
   const sentToUser = state.callTo.isMeCalling ? state.callTo : state.callFrom;
   action.socket.emit("callRejected", sentToUser);
-
+  state.stream.getTracks().forEach((track) => track.stop());
   return initalState;
 };
 
 const callRejectedReceive = (state, action) => {
+  state.stream.getTracks().forEach((track) => track.stop());
   return initalState;
 };
 
@@ -73,6 +75,10 @@ const muteAudio = (state, action) => {
 
 const muteVideo = (state, action) => {
   return updateObj(state, { muteVideo: !state.muteVideo });
+};
+
+const setStream = (state, action) => {
+  return updateObj(state, { stream: action.stream });
 };
 
 const reducer = (state = initalState, action) => {
@@ -93,6 +99,8 @@ const reducer = (state = initalState, action) => {
       return muteAudio(state, action);
     case actionTypes.MUTE_VIDEO:
       return muteVideo(state, action);
+    case actionTypes.SET_STREAM:
+      return setStream(state, action);
     default:
       return state;
   }
