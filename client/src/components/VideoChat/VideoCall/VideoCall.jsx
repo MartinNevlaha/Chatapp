@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useCallback } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./VideoCall.module.scss";
@@ -6,7 +6,14 @@ import CallControls from "./CallControls/CallControls";
 import { VideoContext } from "../../../context/VideoContext";
 import LazyImage from "../../UI/LazyImage/LazyImage";
 
-const VideoCall = ({ user, isMeCalling, callAccepted, onAcceptCall, muteAudio }) => {
+const VideoCall = ({
+  user,
+  isMeCalling,
+  callAccepted,
+  onAcceptCall,
+  muteAudio,
+  muteVideo
+}) => {
   const {
     stream,
     myVideoRef,
@@ -14,11 +21,16 @@ const VideoCall = ({ user, isMeCalling, callAccepted, onAcceptCall, muteAudio })
     callToFriend,
     callRejected,
     onMuteAudio,
+    onMuteVideo
   } = useContext(VideoContext);
 
   useEffect(() => {
     callToFriend(user);
   }, [user]);
+
+  const handleFullScreen = () => {
+
+  };
 
   VideoCall.propTypes = {
     isReceivingCall: PropTypes.bool,
@@ -27,7 +39,8 @@ const VideoCall = ({ user, isMeCalling, callAccepted, onAcceptCall, muteAudio })
     user: PropTypes.object,
     onAcceptCall: PropTypes.func,
     callToFriendId: PropTypes.number,
-    muteAudio: PropTypes.bool
+    muteAudio: PropTypes.bool,
+    muteVideo: PropTypes.bool
   };
 
   return (
@@ -40,15 +53,20 @@ const VideoCall = ({ user, isMeCalling, callAccepted, onAcceptCall, muteAudio })
           {user && <LazyImage image={{ src: user.avatar, alt: "avatar" }} />}
         </div>
       )}
+
       <div className={classes.video_friendStream}>
-        <video playsInline ref={friendVideoRef} autoPlay />
+          <video playsInline ref={friendVideoRef} autoPlay />
       </div>
+
       <CallControls
         isMeCalling={isMeCalling}
         onAcceptCall={onAcceptCall}
         onCallRejected={callRejected}
         onMuteAudio={onMuteAudio}
+        onMuteVideo={onMuteVideo}
         muteAudio={muteAudio}
+        muteVideo={muteVideo}
+        onfullScreen={handleFullScreen}
       />
     </div>
   );

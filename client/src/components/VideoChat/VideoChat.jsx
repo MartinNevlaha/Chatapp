@@ -32,6 +32,7 @@ const VideoChatComp = ({
   const callFromUser = useSelector((state) => state.videoCall.callFrom.user);
   const callToUser = useSelector((state) => state.videoCall.callTo.user);
   const muteAudio = useSelector(state => state.videoCall.muteAudio);
+  const muteVideo = useSelector(state => state.videoCall.muteVideo);
 
   const handleCallToInit = (friend) => {
     dispatch(action.callToInit(friend));
@@ -67,6 +68,7 @@ const VideoChatComp = ({
           onAcceptCall={acceptCall}
           user={callToInit ? callToUser : callFromUser}
           muteAudio={muteAudio}
+          muteVideo={muteVideo}
         />
       ) : (
         <Messenger

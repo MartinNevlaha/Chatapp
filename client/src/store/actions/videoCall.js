@@ -48,3 +48,9 @@ export const muteAudio = () => {
     type: actionTypes.MUTE_AUDIO,
   };
 };
+
+export const muteVideo = () => {
+  return {
+    type: actionTypes.MUTE_VIDEO,
+  };
+};

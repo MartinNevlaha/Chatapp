@@ -5,6 +5,9 @@ import {
   faPhone,
   faMicrophoneSlash,
   faMicroscope,
+  faExpand,
+  faVideo,
+  faVideoSlash
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
@@ -17,6 +20,9 @@ const CallControls = ({
   callAccepted,
   onMuteAudio,
   muteAudio,
+  onfullScreen,
+  onMuteVideo,
+  muteVideo
 }) => {
   CallControls.propTypes = {
     isMeCalling: PropTypes.bool,
@@ -26,6 +32,9 @@ const CallControls = ({
     callAccepted: PropTypes.bool,
     onMuteAudio: PropTypes.func,
     muteAudio: PropTypes.bool,
+    onfullScreen: PropTypes.func,
+    onMuteVideo: PropTypes.func,
+    muteVideo: PropTypes.bool
   };
 
   return (
@@ -40,11 +49,21 @@ const CallControls = ({
       )}
       {!callAccepted && (
         <div
-          className={classes.callControls_microphone}
+          className={classes.callControls_icon}
           onClick={() => onMuteAudio()}
         >
           <FontAwesomeIcon
             icon={muteAudio ? faMicrophoneSlash : faMicroscope}
+          />
+        </div>
+      )}
+       {!callAccepted && (
+        <div
+          className={classes.callControls_icon}
+          onClick={() => onMuteVideo()}
+        >
+          <FontAwesomeIcon
+            icon={muteVideo ? faVideoSlash : faVideoSlash}
           />
         </div>
       )}
@@ -54,6 +73,14 @@ const CallControls = ({
       >
         <FontAwesomeIcon icon={faPhoneSlash} />
       </div>
+      {!callAccepted && (
+        <div
+          className={classes.callControls_icon}
+          onClick={() => onfullScreen}
+        >
+          <FontAwesomeIcon icon={faExpand} />
+        </div>
+      )}
     </div>
   );
 };

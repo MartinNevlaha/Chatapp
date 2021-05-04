@@ -60,5 +60,6 @@ export {
   callAccepted,
   callRejected,
   callRejectedReceive,
-  muteAudio
+  muteAudio,
+  muteVideo
 } from "./videoCall";

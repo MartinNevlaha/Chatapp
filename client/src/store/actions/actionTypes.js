@@ -124,4 +124,5 @@ export const CALL_ACCEPTED = "CALL_ACCEPTED";
 export const CALL_REJECTED = "CALL_REJECTED";
 export const CALL_REJECTED_RECEIVE = "CALL_REJECTED_RECEIVE";
 export const MUTE_AUDIO = "MUTE_AUDIO";
+export const MUTE_VIDEO = "MUTE_VIDEO";
 

@@ -71,6 +71,10 @@ const muteAudio = (state, action) => {
   return updateObj(state, { muteAudio: !state.muteAudio });
 };
 
+const muteVideo = (state, action) => {
+  return updateObj(state, { muteVideo: !state.muteVideo });
+};
+
 const reducer = (state = initalState, action) => {
   switch (action.type) {
     case actionTypes.CALL_TO_INIT:
@@ -87,6 +91,8 @@ const reducer = (state = initalState, action) => {
       return callRejectedReceive(state, action);
     case actionTypes.MUTE_AUDIO:
       return muteAudio(state, action);
+    case actionTypes.MUTE_VIDEO:
+      return muteVideo(state, action);
     default:
       return state;
   }

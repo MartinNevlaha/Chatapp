@@ -26,7 +26,7 @@
     background-color: red;
   }
 
-  &_microphone {
+  &_icon {
     @extend .callControls_accept;
     background-color: gray;
     color: white;

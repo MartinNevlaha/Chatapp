@@ -20,7 +20,8 @@ export const VideoContextProvider = ({ children }) => {
   const socket = useSelector((state) => state.chat.socket);
   const callFrom = useSelector((state) => state.videoCall.callFrom);
   const me = useSelector((state) => state.userProfile.user);
-  const muteAudio = useSelector(state => state.videoCall.muteAudio);
+  const muteAudio = useSelector((state) => state.videoCall.muteAudio);
+  const muteVideo = useSelector((state) => state.videoCall.muteVideo);
   const [stream, setStream] = useState(null);
 
   const myVideoRef = useRef();
@@ -92,8 +93,7 @@ export const VideoContextProvider = ({ children }) => {
   };
 
   const callRejected = () => {
-    dispatch(action.callRejected())
-    
+    dispatch(action.callRejected());
   };
 
   const onMuteAudio = () => {
@@ -101,7 +101,14 @@ export const VideoContextProvider = ({ children }) => {
       dispatch(action.muteAudio());
       stream.getAudioTracks()[0].enabled = muteAudio;
     }
-  }
+  };
+
+  const onMuteVideo = () => {
+    if (stream) {
+      dispatch(action.muteVideo());
+      stream.getVideoTracks()[0].enabled = muteVideo;
+    }
+  };
 
   return (
     <VideoContext.Provider
@@ -113,7 +120,8 @@ export const VideoContextProvider = ({ children }) => {
         callToFriend,
         acceptCall,
         callRejected,
-        onMuteAudio
+        onMuteAudio,
+        onMuteVideo
       }}
     >
       {children}
