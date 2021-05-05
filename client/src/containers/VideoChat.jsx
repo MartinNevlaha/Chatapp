@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as action from "../store/actions";
@@ -13,6 +13,7 @@ const Chat = () => {
   const loadingChatData = useSelector((state) => state.chat.loadingChatData);
   const friends = useSelector((state) => state.friends.userFriends);
   const loadingFriends = useSelector((state) => state.friends.loading);
+  const [openedChatId, setOpenedChatId] = useState(null);
   const userId = +user.id;
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const Chat = () => {
     dispatch(action.getUserFriends(userId));
   }, [dispatch, userId]);
 
-  useSocket(user, dispatch);
+  useSocket(user, dispatch, openedChatId);
 
   const handleDeleteChat = (chatId, deletedChat) => {
     dispatch(action.deleteChat(chatId, deletedChat));
@@ -43,6 +44,8 @@ const Chat = () => {
         user={user}
         onDeleteChat={handleDeleteChat}
         onAddToChat={handleAddToChat}
+        setOpenedChatId={setOpenedChatId}
+        openedChatId={openedChatId}
       />
     </VideoContextProvider>
   );

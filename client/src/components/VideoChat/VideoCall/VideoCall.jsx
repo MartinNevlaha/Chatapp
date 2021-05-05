@@ -70,7 +70,6 @@ const VideoCall = ({
           {user && <LazyImage image={{ src: user.avatar, alt: "avatar" }} />}
         </div>
       )}
-
       <div className={classes.video_friendStream}>
         <video playsInline ref={friendVideoRef} autoPlay />
       </div>

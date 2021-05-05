@@ -1,13 +1,18 @@
 import { useEffect } from "react";
 import socketClient from "socket.io-client";
+import { Howl } from "howler";
 
 import config from "../config/app";
 import * as action from "../store/actions";
+import messageSound from "../assets/sounds/messagefx.mp3";
 
-const useSocket = (
-  user,
-  dispatch,
-) => {
+const messageFx = new Howl({
+  src: [messageSound],
+  preload: true,
+  loop: false,
+});
+
+const useSocket = (user, dispatch, openChatId) => {
   useEffect(() => {
     const socket = socketClient.connect(config.wsConnection, {
       extraHeaders: {
@@ -26,6 +31,8 @@ const useSocket = (
     socket.on("offline", (user) => dispatch(action.friendOffline(user)));
 
     socket.on("receiveMessage", (msg) => {
+      console.log(msg, openChatId);
+      if (msg.chatId === openChatId) messageFx.play();
       dispatch(action.receiveMessage(msg));
     });
 
@@ -58,8 +65,9 @@ const useSocket = (
 
     return () => {
       socket.disconnect();
+      messageFx.unload();
     };
-  }, [dispatch, user]);
+  }, [dispatch, user, openChatId]);
 };
 
 export default useSocket;

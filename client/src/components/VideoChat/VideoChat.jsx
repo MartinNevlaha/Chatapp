@@ -17,6 +17,8 @@ const VideoChatComp = ({
   user,
   onDeleteChat,
   onAddToChat,
+  setOpenedChatId,
+  openedChatId
 }) => {
   const dispatch = useDispatch();
   const [showFriendsList, setShowFriendsList] = useState(false);
@@ -47,6 +49,8 @@ const VideoChatComp = ({
     user: PropTypes.object,
     onDeleteChat: PropTypes.func,
     onAddToChat: PropTypes.func,
+    setOpenedChatId: PropTypes.func,
+    openedChatId: PropTypes.number
   };
 
   return (
@@ -81,6 +85,8 @@ const VideoChatComp = ({
           onShowFriends={setShowFriendsList}
           showFriends={showFriendsList}
           onCallToInit={handleCallToInit}
+          setOpenedChatId={setOpenedChatId}
+          openedChatId={openedChatId}
         />
       )}
     </div>

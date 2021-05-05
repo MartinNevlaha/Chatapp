@@ -39,9 +39,9 @@ export const VideoContextProvider = ({ children }) => {
         const peer = new Peer({
           initiator: true,
           trickle: false,
-          /*config: {
+          config: {
             iceServers: ICE_SERVERS,
-          },*/
+          },
           stream: stream,
         });
 
