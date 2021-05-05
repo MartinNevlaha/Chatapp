@@ -6,8 +6,9 @@ import {
   faMicrophoneSlash,
   faMicroscope,
   faExpand,
+  faCompress,
   faVideo,
-  faVideoSlash
+  faVideoSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
@@ -22,7 +23,9 @@ const CallControls = ({
   muteAudio,
   onfullScreen,
   onMuteVideo,
-  muteVideo
+  muteVideo,
+  isFullscreen,
+  onExitFullscreen,
 }) => {
   CallControls.propTypes = {
     isMeCalling: PropTypes.bool,
@@ -34,12 +37,14 @@ const CallControls = ({
     muteAudio: PropTypes.bool,
     onfullScreen: PropTypes.func,
     onMuteVideo: PropTypes.func,
-    muteVideo: PropTypes.bool
+    muteVideo: PropTypes.bool,
+    isFullscreen: PropTypes.bool,
+    onExitFullscreen: PropTypes.func,
   };
 
   return (
     <div className={classes.callControls}>
-      {isMeCalling && (
+      {!isMeCalling && (
         <div
           className={classes.callControls_accept}
           onClick={() => onAcceptCall()}
@@ -57,14 +62,12 @@ const CallControls = ({
           />
         </div>
       )}
-       {!callAccepted && (
+      {!callAccepted && (
         <div
           className={classes.callControls_icon}
           onClick={() => onMuteVideo()}
         >
-          <FontAwesomeIcon
-            icon={muteVideo ? faVideoSlash : faVideoSlash}
-          />
+          <FontAwesomeIcon icon={muteVideo ? faVideoSlash : faVideo} />
         </div>
       )}
       <div
@@ -73,14 +76,17 @@ const CallControls = ({
       >
         <FontAwesomeIcon icon={faPhoneSlash} />
       </div>
-      {!callAccepted && (
-        <div
-          className={classes.callControls_icon}
-          onClick={() => onfullScreen}
-        >
-          <FontAwesomeIcon icon={faExpand} />
-        </div>
-      )}
+      {!callAccepted &&
+        typeof onfullScreen !== "undefined" && (
+          <div
+            className={classes.callControls_icon}
+            onClick={
+              !isFullscreen ? () => onfullScreen() : () => onExitFullscreen()
+            }
+          >
+            <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} />
+          </div>
+        )}
     </div>
   );
 };

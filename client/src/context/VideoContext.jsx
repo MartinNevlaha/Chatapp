@@ -22,7 +22,7 @@ export const VideoContextProvider = ({ children }) => {
   const me = useSelector((state) => state.userProfile.user);
   const muteAudio = useSelector((state) => state.videoCall.muteAudio);
   const muteVideo = useSelector((state) => state.videoCall.muteVideo);
-  const stream = useSelector(state => state.videoCall.stream)
+  const stream = useSelector((state) => state.videoCall.stream);
 
   const myVideoRef = useRef();
   const friendVideoRef = useRef();

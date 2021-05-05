@@ -1,10 +1,11 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./VideoCall.module.scss";
 import CallControls from "./CallControls/CallControls";
 import { VideoContext } from "../../../context/VideoContext";
 import LazyImage from "../../UI/LazyImage/LazyImage";
+import useFullscreenStatus from "../../../hooks/fullscreenStatus";
 
 const VideoCall = ({
   user,
@@ -13,7 +14,7 @@ const VideoCall = ({
   onAcceptCall,
   muteAudio,
   muteVideo,
-  stream
+  stream,
 }) => {
   const {
     myVideoRef,
@@ -21,16 +22,24 @@ const VideoCall = ({
     callToFriend,
     callRejected,
     onMuteAudio,
-    onMuteVideo
+    onMuteVideo,
   } = useContext(VideoContext);
+  const fullscreenElement = useRef(null);
+  let isFullscreen;
+  let setIsFullscreen;
+
+  try {
+    [isFullscreen, setIsFullscreen] = useFullscreenStatus(fullscreenElement);
+  } catch (e) {
+    isFullscreen = false;
+    setIsFullscreen = undefined;
+  }
+
+  const handleExitFullscreen = () => document.exitFullscreen();
 
   useEffect(() => {
     callToFriend(user);
   }, [user]);
-
-  const handleFullScreen = () => {
-
-  };
 
   VideoCall.propTypes = {
     isReceivingCall: PropTypes.bool,
@@ -41,11 +50,18 @@ const VideoCall = ({
     callToFriendId: PropTypes.number,
     muteAudio: PropTypes.bool,
     muteVideo: PropTypes.bool,
-    stream: PropTypes.object
+    stream: PropTypes.object,
   };
 
   return (
-    <div className={classes.video}>
+    <div
+      className={
+        isFullscreen
+          ? [classes.video, classes.fullscreen].join(" ")
+          : classes.video
+      }
+      ref={fullscreenElement}
+    >
       <div className={classes.video_myStream}>
         {stream && <video playsInline muted ref={myVideoRef} autoPlay />}
       </div>
@@ -56,7 +72,7 @@ const VideoCall = ({
       )}
 
       <div className={classes.video_friendStream}>
-          <video playsInline ref={friendVideoRef} autoPlay />
+        <video playsInline ref={friendVideoRef} autoPlay />
       </div>
 
       <CallControls
@@ -67,7 +83,9 @@ const VideoCall = ({
         onMuteVideo={onMuteVideo}
         muteAudio={muteAudio}
         muteVideo={muteVideo}
-        onfullScreen={handleFullScreen}
+        onfullScreen={setIsFullscreen}
+        isFullscreen={isFullscreen}
+        onExitFullscreen={handleExitFullscreen}
       />
     </div>
   );

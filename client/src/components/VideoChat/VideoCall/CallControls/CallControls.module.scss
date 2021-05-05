@@ -5,7 +5,7 @@
   bottom: 10%;
   left: 50%;
   margin-left: -150px;
-  width: 300px;
+  width: 350px;
   @include flexbox(space-around, center, row);
   background-color: get-color(gray_profile);
   border-radius: 8px;

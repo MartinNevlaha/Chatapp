@@ -1,9 +1,10 @@
 import axios from "axios";
+import config from "../config/app";
 
 import store from "../store";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: config.serverUrl,
   headers: {
     "Accept": "application/json",
   },

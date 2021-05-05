@@ -60,4 +60,8 @@
   }
 }
 
+.fullscreen {
+  @include flexbox(flex-end, flex-end, column-reverse);
+  padding: 2rem;
+}
 @include pulse;

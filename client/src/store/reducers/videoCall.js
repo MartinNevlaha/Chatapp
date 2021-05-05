@@ -60,12 +60,14 @@ const callAccepted = (state, action) => {
 const callRejected = (state, action) => {
   const sentToUser = state.callTo.isMeCalling ? state.callTo : state.callFrom;
   action.socket.emit("callRejected", sentToUser);
-  state.stream.getTracks().forEach((track) => track.stop());
+  if (typeof state.stream !== "undefined" && state.stream !== null)
+    state.stream.getTracks().forEach((track) => track.stop());
   return initalState;
 };
 
 const callRejectedReceive = (state, action) => {
-  state.stream.getTracks().forEach((track) => track.stop());
+  if (typeof state.stream !== "undefined" && state.stream !== null)
+    state.stream.getTracks().forEach((track) => track.stop());
   return initalState;
 };
 

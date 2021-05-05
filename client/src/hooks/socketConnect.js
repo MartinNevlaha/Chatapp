@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import socketClient from "socket.io-client";
 
+import config from "../config/app";
 import * as action from "../store/actions";
 
 const useSocket = (
@@ -8,7 +9,7 @@ const useSocket = (
   dispatch,
 ) => {
   useEffect(() => {
-    const socket = socketClient.connect("http://localhost:8000", {
+    const socket = socketClient.connect(config.wsConnection, {
       extraHeaders: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
