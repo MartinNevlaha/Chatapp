@@ -15,7 +15,7 @@ const MessageHeader = ({ user, onCloseChat, onCallToInit }) => {
   MessageHeader.propTypes = {
     user: PropTypes.object,
     onCloseChat: PropTypes.func,
-    onCallToInit: PropTypes.func
+    onCallToInit: PropTypes.func,
   };
   return (
     <div className={classes.messageHeader}>
@@ -45,10 +45,14 @@ const MessageHeader = ({ user, onCloseChat, onCallToInit }) => {
         <p>{user.fullName}</p>
         <FontAwesomeIcon
           icon={faVideo}
-          className={classes.messageHeader_user_video}
+          className={
+            user.status === "online"
+              ? [classes.messageHeader_user_video, classes.online].join(" ")
+              : classes.messageHeader_user_video
+          }
           data-tip
           data-for="video"
-          onClick={()=>onCallToInit(user)}
+          onClick={user.status === "online" ? () => onCallToInit(user) : null}
         />
         <ReactTooltip id="video" place="top" effect="solid" border={true}>
           Click start video call

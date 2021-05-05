@@ -44,14 +44,17 @@
       margin: 0.5rem;
     }
     &_video {
-      cursor: pointer;
-      color: get-color(primary);
+      color: gray;
       margin: 0 0.5rem;
-
-      &:hover,
-      &:active {
-        color: get-color(secondary);
-      }
     }
   }
+}
+
+.online {
+    color: get-color(primary);
+    cursor: pointer;
+  
+    &:hover, &:active {
+      color: get-color(secondary);
+    }
 }

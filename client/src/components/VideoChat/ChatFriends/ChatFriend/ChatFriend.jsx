@@ -21,8 +21,12 @@ const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToInit }) => {
       <StatusDot status={friend.status} statusShow />
       <FontAwesomeIcon
         icon={faVideo}
-        className={classes.chatFriend_videoIcon}
-        onClick={() => onCallToInit(friend)}
+        className={
+          friend.status === "online"
+            ? [classes.chatFriend_videoIcon, classes.online].join(" ")
+            : classes.chatFriend_videoIcon
+        }
+        onClick={friend.status === "online" ? () => onCallToInit(friend) : null}
       />
       <Button disabled={isInChat} clicked={() => onAddToChat(friend.id)}>
         Add to chat

@@ -8,11 +8,15 @@
   height: auto;
 
   &_videoIcon {
-    color: get-color(primary);
-    cursor: pointer;
+    color: gray;
+  }
+}
 
-    &:hover, &:active {
-      color: get-color(secondary);
-    }
+.online {
+  color: get-color(primary);
+  cursor: pointer;
+
+  &:hover, &:active {
+    color: get-color(secondary);
   }
 }
