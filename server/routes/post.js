@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
+const { setDashboardPostToRedis } = require("../middleware/redisCacheName");
+const cache = require("../config/redisChache");
 const { validateResults } = require("../validators");
 const {
   rules: createOrUpdatePostRules,
@@ -16,7 +18,11 @@ const {
   likeOrUnlikePost,
 } = require("../controllers/post");
 
-router.get("/friends-post", isAuth, getFriendsPosts);
+router.get(
+  "/friends-post",
+  [isAuth, setDashboardPostToRedis, cache.route({ expire: 120 })],
+  getFriendsPosts
+);
 
 router.post(
   "/create",

@@ -4,8 +4,8 @@ const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
 const {
   setUserIdInfoToRedis,
-  setUserPostToRedis,
   setUserFriendToRedis,
+  setUserPostToRedis,
 } = require("../middleware/redisCacheName");
 const cache = require("../config/redisChache");
 
@@ -29,7 +29,7 @@ router.get(
 
 router.get(
   "/posts/:userId",
-  [isAuth, isFriend,],
+  [isAuth, isFriend, setUserPostToRedis, cache.route({expire: 120})],
   getUserPosts
 );
 
