@@ -6,6 +6,7 @@
 
   &_content {
     width: 100%;
+    min-height: 50rem;
     height: 100%;
     @include flexbox(flex-start, center, column);
   }
