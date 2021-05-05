@@ -36,6 +36,7 @@
         h4 {
           padding: 0.2rem;
           color: white;
+          font-size: get-font-size(small);
         }
       }
     }
@@ -45,6 +46,7 @@
         @extend .chatItem_header_friends_user;
         background-color: gray;
         color: white;
+        font-size: get-font-size(small);
       }
       &_yes {
         @extend .chatItem_header_friends_user;
