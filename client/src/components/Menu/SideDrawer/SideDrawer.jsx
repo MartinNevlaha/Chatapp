@@ -8,7 +8,7 @@ import {
   faCalendar,
   faUserCheck,
   faUser,
-  faCommentDots
+  faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
@@ -51,17 +51,54 @@ const SideDrawer = (props) => {
           />
         </div>
         <ul className={classes.sideDrawer_content_items}>
-          <NavItem link="/" exact icon={faTachometerAlt}>
+          <NavItem
+            link="/"
+            exact
+            icon={faTachometerAlt}
+            close={() => props.closeSideDrawer()}
+          >
             {t("sideDrawer.dashboard")}
           </NavItem>
-          <NavItem icon={faUser} link="/users-list">{t("sideDrawer.userList")}</NavItem>
-          <NavItem icon={faCommentDots} link="/chat">{t("sideDrawer.chat")}</NavItem>
-          <NavItem icon={faVideo} link="/video-chat">{t("sideDrawer.videoChat")}</NavItem>
-          <NavItem icon={faClock} link="/schedule-interview">
+          <NavItem
+            icon={faUser}
+            link="/users-list"
+            close={() => props.closeSideDrawer()}
+          >
+            {t("sideDrawer.userList")}
+          </NavItem>
+          <NavItem
+            icon={faCommentDots}
+            link="/chat"
+            close={() => props.closeSideDrawer()}
+          >
+            {t("sideDrawer.chat")}
+          </NavItem>
+          <NavItem
+            close={() => props.closeSideDrawer()}
+            icon={faVideo}
+            link="/video-chat"
+          >
+            {t("sideDrawer.videoChat")}
+          </NavItem>
+          <NavItem
+            icon={faClock}
+            link="/schedule-interview"
+            close={() => props.closeSideDrawer()}
+          >
             {t("sideDrawer.schedule")}
           </NavItem>
-          <NavItem icon={faCalendar} link="/callendar">{t("sideDrawer.calendar")}</NavItem>
-          <NavItem icon={faUserCheck} link="/candidates-evaluation">
+          <NavItem
+            close={() => props.closeSideDrawer()}
+            icon={faCalendar}
+            link="/callendar"
+          >
+            {t("sideDrawer.calendar")}
+          </NavItem>
+          <NavItem
+            close={() => props.closeSideDrawer()}
+            icon={faUserCheck}
+            link="/candidates-evaluation"
+          >
             {t("sideDrawer.evaluation")}
           </NavItem>
         </ul>
