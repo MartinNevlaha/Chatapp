@@ -62,5 +62,6 @@ export {
   callRejectedReceive,
   muteAudio,
   muteVideo,
-  setStream
+  setStream,
+  cleanUpVideoCall
 } from "./videoCall";

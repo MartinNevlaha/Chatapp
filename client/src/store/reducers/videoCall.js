@@ -83,6 +83,10 @@ const setStream = (state, action) => {
   return updateObj(state, { stream: action.stream });
 };
 
+const cleanUpVideoCall = (state, action) => {
+  return initalState;
+};
+
 const reducer = (state = initalState, action) => {
   switch (action.type) {
     case actionTypes.CALL_TO_INIT:
@@ -103,6 +107,8 @@ const reducer = (state = initalState, action) => {
       return muteVideo(state, action);
     case actionTypes.SET_STREAM:
       return setStream(state, action);
+    case actionTypes.CLEAN_UP_VIDEO_CALL:
+      return cleanUpVideoCall(state, action);
     default:
       return state;
   }

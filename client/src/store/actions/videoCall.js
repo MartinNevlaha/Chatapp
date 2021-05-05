@@ -1,5 +1,14 @@
 import * as actionTypes from "./actionTypes";
 import store from "../index";
+import { Howl } from "howler";
+
+import callSound from "../../assets/sounds/call.mp3";
+
+const callFx = new Howl({
+  src: [callSound],
+  preload: true,
+  loop: true,
+});
 
 export const callToInit = (friend) => {
   return {
@@ -16,6 +25,7 @@ export const callTo = (callData) => {
 };
 
 export const callFrom = (callData) => {
+  callFx.play();
   return {
     type: actionTypes.CALL_FROM,
     callData,
@@ -23,6 +33,7 @@ export const callFrom = (callData) => {
 };
 
 export const callAccepted = (callType) => {
+  callFx.stop();
   return {
     type: actionTypes.CALL_ACCEPTED,
     callType,
@@ -30,6 +41,7 @@ export const callAccepted = (callType) => {
 };
 
 export const callRejected = () => {
+  callFx.stop();
   const socket = store.getState().chat.socket;
   return {
     type: actionTypes.CALL_REJECTED,
@@ -38,6 +50,7 @@ export const callRejected = () => {
 };
 
 export const callRejectedReceive = () => {
+  callFx.stop();
   return {
     type: actionTypes.CALL_REJECTED_RECEIVE,
   };
@@ -58,6 +71,13 @@ export const muteVideo = () => {
 export const setStream = (stream) => {
   return {
     type: actionTypes.SET_STREAM,
-    stream
+    stream,
+  };
+};
+
+export const cleanUpVideoCall = () => {
+  callFx.unload();
+  return {
+    type: actionTypes.CLEAN_UP_VIDEO_CALL,
   };
 };

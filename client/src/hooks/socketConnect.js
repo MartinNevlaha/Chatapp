@@ -31,7 +31,6 @@ const useSocket = (user, dispatch, openChatId) => {
     socket.on("offline", (user) => dispatch(action.friendOffline(user)));
 
     socket.on("receiveMessage", (msg) => {
-      console.log(msg, openChatId);
       if (msg.chatId === openChatId) messageFx.play();
       dispatch(action.receiveMessage(msg));
     });
@@ -55,6 +54,8 @@ const useSocket = (user, dispatch, openChatId) => {
       dispatch(action.callFrom(data));
     });
 
+    socket.on("callAccepted", (data) => {});
+
     socket.on("callRejected", (data) => {
       dispatch(action.callRejectedReceive());
     });
@@ -66,6 +67,7 @@ const useSocket = (user, dispatch, openChatId) => {
     return () => {
       socket.disconnect();
       messageFx.unload();
+      dispatch(action.cleanUpVideoCall());
     };
   }, [dispatch, user, openChatId]);
 };
