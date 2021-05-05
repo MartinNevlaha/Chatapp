@@ -10,15 +10,33 @@ const {
 } = require("../controllers/user");
 const { userAvatarUpload } = require("../middleware/fileUpload");
 const resizeImage = require("../middleware/resizeImage");
+const cache = require("../config/redisChache");
+const {
+  setUserProfileIdToRedis,
+  delUserProfileCacheEntry,
+} = require("../middleware/redisCacheName");
 
-router.get("/profile", isAuth, userProfile);
+router.get(
+  "/profile",
+  isAuth,
+  setUserProfileIdToRedis,
+  cache.route(),
+  userProfile
+);
 
 router.put(
   "/update",
-  [isAuth, userAvatarUpload, resizeImage, updateRules, validateResults],
+  [
+    isAuth,
+    userAvatarUpload,
+    resizeImage,
+    updateRules,
+    validateResults,
+    delUserProfileCacheEntry,
+  ],
   userUpdate
 );
 
-router.delete("/", isAuth, deleteUserAccount);
+router.delete("/", isAuth, delUserProfileCacheEntry, deleteUserAccount);
 
 module.exports = router;

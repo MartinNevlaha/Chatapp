@@ -7,5 +7,8 @@ module.exports = {
   jwtSecret: process.env.JWT_SECRET,
   jwtSecretMail: process.env.JWT_SECRET_MAIL_ACTIVATED,
   mailUser: process.env.MAIL_USER,
-  mailPassword: process.env.MAIL_PASSWORD
+  mailPassword: process.env.MAIL_PASSWORD,
+  redisHost: process.env.REDIS_HOST,
+  redisPort: process.env.REDIS_PORT,
+  redisPass: process.env.REDIS_PASSWORD
 }
