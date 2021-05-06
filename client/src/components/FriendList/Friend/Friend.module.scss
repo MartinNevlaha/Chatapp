@@ -7,7 +7,7 @@
 
   &_avatar {
     cursor: pointer;
-    
+
     &_image {
       width: 65px;
       height: 65px;
@@ -17,6 +17,14 @@
 
       img {
         @include avatar-medium;
+      }
+      @media only screen and (max-width: 800px) {
+        width: 45px;
+        height: 45px;
+
+        img {
+          @include avatar;
+        }
       }
     }
 
