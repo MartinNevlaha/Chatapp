@@ -82,6 +82,7 @@ export const fetchFriendsPost = (page, limit) => {
     axios
       .get(`/api/posts/friends-post?page=${page}&limit=${limit}`)
       .then((res) => {
+        console.log(res.data.posts);
         const updatedData = res.data.posts.map((post) => {
           return {
             ...post,

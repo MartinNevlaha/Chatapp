@@ -11,7 +11,7 @@ const Dasboard = () => {
   const [page, setPage] = useState(0);
   const [hasMorePosts, setHasMorePosts] = useState(true);
   const totalPosts = useSelector(state => state.posts.count);
-  const friendsPost = useSelector((state) => state.posts.posts || []);
+  const friendsPost = useSelector((state) => state.posts.posts);
   const userProfile = useSelector((state) => state.userProfile.user);
   const user = useSelector((state) => state.userAuth.user);
   const dispatch = useDispatch();
@@ -31,7 +31,9 @@ const Dasboard = () => {
   };
 
   const handlerLoadAnothnerPosts = () => {
+    // FETCHUJE POSTY 2X BUGG !!!
     setPage(page + 1);
+    console.log(friendsPost.length, totalPosts);
     if (friendsPost.length >= totalPosts) {
       setHasMorePosts(false);
       return;
