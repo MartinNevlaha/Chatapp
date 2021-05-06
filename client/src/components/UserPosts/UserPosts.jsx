@@ -39,7 +39,7 @@ const UserPosts = ({
   };
 
   UserPosts.propTypes = {
-    isFriend: PropTypes.oneOf([0, 1, 2, 3]),
+    isFriend: PropTypes.oneOf([0, 1, 2, 3, 4]),
     posts: PropTypes.array,
     placeOfUsage: PropTypes.string,
     liker: PropTypes.func,

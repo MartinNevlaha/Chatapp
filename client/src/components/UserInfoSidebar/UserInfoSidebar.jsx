@@ -51,7 +51,7 @@ export const UserInfoSidebar = ({
   UserInfoSidebar.propTypes = {
     userProfile: PropTypes.object,
     showMyself: PropTypes.bool,
-    isFriend: PropTypes.oneOf([0, 1, 2, 3]),
+    isFriend: PropTypes.oneOf([0, 1, 2, 3, 4]),
     addFriend: PropTypes.func
   }
 

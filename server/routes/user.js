@@ -14,7 +14,7 @@ const cache = require("../config/redisChache");
 const {
   setUserProfileIdToRedis,
   delUserProfileCacheEntry,
-} = require("../middleware/redisCacheName");
+} = require("../middleware/redisCacheSetKey");
 
 router.get(
   "/profile",

@@ -6,7 +6,7 @@ const {
   setUserIdInfoToRedis,
   setUserFriendToRedis,
   setUserPostToRedis,
-} = require("../middleware/redisCacheName");
+} = require("../middleware/redisCacheSetKey");
 const cache = require("../config/redisChache");
 
 const {

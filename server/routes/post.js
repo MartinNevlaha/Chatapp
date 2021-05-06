@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
-const { setDashboardPostToRedis } = require("../middleware/redisCacheName");
+const { setDashboardPostToRedis } = require("../middleware/redisCacheSetKey");
 const cache = require("../config/redisChache");
 const { validateResults } = require("../validators");
 const {
