@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import * as actionTypes from "../actions/actionTypes";
 
 import userAuthReducer from "./userAuth";
 import requestStatusReducer from "./requestStatus";
@@ -11,7 +12,7 @@ import userInfoReducer from "./userInfo";
 import chatReducer from "./chat";
 import videoCallReducer from "./videoCall";
 
-const rootReducer = combineReducers({
+const combineReducer = combineReducers({
   requestStatus: requestStatusReducer,
   userAuth: userAuthReducer,
   userProfile: userProfileReducer,
@@ -21,7 +22,14 @@ const rootReducer = combineReducers({
   posts: postReducer,
   userInfo: userInfoReducer,
   chat: chatReducer,
-  videoCall: videoCallReducer
+  videoCall: videoCallReducer,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === actionTypes.LOGOUT) {
+    state = undefined;
+  }
+  return combineReducer(state, action);
+};
 
 export default rootReducer;
