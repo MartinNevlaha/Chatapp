@@ -66,13 +66,21 @@ const VideoCall = ({
         {stream && <video playsInline muted ref={myVideoRef} autoPlay />}
       </div>
       {!callAccepted && (
-        <div className={classes.video_user_avatar}>
-          {user && <LazyImage image={{ src: user.avatar, alt: "avatar" }} />}
+        <div className={classes.video_user_info}>
+          <p>
+            {isMeCalling ? "Call to" : "Call from"} {user.fullName}
+          </p>
+          <div className={classes.video_user_info_avatar}>
+            {user && <LazyImage image={{ src: user.avatar, alt: "avatar" }} />}
+          </div>
         </div>
       )}
-      <div className={classes.video_friendStream}>
-        <video playsInline ref={friendVideoRef} autoPlay />
-      </div>
+      {callAccepted && (
+        <div className={classes.video_friendStream}>
+          <h2>{callAccepted && user.fullName}</h2>
+          <video playsInline ref={friendVideoRef} autoPlay />
+        </div>
+      )}
 
       <CallControls
         isMeCalling={isMeCalling}

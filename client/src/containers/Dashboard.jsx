@@ -19,21 +19,20 @@ const Dasboard = () => {
   useEffect(() => {
     dispatch(action.fetchUserProfile());
     dispatch(action.fetchFriendRequest());
-    dispatch(action.fetchFriendsPost(page, LIMIT));
+    dispatch(action.fetchFriendsPost(0, LIMIT));
+    console.log("zmena");
 
     return () => {
       dispatch(action.clearPosts());
     };
-  }, [dispatch, page, LIMIT]);
+  }, [dispatch, LIMIT]);
 
   const handleCreatePost = (data) => {
     dispatch(action.createPost(data));
   };
 
   const handlerLoadAnothnerPosts = () => {
-    // FETCHUJE POSTY 2X BUGG !!!
     setPage(page + 1);
-    console.log(friendsPost.length, totalPosts);
     if (friendsPost.length >= totalPosts) {
       setHasMorePosts(false);
       return;
