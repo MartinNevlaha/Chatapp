@@ -23,13 +23,13 @@ const UserPageInfo = () => {
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
     dispatch(action.getUserFriends(+userId));
-    dispatch(action.getUserPosts(+userId, page, LIMIT));
+    dispatch(action.getUserPosts(+userId, 0, LIMIT));
 
     return () => {
       //clean up
       dispatch(action.cleanUpUserInfo());
     };
-  }, [dispatch, userId]);
+  }, [dispatch, userId, LIMIT]);
 
   const handleAddFriend = () => {
     const data = {
@@ -37,6 +37,8 @@ const UserPageInfo = () => {
     };
     dispatch(action.addFriend(data, "onInfoPage"));
   };
+
+  //oprav rendering
 
   const handleLiker = (status, postUserId, postId) => {
     const data = {

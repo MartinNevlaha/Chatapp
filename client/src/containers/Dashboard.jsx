@@ -20,7 +20,6 @@ const Dasboard = () => {
     dispatch(action.fetchUserProfile());
     dispatch(action.fetchFriendRequest());
     dispatch(action.fetchFriendsPost(0, LIMIT));
-    console.log("zmena");
 
     return () => {
       dispatch(action.clearPosts());
