@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSmile,
@@ -25,6 +25,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     (state) => state.chat.imageUploadProgress
   );
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
 
   const handleMessageInput = (e) => {
     const value = e.target.value;
@@ -170,7 +171,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
           <Picker
             title="Pick your emoji"
             emoji="point_up"
-            style={{ position: "absolute", bottom: "20px", left: "20px" }}
+            style={{ position: "absolute", bottom: "30px", left: "-170px" }}
             onSelect={selectEmoji}
           />
         )}
