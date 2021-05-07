@@ -25,7 +25,12 @@ const Layout = (props) => {
         </header>
       )}
       <main className={classes.main_wrapper}>
-        <SideDrawer isOpen={sideDrawerOpen} closeSideDrawer={closeSideDrawer} />
+        {isAuth && (
+          <SideDrawer
+            isOpen={sideDrawerOpen}
+            closeSideDrawer={closeSideDrawer}
+          />
+        )}
         <div
           className={
             isAuth
