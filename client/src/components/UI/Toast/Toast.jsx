@@ -1,13 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamation, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 import classes from "./Toast.module.scss";
 
-const Toast = ({ isShow, isSuccess, message }) => {
-  let iconToast = faExclamation;
-  if (isSuccess) iconToast = faCheck;
+const Toast = ({ isShow, message }) => {
+
+  Toast.propTypes = {
+    isShow: PropTypes.bool,
+    message: PropTypes.string
+  }
 
   return (
     <div
@@ -16,13 +19,9 @@ const Toast = ({ isShow, isSuccess, message }) => {
       }
     >
       <div
-        className={
-          isSuccess
-            ? classes.toast_circle
-            : [classes.toast_circle, classes.circle_red].join(" ")
-        }
+        className={classes.circle}
       >
-        <FontAwesomeIcon icon={iconToast} size="1x" color="white" />
+        <FontAwesomeIcon icon={faExclamation} size="1x" color="white" />
       </div>
       <h3>{message}</h3>
     </div>

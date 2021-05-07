@@ -19,15 +19,10 @@
     height: 2rem;
     margin: 0 .5rem;
     border-radius: 50%;
-    background-color: get-color(success);
+    background-color: get-color(danger);
     @include flexbox(center, center, row);
   }
 }
-
-.circle_red {
-  background-color: get-color(danger);
-}
-
 .showed {
   right: 4%;
   animation: opacity .8s cubic-bezier(0.23, 1, 0.320, 1);
