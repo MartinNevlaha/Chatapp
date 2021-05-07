@@ -40,8 +40,6 @@ const UserPageInfo = () => {
     dispatch(action.addFriend(data, "onInfoPage"));
   };
 
-  //oprav rendering
-
   const handleLiker = (status, postUserId, postId) => {
     const data = {
       friendId: postUserId,
@@ -57,7 +55,6 @@ const UserPageInfo = () => {
       setHasMorePosts(false);
       return;
     }
-    console.log("pokracujem");
     dispatch(action.getUserPosts(+userId, page + 1, LIMIT));
   };
 
@@ -92,6 +89,7 @@ const UserPageInfo = () => {
         placeOfUsage="userPageInfo"
         liker={handleLiker}
         loadAnotherPosts={handleLoadAnotherPosts}
+        userId={+userId}
       />
     </div>
   );

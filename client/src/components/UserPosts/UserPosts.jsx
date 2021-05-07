@@ -17,7 +17,8 @@ const UserPosts = ({
   liker,
   loading,
   loadAnotherPosts,
-  hasMorePosts
+  hasMorePosts,
+  userId
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showLike, setShowLike] = useState({
@@ -46,7 +47,8 @@ const UserPosts = ({
     liker: PropTypes.func,
     loading: PropTypes.bool,
     loadAnotherPosts: PropTypes.func,
-    hasMorePosts: PropTypes.bool
+    hasMorePosts: PropTypes.bool,
+    userId: PropTypes.number
   };
 
   let content = <Spinner />;
@@ -54,6 +56,7 @@ const UserPosts = ({
   if (!loading) {
     content = posts.map((post) => (
       <Post
+        userId={userId}
         key={post.id}
         post={post}
         liker={liker}
