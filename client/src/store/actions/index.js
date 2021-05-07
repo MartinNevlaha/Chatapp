@@ -63,5 +63,7 @@ export {
   muteAudio,
   muteVideo,
   setStream,
-  cleanUpVideoCall
+  cleanUpVideoCall,
 } from "./videoCall";
+
+export { errorCreator } from "./requestStatus";

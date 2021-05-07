@@ -61,7 +61,10 @@ const useSocket = (user, dispatch, openChatId) => {
     });
 
     socket.on("connect_error", (err) => {
-      console.log(err);
+      const error = {
+        message: `SocketIo connection error, ${err}`,
+      };
+      dispatch(action.errorCreator(error));
     });
 
     return () => {

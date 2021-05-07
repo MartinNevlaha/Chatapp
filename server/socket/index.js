@@ -28,7 +28,6 @@ const SocketServer = (server) => {
       } else {
         users.addUser(user.id, socket.id);
       }
-      console.log("join", users.getOnlineUsers());
       onlineUsers = users.getOnlineUsers();
 
       //send array of online users to every active socket
@@ -94,7 +93,6 @@ const SocketServer = (server) => {
     });
 
     socket.on("callRejected", (data) => {
-      console.log(data.user.id);
       const user = users.getUser(data.user.id);
       if (user) {
         io.to(user.socketId).emit("callRejected");

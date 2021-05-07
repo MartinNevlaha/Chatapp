@@ -85,7 +85,7 @@ export const addFriend = (userId, requestType) => {
       })
       .catch((err) => {
         dispatch(addFriendFailed(userId.friendId));
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
 
       });
   };
@@ -128,7 +128,7 @@ export const searchUsers = (search, limit, page) => {
         dispatch(searchUsersSuccess(res.data.users, res.data.count))
       })
       .catch(err => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(searchUsersFailed());
       });
   };

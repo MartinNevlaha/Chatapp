@@ -70,7 +70,6 @@ exports.removePostImage = async (path) => {
   const removedString = `${config.appUrl}:${config.appPort}`;
   const removedLength = removedString.length;
   const finalPath = "uploads" + path.slice(removedLength);
-  console.log(finalPath);
   try {
     if (fs.existsSync(finalPath)) {
       await fs.unlink(finalPath);

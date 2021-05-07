@@ -1,17 +1,9 @@
-import React, { createContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Peer from "simple-peer";
-import { Howl } from "howler";
 
-import callTone from "../assets/sounds/call.mp3";
 import * as action from "../store/actions";
 import { ICE_SERVERS } from "../config/iceServers";
-
-const callRingtone = new Howl({
-  src: [callTone],
-  loop: true,
-  preload: true,
-});
 
 export const VideoContext = createContext({});
 
@@ -70,7 +62,10 @@ export const VideoContextProvider = ({ children }) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        const error = {
+          message: "You need to allow permision to use camera and microphone",
+        };
+        dispatch(action.errorCreator(error));
       });
   };
 

@@ -45,7 +45,12 @@ const BackDropMenu = ({ avatar, requests }) => {
 
   const handleLanguageChange = (language) => {
     i18next.changeLanguage(language, (err) => {
-      if (err) return console.log("Something went wrong", err);
+      if (err) {
+        const error = {
+          message: "cant set language",
+        };
+        return dispatch(action.errorCreator(error));
+      }
     });
     setOpenMenu(null);
   };

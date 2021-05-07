@@ -76,7 +76,6 @@ export const setSocket = (socket) => {
 };
 
 export const sendMessage = (message) => {
-  console.log(message);
   return {
     type: actionTypes.SEND_MESSAGE,
     message,
