@@ -141,7 +141,7 @@ exports.getFriendsPosts = async (req, res, next) => {
   const limit = parseInt(req.query.limit);
   const page = parseInt(req.query.page);
   const offset = page * limit;
-
+  
   try {
     const userFriendship = await Friendship.findAll({
       where: {

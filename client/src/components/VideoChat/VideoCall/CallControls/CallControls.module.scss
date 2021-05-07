@@ -2,13 +2,15 @@
 
 .callControls {
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   left: 50%;
   margin-left: -150px;
   width: 350px;
   @include flexbox(space-around, center, row);
   background-color: get-color(gray_profile);
   border-radius: 8px;
+  opacity: 1;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
 
   &_accept {
     @include flexbox(center, center, row);
@@ -31,4 +33,11 @@
     background-color: gray;
     color: white;
   }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.transparent {
+  opacity: 0.4;
 }

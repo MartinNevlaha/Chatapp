@@ -35,11 +35,11 @@ const VideoCall = ({
     setIsFullscreen = undefined;
   }
 
-  const handleExitFullscreen = () => document.exitFullscreen();
-
   useEffect(() => {
     callToFriend(user);
   }, [user]);
+
+  const handleExitFullscreen = () => document.exitFullscreen();
 
   VideoCall.propTypes = {
     isReceivingCall: PropTypes.bool,
@@ -85,6 +85,7 @@ const VideoCall = ({
       <CallControls
         isMeCalling={isMeCalling}
         onAcceptCall={onAcceptCall}
+        callAccepted={callAccepted}
         onCallRejected={callRejected}
         onMuteAudio={onMuteAudio}
         onMuteVideo={onMuteVideo}

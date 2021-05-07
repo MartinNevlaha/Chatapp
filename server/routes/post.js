@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
-const { setDashboardPostToRedis } = require("../middleware/redisCacheSetKey");
 const cache = require("../config/redisChache");
 const { validateResults } = require("../validators");
 const {
@@ -20,7 +19,7 @@ const {
 
 router.get(
   "/friends-post",
-  [isAuth, setDashboardPostToRedis, cache.route({ expire: 120 })],
+  isAuth,
   getFriendsPosts
 );
 

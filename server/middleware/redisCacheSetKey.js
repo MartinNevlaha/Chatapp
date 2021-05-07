@@ -39,17 +39,11 @@ const setUserFriendToRedis = (req, res, next) => {
   next();
 };
 
-const setDashboardPostToRedis = (req, res, next) => {
-  res.express_redis_cache_name = `auth-user-${req.user.id}_post-page-${req.query.page}`;
-
-  next();
-};
-
 const setUserFriendsToRedis = (req, res, next) => {
   res.express_redis_cache_name = `auth-use-${req.user.id}_all_friends`;
 
   next();
-}
+};
 
 module.exports = {
   setUserProfileIdToRedis,
@@ -57,6 +51,5 @@ module.exports = {
   setUserIdInfoToRedis,
   setUserFriendToRedis,
   setUserPostToRedis,
-  setDashboardPostToRedis,
-  setUserFriendsToRedis
+  setUserFriendsToRedis,
 };

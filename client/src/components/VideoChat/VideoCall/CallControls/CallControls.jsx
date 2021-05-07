@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhoneSlash,
@@ -26,6 +26,7 @@ const CallControls = ({
   muteVideo,
   isFullscreen,
   onExitFullscreen,
+  mouseMove
 }) => {
   CallControls.propTypes = {
     isMeCalling: PropTypes.bool,
@@ -40,10 +41,17 @@ const CallControls = ({
     muteVideo: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     onExitFullscreen: PropTypes.func,
+    mouseMove: PropTypes.bool
   };
 
   return (
-    <div className={classes.callControls}>
+    <div
+      className={
+        callAccepted
+          ? [classes.callControls, classes.transparent].join(" ")
+          : classes.callControls
+      }
+    >
       {!isMeCalling && (
         <div
           className={classes.callControls_accept}
@@ -52,7 +60,7 @@ const CallControls = ({
           <FontAwesomeIcon icon={faPhone} />
         </div>
       )}
-      {!callAccepted && (
+      {callAccepted && (
         <div
           className={classes.callControls_icon}
           onClick={() => onMuteAudio()}
@@ -62,7 +70,7 @@ const CallControls = ({
           />
         </div>
       )}
-      {!callAccepted && (
+      {callAccepted && (
         <div
           className={classes.callControls_icon}
           onClick={() => onMuteVideo()}
@@ -76,17 +84,16 @@ const CallControls = ({
       >
         <FontAwesomeIcon icon={faPhoneSlash} />
       </div>
-      {!callAccepted &&
-        typeof onfullScreen !== "undefined" && (
-          <div
-            className={classes.callControls_icon}
-            onClick={
-              !isFullscreen ? () => onfullScreen() : () => onExitFullscreen()
-            }
-          >
-            <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} />
-          </div>
-        )}
+      {callAccepted && typeof onfullScreen !== "undefined" && (
+        <div
+          className={classes.callControls_icon}
+          onClick={
+            !isFullscreen ? () => onfullScreen() : () => onExitFullscreen()
+          }
+        >
+          <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} />
+        </div>
+      )}
     </div>
   );
 };

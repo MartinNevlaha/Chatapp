@@ -73,34 +73,6 @@ const SideDrawer = (props) => {
           >
             {t("sideDrawer.chat")}
           </NavItem>
-          <NavItem
-            close={() => props.closeSideDrawer()}
-            icon={faVideo}
-            link="/video-chat"
-          >
-            {t("sideDrawer.videoChat")}
-          </NavItem>
-          <NavItem
-            icon={faClock}
-            link="/schedule-interview"
-            close={() => props.closeSideDrawer()}
-          >
-            {t("sideDrawer.schedule")}
-          </NavItem>
-          <NavItem
-            close={() => props.closeSideDrawer()}
-            icon={faCalendar}
-            link="/callendar"
-          >
-            {t("sideDrawer.calendar")}
-          </NavItem>
-          <NavItem
-            close={() => props.closeSideDrawer()}
-            icon={faUserCheck}
-            link="/candidates-evaluation"
-          >
-            {t("sideDrawer.evaluation")}
-          </NavItem>
         </ul>
       </div>
     </aside>
