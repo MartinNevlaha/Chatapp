@@ -5,13 +5,14 @@ import { useParams } from "react-router-dom";
 import * as action from "../store/actions";
 import UserInfoSidebar from "../components/UserInfoSidebar/UserInfoSidebar";
 import FriedList from "../components/FriendList/FriendList";
-import UserPost from "../components/UserPosts/UserPosts";
+import UserPosts from "../components/UserPosts/UserPosts";
 import { likeStatus } from "../constants/likeStatus";
 
 const UserPageInfo = () => {
   const dispatch = useDispatch();
   const LIMIT = 15;
   const [page, setPage] = useState(0);
+  const [hasMorePosts, setHasMorePosts] = useState(true)
   const { userId } = useParams();
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const userPosts = useSelector((state) => state.userInfo.userPosts);
@@ -19,6 +20,7 @@ const UserPageInfo = () => {
   const loadingPosts = useSelector((state) => state.userInfo.loadingPost);
   const userFriendList = useSelector((state) => state.friends.userFriends);
   const loadingUserFriends = useSelector(state => state.friends.loading);
+  const countUserPosts = useSelector(state => state.userInfo.countPosts);
 
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
@@ -51,6 +53,11 @@ const UserPageInfo = () => {
 
   const handleLoadAnotherPosts = () => {
     setPage(page + 1);
+    if (userPosts.length >= countUserPosts) {
+      setHasMorePosts(false);
+      return;
+    }
+    console.log("pokracujem");
     dispatch(action.getUserPosts(+userId, page + 1, LIMIT));
   };
 
@@ -77,10 +84,11 @@ const UserPageInfo = () => {
           isFriend={isFriend}
         />
       </div>
-      <UserPost
+      <UserPosts
         isFriend={isFriend}
         posts={userPosts}
         loading={loadingPosts}
+        hasMorePosts={hasMorePosts}
         placeOfUsage="userPageInfo"
         liker={handleLiker}
         loadAnotherPosts={handleLoadAnotherPosts}

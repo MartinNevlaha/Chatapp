@@ -13,7 +13,6 @@ const Dasboard = () => {
   const totalPosts = useSelector(state => state.posts.count);
   const friendsPost = useSelector((state) => state.posts.posts);
   const userProfile = useSelector((state) => state.userProfile.user);
-  const user = useSelector((state) => state.userAuth.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -76,7 +75,7 @@ const Dasboard = () => {
     >
       <UserSideBar userProfile={userProfile} showMyself={true} />
       <Posts
-        userId={user.id}
+        userId={userProfile.id}
         createPost={handleCreatePost}
         posts={friendsPost}
         loadAnothnerPosts={handlerLoadAnothnerPosts}

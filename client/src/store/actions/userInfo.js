@@ -30,7 +30,6 @@ export const addUserOnInfoPage = () => {
 
 export const getUserInfo = (userId) => {
   return (dispatch) => {
-    console.log(userId);
     dispatch(getUserInfoStart());
     axios
       .get(`/api/users/info/${userId}`)
@@ -49,10 +48,11 @@ export const getUserPostsStart = () => {
   };
 };
 
-export const getUserPostSuccess = (userPosts) => {
+export const getUserPostSuccess = (userPosts, count) => {
   return {
     type: actionTypes.GET_USER_POSTS_SUCCESS,
     userPosts,
+    count
   };
 };
 
@@ -68,7 +68,7 @@ export const getUserPosts = (userId, page, limit) => {
     axios
       .get(`/api/users/posts/${userId}?page=${page}&limit=${limit}`)
       .then((res) => {
-        dispatch(getUserPostSuccess(res.data.posts));
+        dispatch(getUserPostSuccess(res.data.posts, res.data.count));
       })
       .catch((err) => {
         dispatch(errorCreator(err.response));

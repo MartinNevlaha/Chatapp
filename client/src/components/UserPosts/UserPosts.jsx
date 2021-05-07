@@ -17,6 +17,7 @@ const UserPosts = ({
   liker,
   loading,
   loadAnotherPosts,
+  hasMorePosts
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showLike, setShowLike] = useState({
@@ -45,6 +46,7 @@ const UserPosts = ({
     liker: PropTypes.func,
     loading: PropTypes.bool,
     loadAnotherPosts: PropTypes.func,
+    hasMorePosts: PropTypes.bool
   };
 
   let content = <Spinner />;
@@ -73,7 +75,7 @@ const UserPosts = ({
           <InfiniteScroll
             dataLength={posts.length}
             next={loadAnotherPosts}
-            hasMore={true}
+            hasMore={hasMorePosts}
           >
             {posts.length ? content : <p>User has no posts yet</p>}
           </InfiniteScroll>

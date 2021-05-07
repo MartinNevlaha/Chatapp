@@ -7,6 +7,7 @@ import { friendStatus } from "../../constants/friendStatus";
 const initialState = {
   userInfo: {},
   userPosts: [],
+  countPosts: null,
   isFriend: null,
   loading: false,
   loadingPost: false,
@@ -43,6 +44,7 @@ const getUserPostsSuccess = (state, action) => {
   return updateObj(state, {
     userPosts: state.userPosts.concat(action.userPosts),
     loadingPost: false,
+    countPosts: action.count
   });
 };
 

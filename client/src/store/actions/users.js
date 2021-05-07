@@ -86,7 +86,6 @@ export const addFriend = (userId, requestType) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         dispatch(addFriendFailed(userId.friendId));
         dispatch(errorCreator(err.response));
 

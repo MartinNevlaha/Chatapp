@@ -62,10 +62,6 @@ const Posts = ({
     hasMorePosts: PropTypes.bool
   };
 
-  const help = () => {
-    console.log("nacitavam");
-  }
-
   return (
     <React.Fragment>
       <Modal show={isModalOpen} cancel={handleModalClose}>
