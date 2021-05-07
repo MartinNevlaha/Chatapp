@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
-import { errorCreator, successCreator } from "./requestStatus";
+import { errorCreator } from "./requestStatus";
 import { logout } from "./index";
 
 export const fetchUserProfileStart = () => {
@@ -32,7 +32,7 @@ export const fetchUserProfile = () => {
       })
       .catch((err) => {
         dispatch(fetchUserDataFailed());
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };
@@ -67,11 +67,10 @@ export const updateUserProfile = (userData) => {
       })
       .then((res) => {
         dispatch(updateUserProfileSuccess(res.data.user));
-        dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
         dispatch(updateUserProfileFailed());
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };
@@ -105,7 +104,7 @@ export const deleteAccount = () => {
         dispatch(logout());
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(deleteAccountFailed());
       });
   };

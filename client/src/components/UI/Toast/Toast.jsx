@@ -8,7 +8,7 @@ import classes from "./Toast.module.scss";
 const Toast = ({ isShow, message }) => {
 
   Toast.propTypes = {
-    isShow: PropTypes.bool,
+    isShow: PropTypes.object,
     message: PropTypes.string
   }
 
@@ -19,7 +19,7 @@ const Toast = ({ isShow, message }) => {
       }
     >
       <div
-        className={classes.circle}
+        className={classes.toast_circle}
       >
         <FontAwesomeIcon icon={faExclamation} size="1x" color="white" />
       </div>

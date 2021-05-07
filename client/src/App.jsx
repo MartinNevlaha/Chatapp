@@ -22,7 +22,6 @@ const UserPageInfo = lazy(() => import("./containers/UserPageInfo"));
 function App() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.requestStatus.error);
-  const success = useSelector((state) => state.requestStatus.success);
   const isAuth = useSelector((state) => state.userAuth.token);
 
   useEffect(() => {
@@ -49,9 +48,8 @@ function App() {
     <div className="App">
       <Layout>
         <Toast
-          isShow={error || success}
-          isSuccess={success ? true : false}
-          message={error ? error.data.message : success}
+          isShow={error}
+          message={error && error.message}
         />
         {routes}
       </Layout>

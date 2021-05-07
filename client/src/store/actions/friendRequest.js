@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
-import { errorCreator, successCreator } from "./requestStatus";
+import { errorCreator } from "./requestStatus";
 
 export const fetchFriendRequestStart = () => {
   return {
@@ -31,7 +31,7 @@ export const fetchFriendRequest = () => {
       })
       .catch((err) => {
         dispatch(fetchFriendRequestFailed());
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };
@@ -60,12 +60,11 @@ export const answerFriendRequest = (requestId, answer) => {
     dispatch(answerFriendRequestStart());
     axios.put(`/api/friendship/${requestId}`, answer)
     .then(res => {
-      dispatch(successCreator(res.data.message));
       dispatch(answerFriendRequestSuccess(res.data.answer.id));
     })
     .catch(err => {
       dispatch(answerFriendRequestFailed());
-      dispatch(errorCreator(err.response));
+      dispatch(errorCreator(err));
     })
   }
 }

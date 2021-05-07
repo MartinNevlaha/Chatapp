@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
-import { errorCreator, successCreator } from "./requestStatus";
+import { errorCreator } from "./requestStatus";
 import axiosOrigin from 'axios';
 import { addUserOnInfoPage } from "../actions/userInfo";
 
@@ -37,10 +37,9 @@ export const fetchActiveUsers = (page, limit) => {
           return { ...user, loadingAddFriend: false };
         });
         dispatch(fetchActiveUsersSuccess(users, res.data.count));
-        dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(fetchActiveUsersFailed());
       });
   };
@@ -74,7 +73,6 @@ export const addFriend = (userId, requestType) => {
     axios
       .post("/api/friendship/", userId)
       .then((res) => {
-        dispatch(successCreator(res.data.message));
         dispatch(
           addFriendSuccess(
             res.data.friendship.user_2,

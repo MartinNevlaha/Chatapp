@@ -35,7 +35,7 @@ export const fetchChatData = () => {
         });
         dispatch(fetchChatDataSuccess(data));
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };
 
@@ -57,7 +57,7 @@ export const fetchMessages = (chatId, userId, page, limit) => {
         dispatch(fetchMessagesSuccess(res.data.messages, res.data.count));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.message));
+        dispatch(errorCreator(err));
       });
   };
 };
@@ -130,7 +130,7 @@ export const imageChatUpload = (imageData, sendMessage, chatId) => {
         dispatch(imageUploadSuccess());
         sendMessage(true, res.data.imageUrl, res.data.imageUrlForSendEvent);
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };
 
@@ -146,7 +146,7 @@ export const seeNewMessage = (chatId) => {
     axios
       .patch(`/api/chat/see-message/${chatId}`)
       .then((res) => dispatch(seeNewMessageSuccess(res.data.lastMessage)))
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };
 
@@ -173,7 +173,7 @@ export const deleteChat = (chatId, deletedChat) => {
         dispatch(deleteChatSuccess(chatId));
         socket.emit("deleteChat", deletedChat);
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };
 
@@ -193,6 +193,6 @@ export const addToChat = (friendData) => {
         dispatch(addToChatSuccess(res.data.chat));
         socket.emit("createNewChat", res.data.chat);
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };

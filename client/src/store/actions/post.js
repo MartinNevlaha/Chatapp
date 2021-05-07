@@ -44,7 +44,7 @@ export const createPost = (postData) => {
         dispatch(createPostSuccess(post));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(createPostFailed());
       });
   };
@@ -92,7 +92,7 @@ export const fetchFriendsPost = (page, limit) => {
         dispatch(fetchFriendsPostSuccess(updatedData, res.data.count));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(fetchFriendsPostFailed());
       });
   };
@@ -113,7 +113,7 @@ export const likePost = (postId, data) => {
       .then((res) => {
         dispatch(likePostSuccess(res.data.likes, res.data.likeAction));
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };
 
@@ -145,7 +145,7 @@ export const deletePost = (postId) => {
         dispatch(deletePostSuccess(postId));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(deletePostFailed());
       });
   };
@@ -198,7 +198,7 @@ export const updatePost = (postId, data) => {
       })
       .catch((err) => {
         dispatch(updatePostFailed());
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };

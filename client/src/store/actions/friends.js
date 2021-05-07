@@ -33,7 +33,7 @@ export const getUserFriends = (userId) => {
       })
       .catch((err) => {
         dispatch(getUserFriendsFailed());
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };

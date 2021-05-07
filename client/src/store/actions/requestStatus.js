@@ -13,8 +13,17 @@ export const hideError = () => {
   };
 };
 
-export const errorCreator = (error) => {
+export const errorCreator = (err) => {
   return (dispatch) => {
+    let error;
+    if (err.response) {
+      error = {
+        message: err.response.data.message,
+        code: err.response.status,
+      };
+    } else {
+      error = err;
+    }
     dispatch(errorCreated(error));
     setTimeout(() => {
       dispatch(hideError());
@@ -22,24 +31,8 @@ export const errorCreator = (error) => {
   };
 };
 
-export const successCreated = (message) => {
-  return {
-    type: actionTypes.REQUEST_SUCCESS,
-    message,
-  };
-};
-
 export const hideSuccess = () => {
   return {
     type: actionTypes.HIDE_REQUEST_SUCCESS,
-  };
-};
-
-export const successCreator = (message) => {
-  return (dispatch) => {
-    dispatch(successCreated(message));
-    setTimeout(() => {
-      dispatch(hideSuccess());
-    }, 3500);
   };
 };

@@ -37,7 +37,7 @@ export const getUserInfo = (userId) => {
         dispatch(getUserInfoSuccess(res.data.user, res.data.isFriend));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };
@@ -71,7 +71,7 @@ export const getUserPosts = (userId, page, limit) => {
         dispatch(getUserPostSuccess(res.data.posts, res.data.count));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(getUserPostFailed());
       });
   };
@@ -98,6 +98,6 @@ export const likeUserPost = (postId, data) => {
       .then((res) => {
         dispatch(likeUserPostSucces(res.data.likes, res.data.likeAction));
       })
-      .catch((err) => dispatch(errorCreator(err.response)));
+      .catch((err) => dispatch(errorCreator(err)));
   };
 };

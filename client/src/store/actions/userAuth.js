@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import store from "../index";
 import * as actionTypes from "./actionTypes";
 import axios from "../../api/axios";
-import { errorCreator, successCreator } from "./requestStatus";
+import { errorCreator } from "./requestStatus";
 
 export const registerStart = () => {
   return {
@@ -31,10 +31,9 @@ export const registerUser = (userData) => {
       .post("/api/auth/register", userData)
       .then((res) => {
         dispatch(registerSuccess(res.data.registered));
-        dispatch(successCreator(res.data.message));
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(registerFailed());
       });
   };
@@ -87,11 +86,10 @@ export const loginUser = (userData, history) => {
         dispatch(loginSuccess(decodeToken, res.data.token));
         localStorage.setItem("token", res.data.token);
         dispatch(checkAuthTimeout(decodeToken.exp - decodeToken.iat));
-        dispatch(successCreator(res.data.message));
         history.push("/");
       })
       .catch((err) => {
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
         dispatch(loginFailed());
       });
   };
@@ -140,12 +138,11 @@ export const emailActivation = (token, history) => {
       .patch(`/api/auth/activation/${token}`)
       .then((res) => {
         dispatch(emailActivSucces(res.data.activated));
-        dispatch(successCreator(res.data.message));
         history.push("/login");
       })
       .catch((err) => {
         dispatch(emailActivFailed());
-        dispatch(errorCreator(err.response));
+        dispatch(errorCreator(err));
       });
   };
 };
