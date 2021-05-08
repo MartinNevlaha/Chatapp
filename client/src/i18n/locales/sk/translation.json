@@ -51,5 +51,10 @@
   "like": {
     "like": "pači sa",
     "dislike": "nepáči sa"
+  }, 
+  "showLikes": {
+    "noLikes": "Žiadny záznam",
+    "people": "Uživateľia ktorým",
+    "this": "tento príspevok"
   }
 }

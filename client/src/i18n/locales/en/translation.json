@@ -51,5 +51,10 @@
   "like": {
     "like": "likes",
     "dislike": "dislikes"
+  },
+  "showLikes": {
+    "noLikes": "No likes or dislike",
+    "people": "People who",
+    "this": "this post"
   }
 }

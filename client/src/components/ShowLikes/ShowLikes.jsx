@@ -1,22 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./ShowLikes.module.scss";
 import User from "../User/User";
 import { likeStatus } from "../../constants/likeStatus";
 
 const ShowLikes = ({ showLike, close }) => {
+  const { t } = useTranslation();
   ShowLikes.propTypes = {
     showLike: PropTypes.exact({
       likeType: PropTypes.number,
-      users: PropTypes.array
-    })
-  }
+      users: PropTypes.array,
+    }),
+  };
   return (
     <div className={classes.likes}>
       <h2>
-        People who {showLike.likeType === likeStatus.like ? "like" : "dislike"}{" "}
-        this post
+        {t("showLikes.people")} {showLike.likeType === likeStatus.like ? t("like.like") : t("like.dislike")}{" "}
+        {t("showLikes.this")}
       </h2>
       <hr />
       <div className={classes.users}>
@@ -25,7 +27,7 @@ const ShowLikes = ({ showLike, close }) => {
             <User user={user} key={user.id} close={close} />
           ))
         ) : (
-          <p>No like or dislike</p>
+          <p>{t("showLikes.noLikes")}</p>
         )}
       </div>
     </div>
