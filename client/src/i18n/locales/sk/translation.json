@@ -27,10 +27,21 @@
     "friendsNumber": "Počet priateľov:"
   },
   "newPost": {
-    "createPost": "Nový príspevok",
-    "createBtn": "Vytvor",
-    "errMax": "Príspevok nesmie obsahovať viac ako 255 znakov",
-    "errContent": "Pole je povinné",
+    "createPost": "Vytvor nový príspevok",
+    "createBtn": "Vytvor"
+  },
+  "validation": {
+    "errMax": "Príspevok musí obsahovať maximálne 255 znakov",
+    "errContent": "Obsah je vyžadovaný",
     "errFileFormat": "Nepodporovaný formát súboru"
+  },
+  "post": {
+    "created": "Vytvorené:",
+    "userDetail": "Klikni pre detailné zobrazenie uživateľa"
+  },
+  "editMode": {
+    "editMode": "Edituješ",
+    "upload": "Nahraj",
+    "update": "Uprav príspevok"
   }
 }

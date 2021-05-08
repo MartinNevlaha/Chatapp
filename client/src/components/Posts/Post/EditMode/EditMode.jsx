@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./EditMode.module.scss";
 import AreaField from "../../../Inputs/AreaField/AreaField";
@@ -12,6 +13,7 @@ import Button from "../../../UI/Button/Button";
 const EditMode = ({ post, deleteImage, updatePost }) => {
   const [fileName, setFileName] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+  const { t } = useTranslation();
 
   const suportedImageFormat = [
     "image/jpg",
@@ -22,10 +24,10 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
 
   const validate = Yup.object({
     textContent: Yup.string()
-      .max(255, "Your post must be 255 characters or less")
-      .required("Content is required"),
+      .max(255, t("validation.errMax"))
+      .required(t("validation.errContent")),
     image: Yup.mixed()
-      .test("fileFormat", "Unsuported image file format", (value) => {
+      .test("fileFormat", t("validation.errFileFormat"), (value) => {
         if (!value) {
           return true;
         } else {
@@ -60,7 +62,7 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
     >
       {(formProps, values) => (
         <div className={classes.edit_mode}>
-          <h2>Edit mode</h2>
+          <h2>{t("editMode.editMode")}</h2>
           <Form>
             {post.image ? (
               <div className={classes.edit_mode_image}>
@@ -88,7 +90,7 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
                     />
                   </div>
                 )}
-                <h3>Upload image</h3>
+                <h3>{t("editMode.upload")}</h3>
                 <label htmlFor="postImage">
                   <FontAwesomeIcon
                     icon={faImage}
@@ -113,7 +115,7 @@ const EditMode = ({ post, deleteImage, updatePost }) => {
               </div>
             )}
             <AreaField label="Post content" name="textContent" />
-            <Button type="submit">Update post</Button>
+            <Button type="submit">{t("editMode.update")}</Button>
           </Form>
         </div>
       )}

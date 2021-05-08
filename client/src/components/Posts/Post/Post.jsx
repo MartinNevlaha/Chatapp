@@ -4,6 +4,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import { parseDateTime } from "../../../utils/utilities";
 import classes from "./Post.module.scss";
@@ -24,6 +25,7 @@ const Post = ({
   showLikes,
   placeOfUsage,
 }) => {
+  const { t } = useTranslation();
   const history = useHistory();
 
   const handleRedirectToUserInfo = (userId) => {
@@ -47,7 +49,7 @@ const Post = ({
       <Card type="medium_card">
         <div className={classes.post_content}>
           <div className={classes.post_content_header}>
-            <p>Created: {parseDateTime(post.createdAt)}</p>
+            <p>{t("post.created")} {parseDateTime(post.createdAt)}</p>
             {placeOfUsage === "dashboard" && userId === post.User.id && (
               <EditPost
                 deletePost={deletePost}
@@ -80,12 +82,16 @@ const Post = ({
                           effect="solid"
                           border={true}
                         >
-                          Click for user detail
+                          {t("post.userDetail")}
                         </ReactTooltip>
                       </React.Fragment>
                     ) : (
                       <React.Fragment>
-                        <div className={classes.post_content_container_avatar_wrapper}>
+                        <div
+                          className={
+                            classes.post_content_container_avatar_wrapper
+                          }
+                        >
                           <FontAwesomeIcon
                             icon={faUser}
                             size="2x"
@@ -101,7 +107,7 @@ const Post = ({
                           effect="solid"
                           border={true}
                         >
-                          Click for user detail
+                          {t("post.userDetail")}
                         </ReactTooltip>
                       </React.Fragment>
                     )}

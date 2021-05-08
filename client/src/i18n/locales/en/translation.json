@@ -13,7 +13,7 @@
     "prevPage": "Previous page",
     "nextPage": "Next page"
   },
-  "sideDrawer" : {
+  "sideDrawer": {
     "dashboard": "Dashboard",
     "chat": "Video chat",
     "userList": "Users list"
@@ -28,9 +28,20 @@
   },
   "newPost": {
     "createPost": "Create new post",
-    "createBtn": "Create",
+    "createBtn": "Create"
+  },
+  "validation": {
     "errMax": "Your post must be 255 characters or less",
     "errContent": "Content is required",
     "errFileFormat": "Unsuported image file format"
+  },
+  "post": {
+    "created": "Created:",
+    "userDetail": "Click for user detail"
+  },
+  "editMode": {
+    "editMode": "Edit mode",
+    "upload": "Upload image",
+    "update": "Update post"
   }
 }

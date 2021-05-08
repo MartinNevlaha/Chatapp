@@ -22,7 +22,7 @@ const Posts = ({
   deleteImage,
   updatePost,
   placeOfUsage,
-  hasMorePosts
+  hasMorePosts,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showLike, setShowLike] = useState({
@@ -59,7 +59,7 @@ const Posts = ({
     deleteImage: PropTypes.func,
     updatePost: PropTypes.func,
     placeOfUsage: PropTypes.oneOf(["userPageInfo", "dashboard"]),
-    hasMorePosts: PropTypes.bool
+    hasMorePosts: PropTypes.bool,
   };
 
   return (

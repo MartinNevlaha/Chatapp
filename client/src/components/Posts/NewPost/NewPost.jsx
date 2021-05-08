@@ -23,10 +23,10 @@ export const NewPost = ({ createPost }) => {
 
   const validate = Yup.object({
     textContent: Yup.string()
-      .max(255, t("newPost.errMax"))
-      .required(t("newPost.errContent")),
+      .max(255, t("validation.errMax"))
+      .required(t("validation.errContent")),
     image: Yup.mixed()
-      .test("fileFormat", t("newPost.errFileFormat"), (value) => {
+      .test("fileFormat", t("validation.errFileFormat"), (value) => {
         if (!value) {
           return true;
         } else {
