@@ -56,5 +56,11 @@
     "noLikes": "Žiadny záznam",
     "people": "Uživateľia ktorým",
     "this": "tento príspevok"
+  },
+  "login": {
+    "title": "Prosím prihláste sa",
+    "email": "Email",
+    "password": "Heslo",
+    "login": "Prihlasiť"
   }
 }

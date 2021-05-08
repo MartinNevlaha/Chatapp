@@ -56,5 +56,11 @@
     "noLikes": "No likes or dislike",
     "people": "People who",
     "this": "this post"
+  },
+  "login": {
+    "title": "Please login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login"
   }
 }
