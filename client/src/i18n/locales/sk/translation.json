@@ -96,7 +96,10 @@
     "resetPass": "Na resetovanie hesla stlačte tlačidlo Reset",
     "closeBtn": "Zavrieť",
     "resetBtn": "Reset",
-    "btn": "Uprav"
+    "btn": "Uprav",
+    "oldPass": "Staré heslo",
+    "newPass": "Nové heslo",
+    "confirmNewPass": "Potvrď nové heslo"
   },
   "deleteAccount": {
     "title": "Delete account",
@@ -108,5 +111,15 @@
   "retypeCheck": {
     "retypeNumber": "Prosím prepíšte toto číslo: ",
     "errMatchNumber": "Zadané číslo sa nezhoduje!"
+  },
+  "usersList": {
+    "title": "Zoznam uživateľov",
+    "actPage": "Aktuálna stranka",
+    "totalPages": "zo počtu stránok",
+    "limit": "Limit na stránku",
+    "addFriend": "Pridaj priateľa"
+  },
+  "user": {
+    "regSince": "Registrovaný od:"
   }
 }

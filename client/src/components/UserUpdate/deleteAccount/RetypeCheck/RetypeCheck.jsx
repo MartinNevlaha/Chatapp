@@ -17,6 +17,8 @@ export const RetypeCheck = ({
   isTouch,
   refresh,
 }) => {
+  const { t } = useTranslation();
+  
   RetypeCheck.propTypes = {
     isRetypeShow: PropTypes.bool,
     string: PropTypes.string,

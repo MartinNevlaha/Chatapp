@@ -3,21 +3,23 @@ import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./User.module.scss";
 import { parseDateTime } from "../../../utils/utilities";
 
 const User = ({ user, requestStatusElement }) => {
+  const { t } = useTranslation();
   const history = useHistory();
 
   const handleRedirectToUserInfo = (userId) => {
-  history.push(`/user-info/${userId}`);
+    history.push(`/user-info/${userId}`);
   };
 
   User.propTypes = {
     user: PropTypes.object,
-    requestStatusElement: PropTypes.element
-  }
+    requestStatusElement: PropTypes.element,
+  };
 
   return (
     <div
@@ -31,17 +33,17 @@ const User = ({ user, requestStatusElement }) => {
           <div className={classes.user_avatar_icon}>
             <FontAwesomeIcon icon={faUser} size="3x" />
           </div>
-          
         )}
       </div>
       <div className={classes.user_info}>
         <h3>{user.fullName}</h3>
-        <p>Registered since: {parseDateTime(user.createdAt)}</p>
+        <p>
+          {t("user.regSince")} {parseDateTime(user.createdAt)}
+        </p>
       </div>
       <div className={classes.user_btn}>{requestStatusElement}</div>
     </div>
   );
-
 };
 
 export default User;

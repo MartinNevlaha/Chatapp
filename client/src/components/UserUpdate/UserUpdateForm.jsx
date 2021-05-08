@@ -157,17 +157,17 @@ const UserUpdate = ({ updateProfile }) => {
                   {pwdReset && (
                     <React.Fragment>
                       <TextField
-                        label="Old Password"
+                        label={t("userProfile.oldPass")}
                         name="oldPassword"
                         type="password"
                       />
                       <TextField
-                        label="New Password"
+                        label={t("userProfile.newPass")}
                         name="newPassword"
                         type="password"
                       />
                       <TextField
-                        label="Confirm New password"
+                        label={t("userProfile.confirmNewPass")}
                         name="confirmNewPassword"
                         type="password"
                       />

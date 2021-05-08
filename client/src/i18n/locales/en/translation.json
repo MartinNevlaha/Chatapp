@@ -95,7 +95,10 @@
     "resetPass": "To reset password push Reset button",
     "closeBtn": "Close",
     "resetBtn": "Reset",
-    "btn": " Update"
+    "btn": " Update",
+    "oldPass": "Old password",
+    "newPass": "New password",
+    "confirmNewPass": "Confirm new password"
   },
   "deleteAccount": {
     "title": "Delete account",
@@ -107,5 +110,15 @@
   "retypeCheck": {
     "retypeNumber": "Please retype this number: ",
     "errMatchNumber": "Entered number do not match!"
+  },
+  "usersList": {
+    "title": "List of users",
+    "actPage": "Actual page",
+    "totalPages": "of total pages",
+    "limit": "Limit per page",
+    "addFriend": "Add friend"
+  },
+  "user": {
+    "regSince": "Registered since"
   }
 }
