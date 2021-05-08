@@ -44,6 +44,7 @@ const BackDropMenu = ({ avatar, requests }) => {
   };
 
   const handleLanguageChange = (language) => {
+    localStorage.setItem("language", language);
     i18next.changeLanguage(language, (err) => {
       if (err) {
         const error = {

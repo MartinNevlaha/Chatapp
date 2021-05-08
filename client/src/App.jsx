@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import i18next from "i18next";
 
 import "./App.scss";
 import Layout from "./HOC/Layout";
@@ -26,31 +27,38 @@ function App() {
 
   useEffect(() => {
     dispatch(action.authCheckState());
+    const selectedLng = localStorage.getItem("language");
+    if (selectedLng)
+      i18next.changeLanguage(selectedLng, (err) => {
+        if (err) {
+          const error = {
+            message: "cant set language",
+          };
+          dispatch(action.errorCreator(error));
+        }
+      });
   }, [dispatch]);
 
   let routes = (
     <Suspense fallback={<Spinner />}>
-        <Switch>
-          <ProtectedRoute path="/user-info/:userId" component={UserPageInfo} />
-          <ProtectedRoute path="/users-list" component={AllUsers} />
-          <ProtectedRoute path="/chat" component={VideoChat} />
-          <ProtectedRoute path="/friend-requests" component={FriendRequest} />
-          <ProtectedRoute path="/update-profile" component={UserUpdate} />
-          <ProtectedRoute path="/" exact component={Dashboard} />
-          <Route path="/activation/:token" component={EmailActivation} />
-          {isAuth ? null : <Route path="/login" component={Login} />}
-          <Redirect to="/" />
-        </Switch>
+      <Switch>
+        <ProtectedRoute path="/user-info/:userId" component={UserPageInfo} />
+        <ProtectedRoute path="/users-list" component={AllUsers} />
+        <ProtectedRoute path="/chat" component={VideoChat} />
+        <ProtectedRoute path="/friend-requests" component={FriendRequest} />
+        <ProtectedRoute path="/update-profile" component={UserUpdate} />
+        <ProtectedRoute path="/" exact component={Dashboard} />
+        <Route path="/activation/:token" component={EmailActivation} />
+        {isAuth ? null : <Route path="/login" component={Login} />}
+        <Redirect to="/" />
+      </Switch>
     </Suspense>
   );
 
   return (
     <div className="App">
       <Layout>
-        <Toast
-          isShow={error}
-          message={error && error.message}
-        />
+        <Toast isShow={error} message={error && error.message} />
         {routes}
       </Layout>
     </div>
