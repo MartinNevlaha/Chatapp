@@ -1,6 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 
 import classes from "./RetypeCheck.module.scss";
 import Button from "../../../UI/Button/Button";
@@ -15,6 +17,16 @@ export const RetypeCheck = ({
   isTouch,
   refresh,
 }) => {
+  RetypeCheck.propTypes = {
+    isRetypeShow: PropTypes.bool,
+    string: PropTypes.string,
+    inputValue: PropTypes.string,
+    changeInput: PropTypes.func,
+    isInValid: PropTypes.bool,
+    openModal: PropTypes.bool,
+    isTouch: PropTypes.bool,
+    refresh: PropTypes.func,
+  };
   return (
     <div
       className={
@@ -25,7 +37,7 @@ export const RetypeCheck = ({
     >
       <div className={classes.retypeCheck_content}>
         <h3>
-          Please retype this number <span>{string}</span>
+          {t("retypeCheck.retypeNumber")} <span>{string}</span>
         </h3>
         <input
           type="text"
@@ -41,7 +53,7 @@ export const RetypeCheck = ({
         />
       </div>
       <div className={classes.retypeCheck_content_message}>
-        {isTouch && isInValid && <p>Entered number do not match!</p>}
+        {isTouch && isInValid && <p>{t("retypeCheck.errMatchNumber")}</p>}
       </div>
       <Button clicked={openModal} disabled={isInValid}>
         Ok

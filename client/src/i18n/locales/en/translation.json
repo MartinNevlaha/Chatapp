@@ -103,5 +103,9 @@
     "cancelBtn": "Cancel",
     "deleteBtn": "Delete",
     "msg": "You can delete your account here. Just pres delete button"
+  },
+  "retypeCheck": {
+    "retypeNumber": "Please retype this number: ",
+    "errMatchNumber": "Entered number do not match!"
   }
 }

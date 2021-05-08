@@ -70,7 +70,7 @@
     "login": "Prihlásenie"
   },
   "register": {
-    "title":"Prosím zaregistrujte sa",
+    "title": "Prosím zaregistrujte sa",
     "register": "Register",
     "firstName": "Meno",
     "lastName": "Priezvysko",
@@ -104,5 +104,9 @@
     "cancelBtn": "Cancel",
     "deleteBtn": "Delete",
     "msg": "You can delete your account here. Just pres delete button"
+  },
+  "retypeCheck": {
+    "retypeNumber": "Prosím prepíšte toto číslo: ",
+    "errMatchNumber": "Zadané číslo sa nezhoduje!"
   }
 }
