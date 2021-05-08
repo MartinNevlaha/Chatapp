@@ -16,13 +16,12 @@ import { friendStatus } from "../../constants/friendStatus";
 const AllUsersList = ({
   users,
   loading,
-  pages,
   handleCurrentPage,
   handleSetLimit,
   limit,
   addFriend,
+  arrayOfPages
 }) => {
-  let arrayOfPages = Array.from(Array(+pages).keys());
 
   let content = users.map((user) => {
     let requestStatusElement = (

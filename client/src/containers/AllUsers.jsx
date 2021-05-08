@@ -36,6 +36,11 @@ const AllUsers = () => {
     dispatch(action.addFriend(data));
   };
 
+  const handleArrayOfPages = (numberOfUsers, limit) => {
+    const pagesNumber = numberOfPages(numberOfUsers, limit);
+    return Array.from({ length: pagesNumber }, (_, index) => index);
+  };
+
   return (
     <div
       style={{
@@ -50,8 +55,8 @@ const AllUsers = () => {
       <AllUsersList
         users={users}
         loading={loading}
-        pages={numberOfPages(numberOfUsers, limit)}
         handleCurrentPage={handleCurrentPage}
+        arrayOfPages={handleArrayOfPages(numberOfUsers, limit)}
         handleSetLimit={handleSetLimit}
         limit={limit}
         addFriend={handleAddFriend}

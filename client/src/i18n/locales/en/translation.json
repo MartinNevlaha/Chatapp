@@ -77,5 +77,11 @@
     "password": "Password",
     "confirmPass": "Confirm password",
     "succesMsg": "Registered successfully, please wait for activation email."
+  },
+  "emailActivation": {
+    "please": " Please activate your profile",
+    "click": "click on Activate button",
+    "msg": "This link will be active only 1 hour",
+    "btn": "Activate"
   }
 }

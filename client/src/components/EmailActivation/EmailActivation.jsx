@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import jwt_decode from "jwt-decode";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
@@ -13,6 +14,7 @@ import classes from "./EmailActivation.module.scss";
 const EmailActivation = ({ activation, loading, history }) => {
   const { token } = useParams();
   const { email } = jwt_decode(token);
+  const { t } = useTranslation();
 
   const handleClick = () => {
     activation(token, history);
@@ -21,8 +23,8 @@ const EmailActivation = ({ activation, loading, history }) => {
   EmailActivation.propTypes = {
     activation: PropTypes.func,
     loading: PropTypes.bool,
-    history: PropTypes.node
-  }
+    history: PropTypes.node,
+  };
 
   return (
     <Card type="small_card">
@@ -39,10 +41,10 @@ const EmailActivation = ({ activation, loading, history }) => {
               />
             </div>
             <h2>
-              Please activate your email {email} click on Activate button
+              {t("emailActivation.please")} {email} {t("emailActivation.click")}
             </h2>
-            <p>This link will be active only 1 hour</p>
-            <Button clicked={handleClick}>Activate</Button>
+            <p>{t("emailActivation.msg")}</p>
+            <Button clicked={handleClick}>{t("emailActivation.btn")}</Button>
           </React.Fragment>
         )}
       </div>
