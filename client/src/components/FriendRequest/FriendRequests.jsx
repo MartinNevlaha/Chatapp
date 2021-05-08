@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./FriendRequest.module.scss";
 import Button from "../UI/Button/Button";
 import { parseDateTime } from "../../utils/utilities";
 
 const FriendRequests = ({ pendingRequests, handleFriendRequest }) => {
-  
+  const { t } = useTranslation();
+
   FriendRequests.propTypes = {
     pendingRequests: PropTypes.array,
     handleFriendRequest: PropTypes.func,
@@ -15,7 +17,7 @@ const FriendRequests = ({ pendingRequests, handleFriendRequest }) => {
   return (
     <div className={classes.friendRequest}>
       <div className={classes.friendRequest_header}>
-        <h2>Friend request list</h2>
+        <h2>{t("friendRequest.title")}</h2>
       </div>
       <div className={classes.friendRequest_request}>
         {pendingRequests.map((request) => {
@@ -29,7 +31,7 @@ const FriendRequests = ({ pendingRequests, handleFriendRequest }) => {
               </div>
               <div className={classes.friendRequest_request_container_info}>
                 <h3>{request.requestor.fullName}</h3>
-                <p>Request was send: {parseDateTime(request.createdAt)}</p>
+                <p>{t("friendRequest.requestSend")} {parseDateTime(request.createdAt)}</p>
               </div>
               <div className={classes.friendRequest_request_container_button}>
                 <Button
@@ -37,13 +39,13 @@ const FriendRequests = ({ pendingRequests, handleFriendRequest }) => {
                   danger={true}
                   clicked={() => handleFriendRequest(request.id, 2)}
                 >
-                  Reject
+                  {t("friendRequest.rejectBtn")}
                 </Button>
                 <Button
                   type="button"
                   clicked={() => handleFriendRequest(request.id, 1)}
                 >
-                  Accept
+                  {t("friendRequest.acceptBtn")}
                 </Button>
               </div>
             </div>

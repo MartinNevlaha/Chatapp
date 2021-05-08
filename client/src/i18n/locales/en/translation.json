@@ -83,5 +83,11 @@
     "click": "click on Activate button",
     "msg": "This link will be active only 1 hour",
     "btn": "Activate"
+  },
+  "friendRequest": {
+    "title": "Friend request list",
+    "requestSend": "Request was send:",
+    "acceptBtn": "Accept",
+    "rejectBtn": "Reject"
   }
 }

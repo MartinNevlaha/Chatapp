@@ -84,5 +84,11 @@
     "click": "kliknite na tlačidlo aktivovať",
     "msg": "Tento aktivančý email bude platný 1 hodinu",
     "btn": "Aktivovať"
+  },
+  "friendRequest": {
+    "title": "Zoznam žiadostí o priateľstvo",
+    "requestSend": "Žiadosť bola zaslaná",
+    "acceptBtn": "Prijať",
+    "rejectBtn": "Odmietnuť"
   }
 }
