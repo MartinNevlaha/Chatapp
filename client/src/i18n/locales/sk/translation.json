@@ -25,5 +25,12 @@
     "requestPending": "Čaká na potvrdenie",
     "registeredSince": "Registrovaný od:",
     "friendsNumber": "Počet priateľov:"
+  },
+  "newPost": {
+    "createPost": "Nový príspevok",
+    "createBtn": "Vytvor",
+    "errMax": "Príspevok nesmie obsahovať viac ako 255 znakov",
+    "errContent": "Pole je povinné",
+    "errFileFormat": "Nepodporovaný formát súboru"
   }
 }

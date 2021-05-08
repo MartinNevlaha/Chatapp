@@ -25,5 +25,12 @@
     "requestPending": "Request pending",
     "registeredSince": "Registered since:",
     "friendsNumber": "Number of friends:"
+  },
+  "newPost": {
+    "createPost": "Create new post",
+    "createBtn": "Create",
+    "errMax": "Your post must be 255 characters or less",
+    "errContent": "Content is required",
+    "errFileFormat": "Unsuported image file format"
   }
 }

@@ -4,12 +4,14 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./NewPost.module.scss";
 import Card from "../../UI/Card/Card";
 import AreaField from "../../Inputs/AreaField/AreaField";
 
 export const NewPost = ({ createPost }) => {
+  const { t } = useTranslation();
   const [fileName, setFileName] = useState("");
 
   const suportedImageFormat = [
@@ -21,10 +23,10 @@ export const NewPost = ({ createPost }) => {
 
   const validate = Yup.object({
     textContent: Yup.string()
-      .max(255, "Your post must be 255 characters or less")
-      .required("Content is required"),
+      .max(255, t("newPost.errMax"))
+      .required(t("newPost.errContent")),
     image: Yup.mixed()
-      .test("fileFormat", "Unsuported image file format", (value) => {
+      .test("fileFormat", t("newPost.errFileFormat"), (value) => {
         if (!value) {
           return true;
         } else {
@@ -35,8 +37,8 @@ export const NewPost = ({ createPost }) => {
   });
 
   NewPost.propTypes = {
-    createPost: PropTypes.func
-  }
+    createPost: PropTypes.func,
+  };
 
   return (
     <Formik
@@ -59,7 +61,7 @@ export const NewPost = ({ createPost }) => {
         <div className={classes.post_new}>
           <Card type="medium_card">
             <Form>
-              <h2>Create new post</h2>
+              <h2>{t("newPost.createPost")}</h2>
               <AreaField label="Post content" name="textContent" />
               <div className={classes.post_new_bottom}>
                 <div className={classes.post_new_bottom_input}>
@@ -83,7 +85,7 @@ export const NewPost = ({ createPost }) => {
                   />
                 </div>
 
-                <button type="submit">CREATE</button>
+                <button type="submit">{t("newPost.createBtn")}</button>
               </div>
               <ErrorMessage
                 component="div"
