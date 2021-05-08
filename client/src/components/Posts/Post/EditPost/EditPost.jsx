@@ -6,12 +6,14 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./EditPost.module.scss";
 
 export const EditPost = ({ deletePost, postId, setEditMode }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClose);
@@ -63,7 +65,7 @@ export const EditPost = ({ deletePost, postId, setEditMode }) => {
               }}
             >
               <FontAwesomeIcon icon={faEdit} size="1x" />
-              <p>Edit</p>
+              <p>{t("edit.edit")}</p>
             </div>
           </li>
           <li>
@@ -75,7 +77,7 @@ export const EditPost = ({ deletePost, postId, setEditMode }) => {
               }}
             >
               <FontAwesomeIcon icon={faTrashAlt} size="1x" />
-              <p>Delete</p>
+              <p>{t("edit.delete")}</p>
             </div>
           </li>
         </ul>

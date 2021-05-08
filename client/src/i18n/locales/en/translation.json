@@ -43,5 +43,9 @@
     "editMode": "Edit mode",
     "upload": "Upload image",
     "update": "Update post"
+  },
+  "edit": {
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }

@@ -43,5 +43,9 @@
     "editMode": "Edituješ",
     "upload": "Nahraj",
     "update": "Uprav príspevok"
+  },
+  "edit": {
+    "edit": "Uprav",
+    "delete": "Vymaž"
   }
 }
