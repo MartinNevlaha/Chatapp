@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import classes from "./SearchResults.module.scss";
 import User from "../../../../User/User";
@@ -13,6 +14,7 @@ export const SearchResults = ({
   currentPage,
 }) => {
   const resultRef = useRef(null);
+  const {t} = useTranslation();
 
   useEffect(() => {
     document.addEventListener("mousedown", closeHandler);
@@ -49,10 +51,10 @@ export const SearchResults = ({
       {numberOfPages > 1 && (
         <div className={classes.search_results_pagination}>
           {currentPage !== 0 && (
-            <p onClick={() => setPage("prev")}>{"<"}Prev page</p>
+            <p onClick={() => setPage("prev")}>{"<"}{t("seachResults.prevPage")}</p>
           )}
           {currentPage !== numberOfPages - 1 && (
-            <p onClick={() => setPage("next")}>Next page{">"}</p>
+            <p onClick={() => setPage("next")}>{t("seachResults.nextPage")}{">"}</p>
           )}
         </div>
       )}
@@ -61,7 +63,7 @@ export const SearchResults = ({
       {users.length !== 0 ? (
         users.map((user) => <User user={user} close={close} key={user.id}/>)
       ) : (
-        <p className={classes.search_results_empty}>No users found</p>
+        <p className={classes.search_results_empty}>{t("searchResults.noUser")}</p>
       )}
     </div>
   );

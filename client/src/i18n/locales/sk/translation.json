@@ -5,16 +5,17 @@
     "account": "Môj účet",
     "logout": "Odhlásiť sa",
     "languageTitle": "Vyber svoj jazyk",
-    "search": "Hľadaj..."
+    "search": "Hľadaj...",
+    "friendRequests": "Žiadosť o priateľstvo"
+  },
+  "searchResults": {
+    "noUser": "Nenajdený žiadny užívateľ",
+    "prevPage": "Predošlá strana",
+    "nextPage": "Ďaľšia strana"
   },
   "sideDrawer" : {
-    "title": "Hlavné menu",
     "dashboard": "Hlavný prehľad",
-    "chat": "Chat",
-    "userList": "Zoznam užívateľov",
-    "videoChat": "Video rozhovor",
-    "schedule": "Naplánuj pohovor",
-    "calendar": "Kalendár pohovorov",
-    "evaluation": "Hodnotenie uchádzačov"
+    "chat": "Video chat",
+    "userList": "Zoznam užívateľov"
   }
 }

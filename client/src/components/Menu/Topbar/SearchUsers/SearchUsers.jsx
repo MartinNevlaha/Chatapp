@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as action from "../../../../store/actions";
@@ -15,7 +14,6 @@ export const SearchUsers = () => {
   const [isResultsOpen, setIsResultsOpen] = useState(false);
   const LIMIT = 5;
   const dispatch = useDispatch();
-  const { t } = useTranslation();
 
   const handleOnChangeInput = (e) => {
     setSearchString(e.target.value);

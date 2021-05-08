@@ -92,7 +92,7 @@ const BackDropMenu = ({ avatar, requests }) => {
             icon={faUsers}
           >
             <div className={classes.backDropMenu_items_requests}>
-              Friend requests
+              {t("topNavbar.friendRequests")}
               {requests.length !== 0 && (
                 <div className={classes.backDropMenu_items_requests_number}>
                   {requests.length}
