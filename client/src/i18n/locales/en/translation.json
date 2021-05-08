@@ -47,5 +47,9 @@
   "edit": {
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "like": {
+    "like": "likes",
+    "dislike": "dislikes"
   }
 }

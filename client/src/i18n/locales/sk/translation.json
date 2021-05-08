@@ -47,5 +47,9 @@
   "edit": {
     "edit": "Uprav",
     "delete": "Vymaž"
+  },
+  "like": {
+    "like": "pači sa",
+    "dislike": "nepáči sa"
   }
 }
