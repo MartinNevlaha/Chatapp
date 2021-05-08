@@ -12,15 +12,15 @@ const UserPageInfo = () => {
   const dispatch = useDispatch();
   const LIMIT = 15;
   const [page, setPage] = useState(0);
-  const [hasMorePosts, setHasMorePosts] = useState(true)
+  const [hasMorePosts, setHasMorePosts] = useState(true);
   const { userId } = useParams();
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const userPosts = useSelector((state) => state.userInfo.userPosts);
   const isFriend = useSelector((state) => state.userInfo.isFriend);
   const loadingPosts = useSelector((state) => state.userInfo.loadingPost);
   const userFriendList = useSelector((state) => state.friends.userFriends);
-  const loadingUserFriends = useSelector(state => state.friends.loading);
-  const countUserPosts = useSelector(state => state.userInfo.countPosts);
+  const loadingUserFriends = useSelector((state) => state.friends.loading);
+  const countUserPosts = useSelector((state) => state.userInfo.countPosts);
 
   useEffect(() => {
     dispatch(action.getUserInfo(+userId));
@@ -69,7 +69,7 @@ const UserPageInfo = () => {
         flexWrap: "wrap",
       }}
     >
-      <div>
+      <div style={{ width: "25%", minWidth: "400px", margin: "1rem" }}>
         <UserInfoSidebar
           isFriend={isFriend}
           userProfile={userInfo}

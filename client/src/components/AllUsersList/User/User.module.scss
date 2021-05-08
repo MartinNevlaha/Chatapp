@@ -22,7 +22,6 @@
       background-color: get-color(gray_profile);
     }
     @media only screen and (max-width: 800px) {
-
       img {
         @include avatar-medium;
       }

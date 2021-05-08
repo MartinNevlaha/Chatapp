@@ -3,7 +3,8 @@
 .userPosts {
   font-size: get-font-size(medium);
   margin: 2rem;
-  width: 70%;
+  width: 60%;
+  min-width: 40%;
   @include flexbox(center, center, column);
 
   h2 {
