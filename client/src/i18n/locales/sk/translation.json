@@ -160,7 +160,7 @@
   "callControls": {
     "accept": "Prijať hovor",
     "reject": "Odmietnuť hovor",
-    "autio": "Vypnuť zvuk",
+    "audio": "Vypnuť zvuk",
     "video": "Vypnuť video",
     "fullscreen": "Celá obrazovka"
   }
