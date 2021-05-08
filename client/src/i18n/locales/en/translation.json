@@ -17,5 +17,13 @@
     "dashboard": "Dashboard",
     "chat": "Video chat",
     "userList": "Users list"
+  },
+  "userSidebar": {
+    "addFriend": "Add friend",
+    "requestAccepted": "Request accepted",
+    "requestRejected": "Request rejected",
+    "requestPending": "Request pending",
+    "registeredSince": "Registered since:",
+    "friendsNumber": "Number of friends:"
   }
 }

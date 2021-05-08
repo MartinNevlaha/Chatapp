@@ -17,5 +17,13 @@
     "dashboard": "Hlavný prehľad",
     "chat": "Video chat",
     "userList": "Zoznam užívateľov"
+  },
+  "userSidebar": {
+    "addFriend": "Pridaj priateľa",
+    "requestAccepted": "Žiadosť akceptovaná",
+    "requestRejected": "Žiadosť odmietnutá",
+    "requestPending": "Čaká na potvrdenie",
+    "registeredSince": "Registrovaný od:",
+    "friendsNumber": "Počet priateľov:"
   }
 }

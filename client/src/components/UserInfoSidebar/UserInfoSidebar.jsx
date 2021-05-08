@@ -8,6 +8,7 @@ import {
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./UserInfoSidebar.module.scss";
 import Card from "../UI/Card/Card";
@@ -21,27 +22,28 @@ export const UserInfoSidebar = ({
   isFriend,
   addFriend,
 }) => {
-  let friendStatusContent = <Button clicked={addFriend}>Add friend</Button>;
+  const { t } = useTranslation();
+  let friendStatusContent = <Button clicked={addFriend}>{t("userSidebar.addFriend")}</Button>;
 
   if (isFriend === friendStatus.accept) {
     friendStatusContent = (
       <React.Fragment>
-        <p>Request accepted</p>
+        <p>{t("userSidebar.requestAccepted")}</p>
         <FontAwesomeIcon icon={faCheck} color="green" />{" "}
       </React.Fragment>
     );
   } else if (isFriend === friendStatus.pending) {
     friendStatusContent = (
       <React.Fragment>
-        <p>Request pending</p>
+        <p>{t("userSidebar.requestPending")}</p>
         <FontAwesomeIcon icon={faQuestionCircle} />
       </React.Fragment>
     );
   } else if (isFriend === friendStatus.reject) {
     friendStatusContent = (
       <React.Fragment>
-        <p>Request rejected</p>
-        <FontAwesomeIcon icon={faTimesCircle} color="red"/>
+        <p>{t("userSidebar.requestRejected")}</p>
+        <FontAwesomeIcon icon={faTimesCircle} color="red" />
       </React.Fragment>
     );
   } else if (isFriend === friendStatus.myself) {
@@ -52,8 +54,8 @@ export const UserInfoSidebar = ({
     userProfile: PropTypes.object,
     showMyself: PropTypes.bool,
     isFriend: PropTypes.oneOf([0, 1, 2, 3, 4]),
-    addFriend: PropTypes.func
-  }
+    addFriend: PropTypes.func,
+  };
 
   return (
     <Card type="small_card">
@@ -76,8 +78,8 @@ export const UserInfoSidebar = ({
             <h2>{userProfile.fullName}</h2>
           </Link>
           <hr />
-          <p>Registered since: {parseDateTime(userProfile.createdAt)}</p>
-          <p>Number of friends: {userProfile.friendsCount}</p>
+          <p>{t("userSidebar.registeredSince")} {parseDateTime(userProfile.createdAt)}</p>
+          <p>{t("userSidebar.friendsNumber")} {userProfile.friendsCount}</p>
         </div>
         {!showMyself && (
           <div className={classes.userInfo_friendship}>
