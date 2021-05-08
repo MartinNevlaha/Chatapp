@@ -91,6 +91,8 @@
     "rejectBtn": "Reject"
   },
   "userProfile": {
-
+    "title": "Here you can update your profile !",
+    "resetPass": "To reset password push Reset button",
+    "btn": " Update"
   }
 }

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faImage } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./UserUpdateForm.module.scss";
 import Card from "../UI/Card/Card";
@@ -15,25 +16,26 @@ const UserUpdate = ({ updateProfile }) => {
   const [pwdReset, setPwdReset] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const user = useSelector((state) => state.userProfile.user);
+  const { t } = useTranslation();
 
   const SupportedFormat = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
   const validate = Yup.object({
     firstName: Yup.string()
-      .max(20, "Must be 20 characters or less")
-      .required("First name is required"),
+      .max(20, t("validation.errNameMax"))
+      .required(t("validation.errContent")),
     lastName: Yup.string()
-      .max(20, "Must be 20 characters or less")
-      .required("Last name is required"),
-    email: Yup.string().email("Email is invalid").required("Email is required"),
-    oldPassword: Yup.string().min(6, "Password muste be at least 6 characters"),
-    newPassword: Yup.string().min(6, "Password must be at least 6 characters"),
+      .max(20, t("validation.errNameMax"))
+      .required(t("validation.errContent")),
+    email: Yup.string().email(t("validation.errEmailValidity")).required(t("validation.errEmailReq")),
+    oldPassword: Yup.string().min(6, t("validation.errPassMin")),
+    newPassword: Yup.string().min(6, t("validation.errPassMin")),
     confirmNewPassword: Yup.string().oneOf(
       [Yup.ref("newPassword"), null],
-      "Password must match"
+      t("validation.errConfirmPass")
     ),
     avatar: Yup.mixed()
-      .test("fileFormat", "Unsuported file format", (value) => {
+      .test("fileFormat", t("validation.errFileFormat"), (value) => {
         if (!value) {
           return true;
         } else {
@@ -93,7 +95,7 @@ const UserUpdate = ({ updateProfile }) => {
     >
       {(formProps) => (
         <div className={classes.profile_container}>
-          <h1>Here you can update your profile !</h1>
+          <h1>{t("userProfile.title")}</h1>
           <Form>
             <div className={classes.profile_container_inputs}>
               <Card type="small_card">
@@ -136,7 +138,7 @@ const UserUpdate = ({ updateProfile }) => {
                   <TextField label="First Name" name="firstName" type="text" />
                   <TextField label="Last Name" name="lastName" type="text" />
                   <TextField label="Email" name="email" type="email" />
-                  <h2>To reset password push Reset button</h2>
+                  <h2>{t("userProfile.resetPass")}</h2>
                   <Button clicked={handleResetPwd}>
                     {pwdReset ? "Close" : "Reset"}
                   </Button>
@@ -162,7 +164,7 @@ const UserUpdate = ({ updateProfile }) => {
                 </div>
               </Card>
             </div>
-            <Button type="submit">Update</Button>
+            <Button type="submit">{t("userProfile.btn")}</Button>
           </Form>
         </div>
       )}
