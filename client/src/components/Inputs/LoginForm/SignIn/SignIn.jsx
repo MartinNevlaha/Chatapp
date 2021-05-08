@@ -29,11 +29,11 @@ const SignIn = (props) => {
     >
       {() => (
         <div className={classes.input_container}>
-          <h1>Please Sign In</h1>
+          <h1>{t("login.title")}</h1>
           <Form>
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
-            <Button type="submit">Sign In</Button>
+            <TextField label={t("login.email")} name="email" type="email" />
+            <TextField label={t("login.password")} name="password" type="password" />
+            <Button type="submit">{t("login.login")}</Button>
           </Form>
         </div>
       )}
