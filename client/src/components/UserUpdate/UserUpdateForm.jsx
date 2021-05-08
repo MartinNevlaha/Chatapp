@@ -27,7 +27,9 @@ const UserUpdate = ({ updateProfile }) => {
     lastName: Yup.string()
       .max(20, t("validation.errNameMax"))
       .required(t("validation.errContent")),
-    email: Yup.string().email(t("validation.errEmailValidity")).required(t("validation.errEmailReq")),
+    email: Yup.string()
+      .email(t("validation.errEmailValidity"))
+      .required(t("validation.errEmailReq")),
     oldPassword: Yup.string().min(6, t("validation.errPassMin")),
     newPassword: Yup.string().min(6, t("validation.errPassMin")),
     confirmNewPassword: Yup.string().oneOf(
@@ -135,12 +137,22 @@ const UserUpdate = ({ updateProfile }) => {
               </Card>
               <Card type="small_card">
                 <div className={classes.profile_container_inputs_text}>
-                  <TextField label="First Name" name="firstName" type="text" />
-                  <TextField label="Last Name" name="lastName" type="text" />
+                  <TextField
+                    label={t("register.firstName")}
+                    name="firstName"
+                    type="text"
+                  />
+                  <TextField
+                    label={t("register.lastName")}
+                    name="lastName"
+                    type="text"
+                  />
                   <TextField label="Email" name="email" type="email" />
                   <h2>{t("userProfile.resetPass")}</h2>
                   <Button clicked={handleResetPwd}>
-                    {pwdReset ? "Close" : "Reset"}
+                    {pwdReset
+                      ? t("userProfile.closeBtn")
+                      : t("userProfile.resetBtn")}
                   </Button>
                   {pwdReset && (
                     <React.Fragment>

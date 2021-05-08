@@ -90,5 +90,12 @@
     "requestSend": "Žiadosť bola zaslaná",
     "acceptBtn": "Prijať",
     "rejectBtn": "Odmietnuť"
+  },
+  "userProfile": {
+    "title": "Tu môžete zmeniť svoj profil !",
+    "resetPass": "Na resetovanie hesla stlačte tlačidlo Reset",
+    "closeBtn": "Zavrieť",
+    "resetBtn": "Reset",
+    "btn": "Uprav"
   }
 }

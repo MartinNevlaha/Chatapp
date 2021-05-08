@@ -93,6 +93,8 @@
   "userProfile": {
     "title": "Here you can update your profile !",
     "resetPass": "To reset password push Reset button",
+    "closeBtn": "Close",
+    "resetBtn": "Reset",
     "btn": " Update"
   }
 }
