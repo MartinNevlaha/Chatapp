@@ -3,26 +3,31 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 import classes from "../SignIn/SignIn.module.scss";
 import TextField from "../../TextField/TextField";
 import Button from "../../../UI/Button/Button";
 
 const Register = (props) => {
+  const { t } = useTranslation();
+
   const validate = Yup.object({
     firstName: Yup.string()
-      .max(20, "Must be 20 characters or less")
-      .required("First name is required"),
+      .max(20, t("validation.errNameMax"))
+      .required(t("validation.errContent")),
     lastName: Yup.string()
-      .max(20, "Must be 20 characters or less")
-      .required("Last name is required"),
-    email: Yup.string().email("Email is invalid").required("Email is required"),
+      .max(20, t("validation.errNameMax"))
+      .required(t("validation.errContent")),
+    email: Yup.string()
+      .email(t("validation.errEmailValidity"))
+      .required(t("validation.errEmailReq")),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
+      .min(6, t("validation.errPassMin"))
+      .required(t("validation.errPassReq")),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Password must match")
-      .required("Confirm password is required"),
+      .oneOf([Yup.ref("password"), null], t("validation.errConfirmPass"))
+      .required(t("validation.errContent")),
   });
 
   return (
@@ -41,18 +46,30 @@ const Register = (props) => {
         >
           {() => (
             <div className={classes.input_container}>
-              <h1>Please Register</h1>
+              <h1>{t("register.title")}</h1>
               <Form>
-                <TextField label="First Name" name="firstName" type="text" />
-                <TextField label="Last Name" name="lastName" type="text" />
-                <TextField label="Email" name="email" type="email" />
-                <TextField label="Password" name="password" type="password" />
                 <TextField
-                  label="Confirm password"
+                  label={t("register.firstName")}
+                  name="firstName"
+                  type="text"
+                />
+                <TextField
+                  label={t("register.lastName")}
+                  name="lastName"
+                  type="text"
+                />
+                <TextField label="Email" name="email" type="email" />
+                <TextField
+                  label={t("register.password")}
+                  name="password"
+                  type="password"
+                />
+                <TextField
+                  label={t("register.confirmPass")}
                   name="confirmPassword"
                   type="password"
                 />
-                <Button type="submit">Register</Button>
+                <Button type="submit">{t("register.register")}</Button>
               </Form>
             </div>
           )}
@@ -66,9 +83,7 @@ const Register = (props) => {
               className={classes.input_container_iconWrapper_icon}
             />
           </div>
-          <h2>
-            Registered successfully, please wait for activation email.
-          </h2>
+          <h2>{t("register.succesMsg")}</h2>
           <Button clicked={props.resetAuth}>Ok</Button>
         </div>
       )}

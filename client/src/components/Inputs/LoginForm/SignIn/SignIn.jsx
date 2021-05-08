@@ -15,7 +15,7 @@ const SignIn = (props) => {
       .email(t("validation.errEmailValidity"))
       .required(t("validation.errEmailReq")),
     password: Yup.string()
-      .min(5, t("validation.errPassMin"))
+      .min(6, t("validation.errPassMin"))
       .required(t("validation.errPassReq")),
   });
   return (

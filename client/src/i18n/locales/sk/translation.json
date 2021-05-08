@@ -13,7 +13,7 @@
     "prevPage": "Predošlá strana",
     "nextPage": "Ďaľšia strana"
   },
-  "sideDrawer" : {
+  "sideDrawer": {
     "dashboard": "Hlavný prehľad",
     "chat": "Video chat",
     "userList": "Zoznam užívateľov"
@@ -36,8 +36,10 @@
     "errFileFormat": "Nepodporovaný formát súboru",
     "errEmailValidity": "Neplatný email",
     "errEmailReq": "Email je vyžadovaný",
-    "errPassMin": "Minimálna dĺžka hesla je 5 znakov",
-    "errPassReq": "Heslo je vyžadované"
+    "errPassMin": "Minimálna dĺžka hesla je 6 znakov",
+    "errPassReq": "Heslo je vyžadované",
+    "errNameMax": "Niesme obsahovať viac ako 20 znakov",
+    "errConfirmPass": "Heslá sa nezhodujú"
   },
   "post": {
     "created": "Vytvorené:",
@@ -55,7 +57,7 @@
   "like": {
     "like": "pači sa",
     "dislike": "nepáči sa"
-  }, 
+  },
   "showLikes": {
     "noLikes": "Žiadny záznam",
     "people": "Uživateľia ktorým",
@@ -68,6 +70,13 @@
     "login": "Prihlásenie"
   },
   "register": {
-    "register": "Registrácia"
+    "title":"Prosím zaregistrujte sa",
+    "register": "Register",
+    "firstName": "Meno",
+    "lastName": "Priezvysko",
+    "email": "Email",
+    "password": "Heslo",
+    "confirmPass": "Heslo znovu",
+    "succesMsg": "Registrácia úspešná prosím počkajte na aktivačný email."
   }
 }

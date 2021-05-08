@@ -31,13 +31,15 @@
     "createBtn": "Create"
   },
   "validation": {
-    "errMax": "Príspevok musí obsahovať maximálne 255 znakov",
-    "errContent": "Obsah je vyžadovaný",
-    "errFileFormat": "Nepodporovaný formát súboru",
+    "errMax": "Content must be maximum 255 characted",
+    "errContent": "Content is required",
+    "errFileFormat": "Usuported file format",
     "errEmailValidity": "Email is invalid",
     "errEmailReq": "Email is required",
-    "errPassMin": "Minimun lenght of password is 5 characters",
-    "errPassReq": "Password is required"
+    "errPassMin": "Minimun lenght of password is 6 characters",
+    "errPassReq": "Password is required",
+    "errNameMax": "Must be 20 characters or less",
+    "errConfirmPass": "Password must match"
   },
   "post": {
     "created": "Created:",
@@ -68,6 +70,12 @@
     "login": "Login"
   },
   "register": {
-    "register": "Register"
+    "title":"Please register",
+    "register": "Register",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "password": "Password",
+    "confirmPass": "Confirm password",
+    "succesMsg": "Registered successfully, please wait for activation email."
   }
 }
