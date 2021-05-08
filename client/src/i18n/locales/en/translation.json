@@ -96,5 +96,12 @@
     "closeBtn": "Close",
     "resetBtn": "Reset",
     "btn": " Update"
+  },
+  "deleteAccount": {
+    "title": "Delete account",
+    "modalMsg": "Do you realy want to delete your accont ?",
+    "cancelBtn": "Cancel",
+    "deleteBtn": "Delete",
+    "msg": "You can delete your account here. Just pres delete button"
   }
 }

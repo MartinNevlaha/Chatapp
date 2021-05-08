@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./deleteAccount.module.scss";
 import Button from "../../UI/Button/Button";
@@ -6,13 +8,14 @@ import RetypeCheck from "./RetypeCheck/RetypeCheck";
 import { generateRandomNumbers } from "../../../utils/utilities";
 import Modal from "../../UI/Modal/Modal";
 
-export const DeleteAccount = ({deleteAccount}) => {
+export const DeleteAccount = ({ deleteAccount }) => {
   const [isRetypeShow, setIsRetypeShow] = useState(false);
   const [retypeString, setRetypeString] = useState("");
   const [inputString, setInputString] = useState("");
   const [isInValid, setIsInValid] = useState(true);
   const [isTouch, setIsTouch] = useState(false);
   const [isModalShow, setIsModalShow] = useState(false);
+  const { t } = useTranslation();
 
   const handleClickDelete = () => {
     setIsRetypeShow(true);
@@ -46,19 +49,23 @@ export const DeleteAccount = ({deleteAccount}) => {
     setIsModalShow(true);
   };
 
+  DeleteAccount.propTypes = {
+    deleteAccount: PropTypes.func,
+  };
+
   return (
     <React.Fragment>
-       <Modal show={isModalShow} cancel={handleModalClose}>
-        <p>Do you realy want to delete your accont ?</p>
+      <Modal show={isModalShow} cancel={handleModalClose}>
+        <p>{t("deleteAccount.modalMsg")}</p>
         <div>
           <Button danger clicked={handleModalClose}>
-            Cancel
+            {t("deleteAccount.cancelBtn")}
           </Button>
           <Button clicked={deleteAccount}>Ok</Button>
         </div>
       </Modal>
       <div className={classes.deleteAccount}>
-        <h2>Delete your account</h2>
+        <h2>{t("deleteAccount.title")}</h2>
         <div
           className={
             isRetypeShow
@@ -66,9 +73,9 @@ export const DeleteAccount = ({deleteAccount}) => {
               : classes.deleteAccount_container
           }
         >
-          <p>You can delete your account here. Just pres delete button</p>
+          <p>{t("deleteAccount.msg")}</p>
           <Button type="button" danger clicked={handleClickDelete}>
-            Delete
+          {t("deleteAccount.deleteBtn")}
           </Button>
         </div>
         <RetypeCheck
