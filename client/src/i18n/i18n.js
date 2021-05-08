@@ -11,8 +11,8 @@ i18n
     en: {translation: EN},
     sk: {translation: SK}
   },
-  lng: "sk",
-  fallbackLng: "sk",
+  lng: "en",
+  fallbackLng: "en",
   debug: false,
 
   interpolation: {

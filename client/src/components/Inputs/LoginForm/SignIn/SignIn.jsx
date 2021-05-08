@@ -1,18 +1,22 @@
 import React from "react";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 import classes from "./SignIn.module.scss";
 import TextField from "../../TextField/TextField";
 import Button from "../../../UI/Button/Button";
 
 const SignIn = (props) => {
+  const { t } = useTranslation();
   const validate = Yup.object({
-    email: Yup.string().email("Email is invalid").required("Email is required"),
+    email: Yup.string()
+      .email(t("validation.errEmailValidity"))
+      .required(t("validation.errEmailReq")),
     password: Yup.string()
-      .min(5, "Min lenght of password is 5 characters")
-      .required("Password is required"),
+      .min(5, t("validation.errPassMin"))
+      .required(t("validation.errPassReq")),
   });
   return (
     <Formik

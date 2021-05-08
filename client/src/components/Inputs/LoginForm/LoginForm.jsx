@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import classes from "./LoginForm.module.scss";
 import Card from "../../UI/Card/Card";
@@ -11,6 +12,7 @@ const LoginForm = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const loading = useSelector((state) => state.userAuth.loading);
   const registered = useSelector((state) => state.userAuth.registered);
+  const { t } = useTranslation();
 
   const handleTogleSignMode = (mode) => {
     let sign;
@@ -40,7 +42,7 @@ const LoginForm = (props) => {
                 }
                 onClick={() => handleTogleSignMode("in")}
               >
-                Sign In
+                {t("login.login")}
               </div>
               <div
                 className={
@@ -52,7 +54,7 @@ const LoginForm = (props) => {
                 }
                 onClick={() => handleTogleSignMode("up")}
               >
-                Register
+                {t("register.register")}
               </div>
             </div>
             {isSignUp ? (

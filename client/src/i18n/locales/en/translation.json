@@ -31,9 +31,13 @@
     "createBtn": "Create"
   },
   "validation": {
-    "errMax": "Your post must be 255 characters or less",
-    "errContent": "Content is required",
-    "errFileFormat": "Unsuported image file format"
+    "errMax": "Príspevok musí obsahovať maximálne 255 znakov",
+    "errContent": "Obsah je vyžadovaný",
+    "errFileFormat": "Nepodporovaný formát súboru",
+    "errEmailValidity": "Email is invalid",
+    "errEmailReq": "Email is required",
+    "errPassMin": "Minimun lenght of password is 5 characters",
+    "errPassReq": "Password is required"
   },
   "post": {
     "created": "Created:",
@@ -62,5 +66,8 @@
     "email": "Email",
     "password": "Password",
     "login": "Login"
+  },
+  "register": {
+    "register": "Register"
   }
 }

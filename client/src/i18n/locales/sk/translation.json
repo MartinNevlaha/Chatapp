@@ -33,7 +33,11 @@
   "validation": {
     "errMax": "Príspevok musí obsahovať maximálne 255 znakov",
     "errContent": "Obsah je vyžadovaný",
-    "errFileFormat": "Nepodporovaný formát súboru"
+    "errFileFormat": "Nepodporovaný formát súboru",
+    "errEmailValidity": "Neplatný email",
+    "errEmailReq": "Email je vyžadovaný",
+    "errPassMin": "Minimálna dĺžka hesla je 5 znakov",
+    "errPassReq": "Heslo je vyžadované"
   },
   "post": {
     "created": "Vytvorené:",
@@ -61,6 +65,9 @@
     "title": "Prosím prihláste sa",
     "email": "Email",
     "password": "Heslo",
-    "login": "Prihlasiť"
+    "login": "Prihlásenie"
+  },
+  "register": {
+    "register": "Registrácia"
   }
 }
