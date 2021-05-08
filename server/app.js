@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
+app.set("trust proxy", true);
 app.use(compression());
 app.use(
   morgan("combined", {
@@ -31,10 +32,15 @@ app.use(
 //router
 app.use(router);
 
+//serve static content
 app.use(express.static(path.join(__dirname, "uploads")));
+app.use(express.static(path.join(__dirname, "../", "client", "build")));
+
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"));
+});
 
 //Error handler
-
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
