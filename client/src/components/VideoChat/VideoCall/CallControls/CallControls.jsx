@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhoneSlash,
@@ -11,6 +11,8 @@ import {
   faVideoSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import ReactTooltip from "react-tooltip";
+import { useTranslation } from "react-i18next";
 
 import classes from "./CallControls.module.scss";
 
@@ -26,8 +28,9 @@ const CallControls = ({
   muteVideo,
   isFullscreen,
   onExitFullscreen,
-  mouseMove
 }) => {
+  const { t } = useTranslation();
+
   CallControls.propTypes = {
     isMeCalling: PropTypes.bool,
     onAcceptCall: PropTypes.func,
@@ -41,7 +44,6 @@ const CallControls = ({
     muteVideo: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     onExitFullscreen: PropTypes.func,
-    mouseMove: PropTypes.bool
   };
 
   return (
@@ -53,46 +55,80 @@ const CallControls = ({
       }
     >
       {!isMeCalling && (
-        <div
-          className={classes.callControls_accept}
-          onClick={() => onAcceptCall()}
-        >
-          <FontAwesomeIcon icon={faPhone} />
-        </div>
+        <React.Fragment>
+          <div
+            className={classes.callControls_accept}
+            onClick={() => onAcceptCall()}
+            data-tip
+            data-for="accept"
+          >
+            <FontAwesomeIcon icon={faPhone} />
+          </div>
+          <ReactTooltip id="accept" place="top" effect="solid" border={true}>
+            {t("callControls.accept")}
+          </ReactTooltip>
+        </React.Fragment>
       )}
       {callAccepted && (
-        <div
-          className={classes.callControls_icon}
-          onClick={() => onMuteAudio()}
-        >
-          <FontAwesomeIcon
-            icon={muteAudio ? faMicrophoneSlash : faMicroscope}
-          />
-        </div>
-      )}
-      {callAccepted && (
-        <div
-          className={classes.callControls_icon}
-          onClick={() => onMuteVideo()}
-        >
-          <FontAwesomeIcon icon={muteVideo ? faVideoSlash : faVideo} />
-        </div>
+        <React.Fragment>
+          <div
+            className={classes.callControls_icon}
+            onClick={() => onMuteAudio()}
+            data-tip
+            data-for="audio"
+          >
+            <FontAwesomeIcon
+              icon={muteAudio ? faMicrophoneSlash : faMicroscope}
+            />
+          </div>
+          <ReactTooltip id="audio" place="top" effect="solid" border={true}>
+            {t("callControls.audio")}
+          </ReactTooltip>
+          <div
+            className={classes.callControls_icon}
+            onClick={() => onMuteVideo()}
+            data-tip
+            data-for="video"
+          >
+            <FontAwesomeIcon icon={muteVideo ? faVideoSlash : faVideo} />
+          </div>
+          <ReactTooltip id="video" place="top" effect="solid" border={true}>
+            {t("callControls.video")}
+          </ReactTooltip>
+        </React.Fragment>
       )}
       <div
         className={classes.callControls_reject}
         onClick={() => onCallRejected()}
+        data-tip
+        data-for="reject"
       >
         <FontAwesomeIcon icon={faPhoneSlash} />
       </div>
+      <ReactTooltip id="reject" place="top" effect="solid" border={true}>
+        {t("callControls.reject")}
+      </ReactTooltip>
       {callAccepted && typeof onfullScreen !== "undefined" && (
-        <div
-          className={classes.callControls_icon}
-          onClick={
-            !isFullscreen ? () => onfullScreen() : () => onExitFullscreen()
-          }
-        >
-          <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} />
-        </div>
+        <React.Fragment>
+          <div
+            className={classes.callControls_icon}
+            onClick={
+              !isFullscreen ? () => onfullScreen() : () => onExitFullscreen()
+            }
+            data-tip
+            data-for="fullscreen"
+          >
+            <FontAwesomeIcon icon={isFullscreen ? faCompress : faExpand} />
+          </div>
+          <ReactTooltip
+            id="fullscreen"
+            place="top"
+            effect="solid"
+            border={true}
+          >
+            {t("callControls.fullscreen")}
+          </ReactTooltip>
+        </React.Fragment>
       )}
     </div>
   );

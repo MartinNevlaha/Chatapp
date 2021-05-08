@@ -156,5 +156,12 @@
   },
   "message": {
     "userWrote": " napísal:"
+  },
+  "callControls": {
+    "accept": "Prijať hovor",
+    "reject": "Odmietnuť hovor",
+    "autio": "Vypnuť zvuk",
+    "video": "Vypnuť video",
+    "fullscreen": "Celá obrazovka"
   }
 }

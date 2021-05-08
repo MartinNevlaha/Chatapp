@@ -155,5 +155,12 @@
   },
   "message": {
     "userWrote": "s wrote:"
+  },
+  "callControls": {
+    "accept": "Accept call",
+    "reject": "Reject call",
+    "autio": "Mute audio",
+    "video": "Mute video",
+    "fullscreen": "Fullscreen"
   }
 }
