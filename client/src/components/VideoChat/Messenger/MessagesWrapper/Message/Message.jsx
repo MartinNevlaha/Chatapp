@@ -2,12 +2,14 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import classes from "./Message.module.scss";
 import { parseDateTime } from "../../../../../utils/utilities";
 import LazyImage from "../../../../UI/LazyImage/LazyImage";
 
 const Message = ({ message, userId }) => {
+  const { t } = useTranslation();
   Message.propTypes = {
     message: PropTypes.object,
     userId: PropTypes.number,
@@ -47,7 +49,10 @@ const Message = ({ message, userId }) => {
         >
           {message.type === "text" ? (
             <React.Fragment>
-              <h2>{`${message.User.firstName}s wrote:`}</h2>
+              <h2>
+                {message.User.firstName}
+                {t("message.userWrote")}
+              </h2>
               <p>{message.message}</p>
             </React.Fragment>
           ) : (

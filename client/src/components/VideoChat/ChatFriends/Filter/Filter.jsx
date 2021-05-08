@@ -8,7 +8,11 @@ import SearchInput from "../../../Inputs/SearchInputs/SearchInputs";
 const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
   const { t } = useTranslation();
 
-  const btns = ["all", "online", "offline"];
+  const btns = [
+    t("friendsFilter.all"),
+    t("friendsFilter.online"),
+    t("friendsFilter.offline"),
+  ];
 
   Filter.propTypes = {
     filterBy: PropTypes.func,
@@ -19,9 +23,13 @@ const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
 
   return (
     <div className={classes.filter}>
-      <SearchInput currentValue={searchValue} onChangeInput={onSearch} styleType="small" />
+      <SearchInput
+        currentValue={searchValue}
+        onChangeInput={onSearch}
+        styleType="small"
+      />
       <div className={classes.filter_btns}>
-        <p>Show friends</p>
+        <p>{t("friendsFilter.title")}</p>
         {btns.map((btn) => (
           <button
             key={btn}

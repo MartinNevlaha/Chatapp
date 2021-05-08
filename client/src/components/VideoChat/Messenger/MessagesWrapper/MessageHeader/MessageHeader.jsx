@@ -7,11 +7,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
+import { useTranslation } from "react-i18next";
 
 import StatusDot from "../../../../UI/StatusDot/StatusDot";
 import classes from "./MessageHeader.module.scss";
 
 const MessageHeader = ({ user, onCloseChat, onCallToInit }) => {
+  const { t } = useTranslation();
+
   MessageHeader.propTypes = {
     user: PropTypes.object,
     onCloseChat: PropTypes.func,
@@ -25,10 +28,10 @@ const MessageHeader = ({ user, onCloseChat, onCallToInit }) => {
           className={classes.MessagesWrapper_back_icon}
         />
         <p data-tip data-for="back">
-          Back
+          {t("messageHeader.back")}
         </p>
         <ReactTooltip id="back" place="top" effect="solid" border={true}>
-          Back to other chats
+        {t("messageHeader.backMsg")}
         </ReactTooltip>
       </div>
       <div className={classes.messageHeader_user}>
@@ -55,7 +58,7 @@ const MessageHeader = ({ user, onCloseChat, onCallToInit }) => {
           onClick={user.status === "online" ? () => onCallToInit(user) : null}
         />
         <ReactTooltip id="video" place="top" effect="solid" border={true}>
-          Click start video call
+        {t("messageHeader.videoMsg")}
         </ReactTooltip>
       </div>
     </div>

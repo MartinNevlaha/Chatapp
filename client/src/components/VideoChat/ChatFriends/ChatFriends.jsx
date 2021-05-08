@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 import classes from "./ChatFriends.module.scss";
 import ChatFriend from "./ChatFriend/ChatFriend";
@@ -16,11 +17,12 @@ const ChatFriends = ({
   onAddToChat,
   show,
   onShowFriends,
-  onCallToInit
+  onCallToInit,
 }) => {
   const [filterBy, setFilterBy] = useState("all");
   const [searchValue, setSearchValue] = useState("");
   const friendsRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClose);
@@ -57,7 +59,7 @@ const ChatFriends = ({
     onAddToChat: PropTypes.func,
     show: PropTypes.bool,
     onShowFriends: PropTypes.func,
-    onCallToInit: PropTypes.func
+    onCallToInit: PropTypes.func,
   };
 
   return (
@@ -77,7 +79,7 @@ const ChatFriends = ({
           >
             <FontAwesomeIcon icon={faChevronLeft} color="white" />
           </div>
-          <h2>Friends</h2>
+          <h2>{t("chatFriends.friend")}</h2>
         </div>
         <Filter
           filterBy={handleSetFilter}

@@ -121,5 +121,40 @@
   },
   "user": {
     "regSince": "Registrovaný od:"
+  },
+  "chatFriends": {
+    "friend": "Priatelia"
+  },
+  "chatFriend": {
+    "btn": "Pridaj priateľa"
+  },
+  "friendsFilter": {
+    "title": "Ukáž priateľov",
+    "all": "všetkých",
+    "online": "online",
+    "offline": "offline"
+  },
+  "messenger": {
+    "question": "Naozaj chcete zmazať tento chat ?",
+    "cancelBtn": "Zrušiť",
+    "title": "Správy"
+  },
+  "chatItem": {
+    "msgFrom": "Správa od:",
+    "newMsg": "Nová sprava",
+    "noNewMsg": "Žiadna nová sprava",
+    "lstMsg": "Posledná sprava",
+    "noMsgContent": "Žiadne spravy",
+    "send": "Poslané",
+    "clickToOpen": "Klikni pre otvorenie chatu",
+    "clickToDelete": "Klikni pre zmazanie chatu"
+  },
+  "messageHeader": {
+    "back": "Späť",
+    "backMsg": "Späť na ostné chaty",
+    "videoMsg": "Klikni pre záhajenie video hovoru"
+  },
+  "message": {
+    "userWrote": " napísal:"
   }
 }

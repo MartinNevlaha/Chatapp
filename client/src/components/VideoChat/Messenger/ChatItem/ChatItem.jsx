@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
+import { useTranslation } from "react-i18next";
 
 import classes from "./ChatItem.module.scss";
 import { parseDateTime } from "../../../../utils/utilities";
@@ -11,6 +12,8 @@ import StatusDot from "../../../UI/StatusDot/StatusDot";
 import { unreadMessages } from "../../../../utils/utilities";
 
 const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
+  const { t } = useTranslation();
+
   ChatItem.propTypes = {
     onOpenChat: PropTypes.func,
     openModal: PropTypes.func,
@@ -36,7 +39,7 @@ const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
     <div className={classes.chatItem}>
       <div className={classes.chatItem_header}>
         <div className={classes.chatItem_header_friends}>
-          <h2>Message from</h2>
+          <h2>{t("chatItem.msgFrom")}</h2>
           {chat.Users.map((user) => (
             <div key={user.id} className={classes.chatItem_header_friends_user}>
               <h4>{user.fullName}</h4>
@@ -48,7 +51,7 @@ const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
           {unreadMessages(userId, chat.LastReadMessages, chat.Messages)
             .hasUnreadMessages ? (
             <div className={classes.chatItem_header_newMessage_yes}>
-              <p>New message</p>
+              <p>{t("chatItem.newMsg")}</p>
               <div className={classes.chatItem_header_newMessage_yes_number}>
                 <p>
                   {
@@ -60,7 +63,7 @@ const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
             </div>
           ) : (
             <div className={classes.chatItem_header_newMessage_no}>
-              <p>No new messages</p>
+              <p>{t("chatItem.noNewMsg")}</p>
             </div>
           )}
         </div>
@@ -71,9 +74,9 @@ const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
         data-tip
         data-for="lastMessage"
       >
-        <h2>Last message</h2>
+        <h2>{t("chatItem.lstMsg")}</h2>
         {!chat.Messages[chat.Messages.length - 1] ? (
-          <p>No message content</p>
+          <p>{t("chatItem.noMsgContent")}</p>
         ) : (
           <div className={classes.chatItem_lastMessage_content}>
             {chat.Messages[chat.Messages.length - 1].type === "text" ? (
@@ -89,26 +92,26 @@ const ChatItem = ({ chat, onOpenChat, userId, openModal }) => {
               </div>
             )}
             <p>
-              Send:{" "}
+              {t("chatItem.send")}:{" "}
               {parseDateTime(chat.Messages[chat.Messages.length - 1].createdAt)}
             </p>
           </div>
         )}
       </div>
       <ReactTooltip id="lastMessage" place="top" effect="solid" border={true}>
-        Click to open chat
+        {t("chatItem.clickToOpen")}
       </ReactTooltip>
       <div className={classes.chatItem_delete}>
         <FontAwesomeIcon
           icon={faTrashAlt}
           size="1x"
           className={classes.chatItem_delete_icon}
-          onClick={()=>openModal(chat.id)}
+          onClick={() => openModal(chat.id)}
           data-tip
           data-for="deleteChat"
         />
         <ReactTooltip id="deleteChat" place="top" effect="solid" border={true}>
-          Click to delete chat
+        {t("chatItem.clickToDelete")}
         </ReactTooltip>
       </div>
     </div>

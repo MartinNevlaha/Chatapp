@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 import classes from "./Messenger.module.scss";
 import SearchInput from "../../Inputs/SearchInputs/SearchInputs";
@@ -21,11 +22,12 @@ const Messenger = ({
   showFriends,
   onCallToInit,
   setOpenedChatId,
-  openedChatId
+  openedChatId,
 }) => {
   const [searchMessageValue, setSearchMessageValue] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [choosenChatId, setChoosenChatId] = useState(null);
+  const { t } = useTranslation();
 
   const handleOpenChat = (chatId) => {
     setOpenedChatId(chatId);
@@ -84,16 +86,16 @@ const Messenger = ({
     showFriends: PropTypes.bool,
     onCallToInit: PropTypes.func,
     setOpenedChatId: PropTypes.func,
-    openedChatId: PropTypes.number
+    openedChatId: PropTypes.number,
   };
 
   return (
     <React.Fragment>
       <Modal show={showModal} cancel={() => setShowModal(false)}>
-        <p>Do you want to delete this chat</p>
+        <p>{t("messenger.question")}</p>
         <div>
           <Button danger clicked={() => setShowModal(false)}>
-            Cancel
+            {t("messenger.cancelBtn")}
           </Button>
           <Button clicked={handleDeleteChat}>Ok</Button>
         </div>
@@ -107,7 +109,7 @@ const Messenger = ({
             >
               <FontAwesomeIcon icon={faUsers} color="white" />
             </div>
-            <h2>Messenger</h2>
+            <h2>{t("messenger.title")}</h2>
           </div>
           {!showFriends && (
             <div className={classes.messenger_header_input}>
