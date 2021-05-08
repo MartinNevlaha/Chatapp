@@ -21,6 +21,16 @@
       border-radius: 50%;
       background-color: get-color(gray_profile);
     }
+    @media only screen and (max-width: 800px) {
+
+      img {
+        @include avatar-medium;
+      }
+      &_icon {
+        width: 60px;
+        height: 60px;
+      }
+    }
   }
   &_info {
     width: 30%;
