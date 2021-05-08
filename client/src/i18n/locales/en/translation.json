@@ -89,5 +89,8 @@
     "requestSend": "Request was send:",
     "acceptBtn": "Accept",
     "rejectBtn": "Reject"
+  },
+  "userProfile": {
+
   }
 }

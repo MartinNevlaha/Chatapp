@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./FriendRequest.module.scss";
 import Button from "../UI/Button/Button";
@@ -26,12 +28,21 @@ const FriendRequests = ({ pendingRequests, handleFriendRequest }) => {
               className={classes.friendRequest_request_container}
               key={request.id}
             >
-              <div className={classes.friendRequest_request_container_avatar}>
-                <img src={request.requestor.avatar} alt="avatar" />
-              </div>
+              {request.requestor.avatar ? (
+                <div className={classes.friendRequest_request_container_avatar}>
+                  <img src={request.requestor.avatar} alt="avatar" />
+                </div>
+              ) : (
+                <div className={classes.friendRequest_request_container_icon}>
+                    <FontAwesomeIcon icon={faUser} size="2x"/>
+                </div>
+              )}
               <div className={classes.friendRequest_request_container_info}>
                 <h3>{request.requestor.fullName}</h3>
-                <p>{t("friendRequest.requestSend")} {parseDateTime(request.createdAt)}</p>
+                <p>
+                  {t("friendRequest.requestSend")}{" "}
+                  {parseDateTime(request.createdAt)}
+                </p>
               </div>
               <div className={classes.friendRequest_request_container_button}>
                 <Button

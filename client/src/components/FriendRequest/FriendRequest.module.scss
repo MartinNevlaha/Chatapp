@@ -35,6 +35,14 @@
           @include avatar-big;
         }
       }
+      &_icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: get-color(gray_profile);
+        @include flexbox(center, center, row);
+        padding: 0.5rem;
+      }
       &_info {
         h3 {
           font-size: get-font-size(medium);
@@ -45,6 +53,15 @@
           font-size: get-font-size(small);
           font-style: italic;
         }
+      }
+      @media only screen and (max-width: 800px) {
+          &_avatar {
+            @include avatar-medium;
+          }
+          &_icon {
+            width: 60px;
+            height: 60px;
+          }
       }
     }
   }

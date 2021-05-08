@@ -4,13 +4,14 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faImage } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import classes from "./UserUpdateForm.module.scss";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import TextField from "../Inputs/TextField/TextField";
 
-const UserUpdate = (props) => {
+const UserUpdate = ({ updateProfile }) => {
   const [pwdReset, setPwdReset] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const user = useSelector((state) => state.userProfile.user);
@@ -64,6 +65,10 @@ const UserUpdate = (props) => {
     );
   }
 
+  UserUpdate.propTypes = {
+    updateProfile: PropTypes.func,
+  };
+
   return (
     <Formik
       enableReinitialize={true}
@@ -83,7 +88,7 @@ const UserUpdate = (props) => {
           data.append(key, value);
         }
 
-        props.updateProfile(data);
+        updateProfile(data);
       }}
     >
       {(formProps) => (
