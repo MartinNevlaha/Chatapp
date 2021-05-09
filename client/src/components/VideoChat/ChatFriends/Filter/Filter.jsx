@@ -8,11 +8,7 @@ import SearchInput from "../../../Inputs/SearchInputs/SearchInputs";
 const Filter = ({ filterBy, searchValue, onSearch, activeBtn }) => {
   const { t } = useTranslation();
 
-  const btns = [
-    t("friendsFilter.all"),
-    t("friendsFilter.online"),
-    t("friendsFilter.offline"),
-  ];
+  const btns = ["all", "online", "offline"];
 
   Filter.propTypes = {
     filterBy: PropTypes.func,
