@@ -14,6 +14,7 @@
     @include flexbox(center, center, row);
     p {
       margin-left: 0.5rem;
+      font-size: get-font-size(medium);
     }
   }
 
@@ -29,6 +30,8 @@
       @include flexbox(center, center, column);
       overflow: hidden;
       margin: .5rem;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
 
       img {
         @include avatar;
@@ -38,10 +41,13 @@
     &_icon {
       @extend .messageHeader_user_image;
       background-color: get-color(gray_profile);
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
     }
     p {
       padding: 0.3rem;
       margin: 0.5rem;
+      font-size: get-font-size(medium);
     }
     &_video {
       color: gray;
