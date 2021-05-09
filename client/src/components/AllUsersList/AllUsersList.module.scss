@@ -22,6 +22,7 @@
   &_footer {
     width: 100%;
     border-top: 1px solid get-color(text);
+    font-size: get-font-size(small);
     @include flexbox(space-between, center, row);
     &_pages {
       margin: .5rem;
