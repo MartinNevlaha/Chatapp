@@ -3,7 +3,7 @@
 .chatFriends {
   position: absolute;
   top: 0;
-  left: -100vw;
+  left: -200vw;
   display: none;
   min-width: 250px;
   width: 25vw;
@@ -11,6 +11,7 @@
   background-color: lighten(get-color(gray_profile), 15%);
   overflow: hidden;
   z-index: 10;
+  transition: all 0.8s ease-in-out;
 
   &_header {
     width: 100%;
@@ -57,11 +58,17 @@
     width: 100%;
     padding-bottom: 1rem;
   }
+
+  @media only screen and (max-width: 500px) {
+    width: 100%;
+  }
 }
 
 .open {
   display: block;
   left: 0;
+  animation: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 @include pulse;
+@include opacity;
