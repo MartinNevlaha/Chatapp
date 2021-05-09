@@ -27,6 +27,9 @@
             text-align: left;
         }
     }
+    @media only screen and (max-width: 500px) {
+        top: -3.5rem;
+    }
 }
 
 .open {
