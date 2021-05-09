@@ -34,10 +34,10 @@ app.use(router);
 
 //serve static content
 app.use(express.static(path.join(__dirname, "uploads")));
-app.use(express.static(path.join("public")));
+app.use(express.static(path.join(__dirname, "../", "client", "build")));
 
 app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"));
 });
 
 //Error handler
