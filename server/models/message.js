@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
             if (config.nodeEnv === "production") {
               return `${config.appUrl}/users/${userId}/chats/${chatId}/${content}`;
             } else {
-              `${config.appUrl}:${config.appPort}/users/${userId}/chats/${chatId}/${content}`;
+              return `${config.appUrl}:${config.appPort}/users/${userId}/chats/${chatId}/${content}`;
             }
           }
         },
