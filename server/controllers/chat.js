@@ -141,8 +141,8 @@ exports.createChat = async (req, res, next) => {
             model: Message,
           },
           {
-            model: LastReadMessage
-          }
+            model: LastReadMessage,
+          },
         ],
       });
       if (!createdChat) {
@@ -236,7 +236,10 @@ exports.imageUpload = (req, res, next) => {
   if (req.file) {
     return res.json({
       imageUrl: req.file.filename,
-      imageUrlForSendEvent: `${config.appUrl}:${config.appPort}/users/${req.user.id}/chats/${req.body.id}/${req.file.filename}`,
+      imageUrlForSendEvent:
+        config.nodeEnv !== "production"
+          ? `${config.appUrl}:${config.appPort}/users/${req.user.id}/chats/${req.body.id}/${req.file.filename}`
+          : `${config.appUrl}/users/${req.user.id}/chats/${req.body.id}/${req.file.filename}`,
     });
   } else {
     const error = new Error("No file to upload");
