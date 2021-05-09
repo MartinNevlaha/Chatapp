@@ -31,6 +31,7 @@
       }
 
       &_avatar {
+        padding: 0.8rem;
         img {
           @include avatar-big;
         }
@@ -41,7 +42,7 @@
         border-radius: 50%;
         background-color: get-color(gray_profile);
         @include flexbox(center, center, row);
-        padding: 0.5rem;
+        padding: 0.8rem;
       }
       &_info {
         h3 {

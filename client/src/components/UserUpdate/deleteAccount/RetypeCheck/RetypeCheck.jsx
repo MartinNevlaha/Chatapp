@@ -25,7 +25,7 @@ export const RetypeCheck = ({
     inputValue: PropTypes.string,
     changeInput: PropTypes.func,
     isInValid: PropTypes.bool,
-    openModal: PropTypes.bool,
+    openModal: PropTypes.func,
     isTouch: PropTypes.bool,
     refresh: PropTypes.func,
   };
