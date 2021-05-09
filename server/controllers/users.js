@@ -61,7 +61,11 @@ const isFriends = async (users, userId) => {
     });
     let avatar = null;
     if (user.avatar) {
-      avatar = `${config.appUrl}:${config.appPort}/users/${user.id}/${user.avatar}`;
+      if (config.nodeEnv === "production") {
+        avatar = `${config.appUrl}/users/${user.id}/${user.avatar}`;
+      } else {
+        avatar = `${config.appUrl}:${config.appPort}/users/${user.id}/${user.avatar}`;
+      }
     }
     if (friendshipStatus) {
       usersWithFriendshipStatus.push({
