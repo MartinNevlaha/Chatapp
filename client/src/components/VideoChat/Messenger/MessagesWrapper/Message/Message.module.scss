@@ -5,6 +5,7 @@
   padding: .5rem;
   margin: .5rem;
   @include flexbox(flex-start, flex-start, row);
+  flex-wrap: wrap-reverse;
 
   &_avatar {
     min-width: 50px;
@@ -84,6 +85,7 @@
 
 .rightAlign {
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .rightAlignColors {
