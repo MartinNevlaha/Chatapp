@@ -47,7 +47,11 @@ module.exports = (sequelize, DataTypes) => {
           const avatar = this.getDataValue("avatar");
           if (avatar) {
             const id = this.getDataValue("id");
-            return `${config.appUrl}:${config.appPort}/users/${id}/${avatar}`;
+            if (config.nodeEnv === "production") {
+              return `${config.appUrl}/users/${id}/${avatar}`;
+            } else {
+              return `${config.appUrl}:${config.appPort}/users/${id}/${avatar}`;
+            }
           } else {
             return null;
           }

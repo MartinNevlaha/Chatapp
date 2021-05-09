@@ -12,7 +12,7 @@ exports.userAvatarUpload = ((req, res, next) => {
       fs.access(dest, (error) => {
         //folder doesnt exists
         if (error) {
-          return fs.mkdir(dest, (error) => {
+          return fs.mkdir(dest, { recursive: true }, (error) => {
             cb(error, dest);
           });
         } else {

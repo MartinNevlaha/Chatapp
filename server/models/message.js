@@ -27,10 +27,15 @@ module.exports = (sequelize, DataTypes) => {
           const chatId = this.getDataValue("chatId");
           const userId = this.getDataValue("fromUserId");
           const content = this.getDataValue("message");
-
-          return type === "text"
-            ? content
-            : `${config.appUrl}:${config.appPort}/users/${userId}/chats/${chatId}/${content}`;
+          if (type === "text") {
+            return content;
+          } else {
+            if (config.nodeEnv === "production") {
+              return `${config.appUrl}/users/${userId}/chats/${chatId}/${content}`;
+            } else {
+              `${config.appUrl}:${config.appPort}/users/${userId}/chats/${chatId}/${content}`;
+            }
+          }
         },
       },
     },
