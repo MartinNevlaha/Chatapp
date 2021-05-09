@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as action from "../../../../../store/actions";
 import classes from "./MessageInput.module.scss";
 import "emoji-mart/css/emoji-mart.css";
+import useDimensions from "../../../../../hooks/useDimensions";
 
 const MessageInput = ({ user, toUserId, chatId }) => {
   const fileUpload = useRef(null);
@@ -25,7 +26,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     (state) => state.chat.imageUploadProgress
   );
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
+  const { width, height } = useDimensions();
 
   const handleMessageInput = (e) => {
     const value = e.target.value;
@@ -109,6 +110,8 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     messages: PropTypes.array,
   };
 
+  let emojiPosition = "-170px";
+  if (width <= 500) emojiPosition = "-100px";
   return (
     <div className={classes.input}>
       <div className={classes.input_imageUpload}>
@@ -171,7 +174,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
           <Picker
             title="Pick your emoji"
             emoji="point_up"
-            style={{ position: "absolute", bottom: "30px", left: "-170px" }}
+            style={{ position: "absolute", bottom: "30px", left: emojiPosition }}
             onSelect={selectEmoji}
           />
         )}

@@ -8,6 +8,7 @@ import Messenger from "./Messenger/Messenger";
 import VideoCall from "./VideoCall/VideoCall";
 import { VideoContext } from "../../context/VideoContext";
 import * as action from "../../store/actions";
+import useDimensions from "../../hooks/useDimensions";
 
 const VideoChatComp = ({
   friends,
@@ -18,7 +19,7 @@ const VideoChatComp = ({
   onDeleteChat,
   onAddToChat,
   setOpenedChatId,
-  openedChatId
+  openedChatId,
 }) => {
   const dispatch = useDispatch();
   const [showFriendsList, setShowFriendsList] = useState(false);
@@ -37,6 +38,8 @@ const VideoChatComp = ({
   const muteVideo = useSelector((state) => state.videoCall.muteVideo);
   const stream = useSelector((state) => state.videoCall.stream);
 
+  const { width, height } = useDimensions();
+
   const handleCallToInit = (friend) => {
     dispatch(action.callToInit(friend));
   };
@@ -50,11 +53,11 @@ const VideoChatComp = ({
     onDeleteChat: PropTypes.func,
     onAddToChat: PropTypes.func,
     setOpenedChatId: PropTypes.func,
-    openedChatId: PropTypes.number
+    openedChatId: PropTypes.number,
   };
 
-  return (
-    <div className={classes.videoChat}>
+  const content = (
+    <React.Fragment>
       <ChatFriends
         show={showFriendsList}
         friends={friends}
@@ -89,8 +92,16 @@ const VideoChatComp = ({
           openedChatId={openedChatId}
         />
       )}
-    </div>
+    </React.Fragment>
   );
+
+  let wrapper = <React.Fragment>{content}</React.Fragment>;
+
+  if (width >= 500) {
+    wrapper = <div className={classes.videoChat}>{content}</div>;
+  }
+
+  return wrapper;
 };
 
 export default VideoChatComp;

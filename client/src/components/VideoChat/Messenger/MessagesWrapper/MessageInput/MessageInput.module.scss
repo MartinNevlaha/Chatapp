@@ -37,6 +37,9 @@
         padding: 0 0.5rem;
       }
     }
+    @media only screen and (max-width: 500px) {
+      width: 25%;
+    }
   }
 
   &_messageInput {
@@ -73,6 +76,10 @@
       &:hover {
         color: get-color(secondary);
       }
+    }
+
+    @media only screen and (max-width: 500px) {
+      width: 65%;
     }
   }
 }
