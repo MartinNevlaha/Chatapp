@@ -95,10 +95,14 @@ const VideoChatComp = ({
     </React.Fragment>
   );
 
-  let wrapper = <React.Fragment>{content}</React.Fragment>;
+  let wrapper = <React.Fragment>
+    {content}
+  </React.Fragment>
 
-  if (width >= 500) {
-    wrapper = <div className={classes.videoChat}>{content}</div>;
+  if ( width >= 500 ) {
+    wrapper = <div className={classes.videoChat}>
+      {content}
+    </div>
   }
 
   return wrapper;
