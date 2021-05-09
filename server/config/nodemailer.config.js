@@ -23,7 +23,7 @@ module.exports.sendConfirmationMail = async (
       html: `<h1>Please activate your account</h1>
       <h2>Hello ${name}</h2>
       <p>Thank you for registering. Please confirm your email by clicking on the following link</p>
-      <a href=http://localhost:3000/activation/${confirmationToken}> Click here</a>
+      <a href=${config.appUrl}/activation/${confirmationToken}> Click here</a>
       <p>This link will be valid only for 1 hours, then your registration data will be delete</p>
       </div>`,
     });
