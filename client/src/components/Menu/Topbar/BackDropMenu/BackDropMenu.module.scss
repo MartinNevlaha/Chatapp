@@ -56,6 +56,10 @@
     border-bottom: 1px solid gray;
     color: get-color(text);
   }
+
+  @media only screen and (max-width: 450px) {
+    right: 30px;
+  }
 }
 
 .account_icon_wrapper {
@@ -86,6 +90,9 @@
   &:active {
     background-color: get-color(shadow);
     animation: pulse 2s infinite;
+  }
+  @media only screen and (max-width: 450px) {
+    margin-right: 1.5rem;
   }
 }
 
