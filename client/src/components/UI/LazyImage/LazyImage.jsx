@@ -2,13 +2,14 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import PropTypes from "prop-types";
 
-export const LazyImage = ({ image }) => {
+import classes from "./LazyImage.module.scss";
 
+export const LazyImage = ({ image }) => {
   LazyImage.propTypes = {
-    image: PropTypes.object
-  }
+    image: PropTypes.object,
+  };
   return (
-    <div>
+    <div className={classes.lazy}>
       <LazyLoadImage alt={image.alt} src={image.src} effect="opacity" />
     </div>
   );

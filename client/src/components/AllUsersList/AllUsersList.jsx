@@ -64,7 +64,7 @@ const AllUsersList = ({
     page: PropTypes.number,
     handleCurrentPage: PropTypes.func,
     handleSetLimit: PropTypes.func,
-    limit: PropTypes.number,
+    limit: PropTypes.string,
     addFriend: PropTypes.func,
   };
 

@@ -13,6 +13,7 @@ import LazyImage from "../../UI/LazyImage/LazyImage";
 import EditPost from "./EditPost/EditPost";
 import EditMode from "./EditMode/EditMode";
 import Likes from "./Likes/Likes";
+import Modal from "../../UI/Modal/Modal";
 
 const Post = ({
   post,
