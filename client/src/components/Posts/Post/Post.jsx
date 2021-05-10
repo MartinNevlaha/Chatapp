@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
@@ -26,12 +26,17 @@ const Post = ({
   showLikes,
   placeOfUsage,
 }) => {
+  const [isModalOpen, setisModalOpen] = useState(false);
   const { t } = useTranslation();
   const history = useHistory();
 
   const handleRedirectToUserInfo = (userId) => {
     history.push(`/user-info/${userId}`);
   };
+
+  const handleCloseModal = () => {
+    setisModalOpen(false)
+  }
 
   Post.propTypes = {
     post: PropTypes.object,
@@ -46,102 +51,113 @@ const Post = ({
   };
 
   return (
-    <div className={classes.post}>
-      <Card type="medium_card">
-        <div className={classes.post_content}>
-          <div className={classes.post_content_header}>
-            <p>{t("post.created")} {parseDateTime(post.createdAt)}</p>
-            {placeOfUsage === "dashboard" && userId === post.User.id && (
-              <EditPost
-                deletePost={deletePost}
-                postId={post.id}
-                setEditMode={setEditMode}
+    <React.Fragment>
+      <Modal show={isModalOpen} cancel={handleCloseModal}>
+        <p>Click outside the image to close</p>
+        <LazyImage image={{src: post.image, alt: "postImageFull"}}/>
+      </Modal>
+      <div className={classes.post}>
+        <Card type="medium_card">
+          <div className={classes.post_content}>
+            <div className={classes.post_content_header}>
+              <p>
+                {t("post.created")} {parseDateTime(post.createdAt)}
+              </p>
+              {placeOfUsage === "dashboard" && userId === post.User.id && (
+                <EditPost
+                  deletePost={deletePost}
+                  postId={post.id}
+                  setEditMode={setEditMode}
+                />
+              )}
+            </div>
+            <hr />
+            {!post.editMode ? (
+              <React.Fragment>
+                <div className={classes.post_content_container}>
+                  {placeOfUsage === "dashboard" && (
+                    <div
+                      onClick={() => handleRedirectToUserInfo(post.User.id)}
+                      className={classes.post_content_container_avatar}
+                    >
+                      {post.User.avatar ? (
+                        <React.Fragment>
+                          <img
+                            src={post.User.avatar}
+                            alt="avatar"
+                            data-tip
+                            data-for="userFullName"
+                          />
+                          <p>{post.User.fullName}</p>
+                          <ReactTooltip
+                            id="userFullName"
+                            place="top"
+                            effect="solid"
+                            border={true}
+                          >
+                            {t("post.userDetail")}
+                          </ReactTooltip>
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          <div
+                            className={
+                              classes.post_content_container_avatar_wrapper
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faUser}
+                              size="2x"
+                              data-tip
+                              data-for="userFullName"
+                              cursor="pointer"
+                            />
+                          </div>
+                          <p>{post.User.fullName}</p>
+                          <ReactTooltip
+                            id="userFullName"
+                            place="top"
+                            effect="solid"
+                            border={true}
+                          >
+                            {t("post.userDetail")}
+                          </ReactTooltip>
+                        </React.Fragment>
+                      )}
+                    </div>
+                  )}
+                  <div className={classes.post_content_container_main}>
+                    {post.image && (
+                      <div
+                        className={classes.post_content_container_main_image}
+                        onClick={() => setisModalOpen(true)}
+                      >
+                        <LazyImage
+                          image={{ src: post.image, alt: "postImage" }}
+                        />
+                      </div>
+                    )}
+                    <p>{post.text}</p>
+                  </div>
+                </div>
+                <Likes
+                  showLikes={showLikes}
+                  userId={userId}
+                  post={post}
+                  liker={liker}
+                />
+              </React.Fragment>
+            ) : (
+              <EditMode
+                post={post}
+                deleteImage={deleteImage}
+                updatePost={updatePost}
               />
             )}
           </div>
-          <hr />
-          {!post.editMode ? (
-            <React.Fragment>
-              <div className={classes.post_content_container}>
-                {placeOfUsage === "dashboard" && (
-                  <div
-                    onClick={() => handleRedirectToUserInfo(post.User.id)}
-                    className={classes.post_content_container_avatar}
-                  >
-                    {post.User.avatar ? (
-                      <React.Fragment>
-                        <img
-                          src={post.User.avatar}
-                          alt="avatar"
-                          data-tip
-                          data-for="userFullName"
-                        />
-                        <p>{post.User.fullName}</p>
-                        <ReactTooltip
-                          id="userFullName"
-                          place="top"
-                          effect="solid"
-                          border={true}
-                        >
-                          {t("post.userDetail")}
-                        </ReactTooltip>
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <div
-                          className={
-                            classes.post_content_container_avatar_wrapper
-                          }
-                        >
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            size="2x"
-                            data-tip
-                            data-for="userFullName"
-                            cursor="pointer"
-                          />
-                        </div>
-                        <p>{post.User.fullName}</p>
-                        <ReactTooltip
-                          id="userFullName"
-                          place="top"
-                          effect="solid"
-                          border={true}
-                        >
-                          {t("post.userDetail")}
-                        </ReactTooltip>
-                      </React.Fragment>
-                    )}
-                  </div>
-                )}
-                <div className={classes.post_content_container_main}>
-                  {post.image && (
-                    <div className={classes.post_content_container_main_image}>
-                      <LazyImage
-                        image={{ src: post.image, alt: "postImage" }}
-                      />
-                    </div>
-                  )}
-                  <p>{post.text}</p>
-                </div>
-              </div>
-              <Likes
-                showLikes={showLikes}
-                userId={userId}
-                post={post}
-                liker={liker}
-              />
-            </React.Fragment>
-          ) : (
-            <EditMode
-              post={post}
-              deleteImage={deleteImage}
-              updatePost={updatePost}
-            />
-          )}
-        </div>
-      </Card>
-    </div>
+        </Card>
+      </div>
+    </React.Fragment>
   );
 };
 
