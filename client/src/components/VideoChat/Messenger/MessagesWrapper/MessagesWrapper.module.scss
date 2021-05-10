@@ -4,10 +4,11 @@
   width: 100%;
   height: 100%;
   @include flexbox(flex-start, center, column);
+  position: relative;
 
   &_container {
     width: 100%;
-    height: 530px;
+    height: 80%;
     overflow: hidden;
     p {
       padding: 1rem;
@@ -16,16 +17,21 @@
   }
 
   &_isTyping {
+    position: absolute;
     text-align: center;
-    width: 90%;
+    bottom: 110px;
+    left: 0;
+    width: 100%;
     height: 20px;
-
     p {
       width: 12.5rem;
     }
   }
 
   &_input {
+    position: absolute;
+    bottom: 35px;
+    left: 0;
     width: 100%;
     height: 75px;
     min-height: 3.125rem;

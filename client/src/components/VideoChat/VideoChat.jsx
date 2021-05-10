@@ -56,8 +56,8 @@ const VideoChatComp = ({
     openedChatId: PropTypes.number,
   };
 
-  const content = (
-    <React.Fragment>
+
+  return <div className={classes.videoChat}>
       <ChatFriends
         show={showFriendsList}
         friends={friends}
@@ -92,20 +92,7 @@ const VideoChatComp = ({
           openedChatId={openedChatId}
         />
       )}
-    </React.Fragment>
-  );
-
-  let wrapper = <React.Fragment>
-    {content}
-  </React.Fragment>
-
-  if ( width >= 500 ) {
-    wrapper = <div className={classes.videoChat}>
-      {content}
-    </div>
-  }
-
-  return wrapper;
+  </div>
 };
 
 export default VideoChatComp;

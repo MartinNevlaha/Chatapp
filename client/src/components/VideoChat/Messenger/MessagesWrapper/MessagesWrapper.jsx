@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
+import useDimensions from "react-cool-dimensions";
 
 import classes from "./MessagesWrapper.module.scss";
 import Spinner from "../../../UI/Spinner/Spinner";
@@ -9,7 +10,6 @@ import * as action from "../../../../store/actions";
 import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 import MessageInput from "./MessageInput/MessageInput";
-
 
 const MessagesWrapper = ({
   chatId,
@@ -26,6 +26,11 @@ const MessagesWrapper = ({
   const totalMesages = useSelector((state) => state.chat.countMessages);
   const isTyping = useSelector((state) => state.chat.isTyping);
   const fromUserId = fromUser.id;
+  const { width, height, observe } = useDimensions({
+    onResize: ({ observe, width, height }) => {
+      observe();
+    },
+  });
 
   useEffect(() => {
     dispatch(action.fetchMessages(chatId, fromUserId, 0, LIMIT));
@@ -66,13 +71,13 @@ const MessagesWrapper = ({
         onCallToInit={onCallToInit}
         chatId={chatId}
       />
-      <div className={classes.MessagesWrapper_container}>
+      <div className={classes.MessagesWrapper_container} ref={observe}>
         <InfiniteScroll
           dataLength={messages.length}
           next={handleLoadAnotherMessages}
           hasMore={hasMoreMessages}
-          height={530}
-          style={{ display: "flex", flexDirection: "column-reverse" }}
+          height={Math.round(height)}
+          style={{ display: "flex", flexDirection: "column-reverse", padding: "5px" }}
           inverse={true}
           loader={messages.length > 0 && <Spinner />}
         >

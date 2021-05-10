@@ -22,6 +22,7 @@
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-addons-update": "^15.6.3",
+    "react-cool-dimensions": "^2.0.4",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.5",
     "react-infinite-scroll-component": "^6.0.0",

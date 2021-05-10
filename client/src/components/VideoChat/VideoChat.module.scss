@@ -3,10 +3,20 @@
 .videoChat {
   position: relative;
   @include flexbox(center, flex-start, row);
-  width: 90vw;
-  margin: 10px;
-  height: 770px;
+  width: 90%;
+  margin: 1rem 0.625rem 0.625rem 0.625rem;
+  height: 90vh;
   border-radius: 8px;
   overflow: hidden;
-  @include shadow;
+
+  @media only screen and (max-width: 500px) {
+      width: 100%;
+      margin: 0;
+      height: 90vh;
+      border-radius: 0;
+  }
+  @media only screen and (min-width: 500px) {
+    @include shadow;
+}
+  
 }
