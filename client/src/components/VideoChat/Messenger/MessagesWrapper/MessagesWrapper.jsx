@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Howl } from "howler";
 
 import classes from "./MessagesWrapper.module.scss";
 import Spinner from "../../../UI/Spinner/Spinner";
@@ -10,13 +9,7 @@ import * as action from "../../../../store/actions";
 import Message from "./Message/Message";
 import MessageHeader from "./MessageHeader/MessageHeader";
 import MessageInput from "./MessageInput/MessageInput";
-import messageSound from "../../../../assets/sounds/messagefx.mp3";
 
-const messageFx = new Howl({
-  src: [messageSound],
-  loop: false,
-  preload: true,
-});
 
 const MessagesWrapper = ({
   chatId,
@@ -71,6 +64,7 @@ const MessagesWrapper = ({
         onCloseChat={onCloseChat}
         user={fromUser}
         onCallToInit={onCallToInit}
+        chatId={chatId}
       />
       <div className={classes.MessagesWrapper_container}>
         <InfiniteScroll

@@ -6,7 +6,7 @@
 
   &_header {
     width: 100%;
-    height: 6.25rem;
+    height: 5rem;
     background-color: get-color(primary);
 
     &_title {
@@ -49,6 +49,10 @@
     border-left: 1px solid get-color(gray_profile);
     overflow-y: scroll;
   }
+}
+
+.smallHeader {
+  height: 2.5rem;
 }
 
 @include pulse;

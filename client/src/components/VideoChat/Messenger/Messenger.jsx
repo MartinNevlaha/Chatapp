@@ -101,7 +101,13 @@ const Messenger = ({
         </div>
       </Modal>
       <div className={classes.messenger}>
-        <div className={classes.messenger_header}>
+        <div
+          className={
+            openedChatId
+              ? [classes.messenger_header, classes.smallHeader].join(" ")
+              : classes.messenger_header
+          }
+        >
           <div className={classes.messenger_header_title}>
             <div
               className={classes.messenger_header_title_friends}
@@ -111,7 +117,7 @@ const Messenger = ({
             </div>
             <h2>{t("messenger.title")}</h2>
           </div>
-          {!showFriends && (
+          {!showFriends && !openedChatId && (
             <div className={classes.messenger_header_input}>
               <SearchInput
                 styleType="large"

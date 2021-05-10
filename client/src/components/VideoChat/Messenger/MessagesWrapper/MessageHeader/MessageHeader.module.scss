@@ -3,7 +3,6 @@
 .messageHeader {
   @include flexbox(space-between, center, row);
   width: 100%;
-  min-height: 3.125rem;
   height: 3.125rem;
   background-color: lighten(get-color(gray_profile), 20%);
   @include shadow-down;
