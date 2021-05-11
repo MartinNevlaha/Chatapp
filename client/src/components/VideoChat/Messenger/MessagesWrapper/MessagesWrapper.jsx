@@ -26,8 +26,8 @@ const MessagesWrapper = ({
   const totalMesages = useSelector((state) => state.chat.countMessages);
   const isTyping = useSelector((state) => state.chat.isTyping);
   const fromUserId = fromUser.id;
-  const { width, height, observe } = useDimensions({
-    onResize: ({ observe, width, height }) => {
+  const { height, observe } = useDimensions({
+    onResize: ({ observe, height }) => {
       observe();
     },
   });
@@ -43,7 +43,8 @@ const MessagesWrapper = ({
   useEffect(() => {
     if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
     return () => {
-      if (messages.length > 0) dispatch(action.seeNewMessage(chatId));
+      const token = localStorage.getItem("token");
+      if (messages.length > 0 && token) dispatch(action.seeNewMessage(chatId));
     };
   }, [dispatch, chatId, messages]);
 
