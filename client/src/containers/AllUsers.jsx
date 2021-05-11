@@ -58,7 +58,7 @@ const AllUsers = () => {
         handleCurrentPage={handleCurrentPage}
         arrayOfPages={handleArrayOfPages(numberOfUsers, limit)}
         handleSetLimit={handleSetLimit}
-        limit={limit}
+        limit={+limit}
         addFriend={handleAddFriend}
       />
     </div>
