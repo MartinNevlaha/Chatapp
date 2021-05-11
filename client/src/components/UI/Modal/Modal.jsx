@@ -4,28 +4,22 @@ import classes from "./Modal.module.scss";
 import Backdrop from "../Backdrop/Backdrop";
 import Spinner from "../Spinner/Spinner";
 
-
-export const Modal = ({
-  show,
-  cancel,
-  loading,
-  children,
-}) => {
+export const Modal = ({ show, cancel, loading, children }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClose);
 
     return () => {
-      document.removeEventListener("mousedown", handleClose)
-    }
-  }, [modalRef])
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, [modalRef]);
 
   const handleClose = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       cancel();
     }
-  }
+  };
 
   return (
     <React.Fragment>
@@ -34,9 +28,7 @@ export const Modal = ({
           {loading ? (
             <Spinner />
           ) : (
-            <div className={classes.modal_content} >
-              {children}
-            </div>
+            <div className={classes.modal_content}>{children}</div>
           )}
         </div>
       </Backdrop>
@@ -44,4 +36,7 @@ export const Modal = ({
   );
 };
 
-export default Modal;
+export default React.memo(Modal, (props, nextProps) => {
+  if (props.show === nextProps.show && props.cancel === nextProps.cancel)
+    return true;
+});

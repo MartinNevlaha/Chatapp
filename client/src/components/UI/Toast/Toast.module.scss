@@ -18,9 +18,13 @@
     width: 2rem;
     height: 2rem;
     margin: 0 .5rem;
+    padding: 0.5rem;
     border-radius: 50%;
     background-color: get-color(danger);
     @include flexbox(center, center, row);
+  }
+  @media only screen and (max-width: 500px) {
+    min-width: 10%;
   }
 }
 .showed {
