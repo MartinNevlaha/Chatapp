@@ -73,23 +73,38 @@ const MessagesWrapper = ({
         chatId={chatId}
       />
       <div className={classes.MessagesWrapper_container} ref={observe}>
-        <InfiniteScroll
-          dataLength={messages.length}
-          next={handleLoadAnotherMessages}
-          hasMore={hasMoreMessages}
-          height={Math.round(height)}
-          style={{ display: "flex", flexDirection: "column-reverse", padding: "5px" }}
-          inverse={true}
-          loader={messages.length > 0 && <Spinner />}
+        <div
+          id="scrollable"
+          style={{
+            width: "100%",
+            height: Math.round(height),
+            overflow: "auto",
+            display: "flex",
+            flexDirection: "column-reverse",
+          }}
         >
-          {messages.length > 0 ? (
-            messages.map((message, i) => (
-              <Message key={i} message={message} userId={user.id} />
-            ))
-          ) : (
-            <p>No messages</p>
-          )}
-        </InfiniteScroll>
+          <InfiniteScroll
+            dataLength={messages.length}
+            next={handleLoadAnotherMessages}
+            hasMore={hasMoreMessages}
+            scrollableTarget="scrollable"
+            style={{
+              display: "flex",
+              flexDirection: "column-reverse",
+              padding: "5px",
+            }}
+            inverse={true}
+            loader={messages.length > 0 && <Spinner />}
+          >
+            {messages.length > 0 ? (
+              messages.map((message, i) => (
+                <Message key={i} message={message} userId={user.id} />
+              ))
+            ) : (
+              <p>No messages</p>
+            )}
+          </InfiniteScroll>
+        </div>
       </div>
 
       <div className={classes.MessagesWrapper_isTyping}>
