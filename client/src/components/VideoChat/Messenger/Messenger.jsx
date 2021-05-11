@@ -53,15 +53,19 @@ const Messenger = ({
     setShowModal(false);
   };
 
-  let content = searchMsgHelper(chatData, searchMessageValue).map((chat) => (
-    <ChatItem
-      userId={user.id}
-      key={chat.id}
-      chat={chat}
-      onOpenChat={handleOpenChat}
-      openModal={handleOpenModal}
-    />
-  ));
+  let content = (
+    <div className={classes.messenger_chats_container}>
+      {searchMsgHelper(chatData, searchMessageValue).map((chat) => (
+      <ChatItem
+        userId={user.id}
+        key={chat.id}
+        chat={chat}
+        onOpenChat={handleOpenChat}
+        openModal={handleOpenModal}
+      />
+      ))}
+    </div>
+  );
 
   if (loadingChatData) {
     content = <Spinner />;
