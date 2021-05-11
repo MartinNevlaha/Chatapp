@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -6,11 +6,10 @@ import PropTypes from "prop-types";
 import classes from "./Toast.module.scss";
 
 const Toast = ({ isShow, message }) => {
-
   Toast.propTypes = {
     isShow: PropTypes.object,
-    message: PropTypes.string
-  }
+    message: PropTypes.string,
+  };
 
   return (
     <div
@@ -18,9 +17,7 @@ const Toast = ({ isShow, message }) => {
         isShow ? [classes.toast, classes.showed].join(" ") : classes.toast
       }
     >
-      <div
-        className={classes.toast_circle}
-      >
+      <div className={classes.toast_circle}>
         <FontAwesomeIcon icon={faExclamation} size="1x" color="white" />
       </div>
       <h3>{message}</h3>
@@ -28,4 +25,7 @@ const Toast = ({ isShow, message }) => {
   );
 };
 
-export default Toast;
+export default memo(Toast, (props, nextProps) => {
+  if (props.isShow === nextProps.isShow && props.message === nextProps.message)
+    return true;
+});
