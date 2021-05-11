@@ -36,6 +36,10 @@
         font-size: get-font-size(ex-small);
         padding: 0 0.5rem;
       }
+      @media only screen and (max-width: 500px) {
+        width: 25%;
+        min-width: 100px;
+      }
     }
     @media only screen and (max-width: 500px) {
       width: 25%;
@@ -69,7 +73,7 @@
     &_icon {
       position: absolute;
       top: 12px;
-      left: 5px;
+      left: 10px;
       cursor: pointer;
 
       &:active,

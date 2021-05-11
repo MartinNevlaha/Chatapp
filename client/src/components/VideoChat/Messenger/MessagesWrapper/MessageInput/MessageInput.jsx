@@ -26,7 +26,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
     (state) => state.chat.imageUploadProgress
   );
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const { width, height } = useDimensions();
+  const { width } = useDimensions();
 
   const handleMessageInput = (e) => {
     const value = e.target.value;
@@ -136,7 +136,7 @@ const MessageInput = ({ user, toUserId, chatId }) => {
         <div className={classes.input_imageUpload_details}>
           {image.name && (
             <React.Fragment>
-              <p>{image.name}</p>
+              {width > 500 && <p>{image.name}</p>}
               {imageUploadProgress > 0 && <p>{imageUploadProgress} %</p>}
               {imageUploadProgress !== 100 && (
                 <React.Fragment>
@@ -174,7 +174,11 @@ const MessageInput = ({ user, toUserId, chatId }) => {
           <Picker
             title="Pick your emoji"
             emoji="point_up"
-            style={{ position: "absolute", bottom: "30px", left: emojiPosition }}
+            style={{
+              position: "absolute",
+              bottom: "30px",
+              left: emojiPosition,
+            }}
             onSelect={selectEmoji}
           />
         )}
