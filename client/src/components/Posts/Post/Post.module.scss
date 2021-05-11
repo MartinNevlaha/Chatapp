@@ -48,11 +48,11 @@
         @include flexbox (center, center, column);
         width: 70%;
         &_image { 
-          height: 250px;
+          height: 150px;
 
           img {
             width: 350px;
-            height: 250px;
+            height: 150px;
             object-fit: contain;
             cursor: pointer;
           }
