@@ -2,8 +2,8 @@
 
 .login_wrapper {
   width: 100%;
-  height: 47rem;
-  @include flexbox(center, center, column);
+  height: 39rem;
+  @include flexbox(flex-start, center, column);
   
   &_head {
     width: 100%;
