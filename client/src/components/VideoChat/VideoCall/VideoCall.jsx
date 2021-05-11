@@ -77,7 +77,6 @@ const VideoCall = ({
       )}
       {callAccepted && (
         <div className={classes.video_friendStream}>
-          <h2>{callAccepted && user.fullName}</h2>
           <video playsInline ref={friendVideoRef} autoPlay />
         </div>
       )}

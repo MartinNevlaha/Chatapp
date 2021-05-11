@@ -4,7 +4,7 @@
   position: absolute;
   bottom: 5%;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -175px;
   width: 350px;
   @include flexbox(space-around, center, row);
   background-color: get-color(gray_profile);
@@ -35,6 +35,11 @@
   }
   &:hover {
     opacity: 1;
+  }
+
+  @media only screen and (max-width: 500px) {
+    width: 300px;
+    margin-left: -150px;
   }
 }
 
