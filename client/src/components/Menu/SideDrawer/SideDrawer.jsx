@@ -3,10 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faTachometerAlt,
-  faVideo,
-  faClock,
-  faCalendar,
-  faUserCheck,
   faUser,
   faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";

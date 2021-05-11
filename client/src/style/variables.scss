@@ -19,7 +19,7 @@ $font-sizes: (
   ex-small: calc(.5rem + .3vw),
   small: calc(.6rem + .3vw),
   medium: calc(.6rem + .6vw),
-  large: calc(.7rem + .6vw),
+  large: calc(1rem + .6vw),
 );
 
 @function get-font-size($size) {
