@@ -54,7 +54,7 @@ const CallControls = ({
           : classes.callControls
       }
     >
-      {!isMeCalling && (
+      {!isMeCalling && !callAccepted && (
         <React.Fragment>
           <div
             className={classes.callControls_accept}

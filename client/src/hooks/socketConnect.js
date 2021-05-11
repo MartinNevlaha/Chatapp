@@ -31,7 +31,9 @@ const useSocket = (user, dispatch, openChatId) => {
     socket.on("offline", (user) => dispatch(action.friendOffline(user)));
 
     socket.on("receiveMessage", (msg) => {
-      if (msg.chatId === openChatId) messageFx.play();
+      if (msg.chatId === openChatId) {
+        messageFx.play();
+      }
       dispatch(action.receiveMessage(msg));
     });
 
