@@ -80,6 +80,7 @@ const Posts = ({
             next={loadAnothnerPosts}
             hasMore={hasMorePosts}
           >
+            {posts.length === 0 && <p>No posts</p>}
             {loadingCreatePost && <Spinner />}
             {posts.map((post) => (
               <Post

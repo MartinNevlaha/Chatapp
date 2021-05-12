@@ -55,15 +55,19 @@ const Messenger = ({
 
   let content = (
     <div className={classes.messenger_chats_container}>
-      {searchMsgHelper(chatData, searchMessageValue).map((chat) => (
-      <ChatItem
-        userId={user.id}
-        key={chat.id}
-        chat={chat}
-        onOpenChat={handleOpenChat}
-        openModal={handleOpenModal}
-      />
-      ))}
+      {searchMsgHelper(chatData, searchMessageValue).length === 0 ? (
+        <p>No active chats</p>
+      ) : (
+        searchMsgHelper(chatData, searchMessageValue).map((chat) => (
+          <ChatItem
+            userId={user.id}
+            key={chat.id}
+            chat={chat}
+            onOpenChat={handleOpenChat}
+            openModal={handleOpenModal}
+          />
+        ))
+      )}
     </div>
   );
 

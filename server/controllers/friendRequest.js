@@ -1,7 +1,6 @@
 const { Op } = require("sequelize");
 const models = require("../models");
-const { sequelize } = require("../models");
-const { User, Friendship, ChatUser } = models;
+const { User, Friendship, ChatUser, Chat } = models;
 const friendStatus = require("../config/friendRequestStatus");
 
 exports.sendFriendRequest = async (req, res, next) => {
@@ -151,20 +150,25 @@ exports.deleteFriendShip = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
-    console.log(userId, friendId);
-    await ChatUser.destroy({
+
+    const friendChats = await ChatUser.findAll({
       where: {
-        [Op.and]: [
-          {userId: userId},
-          {userId: friendId}
-        ]
+        userId: friendId,
       },
-    })
+    });
+
+    const chatId = await getChatId(friendChats, userId);
+    if (chatId) {
+      await Chat.destroy({
+        where: {
+          id: chatId,
+        },
+      });
+    }
 
     await Friendship.destroy({
       where: { id: friendship.id },
     });
-
 
     if (friendship.status === 1) {
       const user_1 = await User.findByPk(friendship.user_1);
@@ -181,5 +185,26 @@ exports.deleteFriendShip = async (req, res, next) => {
       error.statusCode = 500;
     }
     return next(error);
+  }
+};
+
+const getChatId = async (chats, userId) => {
+  let chatId = [];
+  for await (let chat of chats) {
+    const userChats = await ChatUser.findAll({
+      where: {
+        chatId: chat.chatId,
+      },
+      raw: true,
+    });
+    if (userChats)
+      userChats.forEach((chat) => {
+        if (chat.userId === userId) chatId.push(chat);
+      });
+  }
+  if (chatId.length > 0) {
+    return chatId[0].chatId;
+  } else {
+    return null;
   }
 };
