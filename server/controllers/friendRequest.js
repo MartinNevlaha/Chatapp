@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const models = require("../models");
-const { User, Friendship } = models;
+const { sequelize } = require("../models");
+const { User, Friendship, ChatUser } = models;
 const friendStatus = require("../config/friendRequestStatus");
 
 exports.sendFriendRequest = async (req, res, next) => {
@@ -135,6 +136,7 @@ exports.answerFriendshipRequest = async (req, res, next) => {
 exports.deleteFriendShip = async (req, res, next) => {
   const friendId = req.params.friendId;
   const userId = req.user.id;
+
   try {
     const friendship = await Friendship.findOne({
       where: {
@@ -149,10 +151,20 @@ exports.deleteFriendShip = async (req, res, next) => {
       error.statusCode = 404;
       return next(error);
     }
+    console.log(userId, friendId);
+    await ChatUser.destroy({
+      where: {
+        [Op.and]: [
+          {userId: userId},
+          {userId: friendId}
+        ]
+      },
+    })
 
     await Friendship.destroy({
       where: { id: friendship.id },
     });
+
 
     if (friendship.status === 1) {
       const user_1 = await User.findByPk(friendship.user_1);
