@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const isAuth = require("../middleware/isAuth");
 
 const {
@@ -16,6 +15,7 @@ const {
 const {
   rules: answerFriendRequestRules,
 } = require("../validators/friendRequest/answerRequest");
+const { delViewedUserFriends } = require("../middleware/redisChache");
 
 router.get("/", isAuth, getPendingFriendRequest);
 
@@ -31,6 +31,6 @@ router.put(
   answerFriendshipRequest
 );
 
-router.delete("/:friendId", isAuth, deleteFriendShip);
+router.delete("/:friendId", [isAuth, delViewedUserFriends], deleteFriendShip);
 
 module.exports = router;

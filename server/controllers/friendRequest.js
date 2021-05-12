@@ -1,7 +1,10 @@
+const logger = require("../config/winston");
+const timestamp = require("time-stamp");
 const { Op } = require("sequelize");
 const models = require("../models");
 const { User, Friendship, ChatUser, Chat } = models;
 const friendStatus = require("../config/friendRequestStatus");
+const cache = require("../config/redisChache");
 
 exports.sendFriendRequest = async (req, res, next) => {
   try {
@@ -115,6 +118,25 @@ exports.answerFriendshipRequest = async (req, res, next) => {
       await user_1.increment("friendsCount", { by: 1 });
       const user_2 = await User.findByPk(friendship.user_2);
       await user_2.increment("friendsCount", { by: 1 });
+
+      const viewedUser1 = `viewed-user-friends-${friendship.user_1}`;
+      const viewedUser2 = `viewed-user-friends-${friendship.user_2}`;
+
+      cache.del(viewedUser1, err => {
+        logger.info({
+          time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+          level: "info",
+          message: `Cant delete cache entry for ${viewedUser1}, ${err}`,
+        });
+      });
+
+      cache.del(viewedUser2, err => {
+        logger.info({
+          time: timestamp("YYYY/MM/DD/HH:mm:ss"),
+          level: "info",
+          message: `Cant delete cache entry for ${viewedUser2}, ${err}`,
+        });
+      })
     } else if (req.body.answer === "2") {
       message = "Friend request was rejected";
     }
