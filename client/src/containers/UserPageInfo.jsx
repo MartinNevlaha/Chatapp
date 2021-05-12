@@ -59,7 +59,6 @@ const UserPageInfo = () => {
   };
 
   const handleDeleteFriendShip = (friendId) => {
-    console.log(friendId);
     dispatch(action.deleteFriendship(friendId));
   }
 
