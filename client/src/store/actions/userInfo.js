@@ -52,7 +52,7 @@ export const getUserPostSuccess = (userPosts, count) => {
   return {
     type: actionTypes.GET_USER_POSTS_SUCCESS,
     userPosts,
-    count
+    count,
   };
 };
 
@@ -98,6 +98,21 @@ export const likeUserPost = (postId, data) => {
       .then((res) => {
         dispatch(likeUserPostSucces(res.data.likes, res.data.likeAction));
       })
+      .catch((err) => dispatch(errorCreator(err)));
+  };
+};
+
+export const deleteFriendshipSucces = () => {
+  return {
+    type: actionTypes.DELETE_FRIENDSHIP,
+  };
+};
+
+export const deleteFriendship = (friendId) => {
+  return (dispatch) => {
+    axios
+      .delete(`/api/friendship/${friendId}`)
+      .then(res => dispatch(deleteFriendshipSucces()))
       .catch((err) => dispatch(errorCreator(err)));
   };
 };

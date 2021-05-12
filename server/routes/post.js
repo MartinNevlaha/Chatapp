@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
-const cache = require("../config/redisChache");
 const { validateResults } = require("../validators");
 const {
   rules: createOrUpdatePostRules,

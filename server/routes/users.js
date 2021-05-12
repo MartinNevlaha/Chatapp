@@ -2,12 +2,6 @@ const router = require("express").Router();
 
 const isAuth = require("../middleware/isAuth");
 const isFriend = require("../middleware/isFriend");
-const {
-  setUserIdInfoToRedis,
-  setUserFriendToRedis,
-  setUserPostToRedis,
-} = require("../middleware/redisCacheSetKey");
-const cache = require("../config/redisChache");
 
 const {
   getUsers,
@@ -23,19 +17,19 @@ router.get("/search", isAuth, searchUser);
 
 router.get(
   "/info/:userId",
-  [isAuth, isFriend, setUserIdInfoToRedis, cache.route()],
+  [isAuth, isFriend],
   getUserInfo
 );
 
 router.get(
   "/posts/:userId",
-  [isAuth, isFriend, setUserPostToRedis, cache.route({expire: 120})],
+  [isAuth, isFriend],
   getUserPosts
 );
 
 router.get(
   "/friends/:userId",
-  [isAuth, isFriend, setUserFriendToRedis, cache.route()],
+  [isAuth, isFriend],
   getUserFriends
 );
 

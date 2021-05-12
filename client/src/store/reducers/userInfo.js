@@ -3,6 +3,7 @@ import updateArray from "react-addons-update";
 
 import { updateObj, likePostReducerHelper } from "../../utils/utilities";
 import { friendStatus } from "../../constants/friendStatus";
+import { deleteChatSuccess } from "../actions/chat";
 
 const initialState = {
   userInfo: {},
@@ -44,7 +45,7 @@ const getUserPostsSuccess = (state, action) => {
   return updateObj(state, {
     userPosts: state.userPosts.concat(action.userPosts),
     loadingPost: false,
-    countPosts: action.count
+    countPosts: action.count,
   });
 };
 
@@ -71,6 +72,10 @@ const likeUserPostSucces = (state, action) => {
   });
 };
 
+const deleteFriendship = (state, action) => {
+  return updateObj(state, { isFriend: friendStatus.doesntExists });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_USER_INFO_START:
@@ -91,6 +96,8 @@ const reducer = (state = initialState, action) => {
       return likeUserPostSucces(state, action);
     case actionTypes.CLEAN_UP_USER_INFO:
       return cleanUpUserInfo(state, action);
+    case actionTypes.DELETE_FRIENDSHIP:
+      return deleteFriendship(state, action);
     default:
       return state;
   }

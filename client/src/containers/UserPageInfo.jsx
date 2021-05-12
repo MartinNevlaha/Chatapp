@@ -58,6 +58,11 @@ const UserPageInfo = () => {
     dispatch(action.getUserPosts(+userId, page + 1, LIMIT));
   };
 
+  const handleDeleteFriendShip = (friendId) => {
+    console.log(friendId);
+    dispatch(action.deleteFriendship(friendId));
+  }
+
   return (
     <div
       style={{
@@ -74,6 +79,7 @@ const UserPageInfo = () => {
           isFriend={isFriend}
           userProfile={userInfo}
           addFriend={handleAddFriend}
+          onDeleteFriendship={handleDeleteFriendShip}
         />
         <FriedList
           loading={loadingUserFriends}

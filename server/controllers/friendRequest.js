@@ -133,9 +133,17 @@ exports.answerFriendshipRequest = async (req, res, next) => {
 };
 
 exports.deleteFriendShip = async (req, res, next) => {
-  const requestId = req.params.requestId;
+  const friendId = req.params.friendId;
+  const userId = req.user.id;
   try {
-    const friendship = await Friendship.findByPk(requestId, { raw: true });
+    const friendship = await Friendship.findOne({
+      where: {
+        [Op.or]: [
+          { user_1: friendId, user_2: userId },
+          { user_1: userId, user_2: friendId },
+        ],
+      },
+    });
     if (!friendship) {
       const error = new Error("Friendship request doesnt exist");
       error.statusCode = 404;
@@ -143,7 +151,7 @@ exports.deleteFriendShip = async (req, res, next) => {
     }
 
     await Friendship.destroy({
-      where: { id: requestId },
+      where: { id: friendship.id },
     });
 
     if (friendship.status === 1) {

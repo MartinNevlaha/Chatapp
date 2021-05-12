@@ -31,6 +31,6 @@ router.put(
   answerFriendshipRequest
 );
 
-router.delete("/:requestId", isAuth, deleteFriendShip);
+router.delete("/:friendId", isAuth, deleteFriendShip);
 
 module.exports = router;
