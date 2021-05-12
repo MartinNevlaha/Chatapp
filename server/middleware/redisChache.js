@@ -16,7 +16,7 @@ const delUserProfileCacheEntry = (req, res, next) => {
     logger.info({
       time: timestamp("YYYY/MM/DD/HH:mm:ss"),
       level: "info",
-      message: `Cant delete cache entry for ${userId}, ${err}`,
+      message: `Cant delete cache entry for ${userId}`,
     });
   });
 
@@ -24,7 +24,7 @@ const delUserProfileCacheEntry = (req, res, next) => {
     logger.info({
       time: timestamp("YYYY/MM/DD/HH:mm:ss"),
       level: "info",
-      message: `Cant delete cache entry for ${viewedUser}, ${err}`,
+      message: `Cant delete cache entry for ${viewedUser}`,
     });
   });
 
@@ -50,7 +50,7 @@ const delViewedUserFriends = (req, res, next) => {
     logger.info({
       time: timestamp("YYYY/MM/DD/HH:mm:ss"),
       level: "info",
-      message: `Cant delete cache entry for ${viewedUser}, ${err}`,
+      message: `Cant delete cache entry for ${viewedUser}`,
     });
   });
 
