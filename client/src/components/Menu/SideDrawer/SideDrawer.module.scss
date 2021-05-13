@@ -1,7 +1,7 @@
 @import "../../../style/imports.scss";
 
 .sideDrawer {
-    position: absolute;
+    position: fixed;
     z-index: 0;
     @include shadow;
     background-color: get-color(dark-white);
@@ -26,9 +26,6 @@
             width: 90%;
             text-align: left;
         }
-    }
-    @media only screen and (max-width: 500px) {
-        top: -3.5rem;
     }
 }
 
