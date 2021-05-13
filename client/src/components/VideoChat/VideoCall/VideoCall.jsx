@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./VideoCall.module.scss";
 import CallControls from "./CallControls/CallControls";
@@ -70,9 +72,15 @@ const VideoCall = ({
           <p>
             {isMeCalling ? "Call to" : "Call from"} {user.fullName}
           </p>
-          <div className={classes.video_user_info_avatar}>
-            {user && <LazyImage image={{ src: user.avatar, alt: "avatar" }} />}
-          </div>
+          {user.avatar ? (
+            <div className={classes.video_user_info_avatar}>
+                <LazyImage image={{ src: user.avatar, alt: "avatar" }} />
+            </div>
+          ) : (
+            <div className={classes.video_user_info_iconUser}>
+              <FontAwesomeIcon icon={faUser} size="3x"/>
+            </div>
+          )}
         </div>
       )}
       {callAccepted && (

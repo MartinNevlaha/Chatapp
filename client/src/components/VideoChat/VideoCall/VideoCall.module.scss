@@ -87,6 +87,11 @@
         object-fit: cover;
       }
     }
+
+    &_iconUser {  
+      @extend .video_user_info_avatar;
+      background-color: white;
+    }
   }
 }
 
@@ -94,4 +99,5 @@
   @include flexbox(center, center, column-reverse);
   padding: 2rem;
 }
+
 @include pulse;

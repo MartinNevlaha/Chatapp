@@ -66,7 +66,7 @@ const Dasboard = () => {
     <div
       style={{
         width: "100%",
-        height: "100%",
+        height: "100vh",
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "space-around",

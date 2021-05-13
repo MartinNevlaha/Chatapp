@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ErrorBoundary } from "react-error-boundary";
 
 import * as action from "../store/actions";
 import VideoChat from "../components/VideoChat/VideoChat";
 import { VideoContextProvider } from "../context/VideoContext";
 import useSocket from "../hooks/socketConnect";
+import ErrorFallback from "../components/UI/ErrorFallback/ErrorFallback";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -35,19 +37,24 @@ const Chat = () => {
   };
 
   return (
-    <VideoContextProvider>
-      <VideoChat
-        friends={friends}
-        loadingFriends={loadingFriends}
-        chatData={chatData}
-        loadingChatData={loadingChatData}
-        user={user}
-        onDeleteChat={handleDeleteChat}
-        onAddToChat={handleAddToChat}
-        setOpenedChatId={setOpenedChatId}
-        openedChatId={openedChatId}
-      />
-    </VideoContextProvider>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={() => dispatch(action.cleanUpVideoCall())}
+    >
+      <VideoContextProvider>
+        <VideoChat
+          friends={friends}
+          loadingFriends={loadingFriends}
+          chatData={chatData}
+          loadingChatData={loadingChatData}
+          user={user}
+          onDeleteChat={handleDeleteChat}
+          onAddToChat={handleAddToChat}
+          setOpenedChatId={setOpenedChatId}
+          openedChatId={openedChatId}
+        />
+      </VideoContextProvider>
+    </ErrorBoundary>
   );
 };
 
