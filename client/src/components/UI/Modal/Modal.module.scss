@@ -6,6 +6,7 @@
   z-index: 500;
   width: 70%;
   min-width: 18.75rem;
+  max-height: 90vh;
   height: auto;
   border-radius: 4px;
   border: 1px solid white;
@@ -15,6 +16,12 @@
   background-color: white;
   @include shadow;
   @include flexbox(center, center, column);
+  overflow: hidden;
+
+  img {
+    width: 85%;
+    height: 85%;
+  }
 
   p {
     font-size: get-font-size(small);
@@ -24,5 +31,18 @@
   &_content {
     font-size: get-font-size(medium);
     width: 100%;
+  }
+  @media only screen and (max-width: 500px) {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  @media only screen and (max-height: 640px) {
+    max-height: 85vh;
+    img {
+      width: 85%;
+      height: 50%;
+    }
   }
 }

@@ -81,6 +81,7 @@ const MessagesWrapper = ({
             overflow: "auto",
             display: "flex",
             flexDirection: "column-reverse",
+            paddingBottom: height <  550 ? "50px" : "0px"
           }}
         >
           <InfiniteScroll

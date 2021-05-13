@@ -17,6 +17,9 @@
       color: get-color(text);
     }
   }
+  @media only screen and (max-width: 500px) {
+    height: 35rem;
+  }
 }
 
 .inactive {
