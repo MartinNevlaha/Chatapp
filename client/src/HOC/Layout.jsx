@@ -24,13 +24,13 @@ const Layout = (props) => {
           <Topbar menuClick={handleOpenSideDrawer} />
         </header>
       )}
-      <main className={classes.main_wrapper}>
-        {isAuth && (
+              {isAuth && (
           <SideDrawer
             isOpen={sideDrawerOpen}
             closeSideDrawer={closeSideDrawer}
           />
         )}
+      <main className={classes.main_wrapper}>
         <div
           className={
             isAuth
