@@ -15,6 +15,7 @@ export const VideoContextProvider = ({ children }) => {
   const muteAudio = useSelector((state) => state.videoCall.muteAudio);
   const muteVideo = useSelector((state) => state.videoCall.muteVideo);
   const stream = useSelector((state) => state.videoCall.stream);
+  const initCall = useSelector((state) => state.videoCall.callTo.init);
 
   const myVideoRef = useRef();
   const friendVideoRef = useRef();
@@ -28,38 +29,39 @@ export const VideoContextProvider = ({ children }) => {
 
         myVideoRef.current.srcObject = stream;
 
-        const peer = new Peer({
-          initiator: true,
-          trickle: false,
-          config: {
-            iceServers: ICE_SERVERS,
-          },
-          stream: stream,
-        });
+        if (initCall) {
+          const peer = new Peer({
+            initiator: true,
+            trickle: false,
+            config: {
+              iceServers: ICE_SERVERS,
+            },
+            stream: stream,
+          });
 
-        connectionRef.current = peer;
+          peer.on("signal", (data) => {
+            const callData = {
+              friend: friend,
+              signal: data,
+              fromUser: me,
+            };
 
-        peer.on("signal", (data) => {
-          const callData = {
-            friend: friend,
-            signal: data,
-            fromUser: me,
-          };
+            dispatch(action.callTo(callData));
 
-          dispatch(action.callTo(callData));
+            socket.emit("callToFriend", callData);
+          });
 
-          socket.emit("callToFriend", callData);
-        });
+          connectionRef.current = peer;
+          peer.on("stream", (currentStream) => {
+            if (friendVideoRef.current)
+              friendVideoRef.current.srcObject = currentStream;
+          });
 
-        peer.on("stream", (currentStream) => {
-          if (friendVideoRef.current)
-            friendVideoRef.current.srcObject = currentStream;
-        });
-
-        socket.on("callAccepted", (signal) => {
-          dispatch(action.callAccepted("callTo"));
-          peer.signal(signal);
-        });
+          socket.on("callAccepted", (signal) => {
+            dispatch(action.callAccepted("callTo"));
+            peer.signal(signal);
+          });
+        }
       })
       .catch((err) => {
         const error = {
