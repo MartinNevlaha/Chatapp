@@ -8,7 +8,7 @@ Chat App is a small social media app with chat and video calling options. ReactJ
 
 # Live demo
 
-  Demo is avaible [here](https://nevy.sk)
+  Demo is available [here](https://nevy.sk)
 
 # Deploying steps:
 
