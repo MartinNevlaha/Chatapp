@@ -100,6 +100,7 @@ const ChatFriends = ({
               isInChat={isAllreadyInChat(friend.id, chatData)}
               onAddToChat={onAddToChat}
               onCallToInit={onCallToInit}
+              onShowFriends={onShowFriends}
             />
           ))
         )}

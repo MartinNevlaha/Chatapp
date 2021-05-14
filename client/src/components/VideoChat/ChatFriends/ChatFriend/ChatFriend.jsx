@@ -8,12 +8,18 @@ import Friend from "../../../FriendList/Friend/Friend";
 import Button from "../../../UI/Button/Button";
 import StatusDot from "../../../UI/StatusDot/StatusDot";
 
-const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToInit }) => {
+const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToInit, onShowFriends }) => {
+  
+  const handleClickToVideo = (friend) => {
+    onCallToInit(friend);
+    onShowFriends(false);
+  } 
   ChatFriend.propTypes = {
     friend: PropTypes.object,
     isInChat: PropTypes.bool,
     onAddToChat: PropTypes.func,
     onCallToInit: PropTypes.func,
+    onShowFriends: PropTypes.func
   };
   return (
     <div className={classes.chatFriend}>
@@ -26,9 +32,12 @@ const ChatFriend = ({ friend, isInChat, onAddToChat, onCallToInit }) => {
             ? [classes.chatFriend_videoIcon, classes.online].join(" ")
             : classes.chatFriend_videoIcon
         }
-        onClick={friend.status === "online" ? () => onCallToInit(friend) : null}
+        onClick={friend.status === "online" ? () => handleClickToVideo(friend) : null}
       />
-      <Button disabled={isInChat} clicked={() => onAddToChat(friend.id)}>
+      <Button disabled={isInChat} clicked={() => {
+        onShowFriends(false);
+        onAddToChat(friend.id)
+        }}>
         Add to chat
       </Button>
     </div>
