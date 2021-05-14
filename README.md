@@ -26,18 +26,20 @@ Chat App is a small social media app with chat and video calling options. ReactJ
     REACT_APP_WS_CONNECTION_SERVER=ws(s)://your_url
     REACT_APP_BACKEND_URL=http(s)://your_url
     INLINE_RUNTIME_CHUNK=false(optional)
-    REACT_APP_ICE_SERVER_1=your_stun_server_1
-    REACT_APP_ICE_SERVER_2=your_stun_server_2
+    REACT_APP_STUN_SERVER=your_stun_server
+    REACT_APP_TURN_SERVER=turn.server 
+    REACT_APP_TURN_SERVER_USERNAME=username
+    REACT_APP_TURN_SERVER_PASSWORD=password
     ```
-    As you can see you need to provide 2 Stun servers, because application use WebRTC technology. For more please click [here](https://blog.ivrpowers.com/post/technologies/what-is-stun-turn-server/).
+    As you can see you need to provide Stun and Turn servers, because application use WebRTC technology. For more please click [here](https://blog.ivrpowers.com/post/technologies/what-is-stun-turn-server/).
   
-2. Install packages
+1. Install packages
      
      ```packages
      npm install || yarn install
      ```
 
-  3. Production build
+  1. Production build
      
      ```build
      npm run build || yarn build
