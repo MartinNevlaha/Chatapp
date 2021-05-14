@@ -6,6 +6,10 @@ Chat App is a small social media app with chat and video calling options. ReactJ
 # PostgreSql database ERD diagram
 ![ERD diagram](https://raw.githubusercontent.com/MartinNevlaha/Chatapp/main/server/Chatapp%20ERD%20diagram.png?raw=true);
 
+# Live demo
+
+  Demo is available [here](https://nevy.sk)
+
 # Deploying steps:
 
  ## Client
