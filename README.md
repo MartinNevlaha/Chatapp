@@ -26,8 +26,9 @@ Chat App is a small social media app with chat and video calling options. ReactJ
     REACT_APP_WS_CONNECTION_SERVER=ws(s)://your_url
     REACT_APP_BACKEND_URL=http(s)://your_url
     INLINE_RUNTIME_CHUNK=false(optional)
-    REACT_APP_STUN_SERVER=your_stun_server
-    REACT_APP_TURN_SERVER=turn.server 
+    REACT_APP_STUN_SERVER_1=your_stun_server
+    REACT_APP_STUN_SERVER_2=your_stun_server
+    REACT_APP_TURN_SERVER=your_turn_server
     REACT_APP_TURN_SERVER_USERNAME=username
     REACT_APP_TURN_SERVER_PASSWORD=password
     ```
