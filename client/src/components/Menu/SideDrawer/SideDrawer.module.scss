@@ -26,6 +26,17 @@
             width: 90%;
             text-align: left;
         }
+
+        &_devInfo {
+            width: 90%;
+            border-top: 1px solid gray;
+            margin-top: 2rem;
+
+            p {
+                font-size: get-font-size(small);
+                padding: 0.5rem;
+            }
+        }
     }
 }
 

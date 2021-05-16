@@ -6,6 +6,7 @@ import {
   faUser,
   faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useTranslation } from "react-i18next";
 
 import classes from "./SideDrawer.module.scss";
@@ -70,6 +71,12 @@ const SideDrawer = (props) => {
             {t("sideDrawer.chat")}
           </NavItem>
         </ul>
+        <div className={classes.sideDrawer_content_devInfo}>
+          <p>@ 2021 Martin Nevlaha </p>
+          <a href="https://github.com/MartinNevlaha/Chatapp">
+            <FontAwesomeIcon icon={faGithub} size="2x" />
+          </a>
+        </div>
       </div>
     </aside>
   );
