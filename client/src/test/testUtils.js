@@ -5,11 +5,6 @@ export const findByTestAttr = (wrapper, value) => {
 };
 
 export const checkProps = (component, conformingProps) => {
-  const propsError = checkPropTypes(
-    component.propTypes,
-    conformingProps,
-    "prop",
-    component.name
-  );
+  const propsError = checkPropTypes(component.propTypes, conformingProps, "prop", component.name);
   expect(propsError).toBeUndefined();
-};
+}
