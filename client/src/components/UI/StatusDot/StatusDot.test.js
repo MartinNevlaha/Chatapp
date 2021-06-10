@@ -25,7 +25,7 @@ test("renders withouth error", () => {
 test("not renders p element when statusShow prop is false", () => {
   const wrapper = setup();
   const statusParagraph = findByTestAttr(wrapper, "status-message");
-  expect(statusParagraph.length).toBe(0);
+  expect(statusParagraph.exists()).toBe(false);
 });
 
 describe("renders paragraph when status show is true", () => {
