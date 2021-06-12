@@ -5,14 +5,6 @@ import classes from "./Button.module.scss";
 
 const Button = ({ type, disabled, clicked, children, danger }) => {
 
-  Button.propTypes = {
-    type: PropTypes.string,
-    disabled: PropTypes.bool,
-    clicked: PropTypes.func,
-    children: PropTypes.string,
-    danger: PropTypes.bool
-  }
-
   let style = [classes.btn];
   if (danger && !disabled) {
     style.push(classes.danger);
@@ -32,5 +24,13 @@ const Button = ({ type, disabled, clicked, children, danger }) => {
     </button>
   );
 };
+
+Button.propTypes = {
+  type: PropTypes.string,
+  disabled: PropTypes.bool,
+  clicked: PropTypes.func,
+  children: PropTypes.string,
+  danger: PropTypes.bool
+}
 
 export default Button;
