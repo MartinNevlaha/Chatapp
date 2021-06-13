@@ -16,7 +16,7 @@ const defaultProps = {
  * @returns {ShallowWrapper}
  */
 
-const setup = (props = {}) => {
+ const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
   return shallow(<Button {...setupProps} />);
 };
@@ -24,5 +24,5 @@ const setup = (props = {}) => {
 test('renders without error', () => {
   const wrapper = setup();
   const btn = findByTestAttr(wrapper, "component-button");
-  expect(btn.lenght).toBe(1);
+  expect(btn.length).toBe(1);
 })
