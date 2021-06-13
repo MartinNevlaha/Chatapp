@@ -19,6 +19,7 @@ const Button = ({ type, disabled, clicked, children, danger }) => {
       type={type}
       disabled={disabled}
       onClick={clicked}
+      data-test="component-button"
     >
       {children}
     </button>
