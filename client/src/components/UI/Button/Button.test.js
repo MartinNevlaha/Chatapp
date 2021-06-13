@@ -4,7 +4,6 @@ import { findByTestAttr, checkProps } from "../../../test/testUtils";
 import Button from "./Button";
 
 const defaultProps = {
-  disabled: false,
   children: "Ok",
   clicked: jest.fn(),
 };
@@ -16,13 +15,30 @@ const defaultProps = {
  * @returns {ShallowWrapper}
  */
 
- const setup = (props = {}) => {
+const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props };
   return shallow(<Button {...setupProps} />);
 };
 
-test('renders without error', () => {
+test("renders without error", () => {
   const wrapper = setup();
   const btn = findByTestAttr(wrapper, "component-button");
   expect(btn.length).toBe(1);
-})
+});
+
+describe("prop types checking", () => {
+  test("test required props", () => {
+    checkProps(Button, defaultProps);
+  });
+
+  test("test optional props", () => {
+    const optionalProps = {
+      type: "submit",
+      disabled: true,
+      clicked: jest.fn(),
+      children: "Ok",
+      danger: false,
+    };
+    checkProps(Button, optionalProps)
+  });
+});
