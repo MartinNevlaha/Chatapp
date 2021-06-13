@@ -22,8 +22,7 @@ const setup = (props = {}) => {
 
 test("renders without error", () => {
   const wrapper = setup();
-  const btn = findByTestAttr(wrapper, "component-button");
-  expect(btn.length).toBe(1);
+  expect(wrapper.length).toBe(1);
 });
 
 describe("Test onClick btn function", () => {
@@ -115,6 +114,12 @@ describe("test css class based on props", () => {
     expect(btn.hasClass("disabled")).toEqual(false);
   });
 });
+
+test("renders children text component", () => {
+  const wrapper = setup();
+  const btn = findByTestAttr(wrapper, "component-button");
+  expect(btn.text()).toEqual("Ok")
+})
 
 describe("prop types checking", () => {
   test("test required props", () => {
