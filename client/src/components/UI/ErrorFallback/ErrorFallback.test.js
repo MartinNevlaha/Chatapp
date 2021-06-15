@@ -32,6 +32,11 @@ test("click on btn call reserErrorBoundary function", () => {
   expect(mockResetErrorBoundary).toHaveBeenCalled();
 });
 
+test("should renders error message", () => {
+  const errorMsg = findByTestAttr(wrapper, "component-errorMessage");
+  expect(errorMsg.text()).toBe("Something went wrong");
+});
+
 test("check propTypes", () => {
   checkProps(ErrorFallback, defaultProps);
 });

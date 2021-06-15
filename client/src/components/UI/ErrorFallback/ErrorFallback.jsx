@@ -8,7 +8,9 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
   return (
     <div className={classes.error} role="alert" data-test="component-error">
       <p>Something went wrong</p>
-      <pre className={classes.error_message}>{error.message}</pre>
+      <pre className={classes.error_message} data-test="component-errorMessage">
+        {error.message}
+      </pre>
       <Button danger clicked={resetErrorBoundary} data-test="component-btn">
         Try again
       </Button>
