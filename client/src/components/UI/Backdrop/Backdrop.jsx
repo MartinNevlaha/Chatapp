@@ -8,9 +8,7 @@ export const Backdrop = ({ show, children }) => {
   return show ? (
     <div
     data-test="component-backdrop"
-      className={
-        show ? [classes.backdrop, classes.open].join(" ") : classes.backdrop
-      }
+      className={classes.backdrop}
     >
       {children}
     </div>

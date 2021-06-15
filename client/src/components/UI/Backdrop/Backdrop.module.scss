@@ -6,15 +6,10 @@
   position: fixed;
   z-index: 100;
   left: 0;
-  top: -500vh;
-  opacity: 0;
+  top: 0;
+  opacity: 1;
   background-color: get-color(transparent_gray);
   @include flexbox(center, center, column);
   transition: all 3s ease-in-out;
-}
-
-.open {
-  top: 0;
-  opacity: 1;
 }
 
