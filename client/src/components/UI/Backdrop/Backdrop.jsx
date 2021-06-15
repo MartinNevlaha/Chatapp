@@ -25,6 +25,4 @@ Backdrop.propTypes = {
 ]).isRequired
 };
 
-export default React.memo(Backdrop, (props, nextProps) => {
-  if (props.show === nextProps.show) return true;
-});
+export default Backdrop;

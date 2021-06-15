@@ -13,7 +13,7 @@ const setup = (props = {}) => {
 };
 
 describe("renders without error", () => {
-  test("renders null when show prop is false", () => {
+  test("should renders null when show prop is false", () => {
     const wrapper = setup({ show: false });
     const component = findByTestAttr(wrapper, "component-backdrop");
     expect(component.length).toBe(0);
@@ -29,9 +29,11 @@ describe("renders without error", () => {
 test("should renders children prop", () => {
   const wrapper = setup();
   const component = findByTestAttr(wrapper, "component-backdrop");
-  expect(component.containsMatchingElement(<p>render something</p>)).toEqual(true);
+  expect(component.containsMatchingElement(<p>render something</p>)).toEqual(
+    true
+  );
 });
 
 test("check props types", () => {
   checkProps(Backdrop, defaultProps);
-})
+});
