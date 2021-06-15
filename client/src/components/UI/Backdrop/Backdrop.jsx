@@ -4,13 +4,10 @@ import PropTypes from "prop-types";
 import classes from "./Backdrop.module.scss";
 
 export const Backdrop = ({ show, children }) => {
-  Backdrop.propTypes = {
-    show: PropTypes.bool,
-    children: PropTypes.element,
-  };
 
   return show ? (
     <div
+    data-test="component-backdrop"
       className={
         show ? [classes.backdrop, classes.open].join(" ") : classes.backdrop
       }
@@ -18,6 +15,14 @@ export const Backdrop = ({ show, children }) => {
       {children}
     </div>
   ) : null;
+};
+
+Backdrop.propTypes = {
+  show: PropTypes.bool.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+]).isRequired
 };
 
 export default React.memo(Backdrop, (props, nextProps) => {
