@@ -3,9 +3,10 @@ import { mount } from "enzyme";
 import { findByTestAttr, checkProps } from "../../../test/testUtils";
 import Button from "./Button";
 
+const mockClickEvent = jest.fn();
 const defaultProps = {
   children: "Ok",
-  clicked: () => {},
+  clicked: mockClickEvent,
 };
 
 /**
@@ -26,26 +27,25 @@ test("renders without error", () => {
 });
 
 describe("Test onClick btn function", () => {
-  const mockClick = jest.fn();
   test("click btn when disabled prop is not provided", () => {
-    const wrapper = setup({ clicked: mockClick });
+    const wrapper = setup();
     const btn = findByTestAttr(wrapper, "component-button");
     btn.simulate("click");
-    expect(mockClick).toHaveBeenCalledTimes(1);
+    expect(mockClickEvent).toHaveBeenCalledTimes(1);
   });
   
   test("click btn when disabled is false", () => {
-    const wrapper = setup({ clicked: mockClick, disabled: false });
+    const wrapper = setup({ clicked: mockClickEvent, disabled: false });
     const btn = findByTestAttr(wrapper, "component-button");
     btn.simulate("click");
-    expect(mockClick).toHaveBeenCalledTimes(1);
+    expect(mockClickEvent).toHaveBeenCalledTimes(1);
   });
 
   test("click btn when disabled is true", () => {
-    const wrapper = setup({ clicked: mockClick, disabled: true });
+    const wrapper = setup({ clicked: mockClickEvent, disabled: true });
     const btn = findByTestAttr(wrapper, "component-button");
     btn.simulate("click");
-    expect(mockClick).toHaveBeenCalledTimes(0);
+    expect(mockClickEvent).toHaveBeenCalledTimes(0);
   });
 });
 
@@ -130,7 +130,7 @@ describe("prop types checking", () => {
     const optionalProps = {
       type: "submit",
       disabled: true,
-      clicked: () => {},
+      clicked: mockClickEvent,
       children: "Ok",
       danger: false,
     };
