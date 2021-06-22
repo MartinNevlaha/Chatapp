@@ -4,6 +4,8 @@ import config from "../config/app";
 
 import rootReducer from "./reducers";
 
+export const midlewares = [thunk];
+
 const composeEnhancers =
   config.envDepl === "development"
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -11,7 +13,7 @@ const composeEnhancers =
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
+  composeEnhancers(applyMiddleware(...midlewares))
 );
 
 export default store;
