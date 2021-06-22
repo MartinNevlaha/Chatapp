@@ -29,7 +29,7 @@ const Button = ({ type, disabled, clicked, children, danger }) => {
 Button.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
-  clicked: PropTypes.func.isRequired,
+  clicked: PropTypes.func,
   children: PropTypes.string.isRequired,
   danger: PropTypes.bool
 }

@@ -23,7 +23,7 @@ export const Modal = ({ show, cancel, loading, children }) => {
 
   return (
     <React.Fragment>
-      <Backdrop show={show} clicked={cancel}>
+      <Backdrop show={show} clicked={cancel} data-test="component-modal">
         <div className={classes.modal} ref={modalRef}>
           {loading ? (
             <Spinner />
