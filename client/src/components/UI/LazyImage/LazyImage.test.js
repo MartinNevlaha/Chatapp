@@ -16,7 +16,6 @@ const setup = (props = {}) => {
 };
 
 let wrapper;
-
 beforeEach(() => {
   wrapper = setup();
 });

@@ -23,12 +23,12 @@ export const Modal = ({ show, cancel, loading, children }) => {
 
   return (
     <React.Fragment>
-      <Backdrop show={show} clicked={cancel} data-test="component-modal">
-        <div className={classes.modal} ref={modalRef}>
+      <Backdrop show={show} clicked={cancel}>
+        <div className={classes.modal} ref={modalRef} data-test="component-modal">
           {loading ? (
             <Spinner />
           ) : (
-            <div className={classes.modal_content}>{children}</div>
+            <div className={classes.modal_content} data-test="modal-content">{children}</div>
           )}
         </div>
       </Backdrop>
