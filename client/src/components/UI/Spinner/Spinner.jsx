@@ -6,11 +6,8 @@ import DotLoader from "react-spinners/DotLoader";
 import BeatLoader from "react-spinners/BeatLoader";
 
 const Spinner = ({ type }) => {
-  Spinner.propTypes = {
-    type: PropTypes.string,
-  };
   return (
-    <div className={classes.spinner_container}>
+    <div className={classes.spinner_container} data-test="component-spinner">
       {type !== "beat" ? (
         <DotLoader color="blue" loading={true} size={30} margin={2} />
       ) : (
@@ -18,6 +15,10 @@ const Spinner = ({ type }) => {
       )}
     </div>
   );
+};
+
+Spinner.propTypes = {
+  type: PropTypes.string,
 };
 
 export default Spinner;
