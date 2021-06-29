@@ -8,18 +8,21 @@ export const Modal = ({ show, cancel, loading, children }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
+
+    const handleClose = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        cancel();
+      }
+    };
+
     document.addEventListener("mousedown", handleClose);
 
     return () => {
       document.removeEventListener("mousedown", handleClose);
     };
-  }, [modalRef]);
+  }, [modalRef, cancel]);
 
-  const handleClose = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      cancel();
-    }
-  };
+
 
   return (
     <React.Fragment>

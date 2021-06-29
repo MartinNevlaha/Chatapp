@@ -62,6 +62,7 @@ describe("test component when show prop is true and loading prop is false", () =
     const modal = findByTestAttr(wrapper, "component-modal");
     expect(modal.find(Spinner)).toHaveLength(0);
   });
+  
 });
 
 describe("test component when show prop is true and loading prop is true", () => {
@@ -83,3 +84,4 @@ describe("test component when show prop is true and loading prop is true", () =>
     expect(modal.find(Spinner)).toHaveLength(1);
   });
 });
+
