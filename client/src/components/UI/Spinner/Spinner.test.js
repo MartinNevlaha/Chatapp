@@ -24,7 +24,7 @@ describe("conditional rendiring type of spinner", () => {
     const component = findByTestAttr(wrapper, "component-spinner");
     expect(component.find(DotLoader)).toHaveLength(1);
   });
-  test('should render beatLoader when type prop is beat ', () => {
+  test('should render beatLoader when type prop is beat', () => {
     const wrapper = setup({type: "beat"});
     const component = findByTestAttr(wrapper, "component-spinner");
     expect(component.find(BeatLoader)).toHaveLength(1);
